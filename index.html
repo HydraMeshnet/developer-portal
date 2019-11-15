@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="assets/vue.css">
   <link rel="stylesheet" href="assets/mermaid.css">
   <script src="assets/mermaid.min.js"></script>
+  <style>
+    .cover-main img {
+      max-height: 50vh;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
@@ -20,6 +25,7 @@
       name: '',
       repo: '',
       auto2top: true,
+      coverpage: true,
       loadSidebar: true,
       maxLevel: 4,
       subMaxLevel: 2,
@@ -43,5 +49,6 @@
   <script src="assets/prism-bash.min.js"></script>
   <script src="assets/prism-typescript.min.js"></script>
   <script src="assets/prism-json.min.js"></script>
+  <script src="assets/docsify.search.min.js"></script>
 </body>
 </html>
