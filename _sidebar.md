@@ -1,0 +1,7 @@
+- [Home](README.md)
+- [Glossary](glossary.md)
+- [Architecture](architecture.md)
+- [Use Cases](usecases/README.md)
+  - [KYC](usecases/kyc.md) 
+  - [KYC - Hosted Wallets](usecases/kyc_hosted_wallets.md) 
+  - [Concert Tickets](usecases/concert_ticket.md) 
