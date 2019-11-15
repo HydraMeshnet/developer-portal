@@ -2,6 +2,10 @@
 
 ## Terminology
 
+We assume that the reader has a basic understanding of 
+- [asymmetric cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) including public and private keys
+- digital signatures and [hash functions](https://en.wikipedia.org/wiki/Hash_function).
+
 ### Entity
 
 A unique, real life actor such as a person, IoT device, company, group of people, etc. that a system wants to distinguish
@@ -10,9 +14,18 @@ A unique, real life actor such as a person, IoT device, company, group of people
 
 An aspect of personal life a user wants to keep separated. Real life people might have multiple identities/roles depending on their life situations, such as "dating persona" and/or "dayjob persona". A persona is also an entity.
 
+### KeyId
+
+A key identifier deterministically derived from a public key, e.g. a Bitcoin address. The derivation process must be irreversible, so that the public key cannot be guessed from the key identifier. To achieve this, derivations usually apply hashing functions.
+
 ### DID
 
-All entities can generate a decentralized identifier, a DID. The purpose of a DID is to reason about identity (in the mathematical sense of "being the same") over time, even when the keys used by an entity are replaced. It is decentralized so
+All entities can generate a decentralized identifier, a DID. Starting from a private/public keypair owned by an entity, a related DID is derived as the key identifier of the public key.
+
+The Prometheus KeyVault derives the public Keys for DID generation under the "morpheus" subtree.
+> I'm still not convinced here [name=Bartmoss]
+
+The purpose of a DID is to reason about identity (in the mathematical sense of "being the same") over time, even when the keys used by an entity are replaced. It is decentralized so
   - each entity alone can create any number of owned DIDs.
   - there is no communication needed among entities to make sure each DID is unique.
   - owners can prove that the DID belongs to them, without verifiers getting this capability.
@@ -22,6 +35,8 @@ All entities can generate a decentralized identifier, a DID. The purpose of a DI
 To proof control over a DID, an entity has to prove control over a private key with the correct authorization by signing a one-time object (e.g. a Signable Request or a Signable Statement). The validation then happens by verifying the signature and then looking up the relevant DID document and making sure the key used has the correct rights.
 
 > This feels very rough currently. We need to define rules of rights management[name=Amon Engemann]
+
+TODO define matching against KeyId instead of public key.
 
 ### DID Document
 
@@ -78,33 +93,40 @@ Where
 - `keys` is strictly ordered and append only. The key itself at a specific index might be changed though.
 - `keys.controller` identifies the controller of the corresponding private key.
 
-### Implicit DID Document
+### Implicit (Throw Away) DID Document
 
 Some minimalistic use cases might simply need signatures and simple authorization tokens, but don't need support for multiple devices, organizational structures with delegates and other advanced rights management features. 
-To make these cases simpler and cheaper, we do not always require registering a DID on a blockchain. When there's no explicitly registered DID document found, we use the following implicit document:
+To make these cases simpler and cheaper, we do not always require registering a DID on a blockchain. When there's no explicitly registered DID document found, the implicit Document below is returned.
 ```json
 {
   "@context": "https://iop.global/did/v1",
   "did": "did:morpheus:ezSomething",
   "keys": [{
-    "@id": "did:morpheus:ezSomething#key-1",
-    "bytes": "iezSomething",
+    "@id": "did:morpheus:ezSomething#key-0",
+    "type": "Multicipher",
+    "key": {
+      "display": "iezSomething",
+      "??": "KeyIDv1", <-- TBD
+      "cipherSuite": "Ed25519",
+      "base": "base58-btc",
+      "hex": "01afaf01202af...",
+    }
   }],
   // BIG TBD
   "rights": {
-    "impersonate": ["#key-1"],
-    "update_did": ["#key-1"],
+    "impersonate": ["#key-0"],
+    "update_did": ["#key-0"],
+    ... // all possible rights
   },
   // end of TBD
   "services": []
 }
 ```
 
+TODO define multicipher somewhere around and refer to it from here
 TODO clarify and finish this explanation
 
 In other words, anyone - able to create signatures with a public key that the DID (as KeyId) can be derived from - has total control over this DID, thus can impersonate and add new keys, but that requires registering these changes on the ledger.
-
-> For example: TODO
 
 ### Witness
 
@@ -121,6 +143,7 @@ Another company, individual or any service provider entity that wants to verify 
 ### Verifier
 
 A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights. 
+*Verifier does not see any private information only cryptographical hashes, signatures and stuff.*
 
 ### Content ID
 
@@ -357,7 +380,6 @@ sequenceDiagram
   Statement ->> Statement: any action
   end
 ```
-
 
 ### Class diagram
 
@@ -790,17 +812,118 @@ Required toolset:
 
 #### BANK2 Clerk (delegated Inspector)
 
-TBD
+Required toolset:
+- securely connects to a verifier and uses its verification service (by sending signatures, content IDs and DIDs) masking out all contents
+- a tool to receive and display the presentation received from its subject
+- a tool to display the verification status or error(s)
 
 #### BANK2 (Verifier)
 
-TBD
+Required toolset:
+- securely receives the signatures, content IDs and DIDs from the delegated Inspector (no personal information)
+- can connect to the blockchain to resolve DID Documents from DIDs and check blockhashes and logical timestamps
+- can calculate cryptography
 
 ### Technical Dependencies
 
-#### KeyVault
+Toolsets will partly either be a 
+- REST-like API that the anyone will be able to use with commands like curl and/or
+- a runnable application written in Typescript.
+
+#### Commonly Used Toolset
+
+##### KeyVault
+
+Already done directly with `prometheusd`, likely using `prometheus-cli`. If the use case requires, KeyVault can easily be extracted out into a standalone runnable.
+- generate new keypair
+- listing keys
+- sign with a key: (TBD: currently prometheus supports signing claims only)
+    - witnessRequest
+    - witnessStatement
+    - claimPresentation
+    - Hydra AIP-11 transaction
+    - "message signing"
+- verify signature for a content ID with a provided public key
+- verify if a provided key ID belongs to a provided public key
+
+
+
+
+##### DID Manager
+
+This part will be a NPM package, a fork of [@arkecosystem/crypto](https://www.npmjs.com/package/@arkecosystem/crypto).
+
+- create implicit DID
+- create explicit DID
+- add key
+- revoke key
+- grant right
+- revoke right
+- tombstone DID
+
+TODO: define these in more details.
+
+
+
+##### Witness Statement Manager
+
+It will be a Typescript(?) library.
+- access the details of a process (claim schema, statement schema, etc.)
+- unwrap a SignedWitnessRequest into Signature, Claim, Evidence (v1); the license attached to the Evidence (v2).
+- verify the Signature (relies on the Blockchain extension)
+- get current BlockHeight and BlockHeader from the blockchain to create "signedAfter" field.
+- display the claim
+- display the evidence to compare with the claim
+- display licensing information (v2)
+- create a statement according to the schema defined in the proces
+- sign a completed WitnessStatement to create a SignedWitnessStatement
+- register any of these on the blockchain for a "signedBefore" proof
+  - SignedWitnessStatementID
+  - ClaimID+ConstraintID+signature
+  - ClaimID+Constraint+signature
+  - MaskedClaim+Constraint+signature (heavily discouraged :warning:)
+  - Claim+Constraint+signature (extremely discouraged :bomb:)
+
+TBD: Do we have a separate Object called "SignedBeforeProof" that we can attach to SignedWitnessStatements in a Presentation to make lookup easier?
+
+
+
+##### Process Manager
 
 TBD
+
+#### User Toolset
+
+##### Common
+
+- KeyVault
+- DID Manager
+- Witness Statement Manager
+- Process Manager
+
+##### Claim Manager
+
+It will be a Typescript(?) library.
+- get a list of processes (including schemas)
+- create claim according to a schema according to a process
+- save claim with given nonces
+- load saved claim
+
+##### Presentation Manager
+
+It will be a Typescript(?) library.
+- mask out fields from a claim
+- combine claims and statements
+- create licensing information
+- sign a completed ClaimPresentation to create a SignedClaimPresentation (utilizes the KeyVault)
+- save/load signed presentations
+
+
+##### Witness Request Manager
+ 
+- wrap evidence in self-signed presentations (optional)
+- create request from claim and evidence according to process
+- sign completed WitnessRequest to create SignedWitnessRequest
 
 #### Blockchain Extension
 
@@ -845,16 +968,17 @@ TBD: short description.
 
 ##### Wallet API
 
-As we can't easily extend the core's wallet API without updating the core's code, the plugin's API described below will be listening on a new port. 
+As we can't easily extend the core's wallet API without updating the core's code, the plugin's API described below will be listening on a new port.
+
+> Note: if there is no such document on the blockchain for the specified DID, then an implicit DID Document will be returned.
 
 ```typescript
 /**
- * Reads the DID document
+ * Returns the DID document (the implicit one if there were no operations yet on this DID)
  * 
  * Path: GET /:DID/[:BLOCK_HEIGHT]
  * Responses:
  *   - 200 OK
- *   - 404 NOT_FOUND
  * 
  * @param blockHeight (optional) - a logical timefilter, practically how the DID document looked like at that blockHeight
  * @returns the DID document itself
@@ -869,7 +993,6 @@ getDidDocument(did: string, blockHeight?: number): DidDocument;
  * Path: GET /:DID/operations/[:FROM_BLOCK_HEIGHT]/[:TO_BLOCK_HEIGHT]
  * Responses:
  *   - 200 OK
- *   - 404 NOT_FOUND - DID not found
  * 
  * @returns array of **valid** operations
  */
@@ -881,7 +1004,6 @@ getOperations(did: string, fromBlockHeightInc?: number, toBlockHeightInc?: numbe
  * Path: GET /:DID/operation-attempts/[:FROM_BLOCK_HEIGHT]/[:TO_BLOCK_HEIGHT]
  * Responses:
  *   - 200 OK
- *   - 404 NOT_FOUND - DID not found
  * 
  * @returns array of operation attempts, including invalid operations.
  */
@@ -897,22 +1019,26 @@ getOperationAttempts(did: string, fromBlockHeightInc?: number, toBlockHeightInc?
  * Request Body: TRANSACTION_OBJECT
  * Responses:
  *   - 200 OK
- *   - 404 NOT_FOUND - DID not found
  * 
  * @returns array of errors if any
  */
 checkTransactionValidity(transaction: Transaction): Array<Error>;
 
-// Transaction
-{
-  "operations": Array<OperationAttempt>
+/**
+ *  400 Bad request: data is not well-formed
+ *  401 Unauthorized: some signature is invalid
+ *  403 Forbidden: some signing DID is not granted the rights they use
+ *  404 Not found: a key or right revocation did not find its target in the document
+ */
+class Error {
+  invalidOperationAttempt: OperationAttempt;
+  code: number;
+  message: string;
 }
 
-// Error
-[{
-  "invalidOperation": OperationAttempt,
-  "errorMessage": ...
-},...]
+class Transaction {
+  "operations": Array<OperationAttempt>
+}
 ```
 
 ##### Operations
@@ -996,6 +1122,132 @@ enum RightType {
   }
 }
 ```
+
+```typescript
+{
+  operation: "tombstoneDid",
+  params: {
+    did: string
+  }
+}
+```
+
+
+
+```mermaid
+graph TB
+  User --> BlockchainDidAPI
+  User --> DidManager
+  User --> WitnessStatementManager
+  User --> WitnessRequestManager
+  User --> ProcessManager
+  User --> PresentationManager
+  User --> ClaimManager
+  
+  Bank1 --> BlockchainDidAPI
+  Bank1 --> WitnessRequestManager
+  Bank1 --> DidManager
+  Bank1 --> ClaimManager
+  Bank1 --> WitnessStatementManager
+  Bank1 --> ProcessManager
+  
+  
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+  
+  KeyVault --> CryptographicCalculator
+  DidManager --> KeyVault
+  WitnessRequestManager --> ProcessManager
+  WitnessStatementManager --> ProcessManager
+  ClaimManager --> ProcessManager
+
+
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+
+  DidManager --> KeyVault
+  KeyVault --> CryptographicCalculator
+  WitnessRequestManager --> ProcessManager
+  WitnessStatementManager --> ProcessManager
+  ClaimManager --> ProcessManager
+
+
+  WitnessStatementManager --> ProcessManager
+  Bank2Inspector --> WitnessStatementManager
+  Bank2Inspector --> ClaimManager
+  ClaimManager --> ProcessManager
+  Bank2Inspector -- requires --> VerifierAPI
+
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+  Bank2Verifier --> BlockchainDidAPI
+  Bank2Verifier -- implements --> VerifierAPI
+  Bank2Verifier --> CryptographicCalculator
+  
+```
+
+
+
+
+
+
+
+```mermaid
+graph TB
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+  
+  KeyVault --> CryptographicCalculator
+  DidManager --> KeyVault
+  WitnessRequestManager --> ProcessManager
+  WitnessStatementManager --> ProcessManager
+  ClaimManager --> ProcessManager
+  User --> BlockchainDidAPI
+  User --> DidManager
+  User --> WitnessStatementManager
+  User --> WitnessRequestManager
+  User --> ProcessManager
+  User --> PresentationManager
+  User --> ClaimManager
+```
+
+```mermaid
+graph TB
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+
+  DidManager --> KeyVault
+  KeyVault --> CryptographicCalculator
+  WitnessRequestManager --> ProcessManager
+  WitnessStatementManager --> ProcessManager
+  ClaimManager --> ProcessManager
+  Bank1 --> BlockchainDidAPI
+  Bank1 --> WitnessRequestManager
+  Bank1 --> DidManager
+  Bank1 --> ClaimManager
+  Bank1 --> WitnessStatementManager
+  Bank1 --> ProcessManager
+```
+
+```mermaid
+graph TB
+  WitnessStatementManager --> ProcessManager
+  Bank2Inspector --> WitnessStatementManager
+  Bank2Inspector --> ClaimManager
+  ClaimManager --> ProcessManager
+  Bank2Inspector -- requires --> VerifierAPI
+```
+
+```mermaid
+graph TB
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+  Bank2Verifier --> BlockchainDidAPI
+  Bank2Verifier -- implements --> VerifierAPI
+  Bank2Verifier --> CryptographicCalculator
+  
+```
+
 
 # TODOS / INFOS
 
