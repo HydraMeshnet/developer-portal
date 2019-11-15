@@ -7,27 +7,17 @@ cache:
     - node_modules/ # Node modules and dependencies
 
 before_script:
-  - npm install gitbook-cli -g # install gitbook
-  - gitbook fetch 4.0.0-alpha.6 # fetch final stable version
-  - gitbook install # add any requested plugins in book.json
-
-test:
-  stage: test
-  script:
-    - gitbook build . public # build to public path
-  only:
-    - branches # this job will affect every branch except 'master'
-  except:
-    - master
+  - npm i docsify-cli -g
     
 # the 'pages' job will deploy and build your site to the 'public' path
 pages:
   stage: deploy
   script:
-    - gitbook build . public # build to public path
+  - mkdir .public
+  - cp -r * .public
+  - mv .public public
   artifacts:
     paths:
-      - public
-    expire_in: 1 week
+    - public
   only:
-    - master # this job will affect only the 'master' branch
+  - master
