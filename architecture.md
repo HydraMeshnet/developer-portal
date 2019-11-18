@@ -120,6 +120,9 @@ TBD
 
 ### KeyVault
 
+The Prometheus KeyVault derives public keys for DID generation under the "morpheus" subtree.
+> I'm still not convinced here [name=Bartmoss]
+
 Already done directly with `prometheusd`, likely using `prometheus-cli`. If the use case requires, KeyVault can easily be extracted out into a standalone runnable.
 - generate new keypair
 - listing keys
