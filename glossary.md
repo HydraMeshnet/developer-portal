@@ -6,7 +6,7 @@ We assume that the reader has a basic understanding of
 
 ## Entity
 
-A unique, real life actor such as a person, IoT device, company, group of people, etc. that a system wants to distinguish
+A unique, real life actor such as a person, IoT device, company, group of people, etc. that a system wants to distinguish.
 
 ## Persona
 
@@ -108,7 +108,7 @@ TBD: The `"services"` object could also be used to link to a revocation list, an
 
 Where
 
-- `@context` defines the DID document format.
+- `@context` defines the DID document format (JSON-LD context).
 - `keys` is strictly ordered and append only. The key itself at a specific index might be changed though.
 - `keys.controller` identifies the controller of the corresponding private key.
 
@@ -419,3 +419,7 @@ When a key was granted new rights on a DID, in most use-cases you have to prove 
 
 - A verifier must a give a **warning** (yellow) to an inspector when there is no proof in the statement that signing happened **after** that grant. (There might be other information off-chain that could prove the ordering of events)
 - A verifier must give an **error** (red) to an inspector when either the signature is cryptographically invalid or it can be proven that signing happened **before** the right was granted.
+
+### After-Envelope
+
+To verify that a Witness Statement has been signed after a certain Block, it can be wrapped inside a AfterEnvelope before signing it to create a SignedWitnessStatement. This concept can be applied to any object that is signable, like claim presentations, witness requests, etc.

@@ -411,6 +411,7 @@ enum RightType {
 
 > Please, stop nagging me to remove SignedWitnessRequest, SignedWitnessStatement and WitnessProcess being Signable. I know it does not make sense semantically. The real diagram will be beautiful. [name=wigy] 
 > mudlee: let's delete this comment or explain it or whatever
+> TODO: update the class diagram to reflect this paragraph (glossary last section: After-Envelope)
 
 ```mermaid
 classDiagram
