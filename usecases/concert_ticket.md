@@ -1,5 +1,7 @@
 # Use Case 3: Concert Tickets with Proof of Age
 
+> mudlee: remove all comments pls
+
 > **Note:** we will not use custom transactions or even blockchain-based state-machines for this use case. We only use Hydra blockchain for payment, and we might store crypto stuff in the vendorField to prove that the transaction was really payed for:
 > - the age proof
 > - and for the ticket

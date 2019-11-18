@@ -5,6 +5,8 @@ Take full control of your digital identity. Morpheus lets you create multiple in
 IOP technology is open source and available for anyone to use or develop for. Although IOP is dedicated to providing a complete solution to the problems of online identity and privacy, IOP is fully modular and there is no lock in: users and businesses are free to use and combine whichever parts of the stack they want.
 Find out more about our design philosophy and the IOP stack in our [white paper](https://iop.global/whitepaper/).
 
+> mudlee: would be good if we guide our users where to start reading in what direction.
+
 ## Used Materials
 
 ### Custom Transactions

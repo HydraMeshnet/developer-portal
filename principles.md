@@ -1,5 +1,7 @@
 # Principles / Considerations
 
+> mudlee: remove all comments pls
+
 - There are ways to provide verifiable claims and claim presentations without a blockchain, only using signatures and private communication.
 
 > Yes, but the purpose of the blockchain is to provide a decentralized source of information about the IDENTITY of the attestants over time, even when they change keys (which they should do in regular intervals) => decentralized PKI

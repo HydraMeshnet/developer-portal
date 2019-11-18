@@ -18,15 +18,17 @@ A key identifier deterministically derived from a public key, e.g. a Bitcoin add
 
 ## DID
 
-All entities can generate a decentralized identifier, a DID. Starting from a private/public keypair owned by an entity, a related DID is derived as the key identifier of the public key.
+All entities can generate a **d**ecentralized **id**entifier, a DID. Starting from a private/public keypair owned by an entity, a related DID is derived as KeyId of the public key.
 
-The Prometheus KeyVault derives the public Keys for DID generation under the "morpheus" subtree.
+The Prometheus KeyVault derives public keys for DID generation under the "morpheus" subtree.
 > I'm still not convinced here [name=Bartmoss]
+> mudlee: what is Prometheus and morpheus, why are these here?
 
 The purpose of a DID is to reason about identity (in the mathematical sense of "being the same") over time, even when the keys used by an entity are replaced. It is decentralized so
   - each entity alone can create any number of owned DIDs.
   - there is no communication needed among entities to make sure each DID is unique.
-  - owners can prove that the DID belongs to them, without verifiers getting this capability.
+  - owners can prove that the DID belongs to them, without verifiers (see later) getting this capability.
+> mudlee: if the DID is derived as the KeyId, how can one replace the public key?
 
 ## Proof of DID Control
 
@@ -35,6 +37,7 @@ To proof control over a DID, an entity has to prove control over a private key w
 > This feels very rough currently. We need to define rules of rights management[name=Amon Engemann]
 
 TODO define matching against KeyId instead of public key.
+> mudlee: a diagram would be good, how this lookup works. Maybe this todo is exactly about this
 
 ## DID Document
 
@@ -81,6 +84,7 @@ The DID document is publicly shareable data, that does NOT contain any private i
   } ... ]
 }
 ```
+> mudlee: whate are these iez, did:morpheus and similar stuff?
 
 TBD: The `"services"` object could also be used to link to a revocation list, an API endpoint that returns a list of all statements signed by this entity that have been revoked.
 
@@ -122,16 +126,19 @@ To make these cases simpler and cheaper, we do not always require registering a 
 
 TODO define multicipher somewhere around and refer to it from here
 TODO clarify and finish this explanation
+> mudlee: we discussed that mainly the difference(?) is that one is on the blockchain while the other one is not
 
 In other words, anyone - able to create signatures with a public key that the DID (as KeyId) can be derived from - has total control over this DID, thus can impersonate and add new keys, but that requires registering these changes on the ledger.
 
 ## Witness
 
-An attestant entity that has given its digital signature to some claims. Using a DID, witnesses are able to change the cryptographic keys they use for signing statements over time.
+An attestant entity that has given its digital signature to some claims(see later). Using a DID, witnesses are able to change the cryptographic keys they use for signing statements over time.
+> mudlee: such as? An example here would be good, like a Bank
 
 ## Authority
 
 A company, state government or any other certificate provider entity that is trusted by many to be a reliable witness. Also, an authority might delegate signing claims to any number of witnesses, which act on behalf of the authority in certain respects. Delegations may be granted or revoked over time.
+> mudlee: such as? An example here would be good, like a Bank
 
 ## Inspector
 
@@ -149,6 +156,8 @@ Irreversible transformation of data into a shorter number.
   - Knowing only the hash of a data you cannot guess the data itself.
   - Knowing both the hash and the data you cannot create a different data that hashes to the same number.
 
+> mudlee: is it similar to hashing? Also, I have no clue after reading the participants how the content id is connected here. Why we use it, for what purpose, when, etc.
+
 ## Claim
 
 A set of data that contains information about a subject entity.
@@ -161,13 +170,16 @@ A set of data that contains information about a subject entity.
 }
 ```
 
+Note: the `nonce` field is used for data-masking, which you can read about below.
+
 ### Claim Subject
 
 A DID of an entity (persona, company, etc.) the claim is about.
 
 ### Maskable Claim Properties
 
-To selectively disclose parts of a claim, the claim content id can be built as the root of a Merkle-tree. This allows the user to replace the actual data values by their hashes, while still allowing verification of integrity of the claim as a whole. For some low entropy data, like for example the age property, it's "easy" to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". These properties' value will be wrapped into an object(see the example above) with a big enough nonce (256 bit).
+To selectively disclose parts of a claim, the claim content id can be built as the root of a Merkle-tree. This allows the user to replace the actual data values by their hashes, while still allowing verification of integrity of the claim as a whole. 
+For some low entropy data, like for example the age property, it's "easy" to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". These properties' value will be wrapped into an object(see the example above) with a big enough nonce (256 bit).
     - Properties with object or array types can also be marked as maskable. This introduces increasing depth into the [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) so it must be used with care.
     - Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy, but can also make it harder to present these practically different claims.
 
@@ -210,14 +222,18 @@ Request sent by the subject to the witness, containing all information required 
   "nonce": "zBIG_BASE58",
 }
 ```
+
+> mudlee: the claimant is a new word here, who is it?
+
 ### Evidence
 
 Attached auxiliary information allowing verification of a claim, e.g. scanned documents, photos, etc.
 
-For some use cases, any piece of evidence may be wrapped inside a self-signed statement and then licensed using a presentation. This serves several purposes: 
+For some use cases, any piece of evidence may be wrapped inside a self-signed statement and then licensed using a presentation (see later). This serves several purposes: 
   1. The witness can request a license to store the evidence in exchange for signing the statement
   2. The claimant testifies that he did not upload fraudulent data 
   3. The claimant knows if a witness stores data. 
+
 ### Process
 
 Defines the following policies:
@@ -236,9 +252,8 @@ Defines the following policies:
   "constraintsSchema": "cqzLINK_TO_CONSTRAINTS_SCHEMA",
 }
 ```
-## Statement Constraints
 
-Restrictions that apply to the validity of the witness statement, e.g. timestamp, expiry, witness DID, on behalf of authority DID, etc
+> mudlee: what is this cqz?
 
 ## Witness Statement
 
@@ -263,6 +278,10 @@ The complete testimony to be signed, containing the claim, the constraints and a
     "nonce": "zBIG_BASE58",
   }
   ```
+### Statement Constraints
+
+Restrictions that apply to the validity of the witness statement, e.g. timestamp, expiry, witness DID, on behalf of authority DID, etc.
+
 ## Signed Witness Statement
 
 Cryptographic proof that the witness agrees to the statement.
@@ -277,6 +296,8 @@ Statements can be either the actual witness statement or just the content ID of 
   "statement": { ... see Witness Statement|content ID ... }
 }
 ```
+> mudlee: what is pez and sez?
+
 ## Claim Presentation
 
 A collection of claims provided for validation for a verifier.
@@ -313,11 +334,15 @@ A collection of claims provided for validation for a verifier.
   }, ...]
 }
 ```
+> mudlee: what are those `z`, `sez` and such prefixes?
+> mudlee: what is this licenses field for?
+
 ## Masked Claim Presentation
 
 The creator of the claim presentation can choose to present only ++parts of++ a claim together with the signed witness statements to a verifier, masking out remaining parts leaving just their content hashes.
 
 It is mathematically possible to retain sensitive data from the signed claim, still having an evidence of the original signature on the original data (see Merkle-proof).
+
 ```json
 # Example
 {
@@ -352,6 +377,7 @@ If a key is *restricted* in any way, all statements that were signed with that k
 ### Sequence Diagrams
 
 TODO sequence/timing diagrams portraying the different timelines that lead to green, yellow and red situations as a return value for the statement validation, for both implicit keys and added keys. Also think about good description for the different warnings we give.
+> mudlee: this concept was not really clear for me when we discussed.
 
 Color Legend:
 - green: It can be proven that both the signature and the sequence of grants is valid at that logical time.
@@ -377,15 +403,3 @@ sequenceDiagram
   Statement ->> Statement: any action
   end
 ```
-
-## Process
-
-The process of what data will be validated and what attachments the Authority requires to run this workflow is well-known and published by Authority itself .
-> Amon: Also the claim schema is public, specifying how the claim created by the authority is to be read (and validated).
-
-The proof-metadata even contains a reference to this specific process the Authority used to verify your claim (process ID). 
-> Amon: I think this should be included in the `claim` itself, regulated by the claimschema. this way, the authority can communicate ahead of time what values are valid here. 
-
-Different authorities might use different processes and also the same authority might update its processes in the future.
-
-> Amon: Exactly my point.

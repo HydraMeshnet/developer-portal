@@ -2,9 +2,9 @@
 
 Here we define using the KYC example, what kind of participants are needed to be fulfill the example. Also we define what toolset, API, etc is needed for the given participant, hence the architecture will fully be described.
 
-## Participants
+## Participants and its Architecture
 
-### User
+### User Dependencies
 
 Required toolset:
 - keyvault for key-management
@@ -16,44 +16,6 @@ Required toolset:
 - verify SignedWitnessStatement
 - create presentations
 - transfer presentations to Inspector
-
-### Blockchain Did Plugin
-
-Required toolset:
-- receive transactions for creating/modifying DID documents
-- resolve DID to DID Document
-- search for the DID document
-  - by timestamp-range?
-  - optional, caching for performance: by cryptographic public key and/or key id
-- handle DID document updates
-
-### BANK1 (Witness)
-
-Required toolset:
-- keyvault for key-management
-- DID with related DID document
-- share process entries with Users
-- verify User's WitnessRequest
-- sign WitnessStatement
-
-### BANK2 Clerk (delegated Inspector)
-
-Required toolset:
-- securely connects to a verifier and uses its verification service (by sending signatures, content IDs and DIDs) masking out all contents
-- a tool to receive and display the presentation received from its subject
-- a tool to display the verification status or error(s)
-
-### BANK2 (Verifier)
-
-Required toolset:
-- securely receives the signatures, content IDs and DIDs from the delegated Inspector (no personal information)
-- can connect to the blockchain to resolve DID Documents from DIDs and check blockhashes and logical timestamps
-- can calculate cryptography
-
-
-## Architecture
-
-### User Dependencies
 
 ```mermaid
 graph TB
@@ -74,7 +36,30 @@ graph TB
   User --> ClaimManager
 ```
 
+### Blockchain Plugin Dependencies
+
+Required toolset:
+- receive transactions for creating/modifying DID documents
+- resolve DID to DID Document
+- search for the DID document
+  - by timestamp-range?
+  - optional, caching for performance: by cryptographic public key and/or key id
+- handle DID document updates
+
+```mermaid
+graph TB
+  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidPlugin --> HydraCore
+```
+
 ### Bank1 Dependencies
+
+Required toolset:
+- keyvault for key-management
+- DID with related DID document
+- share process entries with Users
+- verify User's WitnessRequest
+- sign WitnessStatement
 
 ```mermaid
 graph TB
@@ -96,6 +81,12 @@ graph TB
 
 ### Bank2 Inspector Dependencies
 
+Required toolset:
+- securely connects to a verifier and uses its verification service (by sending signatures, content IDs and DIDs) masking out all contents
+- a tool to receive and display the presentation received from its subject
+- a tool to display the verification status or error(s)
+
+
 ```mermaid
 graph TB
   WitnessStatementManager --> ProcessManager
@@ -106,6 +97,11 @@ graph TB
 ```
 
 ### Bank2 Verifier Dependencies
+
+Required toolset:
+- securely receives the signatures, content IDs and DIDs from the delegated Inspector (no personal information)
+- can connect to the blockchain to resolve DID Documents from DIDs and check blockhashes and logical timestamps
+- can calculate cryptography
 
 ```mermaid
 graph TB
@@ -339,6 +335,8 @@ Operation attempts are sent in a transaction. One transaction may contain many a
 }
 ```
 
+> mudlee: so this multicipher is not that clear for me
+
 ```typescript
 // Revoke Key
 {
@@ -409,6 +407,7 @@ enum RightType {
 ## Class diagram
 
 > Please, stop nagging me to remove SignedWitnessRequest, SignedWitnessStatement and WitnessProcess being Signable. I know it does not make sense semantically. The real diagram will be beautiful. [name=wigy] 
+> mudlee: let's delete this comment or explain it or whatever
 
 ```mermaid
 classDiagram
