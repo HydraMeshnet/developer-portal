@@ -147,7 +147,7 @@ This part will be a NPM package, a fork of [@arkecosystem/crypto](https://www.np
 - revoke right
 - tombstone DID
 
-TODO: define these in more details.
+TBD: define these in more details.
 
 ### Witness Statement Manager
 
@@ -338,8 +338,6 @@ Operation attempts are sent in a transaction. One transaction may contain many a
 }
 ```
 
-> mudlee: so this multicipher is not that clear for me
-
 ```typescript
 // Revoke Key
 {
@@ -407,41 +405,78 @@ enum RightType {
 ```
 
 
-## Class diagram
-
-> Please, stop nagging me to remove SignedWitnessRequest, SignedWitnessStatement and WitnessProcess being Signable. I know it does not make sense semantically. The real diagram will be beautiful. [name=wigy] 
-> mudlee: let's delete this comment or explain it or whatever
-> TODO: update the class diagram to reflect this paragraph (glossary last section: After-Envelope)
+## Component/Data Diagram
 
 ```mermaid
 classDiagram
   class ContentId
   Serializable <|-- ContentId
-
+  
+  class Unique
+  Unique: <<"interface">>
+  
+  class Signature
+  Signature: +publicKey: PublicKey
+  Signature: +bool validate(bytes: Serializable)
+  
   class Serializable
   Serializable: <<"interface">>
   Serializable: +byte[] getBytes()
   Serializable: +ContentId contentId()
-
-  class Unique
-  Unique: <<"interface">>
-
+  
   class Signable
   Signable: <<"interface">>
   Serializable <|-- Signable
   Unique <|-- Signable
   Signable o-- ContentId
   Signable: +Signature signWith(key: PrivateKey)
-
+  
   class Claim
   Claim: +MorpheusValue data
   Claim: +DID subject
- 
+  
+  class IWitnessRequest
+  Signable <|-- IWitnessRequest
+  IWitnessRequest <|-- AfterEnvelopeWitnessRequest
+  
+  class AfterEnvelopeWitnessRequest
+  AfterEnvelopeWitnessRequest: +blockHash
+  AfterEnvelopeWitnessRequest: +IWitnessRequest request
+  
   class WitnessRequest
-  Signable <|-- WitnessRequest
-  WitnessRequest *-- Claim : claim
   WitnessRequest: +MorpheusValue evidence
   WitnessRequest: +u256 nonce
+  AfterEnvelopeWitnessRequest *-- WitnessRequest
+  IWitnessRequest <|-- WitnessRequest
+  
+  class SignedWitnessRequest
+  SignedWitnessRequest: +request: IWitnessRequest
+  SignedWitnessRequest: +signature: Signature
+  SignedWitnessRequest *-- IWitnessRequest
+  SignedWitnessRequest *-- Signature
+  Signable <|-- SignedWitnessRequest
+  
+  class IWitnessStatement
+  IWitnessStatement *-- Claim : claim
+  IWitnessStatement o-- WitnessProcess : process
+  
+  class AfterEnvelopeWitnessStatement
+  AfterEnvelopeWitnessStatement: +statement: WitnessStatement
+  IWitnessStatement <|-- AfterEnvelopeWitnessStatement
+  
+  class WitnessStatement
+  IWitnessStatement <|-- WitnessStatement
+  AfterEnvelopeWitnessStatement *-- WitnessStatement
+  WitnessStatement: +MorpheusValue constraints
+  WitnessStatement: +u256 nonce
+
+  class SignedWitnessStatement
+  SignedWitnessStatement: +signature: Signature
+  SignedWitnessStatement: +statement: IWitnessStatement
+  SignedWitnessStatement *-- Signature
+  SignedWitnessStatement *-- IWitnessStatement
+  Signable <|-- SignedWitnessStatement
+  Signable <|-- IWitnessStatement
 
   class WitnessProcess
   WitnessProcess: +String name
@@ -451,27 +486,9 @@ classDiagram
   WitnessProcess: +MorpheusSchema evidenceSchema
   WitnessProcess: +MorpheusSchema contraintsSchema
 
-  class Signature
-  Signature: +publicKey: PublicKey
-  Signature: +bool validate(bytes: Serializable)
-  
-  class SignedWitnessRequest
-  SignedWitnessRequest *-- WitnessRequest: request
-  SignedWitnessRequest *-- Signature: signature
-  Signable <|-- SignedWitnessRequest
-  
-  class SignedWitnessStatement
-  SignedWitnessStatement *-- Signature : signature
-  SignedWitnessStatement *-- WitnessStatement : statement
-  Signable <|-- SignedWitnessStatement
-
-  class WitnessStatement
-  WitnessStatement *-- Claim : claim
-  WitnessStatement o-- WitnessProcess : process
-  Signable <|-- WitnessStatement
-  WitnessStatement: +MorpheusValue constraints
-  WitnessStatement: +u256 nonce
-  
+  IWitnessRequest *-- Claim : claim
+  IWitnessRequest o-- WitnessProcess : process
   Signable <|-- WitnessProcess
-  WitnessRequest o-- WitnessProcess : process
 ```
+
+> **Note**: Though `SignedWitnessRequest` and `SignedWitnessStatement` are both `Serializable` and `Unique`, thus (implicitly) `Signable` themselves, they contain a signature already and it rarely makes sense to add another signature on top of that.
