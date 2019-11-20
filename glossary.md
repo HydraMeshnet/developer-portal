@@ -67,6 +67,7 @@ The DID document is publicly shareable data, that does NOT contain any private i
 {
   "@context": "https://iop.global/did/v1",
   "did": "did:morpheus:ezFoo",
+  "last_changed_height": 516501,
   "keys": [{
     "@id": "did:morpheus:ezFoo#key-1",
     "type": "Ed25519PublicKey",
@@ -121,6 +122,7 @@ To make these cases simpler and cheaper, we do not always require registering a 
 {
   "@context": "https://iop.global/did/v1",
   "did": "did:morpheus:ezSomething",
+  "last_changed_height": -1,
   "keys": [{
     "@id": "did:morpheus:ezSomething#key-0",
     "type": "Multicipher",
