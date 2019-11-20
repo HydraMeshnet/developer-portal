@@ -19,9 +19,9 @@ Required toolset:
 
 ```mermaid
 graph TB
-  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
-  
+
   KeyVault --> CryptographicCalculator
   DidManager --> KeyVault
   WitnessRequestManager --> ProcessManager
@@ -48,7 +48,7 @@ Required toolset:
 
 ```mermaid
 graph TB
-  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
 ```
 
@@ -63,7 +63,7 @@ Required toolset:
 
 ```mermaid
 graph TB
-  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
 
   DidManager --> KeyVault
@@ -105,7 +105,7 @@ Required toolset:
 
 ```mermaid
 graph TB
-  BlockchainDidAPI --> BlockchainDidPlugin 
+  BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
   Bank2Verifier --> BlockchainDidAPI
   Bank2Verifier -- implements --> VerifierAPI
@@ -192,22 +192,22 @@ It will be a Typescript(?) library.
 - save/load signed presentations
 
 ### Witness Request Manager
- 
+
 - wrap evidence in self-signed presentations (optional)
 - create request from claim and evidence according to process
 - sign completed WitnessRequest to create SignedWitnessRequest
 
 ### Blockchain Did Plugin
 
-This extension will be a plugin. We may split this plugin into 2 parts: 
-- One handling Level 1 consensus, which needs to be active on all nodes. 
+This extension will be a plugin. We may split this plugin into 2 parts:
+- One handling Level 1 consensus, which needs to be active on all nodes.
 - The level 2 consensus (the DID Database) can be extracted into another plugin that can be activated at will.
 
 Hence we ensure that all nodes by default are able to participate in the Hydra network and by default support this custom AIP29 (see below) transaction, but still they're not forced to handle DID Document state.
 
 #### AIP29 Assets
 
-We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing DID documents in layer 1. 
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing DID documents in layer 1.
 
 ```json
 # Layer 1 data structure:
@@ -247,36 +247,36 @@ As we can't easily extend the core's wallet API without updating the core's code
 ```typescript
 /**
  * Returns the DID document (the implicit one if there were no operations yet on this DID)
- * 
+ *
  * Path: GET /:DID/[:BLOCK_HEIGHT]
  * Responses:
  *   - 200 OK
- * 
+ *
  * @param blockHeight (optional) - a logical timefilter, practically how the DID document looked like at that blockHeight
  * @returns the DID document itself
- */ 
+ */
 getDidDocument(did: string, blockHeight?: number): DidDocument;
 ```
 
 ```typescript
 /**
  * Reads all **valid** operations that happened on a DID in a time interval
- * 
+ *
  * Path: GET /:DID/operations/[:FROM_BLOCK_HEIGHT]/[:TO_BLOCK_HEIGHT]
  * Responses:
  *   - 200 OK
- * 
+ *
  * @returns array of **valid** operations
  */
 getOperations(did: string, fromBlockHeightInc?: number, toBlockHeightInc?: number): Array<Operation>;
 
 /**
  * Reads all operation attempts that happened on a DID in a time interval, both valid and invalid.
- * 
+ *
  * Path: GET /:DID/operation-attempts/[:FROM_BLOCK_HEIGHT]/[:TO_BLOCK_HEIGHT]
  * Responses:
  *   - 200 OK
- * 
+ *
  * @returns array of operation attempts, including invalid operations.
  */
 getOperationAttempts(did: string, fromBlockHeightInc?: number, toBlockHeightInc?: number): Array<OperationAttempt>;
@@ -286,12 +286,12 @@ getOperationAttempts(did: string, fromBlockHeightInc?: number, toBlockHeightInc?
 /**
  * Checks if the transaction contains invalid operations based on the latest block known to the Hydra node. If other
  * Operations related to these DIDs are forged before this transaction, the operation attempts might still be ignored.
- * 
+ *
  * Path: POST /:DID/transaction/validate
  * Request Body: TRANSACTION_OBJECT
  * Responses:
  *   - 200 OK
- * 
+ *
  * @returns array of errors if any
  */
 checkTransactionValidity(transaction: Transaction): Array<Error>;
@@ -315,7 +315,7 @@ class Transaction {
 
 #### Operations
 
-Operation attempts are sent in a transaction. One transaction may contain many attempts. The transaction will be forged into a valid block if it was properly paid (layer 1 block consensus). If any of the operation attempts in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, these are recorded on the DIDs and can be retrieved as operations. 
+Operation attempts are sent in a transaction. One transaction may contain many attempts. The transaction will be forged into a valid block if it was properly paid (layer 1 block consensus). If any of the operation attempts in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, these are recorded on the DIDs and can be retrieved as operations.
 **All blockchain nodes will conclude the same way whether an operation attempt is valid or not (layer 2 DID state consensus).**
 
 
@@ -411,64 +411,64 @@ enum RightType {
 classDiagram
   class ContentId
   Serializable <|-- ContentId
-  
+
   class Unique
   Unique: <<"interface">>
-  
+
   class Signature
   Signature: +publicKey: PublicKey
   Signature: +bool validate(bytes: Serializable)
-  
+
   class Serializable
   Serializable: <<"interface">>
   Serializable: +byte[] getBytes()
   Serializable: +ContentId contentId()
-  
+
   class Signable
   Signable: <<"interface">>
   Serializable <|-- Signable
   Unique <|-- Signable
   Signable o-- ContentId
   Signable: +Signature signWith(key: PrivateKey)
-  
+
   class Claim
   Claim: +MorpheusValue data
   Claim: +DID subject
-  
+
   class IWitnessRequest
   Signable <|-- IWitnessRequest
   IWitnessRequest <|-- AfterEnvelopeWitnessRequest
-  
+  IWitnessRequest: +MorpheusValue evidence
+  IWitnessRequest: +u256 nonce
+
   class AfterEnvelopeWitnessRequest
   AfterEnvelopeWitnessRequest: +blockHash
   AfterEnvelopeWitnessRequest: +IWitnessRequest request
-  
+
   class WitnessRequest
-  WitnessRequest: +MorpheusValue evidence
-  WitnessRequest: +u256 nonce
   AfterEnvelopeWitnessRequest *-- WitnessRequest
   IWitnessRequest <|-- WitnessRequest
-  
+
   class SignedWitnessRequest
   SignedWitnessRequest: +request: IWitnessRequest
   SignedWitnessRequest: +signature: Signature
   SignedWitnessRequest *-- IWitnessRequest
   SignedWitnessRequest *-- Signature
   Signable <|-- SignedWitnessRequest
-  
+
   class IWitnessStatement
   IWitnessStatement *-- Claim : claim
   IWitnessStatement o-- WitnessProcess : process
-  
+  IWitnessStatement: +MorpheusValue constraints
+  IWitnessStatement: +u256 nonce
+
   class AfterEnvelopeWitnessStatement
   AfterEnvelopeWitnessStatement: +statement: WitnessStatement
   IWitnessStatement <|-- AfterEnvelopeWitnessStatement
-  
+
   class WitnessStatement
   IWitnessStatement <|-- WitnessStatement
   AfterEnvelopeWitnessStatement *-- WitnessStatement
-  WitnessStatement: +MorpheusValue constraints
-  WitnessStatement: +u256 nonce
 
   class SignedWitnessStatement
   SignedWitnessStatement: +signature: Signature
