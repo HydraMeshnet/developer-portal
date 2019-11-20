@@ -1,19 +1,22 @@
-# Use Case 3: Transferable Tickets
-
-TBD: everything below is TBD.
+# Use Case 3: Non-Personalized Tickets
 
 ## Scenario
 
 1. User goes to the government office to get a digitalized ID card, meaning the user gets a digital proof about their name, address, photo, etc. 
 This step is needed only once and can be used for any number of tickets or other use cases afterwards.
-1. User goes to the movie theater (maybe days before the movie is shown) to buy a ticket for a movie for mature audiences. In exchange, the user receives a digital proof of ticket ownership.
-1. User goes to the movie theater with
-   - a proof of ticket ownership
+1. User goes to the movie theater (days before the movie is shown) to buy a ticket for a movie for mature audiences. In exchange, the user receives a digital proof of ticket purchase.
+1. On the day of the movie User gets sick and he asks his friends on social media if anyone can use his ticket as he cannot go.
+1. Friend says "sure I'd like to see that movie. Also, I'm free today evening. Please give me the ticket". 
+**Note:** we suppose that Friend already did step 1 too, so they have an age-over proof.
+1. Friend goes to the movie theater with
+   - a proof of ticket purchase
    - a proof of DID control and age-over claim
-1. The inspector at the gate validates both and decides if the user can enter or not.
+1. The inspector at the gate validates both and decides if the user can enter or not. During this process the inspector also invalidates the ticket in the movie's database for further entries (or reduces the number of allowed entries on a season ticket).
 
 ### Participants
 
+- User
+- Friend
 - Clerk (delegate of the Government Office)
   - Witness for digital ID
 - Government Office
@@ -29,10 +32,7 @@ This step is needed only once and can be used for any number of tickets or other
   - ticket Authority
   - ticket purchase Verifier
 
-### Important Notes
-
-- we will not consider cases when one buys a ticket for someone else or verifying DID control while entering the movie.
-- Besides managing DID Documents (i.e. delegate rights and revocations) on the blockchain, we also use the Hydra blockchain for payments, both covering fees of witness requests/signed witness statements and potentially for ticket costs.
+> **Note:** Besides managing DID Documents (i.e. delegate rights and revocations) on the blockchain, we also use the Hydra blockchain for payments, both covering fees of witness requests/signed witness statements and potentially for ticket costs.
 
 ### Proving Age-Over vs. Privacy
 
@@ -50,44 +50,62 @@ This describes the process of using a combination of claims about a DID and prov
 ```mermaid
 sequenceDiagram
   participant User
+  participant Friend
   participant Clerk
   participant TicketSeller
   participant TicketInspector
+  participant Blockchain
   
-  note over User,TicketInspector: Digitalize ID card (useful in other cases as well)
+  note over User,Blockchain: Digitalize ID card (useful in other cases as well)
   User ->> +Clerk: Request DigitalID<br>(including photo, age, etc evidences)
   
-  rect rgba(255, 255, 0, .1)
-  opt Unknown User key
   Clerk ->> +Blockchain: Look up User DID Document via Government Office
   Blockchain -->> -Clerk: key information
-  end
-  end
   
   Clerk ->> -User: DigitalID<br>(including date of birth)
   
-  note over User,TicketInspector: Prepare for Visiting Movie Theater (useful in other cases as well)
-  User ->> User: Prepare AgeOverProof<br>(presenting age proof of DigitalID)
+  note over User,Blockchain: Prepare for Visiting Movie Theater (useful in other cases as well)
+  User ->> User: Prepare AgeOverProof<br>(presenting date of birth from DigitalID)
   
-  note over User,TicketInspector: Visit Movie Theater for Ticket Purchase
-  User ->> +TicketSeller: Request ticket with evidence<br>(AgeOverProof and DigitalID photo hash)
-  
-  rect rgba(255, 255, 0, .1)
-  opt Unknown Clerk key
-  TicketSeller ->> +Blockchain: Look up Clerk DID Document via Movie Theater
-  Blockchain -->> -TicketSeller: key information
-  end
-  end
-  
+  note over User,Blockchain: Visit Movie Theater for Ticket Purchase
+  User ->> +TicketSeller: Request ticket
   TicketSeller -->> -User: OneTimeTicket
+  
+  note over User,Blockchain: Transfering Ticket from User to Friend
+  User ->> Friend: Ticket
+  Friend ->> Friend: Prepare OfflineProof for presentation (see note below)<br>including AgeOverProof + Photo of Face
     
-  note over User,TicketInspector: Entering Movies (maybe days later)
-  User ->> +TicketInspector: OneTimeTicket + Photo of Face<br>(via DHT, QR, Bluetooth, etc.)
+  note over User,Blockchain: Entering Movies (maybe days later)
+  User ->> +TicketInspector: OneTimeTicket + OfflineProof<br>(via DHT, QR, Bluetooth, etc.)
   TicketInspector ->> +User: Look at Face
   User -->> -TicketInspector: Face
-  TicketInspector ->> TicketInspector: verify via Movie Theater, comparing faces
+  TicketInspector ->> TicketInspector: verify proofs via Movie Theater, comparing faces
+  TicketInspector ->> TicketInspector: invalidate ticket in database
   TicketInspector -->> -User: You can enter
 ```
+
+### Ticket Proof
+
+To prove the ticket purchase later on site w, the Friend has to prepare and upload the proof to a storage where the TicketInspector can access and check its contents.
+
+The ticket in this case is similar to a server-side session. 
+For example the movie could create a JSON object with the following content and store it to its internal database (RocksDB, MongoDB, etc.):
+
+```json
+{
+  "show": {
+    "event": "Deadpool 5",
+    "date": "2020-05-24 5PM",
+    "room": 4,
+  },
+  "seating": {
+    "row": 4,
+    "chair": 14,
+  },
+}
+```
+
+The content ID of this ticket could be handed out then to the user.
 
 The sequence diagram above already describes the relevant parts of user experience and the workflow in general. However, it does not consider how exactly large binary data like a photo is transferred in practice from the user to the Inspector. Definitely not included in a QR code or sent directly between devices. Instead, a link (up to 512 bytes) pointing to an entry of some storage could be transferred (e.g. via NFC or QR code) that the Inspector can resolve to fetch the photo to his own device.
 

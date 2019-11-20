@@ -51,24 +51,16 @@ sequenceDiagram
   note over User,TicketInspector: Digitalize ID card (useful in other cases as well)
   User ->> +Clerk: Request DigitalID<br>(including photo, age, etc evidences)
   
-  rect rgba(255, 255, 0, .1)
-  opt Unknown User key
   Clerk ->> +Blockchain: Look up User DID Document via Government Office
   Blockchain -->> -Clerk: key information
-  end
-  end
   
   Clerk ->> -User: DigitalID
   
   note over User,TicketInspector: Visit Ticket Office
   User ->> +TicketSeller: Request ticket with evidence<br>(DigitalID photo hash)
   
-  rect rgba(255, 255, 0, .1)
-  opt Unknown Clerk key
   TicketSeller ->> +Blockchain: Look up Clerk DID Document via Public Trans. Co.
   Blockchain -->> -TicketSeller: key information
-  end
-  end
   
   TicketSeller -->> -User: Pass for DID with Expiry included
     
