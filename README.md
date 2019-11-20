@@ -1,11 +1,19 @@
-# Hello
+# Decentralized Identities
 
 Take full control of your digital identity. Morpheus lets you create multiple independent private personas, letting you securely manage every aspect of your life.
 
 IOP technology is open source and available for anyone to use or develop for. Although IOP is dedicated to providing a complete solution to the problems of online identity and privacy, IOP is fully modular and there is no lock in: users and businesses are free to use and combine whichever parts of the stack they want.
 Find out more about our design philosophy and the IOP stack in our [white paper](https://iop.global/whitepaper/).
 
-> mudlee: would be good if we guide our users where to start reading in what direction.
+## Read Guide
+
+We suggest you to delve yourself into these ideas in this order:
+
+1. [Glossary](glossary.md)
+1. [Use case 1: KYC](usecases/kyc.md)
+1. [Use case 3: Buying Tickets for Public Transportation](usecases/public_transportation.md)
+1. [Use case 4: Buying Tickets for a Movie](usecases/movie_theater.md)
+1. [Architecture](architecture.md)
 
 ## Used Materials
 
