@@ -1,0 +1,16 @@
+{
+  "name": "specification",
+  "version": "1.0.0",
+  "description": "Take full control of your digital identity. Morpheus lets you create multiple independent private personas, letting you securely manage every aspect of your life.",
+  "main": "index.js",
+  "scripts": {
+    "serve": "docsify serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.iop-ventures.com:iop-stack/dids-and-claims/specification.git"
+  },
+  "dependencies": {
+    "docsify-cli": "4.3.0"
+  }
+}
