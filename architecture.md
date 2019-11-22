@@ -21,9 +21,11 @@ Required toolset:
 graph TB
   BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
-
-  KeyVault --> CryptographicCalculator
+  
+  DidManager --> npm:arkecosystem
+  BlockchainDidPlugin --> npm:arkecosystem
   DidManager --> KeyVault
+  
   WitnessRequestManager --> ProcessManager
   WitnessStatementManager --> ProcessManager
   ClaimManager --> ProcessManager
@@ -34,6 +36,7 @@ graph TB
   User --> ProcessManager
   User --> PresentationManager
   User --> ClaimManager
+  BlockchainDidPlugin --> DidManager
 ```
 
 ### Blockchain Plugin Dependencies
@@ -50,6 +53,10 @@ Required toolset:
 graph TB
   BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
+  BlockchainDidPlugin --> DidManager
+  DidManager --> npm:arkecosystem
+  BlockchainDidPlugin --> npm:arkecosystem
+  DidManager --> KeyVault
 ```
 
 ### Bank1 Dependencies
@@ -65,18 +72,23 @@ Required toolset:
 graph TB
   BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
-
+  
+  DidManager --> npm:arkecosystem
   DidManager --> KeyVault
-  KeyVault --> CryptographicCalculator
+  BlockchainDidPlugin --> npm:arkecosystem
+  BlockchainDidPlugin --> DidManager
+
   WitnessRequestManager --> ProcessManager
   WitnessStatementManager --> ProcessManager
   ClaimManager --> ProcessManager
   Bank1 --> BlockchainDidAPI
-  Bank1 --> WitnessRequestManager
   Bank1 --> DidManager
+  Bank1 --> WitnessRequestManager
+  
   Bank1 --> ClaimManager
   Bank1 --> WitnessStatementManager
   Bank1 --> ProcessManager
+  
 ```
 
 ### Bank2 Inspector Dependencies
@@ -107,16 +119,18 @@ Required toolset:
 graph TB
   BlockchainDidAPI --> BlockchainDidPlugin
   BlockchainDidPlugin --> HydraCore
+
+  DidManager --> npm:arkecosystem
+  DidManager --> KeyVault
+  BlockchainDidPlugin --> npm:arkecosystem
+  BlockchainDidPlugin --> DidManager
+
   Bank2Verifier --> BlockchainDidAPI
   Bank2Verifier -- implements --> VerifierAPI
   Bank2Verifier --> CryptographicCalculator
 ```
 
 ## Describing Architecture
-
-### Cryptographic Calculator
-
-TBD
 
 ### KeyVault
 
@@ -320,6 +334,14 @@ Operation attempts are sent in a transaction. One transaction may contain many a
 
 
 ```typescript
+// Register Before Proof
+{
+  operation: "registerBeforeProof",
+  params: {
+    contentId: string
+  }
+}
+
 // Add Key
 {
   operation: "addKey",
