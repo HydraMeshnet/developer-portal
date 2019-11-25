@@ -2,11 +2,13 @@
 
 ## Goal
 
-KYC is a concept where a service provider confirms the identity and uniqueness of a user by tying their digital account to official real-world identity information. What an official identifier is depends on the actual use case and is decided by the authority that is attesting. Several companies have already outsourced this process to special "identity verification services" (IVS).
+KYC is a concept where a service provider confirms the identity (and possibly uniqueness) of a user by tying their digital account to official real-world identity information. What an official identifier is depends on the actual use case and is decided by the authority that is attesting, but it will most likely be some form of government issued ID card or a utility bill. Several companies have already outsourced the process of identity verification to special "identity verification services" (IVS).
 
-By connecting the proof of identity to a service independent ID instead of a user-account, the service of the IVS becomes a lot more useful for both the user and other service providers (saving time and money by reusing the verification).
+By connecting the proof of identity to a service-independent ID instead of a specific user-account, the service of the IVS becomes a lot more useful for both the user and other service providers (saving time and money by reusing the verification), thereby generating value for everyone involved.
 
-To keep a witness statment valid even after the key of a witness expired, the content id of the signed witness statement can be published as payload in a blockchain transaction, proving it was signed when the witness' key was still valid. 
+To keep a witness statement valid even after the key of a witness expired, the content id of the signed witness statement can be published as payload in a blockchain transaction, proving it was signed when the witness' key was still valid. 
+
+To proof the validity of a witness statement involving delegated rights, an AfterEnvelope can be used to strictly order the statement and the key management process.
 
 **No personal data is included in this Proof of Ordering.**
 
@@ -16,11 +18,11 @@ In this example we have
 - BANK1: Witness
 - BANK2: Verifier
 
-1. You want to prove the fact that you are an EU resident. For this, you show your ID card to BANK1, including your picture, your **name** and **address**, **place of birth**, etc. BANK1 will sign a claim of the type `confirmedEUCitizen` about one of your DIDs (after you prove control, of course). The claim schema may be standardized by the BANK, or even by law, possibly containing information about **how** they verified your citizenship. In addition, they might possibly timestamp the claim to a blockchain.
+1. You want to prove the fact that you are an EU resident. For this, you show your ID card to BANK1, including your picture, your **name** and **address**, **place of birth**, etc. BANK1 will create a statement, attesting your claim of the type `confirmedEUCitizen` about one of your DIDs (after you prove control, of course). The claim schema may be standardized by the BANK, or even by law, possibly containing information about **how** they verified your citizenship. In addition, they might register the statement ID to the blockchain.
 
-2. Then you'd like to prove your EU citizenship at BANK2 without showing your ID card again (which would expose all your private information to another third party, burdening it with GDPR compliance). To do this, you'll only provide a claim presentation containing the claim signed by BANK1 and a proof-of-control for the ID. Additionally you can include information about **how** BANK2 is allowed to use the information.
+2. Then you'd like to prove your EU citizenship at BANK2 without showing your ID card again (which would expose all your private information to another third party, burdening it with GDPR compliance). To do this, you'll only provide a claim presentation containing the statement signed by BANK1 and a proof-of-control for your DID. Additionally you can include information about **how** BANK2 is allowed to use the information ("licensing").
 
-3. BANK2 can validate all signatures involved in the claim presentation (BANK1's signature for the statement, the USER's signature for the presentation). BANK2 then queries the blockchain about your DID and the DID of BANK1 (which is known to BANK2, probably even public information because BANK1 has announced their DID publicly). Once they resolved the documents they can verify that the keys had the correct rights at the time of signing, proving both your control of the DID and the fact that BANK1 supports your claim.
+3. BANK2 can validate all signatures involved in the claim presentation (BANK1's signature for the statement, the USER's signature for the presentation). BANK2 then queries the blockchain about your DID and the DID of BANK1 (which is known to BANK2, probably even public information because BANK1 has announced their DID publicly). Once they resolved the documents, they can verify that the keys had the correct rights at the time of signing, proving both your control of the DID and the fact that BANK1 supports your claim.
 
 ```mermaid
 sequenceDiagram
@@ -61,6 +63,7 @@ This diagram extends the previous scenario and diagram with timestamping, to imp
  - BANK2 wants to audit that BANK1 is not signing statements with fake timestamps.
  - BANK1 wants to make explicit the fact that they acted according to information available at a certain point in time.
  - BANK1 wants to audit its delegated witnesses.
+ - BANK1 is regularly rotating keys, therefore it is necessary to order the statements in relation to the process of key rotation.
 
 ```mermaid
 sequenceDiagram
@@ -97,7 +100,7 @@ sequenceDiagram
   Blockchain -->> -BANK2: Confirmed
   rect rgba(255, 255, 0, .1)
   opt Prove Witnessed AFTER
-  BANK2 ->> +Blockchain: Retrieve block hash and timestamp of<br/>block height in constraints
+  BANK2 ->> +Blockchain: Retrieve block hash and timestamp of<br/>block height from AfterEnvelope
   Blockchain -->> -BANK2: result
   BANK2 ->> BANK2: compare block hashes
   end
