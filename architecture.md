@@ -1,6 +1,6 @@
 # DIDs on Chain Architecture (Morpheus)
 
-Here we define using the KYC example, what kind of participants are needed to be fulfill the example. Also we define what toolset, API, etc is needed for the given participant, hence the architecture will fully be described.
+Here we define what kind of participants are needed to be fulfill the example use case (building on the KYC example). Also we define what toolset, API, etc. is needed for the given participants, hence the architecture will fully be described.
 
 ## Participants and its Architecture
 

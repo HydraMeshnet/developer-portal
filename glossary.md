@@ -11,37 +11,35 @@ A unique, real life actor such as a person, IoT device, company, group of people
 ## Persona
 
 An aspect of personal life a user wants to keep separated. Real life people might have multiple identities/roles
-depending on their life situations, such as "dating persona" and/or "dayjob persona". A persona is also an entity.
+depending on their life situations, such as "dating persona" and/or "dayjob persona". Morpheus makes this separation explicit by allowing the user to create multiple personas, represented by separate DIDs (see [DID below](#did)).
 
 ## KeyId
 
-A key identifier deterministically derived from a public key, e.g. a Bitcoin address. The derivation process must be irreversible, so that the public key cannot be guessed from the key identifier. To achieve this, derivations usually apply hashing functions.
+A key identifier deterministically derived from a public key, e.g. a Bitcoin address. The derivation process must be irreversible, so that the public key cannot be guessed from the key identifier. To achieve this, derivations usually involve hashing functions.
 
 ## DID
 
 All entities can generate a **d**ecentralized **id**entifier, a DID. Starting from a private/public keypair owned by an entity, a related DID is derived as KeyId of the public key.
-By default, this originating public key is used to authenticate the DID, see [
+By default, this originating public key is used to authenticate the controller of the DID, see [
 DID document below](#Implicit-(Throw-Away)-DID-Document).
 
 The purpose of a DID is to reason about identity (in the mathematical sense of "being the same") over time, even when the keys used by an entity are replaced. It is decentralized so
   - each entity alone can create any number of owned DIDs.
   - there is no communication needed among entities to make sure each DID is unique.
-  - owners can prove that the DID belongs to them, without verifiers (see later) getting this capability.
+  - owners can prove that the DID belongs to them.
+  - different DIDs of the same entity by default seem unrelated to third parties.
   - you can replace the authenticating keys (see below) while retaining the DID itself.
 
-## Proof of DID Control
+## Proof of DID Control (Authentication and Authorization)
 
-To prove control over a DID, an entity has to prove control over a key-pair (private and public key) by signing a one-time object (e.g. a Signable Request or a Signable Statement).
-We differentiate two types of such authentication:
-  - Knowing the public key, the verifier challenges the peer to sign with the related private key and verifies the signature.
-  - Knowing the DID (as a KeyId hash of a public key), the verifier challanges the peer to expose a public key on a private peer to peer channel and sign with its related private key. The signature is then validated and proper derivation of the DID from the exposed public key is also verified.
+To prove control over a DID, an entity has to prove control over a certain key-pair (private and public key) by signing a one-time object (e.g. a Signable Request or a Signable Statement).
 
-The validation then happens by verifying the signature and then looking up the relevant DID document and making sure the key used has the correct rights.
+To verify the signature, the relevant public key needs to be exposed or extracted from the signature. Validation then happens by verifying the signature (authentication) and then resolving the DID in question to its DID document and making sure the key used is authorized to act on behalf on the DID in this process (has the correct rights, authorization). If the DID Document mentions  a KeyID instead of a public key, the public key used to validate the signature is hashed and compared.
 For example, impersonation and changing the access control rules are clearly separated as different rights. Defining all possible rights is out of scope for this document.
 
 ## Multicipher
 
-Security awareness requires to prepare for cryptographic algorithms getting weaker and becoming obsolete over time. Replacing protocols hardwired into the code usually requires enormous efforts, see e.g. unsecure SHA1 in Git still unfixed for years. Instead, a good design must abstract away concrete algorightms through well-designed interfaces and allow easy replacement of actual algorithms.
+Security awareness requires preparation for cryptographic algorithms becoming weaker and even obsolete over time. Replacing protocols hardwired into the code usually requires enormous efforts, see e.g. unsecure SHA1 in Git still unfixed for years. Instead, good design must abstract away concrete algorithms through well-designed interfaces and allow easy replacement.
 
 There are already good existing libraries for multiple concepts like hashing, base-encoding, serialization, etc. Unfortunately we've found no appropriate one for cryptography. Following the design principles above, we refer to such a generic cryptographic library as *multicipher*. The library requires self-describing data. 
 
@@ -60,7 +58,7 @@ Example: `iezSomething` means a key identifier of a Ed25519 public-key base enco
 
 ## DID Document
 
-The DID document is publicly shareable data, that does NOT contain any private information, but contains permission management via keys. The document can use the `"services"` field to refer to service endpoints that have additional information about the entity represented by the DID.
+The DID document is publicly available data and does NOT contain any personal information, but is used to manage permissions for key-pairs. The document can use the `"services"` field to refer to external service endpoints that have additional information about the entity represented by the DID. To proof the relation between the DID and these services, endpoints should refer back to the corresponding DID using e.g. DNSSEC entries.
 
 ```json
 # Example
@@ -69,17 +67,27 @@ The DID document is publicly shareable data, that does NOT contain any private i
   "did": "did:morpheus:ezFoo",
   "last_changed_height": 516501,
   "keys": [{
+    "@id": "did:morpheus:ezFoo#key-0",
+    "type": "Multicipher",
+    "key": {
+      "display": "iezFoo",
+      "kind": "KeyID",
+      "cipherSuite": "Ed25519",
+      "base": "base58-btc",
+      "hex": "01afaf01202af...",
+    }
+  }, {
     "@id": "did:morpheus:ezFoo#key-1",
     "type": "Ed25519PublicKey",
     "controller": "did:morpheus:ezFoo"
-    "bytes": "pezFoo",
+    "bytes": "pezBar",
     "addedHeight": 504784,
     "revokedHeight": 516501,
   }, {
     "@id": "did:morpheus:ezFoo#key-2",
     "type": "Ed25519KeyId",
-    "controller": "did:morpheus:ezBar",
-    "bytes": "iezBaz",
+    "controller": "did:morpheus:ezBaz",
+    "bytes": "iezQux",
     "addedHeight": 514586,
     "revokedHeight": null,
   }...],
@@ -110,12 +118,12 @@ TBD: The `"services"` object could also be used to link to a revocation list, an
 Where
 
 - `@context` defines the DID document format (JSON-LD context).
-- `keys` is strictly ordered and append only. The key itself at a specific index might be changed though.
-- `keys.controller` identifies the controller of the corresponding private key.
+- `keys` is strictly ordered and append only. Some attributes of the key at a specific index might be changed though (e.g. `revokedHeight`).
+- `keys.controller` identifies the controller of the corresponding private key and is an optional field to explicitly grant rights to an entity represented by a different DID.
 
 ## Implicit (Throw Away) DID Document
 
-Some minimalistic use cases might simply need signatures and simple authorization tokens, but don't need support for multiple devices, organizational structures with delegates and other advanced rights management features. 
+Some minimalistic use cases might only need signatures and simple authorization tokens, but don't need support for multiple devices, organizational structures with delegates and other advanced rights management features. 
 To make these cases simpler and cheaper, we do not always require registering a DID by adding a DID document to the blockchain. When there's no explicitly registered DID document found, the implicit Document below is returned and used instead as default.
 
 ```json
@@ -165,16 +173,16 @@ Another company, individual or any service provider entity that wants to verify 
 ## Verifier
 
 A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights. 
-*Verifier does not see any private information only cryptographical hashes, signatures and stuff.*
+*The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.*
 
 ## Content ID
 
 Irreversible transformation of data into a shorter number.
   - Different data will be provably hashed to different numbers in practical applications.
-  - Knowing only the hash of a data you cannot guess the data itself.
-  - Knowing both the hash and the data you cannot create a different data that hashes to the same number.
+  - Knowing only the hash of a data you cannot guess the data itself (calculation of pre-image is hard).
+  - Knowing both the hash and the data you cannot create a different data that hashes to the same number (calculation of second pre-image is hard).
 
-Content IDs are used to identify and refer to a unique piece of data, such as claims. Content IDs are usually created by defining a serialization format for a dataset and applying a digest algorithms (see hash functions).
+Content IDs are used to identify and refer to a unique piece of data, such as claims. Content IDs are usually created by defining a serialization format for a dataset and applying a digest algorithm (see hash functions).
 
 ## Claim
 
@@ -183,27 +191,27 @@ A set of data that contains information about a subject entity.
 ```json
 # Example
 {
-  "subject": "DID",
-  "content": { "ageOver": { "nonce": "zBASE58", "value": 42 } }
+  "subject": "did:morpheus:ezFoo",
+  "content": { "ageOver": { "nonce": "zB58bar", "value": 42 } }
 }
 ```
 
-Note: the `nonce` field is used for data-masking, which you can read about below.
-
-### Claim ID
-
-Identifiers from claims are derived from its details deriving a Content ID.
+Note: the `nonce` field is used for data-masking, which you can read about [below](#maskable-claim-properties).
 
 ### Claim Subject
 
-A DID of an entity (persona, company, etc.) the claim is about.
+A DID of the entity (persona, company, etc.) the claim is about.
+
+### Claim ID
+
+Identifiers for claims are derived as the Content ID of its serialized form.
 
 ### Maskable Claim Properties
 
-To selectively disclose parts of a claim, the claim content id can be built as the root of a [Merkle-tree](https://en.wikipedia.org/wiki/Merkle_tree). This allows the user to replace the actual data values by their content hashes, while still allowing verification of integrity of the claim as a whole.
-For some low entropy data, like for example the age property, it's "easy" to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object(see the example above) with a big enough nonce (256 bit).
+To selectively disclose parts of a claim, the Claim ID can be built as the root of a [Merkle-tree](https://en.wikipedia.org/wiki/Merkle_tree). This allows the user to replace the actual data values by their content hashes, while still allowing verification of the integrity of the claim as a whole.
+For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object(see the example above) with a big enough nonce (256 bit).
   - Properties with object or array types can also be marked as maskable. This introduces increasing depth into the [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) so it must be used with care.
-  - Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy, but can also make it harder to present these practically different claims.
+  - Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy when requesting witness statements, but creates additional overhead when presenting these statements together as they refer to seemingly unrelated claims.
 
 ## Claim Schema
 
@@ -233,7 +241,7 @@ Requests are sent by the subject or its delegate (a.k.a the claimant) for witnes
 # Example
 {
   "claim": {
-    "subject": "DID",
+    "subject": "did:morpheus:ezFoo",
     "content": { "ageOver": { "nonce": "zBASE58", "value": 42 } }
   },
   "claimant": {
@@ -255,7 +263,7 @@ Attached auxiliary information allowing verification of a claim, e.g. scanned do
 For some use cases, any piece of evidence may be wrapped inside a self-signed statement and then licensed using a presentation (see later). This serves several purposes: 
   1. The witness can request a license to store the evidence in exchange for signing the statement
   2. The claimant testifies that he did not upload fraudulent data 
-  3. The claimant knows if a witness stores data. 
+  3. If no license is requested by the witness, he is not authorized to store the data, allowing the client to legally enforce their right to data privacy. 
 
 ### Process
 
@@ -263,7 +271,9 @@ Defines the following policies:
 - the expected schema of the claim
 - the expected schema of the evidence
 - the expected schema of witness statement
-- an implied specification of the workflow used to determine if the claim is true and should be signed based on the attached evidence. 
+- an implied specification of the workflow and context used to determine if the claim is true and should be signed based on the attached evidence (the constraints) 
+
+This makes the process of requesting a statement fully transparent to anyone.
 
 ```json
 # Example
@@ -367,11 +377,13 @@ For example, registering on a webshop to buy a pendrive, you only want to share 
 
 To avoid arbitrary usage of data within claim, presentations define licenses to restrict terms of  usage. Whenever user data is utilized in any way, the data processor must present a valid (and not expired) license attached to personal data to prove its compliance to regulations.
 
+TBD: The exact details of how licensing should work need to be worked out. I imagine that expiry could be specified as "immediate", "on-use" or "one-time" for example.
+
 ## Masked Claim Presentation
 
 The creator of the claim presentation can choose to present only ++parts of++ a claim together with the signed witness statements to a verifier, masking out remaining parts leaving just their content hashes.
 
-It is mathematically possible to retain sensitive data from the signed claim, still having an evidence of the original signature on the original data (see Merkle-proof).
+It is mathematically possible to retain sensitive data from the signed claim, still having an evidence of the original signature on the original data (see [Maskable Claim Properties](#maskable-claim-properties)).
 
 ```json
 # Example
@@ -397,20 +409,17 @@ It is mathematically possible to retain sensitive data from the signed claim, st
 A timestamp included in a witness statement (depending on the constraints' schema) is only reliable if the witness is trusted by the inspector. Additional confidence in the timestamp of a signed statement (e.g. for a contract) can be achieved by using a blockchain.
 
 - proving that a signature happened **before** a time instance: sending the content hash of the signed witness statement to the blockchain in a transaction. The consensus of all blockchain nodes make it practically impossible to insert transactions into the history of the blockchain, therefore it provides a strict ordering among blocks.
-- proving that a signature happened **after** a time instance: include a block height and its hash into either the claim by the subject or the constraints of the statement by the witness. It is practically impossible to guess what the hash of a future block will be. Also, it is practically impossible to change the hash of a given block, therefore knowing the block hash is a good evidence for something happening after the time the block was created.
+- proving that a signature happened **after** a time instance: bundle a block height and its hash to the object in question (a claim or a witness statement) before signing (see [After-Envelope below](#after-envelope)). It is practically impossible to guess what the hash of a future block will be. Also, it is practically impossible to change the hash of a given block, therefore knowing the block hash is good evidence for something happening after the time the block was created.
 
-> Note that timestamping witness statements and registering changes of DID Document are both using a blockchain as a public immutable ledger but are otherwise completely unrelated actions and usually happend independently.
+> Note that tying witness statements to the blockchain and registering changes of DID Documents are both using a blockchain as a public immutable ledger but are otherwise completely unrelated actions and usually happen independently. They need to use the same blockchain only to prove order of events.
 
-If a key is signing *as a delegate* for a given DID (the key was explicitly added to the DID document), the statement it signs must include a "SIGNED_AFTER" field (giving the hash of a recent block), to prove that the delegate has not pre-signed the statement before he was granted the rights.
-If delegation was involved and there is no "signed_after" field (or its invalid), verification of the signature must return a warning that the integrity of the statement could not be verified fully.
-If no delegation was involved, statements still should have a "SIGNED_AFTER" unless used in a system where retrospectively invalidating keys or statements is not a concern.
-
-If a key is *restricted* in any way, all statements that were signed with that key and NOT timestamped to the blockchain (SIGNED_BEFORE) will expire, because there is no way to ensure the validity of the signature in that situation. We must again return a Warning that the integrity of the statement is not fully guaranteed.
 
 ### Revoking a Right from a Key
 
-When a right is revoked from a key of a DID Document, there might be some signatures that are cryptographically valid, but without a proof of when that signature happened, they cannot be treated as fully authorized signatures.
+When a right is revoked from a key of a DID Document, there might be some signatures that are cryptographically valid, but without a proof of when that signature happened. These cannot be treated as fully authorized signatures, because there is no way to ensure that the signature was created before the key got revoked.
 As a special case, the implicit DID document's default key could be revoked in the future, when the Ed25519 cryptography is replaced by a quantum-proof one on that DID.
+
+Therefore, if a key is *restricted* in any way, all statements that were signed with that key and NOT registered to the blockchain before the restriction (SIGNED_BEFORE) will expire.
 
 - A verifier must give a **warning** (yellow) to an inspector when the signing key was revoked and there is no proof on the blockchain that signing happened **before** that revocation. (There might be other information off-chain that could prove the ordering of events)
 - A verifier must give an **error** (red) to an inspector when either the signature is cryptographically invalid or it can be proven that signing happened **after** the revocation.
@@ -419,9 +428,11 @@ As a special case, the implicit DID document's default key could be revoked in t
 
 When a key was granted new rights on a DID, in most use-cases you have to prove that the signature happened **after** that grant.
 
+Therefore, if delegation was involved and the object is not wrapped in an AfterEnvelope (or the envelope is invalid), verification of the signature must return a warning that the integrity of the statement could not be fully verified.
+
 - A verifier must a give a **warning** (yellow) to an inspector when there is no proof in the statement that signing happened **after** that grant. (There might be other information off-chain that could prove the ordering of events)
 - A verifier must give an **error** (red) to an inspector when either the signature is cryptographically invalid or it can be proven that signing happened **before** the right was granted.
 
 ### After-Envelope
 
-To verify that a Witness Statement has been signed after a certain Block, it can be wrapped inside a AfterEnvelope before signing it to create a SignedWitnessStatement. This concept can be applied to any object that is signable, like claim presentations, witness requests, etc.
+To verify that a Witness Statement has been signed after a certain Block, it can be wrapped inside a AfterEnvelope before signing it to create a SignedWitnessStatement. The AfterEnvelope includes the height and the hash of a recent block of the chain, proving that this information was known to the creator of the envelope. This concept can be applied to any object that is signable, like claim presentations, witness requests, etc.
