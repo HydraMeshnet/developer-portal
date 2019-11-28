@@ -262,7 +262,7 @@ As we can't easily extend the core's wallet API without updating the core's code
 /**
  * Returns the DID document (the implicit one if there were no operations yet on this DID)
  *
- * Path: GET /:DID/[:BLOCK_HEIGHT]
+ * Path: GET /did/{did}/document/{blockHeight?}
  * Responses:
  *   - 200 OK
  *
@@ -276,24 +276,24 @@ getDidDocument(did: string, blockHeight?: number): DidDocument;
 /**
  * Reads all **valid** operations that happened on a DID in a time interval
  *
- * Path: GET /:DID/operations/[:FROM_BLOCK_HEIGHT]/[:TO_BLOCK_HEIGHT]
+ * Path: GET /did/{did}/operations/{fromBlockHeightInc}/{toBlockHeightInc?}
  * Responses:
  *   - 200 OK
  *
  * @returns array of **valid** operations
  */
-getOperations(did: string, fromBlockHeightInc?: number, toBlockHeightInc?: number): Array<Operation>;
+getOperations(did: string, fromBlockHeightInc: number, toBlockHeightInc?: number): Array<Operation>;
 
 /**
  * Reads all operation attempts that happened on a DID in a time interval, both valid and invalid.
  *
- * Path: GET /:DID/operation-attempts/[:FROM_BLOCK_HEIGHT]/[:TO_BLOCK_HEIGHT]
+ * Path: GET /did/{did}/operation-attempts/{fromBlockHeightInc}/{toBlockHeightInc?}
  * Responses:
  *   - 200 OK
  *
  * @returns array of operation attempts, including invalid operations.
  */
-getOperationAttempts(did: string, fromBlockHeightInc?: number, toBlockHeightInc?: number): Array<OperationAttempt>;
+getOperationAttempts(did: string, fromBlockHeightInc: number, toBlockHeightInc?: number): Array<OperationAttempt>;
 ```
 
 ```typescript
@@ -301,14 +301,24 @@ getOperationAttempts(did: string, fromBlockHeightInc?: number, toBlockHeightInc?
  * Checks if the transaction contains invalid operations based on the latest block known to the Hydra node. If other
  * Operations related to these DIDs are forged before this transaction, the operation attempts might still be ignored.
  *
- * Path: POST /:DID/transaction/validate
- * Request Body: TRANSACTION_OBJECT
+ * Path: POST /did/{did}/check-transaction-validity
+ * Request Body: {transaction}
  * Responses:
  *   - 200 OK
  *
  * @returns array of errors if any
  */
-checkTransactionValidity(transaction: Transaction): Array<Error>;
+checkTransactionValidity(did: string, transaction: Transaction): Array<Error>;
+
+/**
+ * Checks if a given @contentId exists at the given @blockHeight
+ * If @blockHeight is not provided, the current blockHeight will be used.
+ * 
+ * Path: GET /before-proof/{contentId}/exists/{blockHeight?}
+ * Responses:
+ *   - 200 OK
+ */
+doesBeforeProofExist(contentId: string, blockHeight?: number): boolean;
 
 /**
  *  400 Bad request: data is not well-formed
