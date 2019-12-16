@@ -219,6 +219,13 @@ This extension will be a plugin. We may split this plugin into 2 parts:
 
 Hence we ensure that all nodes by default are able to participate in the Hydra network and by default support this custom AIP29 (see below) transaction, but still they're not forced to handle DID Document state.
 
+#### Level 2 Corrupted State
+
+Level 2 state is stored and built in memory. Meaning, when the node starts up, level 2 state will be built up from scratch everytime.
+Even though this ensures that level 2 state is always consistent, there are some edge-cases when something goes wrong.
+
+If we receive a revert event which contains at least one operation that we fail to apply, we think that something really bad happened and we mark the level 2 state as corrupted. After that point, we reject all incoming operations and queries made against the level 2 API.
+
 #### AIP29 Assets
 
 We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing DID documents in layer 1.
