@@ -1,6 +1,6 @@
 # DIDs on Chain Architecture (Morpheus)
 
-Here we define what kind of participants are needed to be fulfill the example use case (building on the KYC example). Also we define what toolset, API, etc. is needed for the given participants, hence the architecture will fully be described.
+Here we define what kind of participants are needed to be fulfill the example use case (building on the KYC example). Also we define what toolset, API, etc. is needed for the given participants, hence the architecture will fully be described. There is an incomplete [Morpheus SDK](sdk.md) documentation that needs to be integrated into here.
 
 ## Participants and its Architecture
 
@@ -228,36 +228,50 @@ If we receive a revert event which contains at least one operation that we fail 
 
 #### AIP29 Assets
 
-We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing DID documents in layer 1.
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. There is intentionally no relation between authentication/authorization of Morpheus operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses. In the following example the `senderPublicKey` and the `signerPublicKey` inside the asset.
 
 ```json
-# Layer 1 data structure:
-"asset": {
-  "DID1": {
-    "operation_attempts": [
-      { ..op1.. }, // see OperationAttempts above
-      { ..op2.. },
-    ],
-    "signature": {
-      "key": "DID_A:idx",
-      "bytes": "sezFOO"
-    },
+# Hydra transaction with Morpheus plugin
+{
+  "version": 2,
+  "network": 128,
+  "typeGroup": 4242,
+  "type": 1,
+  "nonce": "3",
+  "senderPublicKey": "0333931e52c1fa65c7ce13d50f7ca0a58442b48a54844effea83851108779cd6d3",
+  "fee": "9192000",
+  "amount": "0",
+  "asset": {
+    "operationAttempts": [
+      {
+        "operation": "registerBeforeProof",
+        "contentId": "cqzSomething"
+      },
+      {
+        "operation": "signed",
+        "signables": [
+          {
+            "operation": "addKey",
+            "did": "did:morpheus:ezSomething",
+            "auth": "IezSomethingElse"
+          },
+          {
+            "operation": "addRight",
+            "did": "did:morpheus:ezSomething",
+            "auth": "IezSomethingElse",
+            "right": "update"
+          }
+        ],
+        "signerPublicKey": "PezSomething",
+        "signature": "SezSomething"
+      }
+    ]
   },
-  "DID2": {
-    "operation_attempts": [
-      { ..op3.. },
-      { ..op4.. },
-    ],
-    "signature": {
-      "key": "DID_B:idx",
-      "bytes": "sezBAR"
-    },
-  }
+  "signature": "e4435a288960ef7b6f3d48491ab40baa3d3d8398e83a6827f68ad19fbabf89d1db03165572bf9e4573ae33c1fbeb8b0751dd987e8b519afb70e55c0579671f89",
+  "id": "6908c93e24fc6cd7befc98023b042ae6bbb4db61a4444ec4dd548c079e5f310f"
 }
 ```
 
-
-TBD: short description.
 
 #### Wallet API
 
@@ -338,109 +352,117 @@ class Error {
   code: number;
   message: string;
 }
-
-class Transaction {
-  "operations": Array<OperationAttempt>
-}
 ```
 
-#### Operations
+#### Operations and Signed Operations
 
 Operation attempts are sent in a transaction. One transaction may contain many attempts. The transaction will be forged into a valid block if it was properly paid (layer 1 block consensus). If any of the operation attempts in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, these are recorded on the DIDs and can be retrieved as operations.
 **All blockchain nodes will conclude the same way whether an operation attempt is valid or not (layer 2 DID state consensus).**
 
 
+Some operations do not need authentication, so they can be included in the transaction as a top-level item.
+
 ```typescript
 // Register Before Proof
 {
-  operation: "registerBeforeProof",
-  params: {
-    contentId: string
-  }
-}
+    "operation": "registerBeforeProof",
+    "contentId": "cqzSomething"
+},
+```
 
+Some operations do need authentication, so they need to be wrapped in a signed operation. Each signed operation contains operations done in the name of a single key.
+
+```typescript
+// Signed
+{
+    "operation": "signed",
+    "signables": [
+        {
+            "operation": "addKey",
+            "did": "did:morpheus:ezSomething",
+            "auth": "IezSomethingElse"
+        },
+        {
+            "operation": "addRight",
+            "did": "did:morpheus:ezSomething",
+            "auth": "IezSomethingElse",
+            "right": "update"
+        }
+    ],
+    "signerPublicKey": "PezSomething",
+    "signature": "SezSomething"
+}
+```
+
+The different signable operations Morpheus supports:
+
+```typescript
 // Add Key
 {
-  operation: "addKey",
-  params: {
-    multiCipher: string,
-    controllerDid?: string
-  }
+    "operation": "addKey",
+    "did": "did:morpheus:ezSomething",
+    "auth": "IezSomethingElse",
+    "expiresAtHeight": 4251, // optional auto-revokation at given height
 }
-
-// Note: multiCipher will allow the plugin to derive the exact kind of Key that was transmitted. It will be a type similar to the ones listed below.
-// enum KeyType {
-//   Ed25519KeyId,
-//   Ed25519PublicKey,
-//   RSAPublicKey2018,
-//   ...
-}
+// Note: auth is a multiCipher public key or key identifier.
 ```
 
 ```typescript
 // Revoke Key
 {
-  operation: "revokeKey",
-  params: {
-    keyIndex: number,
-  }
+    "operation": "revokeKey",
+    "did": "did:morpheus:ezSomething",
+    "auth": "IezSomethingElse"
 }
 ```
 
 
 ```typescript
+// Add Right
 {
-  operation: "addRight",
-  params: {
-    keyIndex: number,
-    right: RightType
-  }
-}
-
-enum RightType {
-  Impersonate,
-  Update,
-  ...
+    "operation": "addRight",
+    "did": "did:morpheus:ezSomething",
+    "auth": "IezSomethingElse",
+    "right": "update" // for now only update or impersonate is supported
 }
 ```
 
 ```typescript
+// Revoke Right
 {
-  operation: "revokeRight",
-  params: {
-    keyIndex: number,
-    right: RightType
-  }
+    "operation": "revokeRight",
+    "did": "did:morpheus:ezSomething",
+    "auth": "IezSomethingElse",
+    "right": "update"
 }
 ```
 
 ```typescript
+// Add Service
 {
-  operation: "addService",
-  params: {
-    type: string,
-    url: string
-  }
+    "operation": "addService",
+    "did": "did:morpheus:ezSomething",
+    "type": "authority service",
+    "url": "https://bank1.com/morpheus"
 }
 ```
 
 ```typescript
+// Remove Service
 {
-  operation: "removeService",
-  params: {
-    type: string,
-    url: string
-  }
+    "operation": "removeService",
+    "did": "did:morpheus:ezSomething",
+    "type": "authority service",
 }
 ```
 
 ```typescript
+// Tombstone Did
 {
-  operation: "tombstoneDid",
-  params: {
-    did: string
-  }
+  "operation": "tombstoneDid",
+  "did": "did:morpheus:ezSomething"
 }
+// after this nobody can sign updates or impersonate Did
 ```
 
 
