@@ -37,6 +37,8 @@ To prove control over a DID, an entity has to prove control over a certain key-p
 To verify the signature, the relevant public key needs to be exposed or extracted from the signature. Validation then happens by verifying the signature (authentication) and then resolving the DID in question to its DID document and making sure the key used is authorized to act on behalf on the DID in this process (has the correct rights, authorization). If the DID Document mentions  a KeyID instead of a public key, the public key used to validate the signature is hashed and compared.
 For example, impersonation and changing the access control rules are clearly separated as different rights. Defining all possible rights is out of scope for this document.
 
+Authorization rules for modifying access control rules are to be considered with special care. E.g. it is clear that an operation modifying the access control rules of a DID must be signed by a key that has appropriate access rights for modification. However, we strongly suggest a special rule to allow only modifying *other keys* and to explicitly forbid any modification for the *signer key* itself. Thus the system can be protected from users accidentally revoking access rights from themselves or gaining additional rights without the mediation of another key.  
+
 ## Multicipher
 
 Security awareness requires preparation for cryptographic algorithms becoming weaker and even obsolete over time. Replacing protocols hardwired into the code usually requires enormous efforts, see e.g. unsecure SHA1 in Git still unfixed for years. Instead, good design must abstract away concrete algorithms through well-designed interfaces and allow easy replacement.

@@ -14,6 +14,7 @@ We suggest to delve into the ideas presented in these documents in this order:
 3. [Use case 3: Buying Tickets for Public Transportation](usecases/public_transportation.md)
 4. [Use case 4: Buying Tickets for a Movie](usecases/movie_theater.md)
 5. [Architecture](architecture.md)
+6. [Morpheus SDK](sdk.md)
 
 ## External Materials
 
