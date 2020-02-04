@@ -1,6 +1,7 @@
 # Glossary
 
-We assume that the reader has a basic understanding of 
+We assume that the reader has a basic understanding of
+
 - [asymmetric cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) including public and private keys
 - digital signatures and [hash functions](https://en.wikipedia.org/wiki/Hash_function).
 
@@ -24,11 +25,12 @@ By default, this originating public key is used to authenticate the controller o
 DID document below](#Implicit-(Throw-Away)-DID-Document).
 
 The purpose of a DID is to reason about identity (in the mathematical sense of "being the same") over time, even when the keys used by an entity are replaced. It is decentralized so
-  - each entity alone can create any number of owned DIDs.
-  - there is no communication needed among entities to make sure each DID is unique.
-  - owners can prove that the DID belongs to them.
-  - different DIDs of the same entity by default seem unrelated to third parties.
-  - you can replace the authenticating keys (see below) while retaining the DID itself.
+
+- each entity alone can create any number of owned DIDs.
+- there is no communication needed among entities to make sure each DID is unique.
+- owners can prove that the DID belongs to them.
+- different DIDs of the same entity by default seem unrelated to third parties.
+- you can replace the authenticating keys (see below) while retaining the DID itself.
 
 ## Proof of DID Control (Authentication and Authorization)
 
@@ -43,14 +45,16 @@ Authorization rules for modifying access control rules are to be considered with
 
 Security awareness requires preparation for cryptographic algorithms becoming weaker and even obsolete over time. Replacing protocols hardwired into the code usually requires enormous efforts, see e.g. unsecure SHA1 in Git still unfixed for years. Instead, good design must abstract away concrete algorithms through well-designed interfaces and allow easy replacement.
 
-There are already good existing libraries for multiple concepts like hashing, base-encoding, serialization, etc. Unfortunately we've found no appropriate one for cryptography. Following the design principles above, we refer to such a generic cryptographic library as *multicipher*. The library requires self-describing data. 
+There are already good existing libraries for multiple concepts like hashing, base-encoding, serialization, etc. Unfortunately we've found no appropriate one for cryptography. Following the design principles above, we refer to such a generic cryptographic library as *multicipher*. The library requires self-describing data.
 
 In our examples below, we use the following type prefixes:
+
 - `p`: public key
 - `i`: key identifier (hash of public key)
 - `s`: signature
 
 The second character discriminates the actual cipher suite used:
+
 - `e`: Ed25519 ECDSA
 - `s`: Secp256k1 ECDSA
 
@@ -125,7 +129,8 @@ Where
 
 ## Implicit (Throw Away) DID Document
 
-Some minimalistic use cases might only need signatures and simple authorization tokens, but don't need support for multiple devices, organizational structures with delegates and other advanced rights management features. 
+Some minimalistic use cases might only need signatures and simple authorization tokens, but don't need support for multiple devices, organizational structures with delegates and other advanced rights management features.
+
 To make these cases simpler and cheaper, we do not always require registering a DID by adding a DID document to the blockchain. When there's no explicitly registered DID document found, the implicit Document below is returned and used instead as default.
 
 ```json
@@ -159,7 +164,7 @@ In other words, the default way to prove control over a newly created DID is by 
 
 ## Witness
 
-An attestant entity that has given its digital signature to some claims(see later). Using a DID, witnesses are able to change the cryptographic keys they use for signing statements over time. 
+An attestant entity that has given its digital signature to some claims(see later). Using a DID, witnesses are able to change the cryptographic keys they use for signing statements over time.
 
 Any entity can be a witness. However, the requirements to trust a witness are to be clarified for each use case.
 
@@ -174,15 +179,17 @@ Another company, individual or any service provider entity that wants to verify 
 
 ## Verifier
 
-A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights. 
+A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights.
+
 *The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.*
 
 ## Content ID
 
 Irreversible transformation of data into a shorter number.
-  - Different data will be provably hashed to different numbers in practical applications.
-  - Knowing only the hash of a data you cannot guess the data itself (calculation of pre-image is hard).
-  - Knowing both the hash and the data you cannot create a different data that hashes to the same number (calculation of second pre-image is hard).
+
+- Different data will be provably hashed to different numbers in practical applications.
+- Knowing only the hash of a data you cannot guess the data itself (calculation of pre-image is hard).
+- Knowing both the hash and the data you cannot create a different data that hashes to the same number (calculation of second pre-image is hard).
 
 Content IDs are used to identify and refer to a unique piece of data, such as claims. Content IDs are usually created by defining a serialization format for a dataset and applying a digest algorithm (see hash functions).
 
@@ -212,8 +219,9 @@ Identifiers for claims are derived as the Content ID of its serialized form.
 
 To selectively disclose parts of a claim, the Claim ID can be built as the root of a [Merkle-tree](https://en.wikipedia.org/wiki/Merkle_tree). This allows the user to replace the actual data values by their content hashes, while still allowing verification of the integrity of the claim as a whole.
 For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object(see the example above) with a big enough nonce (256 bit).
-  - Properties with object or array types can also be marked as maskable. This introduces increasing depth into the [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) so it must be used with care.
-  - Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy when requesting witness statements, but creates additional overhead when presenting these statements together as they refer to seemingly unrelated claims.
+
+- Properties with object or array types can also be marked as maskable. This introduces increasing depth into the [merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) so it must be used with care.
+- Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy when requesting witness statements, but creates additional overhead when presenting these statements together as they refer to seemingly unrelated claims.
 
 ## Claim Schema
 
@@ -262,18 +270,20 @@ Note that hte `cqz` prefix above is a content id with a specific base encoding a
 
 Attached auxiliary information allowing verification of a claim, e.g. scanned documents, photos, etc.
 
-For some use cases, any piece of evidence may be wrapped inside a self-signed statement and then licensed using a presentation (see later). This serves several purposes: 
-  1. The witness can request a license to store the evidence in exchange for signing the statement
-  2. The claimant testifies that he did not upload fraudulent data 
-  3. If no license is requested by the witness, he is not authorized to store the data, allowing the client to legally enforce their right to data privacy. 
+For some use cases, any piece of evidence may be wrapped inside a self-signed statement and then licensed using a presentation (see later). This serves several purposes:
+
+1. The witness can request a license to store the evidence in exchange for signing the statement
+2. The claimant testifies that he did not upload fraudulent data
+3. If no license is requested by the witness, he is not authorized to store the data, allowing the client to legally enforce their right to data privacy.
 
 ### Process
 
 Defines the following policies:
+
 - the expected schema of the claim
 - the expected schema of the evidence
 - the expected schema of witness statement
-- an implied specification of the workflow and context used to determine if the claim is true and should be signed based on the attached evidence (the constraints) 
+- an implied specification of the workflow and context used to determine if the claim is true and should be signed based on the attached evidence (the constraints)
 
 This makes the process of requesting a statement fully transparent to anyone.
 
@@ -292,26 +302,28 @@ This makes the process of requesting a statement fully transparent to anyone.
 ## Witness Statement
 
 The complete testimony to be signed, containing the claim, the constraints and a nonce.
-  ```json
-  # Example
-  {
-    "claim": {
-      "subject": "DID",
-      "content": { "yearsOld": { "nonce": "zBASE58", "value": 42 } }
+
+```json
+# Example
+{
+  "claim": {
+    "subject": "DID",
+    "content": { "yearsOld": { "nonce": "zBASE58", "value": 42 } }
+  },
+  "process": "cqzLINK_TO_PROCESS",
+  "constraints": {
+    "after": "ISO8601-datetime",
+    "before": "ISO8601-datetime",
+    "witness": {
+      "did": "CLERK_DID",
+      "key_id": 5, // TBD, clerks might have to change keys over time
     },
-    "process": "cqzLINK_TO_PROCESS",
-    "constraints": {
-      "after": "ISO8601-datetime", 
-      "before": "ISO8601-datetime", 
-      "witness": {
-        "did": "CLERK_DID",
-        "key_id": 5, // TBD, clerks might have to change keys over time
-      },
-      "authority": "GOVERNMENT_OFFICE_DID",
-    },
-    "nonce": "zBIG_BASE58",
-  }
-  ```
+    "authority": "GOVERNMENT_OFFICE_DID",
+  },
+  "nonce": "zBIG_BASE58",
+}
+```
+
 ### Statement Constraints
 
 Restrictions that apply to the validity of the witness statement, e.g. timestamp, expiry, witness DID, on behalf of authority DID, etc.
@@ -320,6 +332,7 @@ Restrictions that apply to the validity of the witness statement, e.g. timestamp
 
 Cryptographic proof that the witness agrees to the statement.
 Statements can be either the actual witness statement or just the content ID of it.
+
 ```json
 # Example
 {
@@ -373,8 +386,10 @@ A collection of claims provided for validation for a verifier.
 
 Claim presentations and therefore evidences (using self-signed presentations) can be shared with 3rd parties for a wide variety of purposes, including commercial use.
 
-Based on dozens of user privacy violation scandals, terms of utilizing user data must be clarified and respected. 
-For example, registering on a webshop to buy a pendrive, you only want to share your email for receiving the receipt or warranty documents, but don't want to share your email for direct marketing or user tracking. 
+Based on dozens of user privacy violation scandals, terms of utilizing user data must be clarified and respected.
+
+For example, registering on a webshop to buy a pendrive, you only want to share your email for receiving the receipt or warranty documents, but don't want to share your email for direct marketing or user tracking.
+
 [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) is a regulation going towards that direction, but in practise did not have good enough educational effect on privacy-awareness of EU citizens.
 
 To avoid arbitrary usage of data within claim, presentations define licenses to restrict terms of  usage. Whenever user data is utilized in any way, the data processor must present a valid (and not expired) license attached to personal data to prove its compliance to regulations.
@@ -406,6 +421,7 @@ It is mathematically possible to retain sensitive data from the signed claim, st
   "licenses": [ ... see licenses above ... ]
 }
 ```
+
 ## Timestamping Statements
 
 A timestamp included in a witness statement (depending on the constraints' schema) is only reliable if the witness is trusted by the inspector. Additional confidence in the timestamp of a signed statement (e.g. for a contract) can be achieved by using a blockchain.
@@ -414,7 +430,6 @@ A timestamp included in a witness statement (depending on the constraints' schem
 - proving that a signature happened **after** a time instance: bundle a block height and its hash to the object in question (a claim or a witness statement) before signing (see [After-Envelope below](#after-envelope)). It is practically impossible to guess what the hash of a future block will be. Also, it is practically impossible to change the hash of a given block, therefore knowing the block hash is good evidence for something happening after the time the block was created.
 
 > Note that tying witness statements to the blockchain and registering changes of DID Documents are both using a blockchain as a public immutable ledger but are otherwise completely unrelated actions and usually happen independently. They need to use the same blockchain only to prove order of events.
-
 
 ### Revoking a Right from a Key
 
