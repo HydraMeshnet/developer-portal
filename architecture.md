@@ -7,6 +7,7 @@ Here we define what kind of participants are needed to be fulfill the example us
 ### User Dependencies
 
 Required toolset:
+
 - keyvault for key-management
 - DID with related DID document
 - read process entries of BANK1
@@ -42,6 +43,7 @@ graph TB
 ### Blockchain Plugin Dependencies
 
 Required toolset:
+
 - receive transactions for creating/modifying DID documents
 - resolve DID to DID Document
 - search for the DID document
@@ -62,6 +64,7 @@ graph TB
 ### Bank1 Dependencies
 
 Required toolset:
+
 - keyvault for key-management
 - DID with related DID document
 - share process entries with Users
@@ -94,10 +97,10 @@ graph TB
 ### Bank2 Inspector Dependencies
 
 Required toolset:
+
 - securely connects to a verifier and uses its verification service (by sending signatures, content IDs and DIDs) masking out all contents
 - a tool to receive and display the presentation received from its subject
 - a tool to display the verification status or error(s)
-
 
 ```mermaid
 graph TB
@@ -111,6 +114,7 @@ graph TB
 ### Bank2 Verifier Dependencies
 
 Required toolset:
+
 - securely receives the signatures, content IDs and DIDs from the delegated Inspector (no personal information)
 - can connect to the blockchain to resolve DID Documents from DIDs and check blockhashes and logical timestamps
 - can calculate cryptography
@@ -138,14 +142,15 @@ The Prometheus KeyVault derives public keys for DID generation under the "morphe
 > I'm still not convinced here [name=Bartmoss]
 
 Already done directly with `prometheusd`, likely using `prometheus-cli`. If the use case requires, KeyVault can easily be extracted out into a standalone runnable.
+
 - generate new keypair
 - listing keys
 - sign with a key: (TBD: currently prometheus supports signing claims only)
-    - witnessRequest
-    - witnessStatement
-    - claimPresentation
-    - Hydra AIP-11 transaction
-    - "message signing"
+  - witnessRequest
+  - witnessStatement
+  - claimPresentation
+  - Hydra AIP-11 transaction
+  - "message signing"
 - verify signature for a content ID with a provided public key
 - verify if a provided key ID belongs to a provided public key
 
@@ -166,6 +171,7 @@ TBD: define these in more details.
 ### Witness Statement Manager
 
 It will be a Typescript(?) library.
+
 - access the details of a process (claim schema, statement schema, etc.)
 - unwrap a SignedWitnessRequest into Signature, Claim, Evidence (v1); the license attached to the Evidence (v2).
 - verify the Signature (relies on the Blockchain extension)
@@ -191,6 +197,7 @@ TBD
 ### Claim Manager
 
 It will be a Typescript(?) library.
+
 - get a list of processes (including schemas)
 - create claim according to a schema according to a process
 - save claim with given nonces
@@ -199,6 +206,7 @@ It will be a Typescript(?) library.
 ### Presentation Manager
 
 It will be a Typescript(?) library.
+
 - mask out fields from a claim
 - combine claims and statements
 - create licensing information
@@ -214,6 +222,7 @@ It will be a Typescript(?) library.
 ### Blockchain Did Plugin
 
 This extension will be a plugin. We may split this plugin into 2 parts:
+
 - One handling Level 1 consensus, which needs to be active on all nodes.
 - The level 2 consensus (the DID Database) can be extracted into another plugin that can be activated at will.
 
@@ -271,7 +280,6 @@ We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md),
   "id": "6908c93e24fc6cd7befc98023b042ae6bbb4db61a4444ec4dd548c079e5f310f"
 }
 ```
-
 
 #### Wallet API
 
@@ -334,7 +342,7 @@ checkTransactionValidity(did: string, transaction: Transaction): Array<Error>;
 /**
  * Checks if a given @contentId exists at the given @blockHeight
  * If @blockHeight is not provided, the current blockHeight will be used.
- * 
+ *
  * Path: GET /before-proof/{contentId}/exists/{blockHeight?}
  * Responses:
  *   - 200 OK
@@ -358,7 +366,6 @@ class Error {
 
 Operation attempts are sent in a transaction. One transaction may contain many attempts. The transaction will be forged into a valid block if it was properly paid (layer 1 block consensus). If any of the operation attempts in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, these are recorded on the DIDs and can be retrieved as operations.
 **All blockchain nodes will conclude the same way whether an operation attempt is valid or not (layer 2 DID state consensus).**
-
 
 Some operations do not need authentication, so they can be included in the transaction as a top-level item.
 
@@ -416,7 +423,6 @@ The different signable operations Morpheus supports:
 }
 ```
 
-
 ```typescript
 // Add Right
 {
@@ -464,7 +470,6 @@ The different signable operations Morpheus supports:
 }
 // after this nobody can sign updates or impersonate Did
 ```
-
 
 ## Component/Data Diagram
 

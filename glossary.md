@@ -67,46 +67,143 @@ Example: `iezSomething` means a key identifier of a Ed25519 public-key base enco
 The DID document is publicly available data and does NOT contain any personal information, but is used to manage permissions for key-pairs. The document can use the `"services"` field to refer to external service endpoints that have additional information about the entity represented by the DID. To proof the relation between the DID and these services, endpoints should refer back to the corresponding DID using e.g. DNSSEC entries.
 
 ```json
-# Example
+# Current layer-2 endpoint returns DID documents in this format:
+{
+  "did": "did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr",
+  "keys": [
+    {
+      "index": 0,
+      "auth": "iezbeWGSY2dqcUBqT8K7R14xr",
+      "validFromHeight": null,
+      "validUntilHeight": null,
+      "valid": true
+    },
+    {
+      "index": 1,
+      "auth": "iez25N5WZ1Q6TQpgpyYgiu9gTX",
+      "validFromHeight": 120,
+      "validUntilHeight": null,
+      "valid": true
+    }
+  ],
+  "rights": {
+    "impersonate": [
+      {
+        "keyLink": "#0",
+        "history": [
+          {
+            "height": null,
+            "valid": true
+          }
+        ],
+        "valid": true
+      },
+      {
+        "keyLink": "#1",
+        "history": [
+          {
+            "height": null,
+            "valid": false
+          },
+          {
+            "height": 126,
+            "valid": true
+          }
+        ],
+        "valid": true
+      }
+    ],
+    "update": [
+      {
+        "keyLink": "#0",
+        "history": [
+          {
+            "height": null,
+            "valid": true
+          }
+        ],
+        "valid": true
+      },
+      {
+        "keyLink": "#1",
+        "history": [
+          {
+            "height": null,
+            "valid": false
+          }
+        ],
+        "valid": false
+      }
+    ]
+  },
+  "queriedAtHeight": 51063,
+  "lastModifiedAtHeight": 126,
+  "tombstoned": false,
+  "tombstonedAtHeight": null
+}
+```
+
+```json
+# An imaginary format that might be closer to the W3C standard:
 {
   "@context": "https://iop.global/did/v1",
   "did": "did:morpheus:ezFoo",
-  "last_changed_height": 516501,
+  "lastModifiedAtHeight": 126,
+  "queriedAtHeight": 51063,
   "keys": [{
     "@id": "did:morpheus:ezFoo#key-0",
     "type": "Multicipher",
     "key": {
       "display": "iezFoo",
-      "kind": "KeyID",
+      "kind": "KeyId",
       "cipherSuite": "Ed25519",
       "base": "base58-btc",
       "hex": "01afaf01202af...",
-    }
+    },
+    "validFromHeight": null,
+    "validUntilHeight": null,
   }, {
     "@id": "did:morpheus:ezFoo#key-1",
-    "type": "Ed25519PublicKey",
-    "controller": "did:morpheus:ezFoo"
-    "bytes": "pezBar",
-    "addedHeight": 504784,
-    "revokedHeight": 516501,
-  }, {
-    "@id": "did:morpheus:ezFoo#key-2",
-    "type": "Ed25519KeyId",
-    "controller": "did:morpheus:ezBaz",
-    "bytes": "iezQux",
-    "addedHeight": 514586,
-    "revokedHeight": null,
-  }...],
-  // BIG TBD
+    "type": "Multicipher",
+    "key": {
+      "display": "pezBar",
+      "kind": "PublicKey",
+      "cipherSuite": "Ed25519",
+      "base": "base58-btc",
+      "hex": "03deadbeef...",
+    },
+    "validFromHeight": 504784,
+    "validUntilHeight": 516501,
+  }],
   "rights": {
-    "impersonate": [
-      "#key-1", "#key-2"
-    ],
-    "update_did": [
-      "#key-1"
-    ]
+    "impersonate": [{
+      "keyLink": "#key-0",
+      "history": [
+        { "height": null, "valid": true }
+      ],
+      "valid": true
+    }, {
+      "keyLink": "#key-1",
+      "history": [
+        { "height": null, "valid": false },
+        { "height": 126, "valid": true }
+      ],
+      "valid": true
+    }],
+    "update": [{
+      "keyLink": "#key-0",
+      "history": [
+        { "height": null, "valid": true }
+      ],
+      "valid": true
+    }, {
+      "keyLink": "#key-1",
+      "history": [
+        { "height": null, "valid": false }
+      ],
+      "valid": false
+    }]
   },
-  // end of TBD
   "services": [{
     "id": 0,
     "type": "mercuryAddress",
