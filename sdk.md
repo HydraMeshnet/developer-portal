@@ -58,7 +58,6 @@ Uploads a signed statement by the clerk.
 
 Uploads a reasoning why the request was denied.
 
-
 ## Authority daemon client (Clerk tool)
 
 A ticket-like system for clerks "consuming" witnessing tasks from a queue according to multiproducer-multiconsumer pattern with pessimistic locking.
@@ -84,8 +83,6 @@ Build a witness statement with appropriate constraints (defined in the process),
 
 ### Unassign current request
 
-
-
 ## Verifier service (Daemon)
 
 The service has to validate witness statement signatures in presentations, thus internally depends on the Layer2 API of a blockchain node to resolve Did Document history.
@@ -104,11 +101,10 @@ Check validity of a DID signature in relation to a given Did at a given height
 
 - existing before proof on the blockchain (to turn yellow to green or red in case the key has lost rights at some height) (this does not need to be explicitly provided, but can be resolved by the service on its own)
 
-
-
 ## Presentation handler service (Inspection daemon, Verifier daemon client)
 
 The configuration of the daemon contains
+
 - an endpoint of the verifier service
 - list of possible inspection scenarios a user can select from
 - list of trusted authorities
@@ -142,8 +138,6 @@ Verify signatures of a completely masked presentation by sending multiple reques
 
 "Property editor" for visual display of presentations. Validation of a presentation is completely process-dependent.
 
-
-
 ## Morpheus SDK (User tool)
 
 Client state to be stored:
@@ -156,9 +150,9 @@ Client state to be stored:
   - list DIDs and nonces (see maskable claim properties) of previous usages
 - Issued (signed?) presentations, initially for a single DID only in MVP, later for multiple DIDs with licensing proofs for each
 - By DID:
-    - friend list (DIDs with private, custom associated data, e.g. alias, avatar, custom endpoints)
-    - witness requests with status links
-    - signed witness statements
+  - friend list (DIDs with private, custom associated data, e.g. alias, avatar, custom endpoints)
+  - witness requests with status links
+  - signed witness statements
 
 Data might worth caching with specified expiration to force periodic refetching of cached data:
 
