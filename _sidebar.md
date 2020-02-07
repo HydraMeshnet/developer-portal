@@ -1,5 +1,3 @@
-# Contents
-
 - [Home](README.md)
 - [Introduction](introduction.md)
 - [Use Cases](usecases/README.md)

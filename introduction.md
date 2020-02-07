@@ -11,7 +11,7 @@ In details, the following are the steps to achieve all this above:
 1. User installs KYC application on their mobile phone.
    1. (todo) The KYC application automatically installs dependencies, like a crypto wallet to create,
    backup and manage all their cryptographic keys.
-   2. User creates separate anonymous personas for each area of their lives. No need to publicly bind these personas together. These are like separate email addresses for different purposes, it just does not need an email provider to create them. Each of these personas are basically a cryptographic keypair, which has a private and a public key, and an identifier. This identifier is also called a digital identity or DID for short.
+   2. User creates separate anonymous [personas](glossary#Persona) for each area of their lives. No need to publicly bind these personas together. These are like separate email addresses for different purposes, it just does not need an email provider to create them. Each of these personas are basically a cryptographic keypair, which has a private and a public key, and an identifier. This identifier is also called a digital identity or DID for short.
    3. These personas will be owned by the user and they need to make sure to have backups of them, like they do with any crypto wallet. (todo) The Mercury home nodes provide an easy way to keep these backups in the user's control.
 
 2. User chooses a 3rd party that is trusted by people and companies to be authoritative, such as a government office, a post office, a utility company or a bank.
