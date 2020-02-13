@@ -2,6 +2,8 @@
 
 ## Witness service (Authority daemon)
 
+<https://github.com/internet-of-people/morpheus-ts/tree/master/packages/authority-service>
+
 A separate binary application to receive witness requests and provide an interface for inspectors to accept or deny requests.
 
 In the future we will use Mercury for publishing this service, but for the MVP we will just implement an HTTP endpoint.
@@ -10,9 +12,13 @@ The service has to validate witness request signatures, thus internally depends 
 
 ### List processes
 
+`GET /processes`
+
 In the MVP we support a fixed set of processes that are hosted on a single server. Convenient creation of new processes and schemas are to be addressed in a later milestone.
 
 ### Get public blob by link
+
+`GET /blob/{contentId}`
 
 The public hashweb of the Authority that serves only public (not confidential, not personally identifiable, e.g. processes and schemas) data for unauthorized clients.
 
@@ -24,9 +30,13 @@ The client sends a link (~typed hash) as a requests and receives the resolved bl
 
 ### Receive a signed witness request from claimants
 
+`POST /requests`
+
 Returns a capability link to poll for status of the request. Since some verification and checks are done before accepting the request into the queue, we need to rate-limit this endpoint.
 
 ### Capability link: Query status of Witness Request
+
+`GET /requests/{capabilityLink}/status`
 
 This endpoint includes some secret in the URI that was generated when the request was accepted for processing.
 
@@ -36,11 +46,15 @@ On the long term the claimant should be directly notified on the decision instea
 
 ### Clerk only: List witness requests
 
+`GET /requests`
+
 Contains hashlinks to the witness requests and some metadata (like when it was requested, assigned clerk, status of the request, etc.)
 
 Can be filtered by metadata, e.g. to find an unassigned request for processing.
 
 ### Clerk only: Get protected blob by link
+
+`GET /private-blob/{contentId}`
 
 The private hashweb of the Authority that serves confidential data (possibly containing personally identifiable data) for authorized clients.
 
@@ -48,13 +62,19 @@ Witness request contents can be downloaded by their hashlink.
 
 ### Clerk only: Assign witness request(s)
 
+`descoped from MVP`
+
 Any clerk can set the assignee of a request to anything when the request is in pending state. Can self-assign, assign it to someone else or just remove the assignee. We just left it open to an external workflow, but we do not implement a worflow in this MVP.
 
 ### Assigned clerk only: Approve witness request
 
+`POST /requests/{capabilityLink}/approve`
+
 Uploads a signed statement by the clerk.
 
 ### Assigned clerk only: Deny witness request
+
+`POST /requests/{capabilityLink}/reject`
 
 Uploads a reasoning why the request was denied.
 

@@ -408,7 +408,7 @@ The complete testimony to be signed, containing the claim, the constraints and a
     "subject": "DID",
     "content": { "yearsOld": { "nonce": "uBIG_BASE64", "value": 21 } }
   },
-  "process": "cjuLINK_TO_PROCESS",
+  "processId": "cjuLINK_TO_PROCESS",
   "constraints": {
     "after": "ISO8601-datetime",
     "before": "ISO8601-datetime",
@@ -433,7 +433,7 @@ Statements can be either the actual witness statement or just the [Content ID](#
 # Example
 {
   "signature": {
-    "public_key": "pezBLAH",
+    "publicKey": "pezBLAH",
     "bytes": "sezFOO",
   },
   "content": { ... see Witness Statement|content ID ... }
@@ -463,7 +463,7 @@ A collection of claims provided for validation for a verifier.
         "publicKey": "pezBLAH",
         "bytes": "sezFOO",
       },
-      "statement": { ... see Witness Statement|content ID }
+      "content": { ... see Witness Statement|content ID }
     }, ...]
   }, ...],
   "licenses": [{
