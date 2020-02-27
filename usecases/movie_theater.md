@@ -1,4 +1,4 @@
-# Use Case 3: Non-Personalized Tickets
+# Non-Personalized Tickets Usecase
 
 ## Scenario
 

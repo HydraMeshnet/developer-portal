@@ -1,4 +1,4 @@
-# Use Case 4: Personalized Tickets
+# Personalized Tickets Usecase
 
 
 This is an extension of Use Case No. 3, specializing on **non-transferable** tickets, e.g. buying and using a public transportation pass. 

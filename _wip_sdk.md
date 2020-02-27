@@ -1,4 +1,6 @@
-# KYC use-case
+# SDK
+
+WIP
 
 ## Witness service (Authority daemon)
 

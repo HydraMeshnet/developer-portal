@@ -1,8 +1,10 @@
-# Introduction to Morpheus
+# Introduction
 
 Even we were quite surprised when we realized how complex it is to not make any shortcuts and build a gatekeeper-free open system for managing identities. Let us introduce you with the broad picture through a use-case: Creating digital ID cards based on the state-provided plastic card and getting its content witnessed by a 3rd party authority.
 
-## The KYC use-case
+## Table of Contents
+
+## The Swimming Pool Usecase
 
 In short, the user digitalizes their ID card, which gets verified by an authority that is trusted by some service providers. The user can then use this verified claim to open an account at a service provider revealing only required fields excluding unnecessary personally identifiable data.
 
@@ -43,6 +45,8 @@ In details, the following are the steps to achieve all this above:
    1. The cashier uses inspector software integrated to the POS to resolve the contents of the presentation and verify its validity. The discount is automatically applied or an error message is shown if the signature or the residence is not matching the requirements.
 
 ## Applications and Services
+
+WIP
 
 - User application
 - Authority service
