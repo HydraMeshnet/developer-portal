@@ -8,6 +8,7 @@ This page gives you a detailed overview of Morpheus's architecture, API and SDK.
   - [Layer-1](#Layer-1)
     - [Operations & Signed Operations](#Operations-and-Signed-Operations)
     - [Operation Types](#Operation-Types)
+      - [Register Before Proof](#Register-Before-Proof)
       - [Add Key](#Add-Key)
       - [Revoke Key](#Revoke-Key)
       - [Add Right](#Add-Right)
@@ -89,20 +90,6 @@ Operation attempts are sent in a transaction. One transaction may contain many a
 
 Some operations do not need authentication, so they can be included in the transaction as a top-level item.
 
-<details>
-<summary>
-Example of a Register Before Proof operation (Click here to expand)
-</summary>
-
-```json
-{
-    "operation": "registerBeforeProof",
-    "contentId": "cqzSomething"
-},
-```
-</details>
-
-
 Some operations do need authentication, so they need to be wrapped in a signed operation. Each signed operation contains operations done in the name of a single key.
 
 
@@ -135,6 +122,15 @@ Example of a signed operation (Click here to expand)
 
 #### Operation Types
 
+##### Register Before Proof
+
+```json
+{
+    "operation": "registerBeforeProof",
+    "contentId": "cjumTq1s6Tn6xkXolxHj4LmAo7DAb"
+},
+```
+
 ##### Add Key
 
 Notes:
@@ -143,10 +139,17 @@ Notes:
 
 ```json
 {
-    "operation": "addKey",
-    "did": "did:morpheus:ezSomething",
-    "auth": "IezSomethingElse",
-    "expiresAtHeight": 4251, 
+  "operation": "signed",
+  "signables": [
+    {
+      "operation": "addKey",
+      "did": "did:morpheus:ezSomething",
+      "auth": "IezSomethingElse",
+      "expiresAtHeight": 4251,
+    }
+  ],
+  "signerPublicKey": "PezSomething",
+  "signature": "SezSomething"
 }
 ```
 
@@ -154,9 +157,16 @@ Notes:
 
 ```json
 {
-    "operation": "revokeKey",
-    "did": "did:morpheus:ezSomething",
-    "auth": "IezSomethingElse"
+  "operation": "signed",
+  "signables": [
+    {
+      "operation": "revokeKey",
+      "did": "did:morpheus:ezSomething",
+      "auth": "IezSomethingElse"
+    }
+  ],
+  "signerPublicKey": "PezSomething",
+  "signature": "SezSomething"
 }
 ```
 
@@ -166,10 +176,17 @@ For now only update or impersonate is supported, but custom rights will soon be 
 
 ```json
 {
-    "operation": "addRight",
-    "did": "did:morpheus:ezSomething",
-    "auth": "IezSomethingElse",
-    "right": "update"
+  "operation": "signed",
+  "signables": [
+    {
+      "operation": "addRight",
+      "did": "did:morpheus:ezSomething",
+      "auth": "IezSomethingElse",
+      "right": "update"
+    }
+  ],
+  "signerPublicKey": "PezSomething",
+  "signature": "SezSomething"
 }
 ```
 
@@ -177,10 +194,17 @@ For now only update or impersonate is supported, but custom rights will soon be 
 
 ```json
 {
-    "operation": "revokeRight",
-    "did": "did:morpheus:ezSomething",
-    "auth": "IezSomethingElse",
-    "right": "update"
+  "operation": "signed",
+  "signables": [
+    {
+      "operation": "revokeRight",
+      "did": "did:morpheus:ezSomething",
+      "auth": "IezSomethingElse",
+      "right": "update"
+    }
+  ],
+  "signerPublicKey": "PezSomething",
+  "signature": "SezSomething"
 }
 ```
 
@@ -190,8 +214,15 @@ For now only update or impersonate is supported, but custom rights will soon be 
 
 ```json
 {
-  "operation": "tombstoneDid",
-  "did": "did:morpheus:ezSomething"
+  "operation": "signed",
+  "signables": [
+    {
+      "operation": "tombstoneDid",
+      "did": "did:morpheus:ezSomething"
+    }
+  ],
+  "signerPublicKey": "PezSomething",
+  "signature": "SezSomething"
 }
 ```
 
