@@ -4,6 +4,9 @@ This page gives you a detailed overview of Morpheus's architecture, API and SDK.
 
 ## Table of Contents
 
+- [Prerequisites](#Prerequisites)
+  - [Local Development](#Local-Development)
+  - [Connecting to Real Networks](#Connecting-to-Real-Networks)
 - [State Management](#State-Management)
   - [Layer-1](#Layer-1)
     - [Operations & Signed Operations](#Operations-and-Signed-Operations)
@@ -27,6 +30,56 @@ This page gives you a detailed overview of Morpheus's architecture, API and SDK.
   - [Example Codes](#Example-Codes)
 
 Morpheus is a Hydra plugin. All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
+
+## Prerequisites
+
+In order to try out Morpheus, you have to connect to a Hydra blockchain. You can do that locally or using our infrastructure.
+
+### Local Development
+
+To be able to develop locally, you'll need a testnet running on your PC. To do that, you need [Docker](https://www.docker.com/) and [Docker Compose](#https://docs.docker.com/compose/).
+
+Steps to start a local testnet:
+1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core)
+1. Go to the testnet directory: 
+   ```bash
+   cd docker/production/testnet
+   ```
+1. Unpack the basic configuration:
+  ```bash
+  tar -xvf mountpoints.tar.gz
+  ```
+1. Start Hydra Core:
+  ```bash
+  NETWORK=testnet MODE=genesis FORGING_MODE=auto_forge docker-compose up -d core
+  ```
+  This will fire up your node and a database for it.
+1. Confirm that container are up:
+  ```bash
+  ...
+  $ Creating postgres-hydra ... done
+  $ Creating hydra-core     ... done
+  ...
+  ```
+1. Confirm node is running and Morpheus API is ready:
+  ```bash
+  $ tail -f mountpoints/logs/testnet/hydra-core-current.log
+  $ ...
+  $ [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
+  $ ...
+  $ [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
+  $ [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
+  $ [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
+  $ ...
+  ```
+
+Then, you can run your code against your local node.
+
+### Connecting to Real Networks
+
+You can either choose our [testnet](hydra_network.md?id=networks) or [devnet](hydra_network.md?id=networks) to work with. Note, that our testnet is not always up and might be reset regurarly.
+
+Currently, we provide our SDK in Typescript only, and you can read about it [here](#SDK), how can you use it.
 
 ## State Management
 

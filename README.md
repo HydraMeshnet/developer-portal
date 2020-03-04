@@ -10,23 +10,26 @@ Find out more about our design philosophy and the [IoP](https://iop.global/) sta
 We suggest to delve into the ideas presented in these documents in this order:
 
 - [Reading Guide](#Reading-Guide)
-  - [Hydra Blockchain & DIDs on Chain](#1.-Hydra-Blockchain-&-DIDs-on-Chain)
+  - [Hydra Blockchain & DIDs on Chain](#Hydra-Blockchain-and-DIDs-on-Chain)
       - [Morpheus Explained](#Morpheus-Explained)
-      - [Interested in Using Morpheus?](#Interested-in-Using-Morpheus?)
-  - [Prometheus Applications & Claim Management](#2.-Prometheus-Applications-&-Claim-Management)
+      - [Developing-on-Morpheus](#Developing-on-Morpheus)
+  - [Prometheus Applications & Claim Management](#Prometheus-Applications-and-Claim-Management)
       - [The Swimming Pool KYC Usecase](#The-Swimming-Pool-KYC-Usecase)
       - [Other Usecases](#Other-Usecases)
 - [External Materials](#External-Materials)
 
 ## Reading Guide
 
-We divided this document into two main - but 100% related - parts. Be prepared that we love to alias everything with greek gods' names.
+We divided this document into two main - but 100% related - parts (be prepared that we love to alias everything with greek gods' names):
+
+1. Hydra Blockchain
+2. Prometheus Applications
 
 If you don't understand a word, a phrase or you don't know which greek god is which, please consult the [glossary](glossary.md).
 
-### 1. Hydra Blockchain & DIDs on Chain
+### Hydra Blockchain and DIDs on Chain
 
-Hydra is a dPos blockchain based on [ARK](https://github.com/ArkEcosystem/core), extended with Morpheus, a layer-2 consensus.
+Hydra is a dPos blockchain, extended with Morpheus, a layer-2 consensus.
 Morpheus provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store and handle DIDs, rights and schemas on chain.
 
 You can read more about the Hydra network and its parameters [here](hydra_network.md).
@@ -41,7 +44,7 @@ Using a blockchain as its base, Morpheus will always know which DIDs had which r
 
 It's important to note, that Morpheus and Hydra will NOT store any private data, hence its fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
 
-#### Interested in Using Morpheus?
+#### Developing on Morpheus
 
 > As of the time of writing this document, Morpheus is available at IoP's testnet and devnet. It will soon be released to mainnet as well, be prepared.
 
@@ -49,7 +52,7 @@ If you'd like to use Morpheus, you can do it right now, you only need some Hydra
 
 Read more about [here](morpheus.md) how can you access the Morpheus API and its SDK.
 
-### 2. Prometheus Applications & Claim Management
+### Prometheus Applications and Claim Management
 
 Prometheus is a kind of umbrella word for applications, which are use Morpheus in any way. To be more specific, these applications are not just using Morpheus, but they use Morpheus and its rights management capability for various usecases where you'd like to handle your private data securely.
 
