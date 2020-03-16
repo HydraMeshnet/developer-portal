@@ -1,5 +1,9 @@
 # Hydra Network
 
+## Important Note
+
+As of today (16th March 2020), the newest, 2.6.10 Hydra is only available on devnet. We will announce mainnet release date as soon as possible.
+
 ## Networks
 
 The [Hydra blockchain](https://github.com/Internet-of-People/hydra-core) has three networks available.

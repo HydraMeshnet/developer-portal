@@ -2,6 +2,13 @@
 
 > NOTE: This a WIP document.
 
+## Table of Contents
+
+- [Prerequisites](#Prerequisites)
+  
+
+## Scenario
+
 ## Usecases
 
 ### The Swimming Pool KYC Usecase

@@ -1,6 +1,6 @@
 - [Home](README.md)
 - [Hydra Network](hydra_network.md)
-- [Morpheus API & SDK](morpheus.md)
-- [Prometheus Apps & Architecture](prometheus.md)
+- [DAC API & SDK](morpheus.md)
+- [Prometheus Apps API & Architecture](prometheus.md)
 - [Glossary](glossary.md)
 - [Principles](principles.md)

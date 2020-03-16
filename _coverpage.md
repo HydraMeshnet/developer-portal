@@ -1,8 +1,8 @@
-![logo](assets/morpheus_logo.png)
+![logo](assets/iop_logo.png)
 
-# Morpheus
+# Internet of People Solutions
 
-> Documentation of a DIDs on chain implementation that gives people power over their identity
+> Documentation of our Decentralized Access Control Framework (project Morpheus) and TBD! that gives people power over their identity.
 
 [GitLab](https://gitlab.iop-ventures.com/iop-stack/dids-and-claims/specification)
 [Getting Started](#Decentralized-Identities)

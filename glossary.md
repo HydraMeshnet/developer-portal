@@ -272,15 +272,112 @@ Any entity can be a witness. However, the requirements to trust a witness are to
 A company, state government or any other certificate provider entity that is trusted by many to be a reliable [witness](#witness). Also, an authority might delegate signing claims to any number of witnesses who act on behalf of the authority in certain respects.
 For example, a bank or university can delegate appropriate rights to its clerks or employees. Delegations may be granted or revoked over time.
 
+You can read more about it in the [Prometheus SDK](prometheus.md).
+
+## Scenario
+
+A set of requirements that if provided, the provider (usually a layman) will receive the promised result.
+For example if we take the [swimming pool use case](usecases/swimming_pool.md) a scenario would look like this:
+
+```json
+{
+  "name": "Swimming discount",
+  "version": 1,
+  "description": "Reduced prices based on your resident address",
+  "prerequisites": [
+    {
+      "process": {
+        "name": "Digitalize ID card",
+        "version": 1,
+        "description": "Using a selfie with your ID card we make that piece of plastic obsolete.",
+        "claimSchema": {
+          "type": "object",
+          "required": [ "address", "placeOfBirth", "dateOfBirth" ],
+          "description": "We need you to provide some personal data presented on your ID card.",
+          "properties": {
+            "address": {
+              "type": "string",
+              "maskable": true,
+              "description": "Eg. Berlin, Germany"
+            },
+            "placeOfBirth": {
+              "type": "object",
+              "required": [ "country", "city" ],
+              "maskable": true,
+              "properties": {
+                "country": {
+                  "type": "string",
+                  "maskable": true,
+                  "description": "Eg. Germany"
+                },
+                "city": {
+                  "type": "string",
+                  "maskable": true,
+                  "description": "Eg. Berlin",
+                  "minLength": 2,
+                  "maxLength": 50
+                }
+              }
+            },
+            "dateOfBirth": {
+              "type": "string",
+              "subtype": "date",
+              "pattern": "^(0[1-9]|1[0-9]|2[0-9]|3[0-1])\\\/(0[1-9]|1[0-2])\\\/(\\d{4})$",
+              "maskable": true
+            }
+          }
+        },
+        "evidenceSchema": {
+          "type": "object",
+          "required": ["photo"],
+          "description": "We need a selfie of you while holding your ID card that contains your address, place of birth, date of birth and your photo.",
+          "properties": {
+            "photo": {
+              "type": "string",
+              "subtype": "photo",
+              "description": "A Base64 encoded photo blob"
+            }
+          }
+        },
+        "constraintsSchema": null
+      },
+      "claimFields": [".address"]
+    }
+  ],
+  "requiredLicenses": [
+    {
+      "issuedTo": "did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr",
+      "purpose": "Inspection by gate-keeper",
+      "expiry": "P5M"
+    }
+  ],
+  "resultSchema": {
+    "type": "object",
+    "required": ["discountPercentage"],
+    "properties": {
+      "discountPercentage": {
+        "type": "number",
+        "enum": [0, 5, 10],
+        "description": "Same district gets 10%, same city 5%, otherwise full price"
+      }
+    }
+  }
+}
+```
+
 ## Inspector
 
-Another company, individual or any service provider entity that wants to verify the validity of a claim, presented by the subject in the form of a statement from a witness that is deemed trustworthy by the inspector. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc.
+Another company, individual or any service provider entity that wants to verify the validity of a claim, presented by the subject in the form of a statement from a witness that is deemed trustworthy by the inspector. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc. Usually inspectors provide a list of [scenarios](#Scenario) with all the details they need.
+
+You can read more about it in the [Prometheus SDK](prometheus.md).
 
 ## Verifier
 
 A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights.
 
 *The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.*
+
+You can read more about it in the [Prometheus SDK](prometheus.md).
 
 ## Content ID
 
@@ -363,6 +460,10 @@ Requests are sent by the **subject** or its delegate (a.k.a the **claimant**) fo
 ```
 
 Note that hte `cju` prefix above is a [Content ID](#content-id) using JSON serialization and Base64 encoded after applying an SHA3-256 digest algorithm.
+
+## Signed Witness Request
+
+TBD
 
 ### Evidence
 

@@ -1,6 +1,7 @@
-# Morpheus
+# DAC - Decentralized Access Control Framework
 
-This page gives you a detailed overview of Morpheus's architecture, API and SDK.
+DAC, or project Morpheus is a Hydra plugin, running as a layer-2 application.
+This page gives you a detailed overview of DAC's architecture, API and SDK.
 
 ## Table of Contents
 
@@ -20,6 +21,9 @@ This page gives you a detailed overview of Morpheus's architecture, API and SDK.
   - [Layer-2](#Layer-2)
 - [API](#API)
    - [Query DID Document](#Query-DID-Document)
+   - [Query DID Document Last Transaction ID](#Query-DID-Document-Last-Transaction-ID)
+   - [Query DID Document Transaction IDs](#Query-DID-Document-Transaction-IDs)
+   - [Query DID Document Transaction Attempts IDs](#Query-DID-Document-Transaction-Attempts-IDs)
    - [Query DID Operations](#Query-DID-Operations)
    - [Query DID Operation Attempts](#Query-DID-Operation-Attempts)
    - [Check Transaction Validity](#Check-Transaction-Validity)
@@ -29,11 +33,11 @@ This page gives you a detailed overview of Morpheus's architecture, API and SDK.
   - [Usage](#Usage)
   - [Example Codes](#Example-Codes)
 
-Morpheus is a Hydra plugin. All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
+DAC is a Hydra plugin. All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
 
 ## Prerequisites
 
-In order to try out Morpheus, you have to connect to a Hydra blockchain. You can do that locally or using our infrastructure.
+In order to try out DAC, you have to connect to a Hydra blockchain. You can do that locally or using our infrastructure.
 
 ### Local Development
 
@@ -61,7 +65,7 @@ Steps to start a local testnet:
   $ Creating hydra-core     ... done
   ...
   ```
-1. Confirm node is running and Morpheus API is ready:
+1. Confirm node is running and DAC API is ready:
   ```bash
   $ tail -f mountpoints/logs/testnet/hydra-core-current.log
   $ ...
@@ -87,11 +91,11 @@ Currently, we provide our SDK in Typescript only, and you can read about it [her
 
 It's called layer-1 as it's stored in the same database, the same way as other Hydra transactions.
 
-We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. There is intentionally no relation between authentication/authorization of Morpheus operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses. 
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. There is intentionally no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses. 
 
 <details>
 <summary>
-An example of a Morpheus transaction (Click here to expand)
+An example of a DAC transaction (Click here to expand)
 </summary>
 
 ```json
@@ -263,7 +267,7 @@ For now only update or impersonate is supported, but custom rights will soon be 
 
 ##### Tombstone DID
 
-**After this nobody can sign updates or impersonate DID.**
+**After this nobody can send updates or impersonate DID.**
 
 ```json
 {
@@ -281,7 +285,8 @@ For now only update or impersonate is supported, but custom rights will soon be 
 
 ### Layer-2
 
-WIP
+Layer-2 as described earlier is a plugin, managing its own state in memory, based on layer-1 consensus. Layer 2 has its own API available, described below.
+Using the layer-2 API you can access its current state or the history of the state at any given time.
 
 ## API
 
@@ -390,6 +395,142 @@ Click here to expand
   "tombstonedAtHeight": null,
   "queriedAtHeight": 49253
 }
+```
+</details>
+
+### Query DID Document Last Transaction ID
+
+Returns the latest transaction's ID which modified the DID document. It can be used for nonce generation.
+If the DID document is not yet updated, it will return 404.
+
+```bash
+GET /did/{did}/transactions/last
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
+
+##### Example
+
+```bash
+curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+{
+  "transactionId": "9dd932b2c1f72bbcfd2159ed2672a9f42b744b2274d4fd49fc1d1c00be9d38a2",
+  "height": 291
+}
+```
+</details>
+
+### Query DID Document Transaction IDs
+
+Returns the transaction's ID which modified the DID document.
+If the DID document is not yet updated, it will return an empty array.
+
+```bash
+GET /did/{did}/transactions/{fromHeight}/{untilHeight?}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
+| fromHeight | number | **Required**. The inclusive block height as the start of the query range. |
+| untilHeight | string | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+
+##### Example
+
+```bash
+curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+[
+  {
+    "transactionId": "c39121e5015f71d8c2528680a9af6487404216ee971177af246d82a11376e456",
+    "height": 254
+  },
+  {
+    "transactionId": "d518ffd356a759889e5f2f223904ecb3dd120a3f51b1f3889f5be82c6eaeaa77",
+    "height": 286
+  },
+  {
+    "transactionId": "9dd932b2c1f72bbcfd2159ed2672a9f42b744b2274d4fd49fc1d1c00be9d38a2",
+    "height": 291
+  }
+]
+```
+</details>
+
+### Query DID Document Transaction Attempts IDs
+
+Returns the transaction's ID which modified the DID document. **Note**: also contains all transactions there were rejected.
+If the DID document is not yet updated, it will return an empty array.
+
+```bash
+GET /did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
+| fromHeight | number | **Required**. The inclusive block height as the start of the query range. |
+| untilHeight | string | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+
+##### Example
+
+```bash
+curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+[
+  {
+    "transactionId": "5a50b3635d06afa6dd87b1ca5013ec4fddedee848c777cccf50f8b6fac78a7d9",
+    "height": 246
+  },
+  {
+    "transactionId": "c39121e5015f71d8c2528680a9af6487404216ee971177af246d82a11376e456",
+    "height": 254
+  },
+  {
+    "transactionId": "d518ffd356a759889e5f2f223904ecb3dd120a3f51b1f3889f5be82c6eaeaa77",
+    "height": 286
+  },
+  {
+    "transactionId": "9dd932b2c1f72bbcfd2159ed2672a9f42b744b2274d4fd49fc1d1c00be9d38a2",
+    "height": 291
+  }
+]
 ```
 </details>
 
@@ -549,7 +690,7 @@ POST /check-transaction-validity
 
 ##### Parameters
 
-The body must contain an array of operations that you're going to include in the Morpheus transaction. See in the example.
+The body must contain an array of operations that you're going to include in the DAC transaction. See in the example.
 
 ##### Example
 
@@ -612,7 +753,7 @@ false
 
 ### Check Transaction Status
 
-Check a Morpheus transaction's status if it was accepted or rejected.
+Check a DAC transaction's status if it was accepted or rejected.
 
 ```bash
 GET /txn-status/{txid}
@@ -622,7 +763,7 @@ GET /txn-status/{txid}
 
 | Name | Type | Description |
 |---|---|---|
-| txId | string | **Required**. The Hydra transaction (containing the Morpheus transaction) ID that you'd like to query. E.g.: `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`
+| txId | string | **Required**. The Hydra transaction (containing the DAC transaction) ID that you'd like to query. E.g.: `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`
 
 ##### Example
 
@@ -644,11 +785,11 @@ true
 
 ## SDK
 
-IoP provides a [Typescript](https://www.typescriptlang.org/) SDK for Morpheus available at <https://www.npmjs.com>.
+IoP provides a [Typescript](https://www.typescriptlang.org/) SDK for DAC available at <https://www.npmjs.com>.
 
 ### Usage
 
-Please read the [README](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/did-manager) for details.
+Please read the [README](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) for details.
 
 ### Example Codes
 
