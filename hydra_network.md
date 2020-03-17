@@ -27,7 +27,7 @@ The [Hydra blockchain](https://github.com/Internet-of-People/hydra-core) has thr
 
 Any 3rd party developers can start their own local testnet for integration testing. Read more about [here](https://github.com/Internet-of-People/hydra-core).
 
-## Infrastructure
+## Mainnet
 
 | name | zone | IP |
 |---|---|---|

@@ -4,39 +4,39 @@ DAC is a layer-2 decentralized consensus, an access control framework.
 DAC provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store and handle decentralized IDs (DIDs), rights and schemas on chain.
 This page gives you a detailed overview of DAC's architecture, API and SDK.
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-- [Prerequisites](#Prerequisites)
-  - [Local Development](#Local-Development)
-  - [Connecting to Real Networks](#Connecting-to-Real-Networks)
-- [State Management](#State-Management)
-  - [Layer-1](#Layer-1)
-    - [Operations & Signed Operations](#Operations-and-Signed-Operations)
-    - [Operation Types](#Operation-Types)
-      - [Register Before Proof](#Register-Before-Proof)
-      - [Add Key](#Add-Key)
-      - [Revoke Key](#Revoke-Key)
-      - [Add Right](#Add-Right)
-      - [Revoke Key](#Revoke-Right)
-      - [Tombstone DID](#Tombstone-DID)
-  - [Layer-2](#Layer-2)
-- [API](#API)
-   - [Query DID Document](#Query-DID-Document)
-   - [Query DID Document Last Transaction ID](#Query-DID-Document-Last-Transaction-ID)
-   - [Query DID Document Transaction IDs](#Query-DID-Document-Transaction-IDs)
-   - [Query DID Document Transaction Attempts IDs](#Query-DID-Document-Transaction-Attempts-IDs)
-   - [Query DID Operations](#Query-DID-Operations)
-   - [Query DID Operation Attempts](#Query-DID-Operation-Attempts)
-   - [Check Transaction Validity](#Check-Transaction-Validity)
-   - [Check If Before Proof Exists](#Check-If-Before-Proof-Exists)
-   - [Check Transaction Status](#Check-Transaction-Status)
-- [SDK](#SDK)
-  - [Usage](#Usage)
-  - [Example Codes](#Example-Codes)
+- [Prerequisites](#prerequisites)
+  - [Local Development](#local-development)
+  - [Connecting to Real Networks](#connecting-to-real-networks)
+- [State Management](#state-management)
+  - [Layer-1](#layer-1)
+    - [Operations and Signed Operations](#operations-and-signed-operations)
+    - [Register Before Proof](#register-before-proof)
+    - [Add Key](#add-key)
+    - [Revoke Key](#revoke-key)
+    - [Add Right](#add-right)
+    - [Revoke Right](#revoke-right)
+    - [Tombstone DID](#tombstone-did)
+  - [Layer-2](#layer-2)
+    - [Query DID Document](#query-did-document)
+    - [Query DID Document Last Transaction ID](#query-did-document-last-transaction-id)
+    - [Query DID Document Transaction IDs](#query-did-document-transaction-ids)
+    - [Query DID Document Transaction Attempts IDs](#query-did-document-transaction-attempts-ids)
+    - [Query DID Operations](#query-did-operations)
+    - [Query DID Operation Attempts](#query-did-operation-attempts)
+    - [Check Transaction Validity](#check-transaction-validity)
+    - [Check If Before Proof Exists](#check-if-before-proof-exists)
+    - [Query Before Proof History](#query-before-proof-history)
+    - [Check Transaction Status](#check-transaction-status)
+- [SDK](#sdk)
+  - [Usage](#usage)
+  - [Example Codes](#example-codes)
 
 DAC is a Hydra plugin. All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
 
 Read more about custom transactions and its use cases and technical details:
+
 - <https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae>
 - <https://blog.ark.io/ark-core-gti-introduction-to-generic-transaction-interface-57633346c249>
 - <https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md>
@@ -47,47 +47,58 @@ In order to try out DAC, you have to connect to a Hydra blockchain. You can do t
 
 ### Local Development
 
-To be able to develop locally, you'll need a testnet running on your PC. To do that, you need [Docker](https://www.docker.com/) and [Docker Compose](#https://docs.docker.com/compose/).
+To be able to develop locally, you'll need a testnet running on your PC. To do that, you need [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
 
 Steps to start a local testnet:
+
 1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core)
-1. Go to the testnet directory: 
-   ```bash
-   cd docker/production/testnet
-   ```
+1. Go to the testnet directory:
+
+  ```bash
+  cd docker/production/testnet
+  ```
+
 1. Unpack the basic configuration:
+
   ```bash
   tar -xvf mountpoints.tar.gz
   ```
+
 1. Start Hydra Core:
+
   ```bash
   NETWORK=testnet MODE=genesis FORGING_MODE=auto_forge docker-compose up -d core
   ```
+
   This will fire up your node and a database for it.
+
 1. Confirm that container are up:
-  ```bash
+
+  ```plain
   ...
-  $ Creating postgres-hydra ... done
-  $ Creating hydra-core     ... done
+  Creating postgres-hydra ... done
+  Creating hydra-core     ... done
   ...
   ```
+
 1. Confirm node is running and DAC API is ready:
+
   ```bash
   $ tail -f mountpoints/logs/testnet/hydra-core-current.log
-  $ ...
-  $ [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
-  $ ...
-  $ [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
-  $ [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
-  $ [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
-  $ ...
+  ...
+  [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
+  ...
+  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
+  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
+  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
+  ...
   ```
 
 Then, you can run your code against your local node.
 
 ### Connecting to Real Networks
 
-You can either choose our [testnet](hydra_network.md?id=networks) or [devnet](hydra_network.md?id=networks) to work with. Note, that our testnet is not always up and might be reset regurarly.
+You can either choose our [testnet](hydra_network#testnet) or [devnet](hydra_network#devnet) to work with. Note, that our testnet is not always up and might be reset regurarly.
 
 Currently, we provide our SDK in Typescript only, and you can read about it [here](#SDK), how can you use it.
 
@@ -95,9 +106,9 @@ Currently, we provide our SDK in Typescript only, and you can read about it [her
 
 ### Layer-1
 
-It's called layer-1 as it's stored in the same database, the same way as other Hydra transactions.
+It's called layer-1 as it's stored in the same database, the same way as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
 
-We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. There is intentionally no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses. 
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. To improve privacy and flexibility, there is intentionally no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
 
 <details>
 <summary>
@@ -144,17 +155,20 @@ An example of a DAC transaction (Click here to expand)
   "id": "6908c93e24fc6cd7befc98023b042ae6bbb4db61a4444ec4dd548c079e5f310f"
 }
 ```
+
 </details>
 
 #### Operations and Signed Operations
 
-Operation attempts are sent in a transaction. One transaction may contain many attempts. The transaction will be forged into a valid block if it was properly paid (layer 1 block consensus). If any of the operation attempts in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, these are recorded on the DIDs and can be retrieved as operations.
-**All blockchain nodes will conclude the same way whether an operation attempt is valid or not (layer 2 DID state consensus).**
+Operation *attempts* are sent in a *transaction*. One transaction may contain many attempts. The transaction will be forged into a valid block if it was properly paid (layer-1 block consensus). If any of the operation attempts in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, all of them make an atomic change in the layer-2 state on all the DIDs and before-proofs and later can be retrieved as *operations*.
+
+**All blockchain nodes will conclude the same way whether an operation attempt is valid or not (layer-2 DID state consensus).**
 
 Some operations do not need authentication, so they can be included in the transaction as a top-level item.
 
 Some operations do need authentication, so they need to be wrapped in a signed operation. Each signed operation contains operations done in the name of a single key.
 
+A single transaction can include multiple signed operations authenticated by different keys.
 
 <details>
 <summary>
@@ -181,11 +195,12 @@ Example of a signed operation (Click here to expand)
     "signature": "SezSomething"
 }
 ```
+
 </details>
 
-#### Operation Types
+The following operations can be put into the layer-1 custom transaction.
 
-##### Register Before Proof
+#### Register Before Proof
 
 ```json
 {
@@ -194,10 +209,11 @@ Example of a signed operation (Click here to expand)
 },
 ```
 
-##### Add Key
+#### Add Key
 
 Notes:
-- auth is a multiCipher public key or key identifier.
+
+- `auth` is a multiCipher public key or key identifier.
 - `expiresAtHeight` is optional auto-revokation at given height
 
 ```json
@@ -216,7 +232,7 @@ Notes:
 }
 ```
 
-##### Revoke Key
+#### Revoke Key
 
 ```json
 {
@@ -233,7 +249,7 @@ Notes:
 }
 ```
 
-##### Add Right
+#### Add Right
 
 For now only update or impersonate is supported, but custom rights will soon be supported as well.
 
@@ -253,7 +269,7 @@ For now only update or impersonate is supported, but custom rights will soon be 
 }
 ```
 
-##### Revoke Key
+#### Revoke Right
 
 ```json
 {
@@ -271,7 +287,7 @@ For now only update or impersonate is supported, but custom rights will soon be 
 }
 ```
 
-##### Tombstone DID
+#### Tombstone DID
 
 **After this nobody can send updates or impersonate DID.**
 
@@ -291,17 +307,15 @@ For now only update or impersonate is supported, but custom rights will soon be 
 
 ### Layer-2
 
-Layer-2 as described earlier is a plugin, managing its own state in memory, based on layer-1 consensus. Layer 2 has its own API available, described below.
-Using the layer-2 API you can access its current state or the history of the state at any given time.
+Layer-2 as described earlier is a plugin, managing its own state in memory, based on layer-1 consensus. Layer-2 has its own API available, described below.
+Using the layer-2 API you can access its current state or the history of the state at any given time, but changing that state can only be done through sending in transactions to layer-1.
 
-## API
-
-### Query DID Document
+#### Query DID Document
 
 Returns the DID document (the implicit one if there were no operations yet on this DID)
 
-```bash
-GET /did/{did}/document/{blockHeight?}
+```http
+GET /morpheus/v1/did/{did}/document/{blockHeight?}
 ```
 
 ##### Parameters
@@ -314,7 +328,7 @@ GET /did/{did}/document/{blockHeight?}
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document
+curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document
 ```
 
 ##### Response
@@ -402,15 +416,16 @@ Click here to expand
   "queriedAtHeight": 49253
 }
 ```
+
 </details>
 
-### Query DID Document Last Transaction ID
+#### Query DID Document Last Transaction ID
 
 Returns the latest transaction's ID which modified the DID document. It can be used for nonce generation.
 If the DID document is not yet updated, it will return 404.
 
-```bash
-GET /did/{did}/transactions/last
+```http
+GET /morpheus/v1/did/{did}/transactions/last
 ```
 
 ##### Parameters
@@ -422,7 +437,7 @@ GET /did/{did}/transactions/last
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
+curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
 ```
 
 ##### Response
@@ -438,15 +453,16 @@ Click here to expand
   "height": 291
 }
 ```
+
 </details>
 
-### Query DID Document Transaction IDs
+#### Query DID Document Transaction IDs
 
 Returns the transaction's ID which modified the DID document.
 If the DID document is not yet updated, it will return an empty array.
 
-```bash
-GET /did/{did}/transactions/{fromHeight}/{untilHeight?}
+```http
+GET /morpheus/v1/did/{did}/transactions/{fromHeight}/{untilHeight?}
 ```
 
 ##### Parameters
@@ -460,7 +476,7 @@ GET /did/{did}/transactions/{fromHeight}/{untilHeight?}
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
+curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
 ```
 
 ##### Response
@@ -486,15 +502,16 @@ Click here to expand
   }
 ]
 ```
+
 </details>
 
-### Query DID Document Transaction Attempts IDs
+#### Query DID Document Transaction Attempts IDs
 
 Returns the transaction's ID which modified the DID document. **Note**: also contains all transactions there were rejected.
 If the DID document is not yet updated, it will return an empty array.
 
-```bash
-GET /did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
+```http
+GET /morpheus/v1/did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 ```
 
 ##### Parameters
@@ -508,7 +525,7 @@ GET /did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
+curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
 ```
 
 ##### Response
@@ -538,14 +555,15 @@ Click here to expand
   }
 ]
 ```
+
 </details>
 
-### Query DID Operations
+#### Query DID Operations
 
 Returns all operations that affected the given DID. Does NOT contain rejected operations.
 
-```bash
-GET /did/{did}/operations/{from}/{until?}
+```http
+GET /morpheus/v1/did/{did}/operations/{from}/{until?}
 ```
 
 ##### Parameters
@@ -559,7 +577,7 @@ GET /did/{did}/operations/{from}/{until?}
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operations/0
+curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operations/0
 ```
 
 ##### Response
@@ -605,14 +623,15 @@ Click here to expand
   }
 ]
 ```
+
 </details>
 
-### Query DID Operation Attempts
+#### Query DID Operation Attempts
 
 Returns all operations that affected the given DID. Contains both accepted and rejected operations.
 
-```bash
-GET /did/{did}/operation-attempts/{from}/{until?}
+```http
+GET /morpheus/v1/did/{did}/operation-attempts/{from}/{until?}
 ```
 
 ##### Parameters
@@ -626,7 +645,7 @@ GET /did/{did}/operation-attempts/{from}/{until?}
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operation-attempts/0
+curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operation-attempts/0
 ```
 
 ##### Response
@@ -682,16 +701,17 @@ Click here to expand
    }
 ]
 ```
+
 </details>
 
-### Check Transaction Validity
+#### Check Transaction Validity
 
-Using this endpoint you can validate your transaction to avoid being rejected and spending Hydras for basically nothing. Returns an array of errors. 
+Also known as "dry run". Using this endpoint you can validate your transaction to avoid being rejected and spending Hydras for basically nothing. Returns an array of errors.
 
 If the transaction is valid, it will return an empty array.
 
-```bash
-POST /check-transaction-validity
+```http
+POST /morpheus/v1/check-transaction-validity
 ```
 
 ##### Parameters
@@ -701,7 +721,7 @@ The body must contain an array of operations that you're going to include in the
 ##### Example
 
 ```bash
-curl -d '[{"operation": "registerBeforeProof", "contentId": "test"}]' -H "Content-Type: application/json" -X POST http://test.hydra.iop.global:4703/check-transaction-validity
+curl -d '[{"operation": "registerBeforeProof", "contentId": "test"}]' -H "Content-Type: application/json" -X POST http://test.hydra.iop.global:4703/morpheus/v1/check-transaction-validity
 ```
 
 ##### Response
@@ -714,6 +734,7 @@ Click here to expand
 ```json
 []
 ```
+
 </details>
 
 Error object's structure:
@@ -723,26 +744,25 @@ Error object's structure:
 | invalidOperationAttempt | object | The operation that was rejected. |
 | message | string | The rejection reason. |
 
+#### Check If Before Proof Exists
 
-### Check If Before Proof Exists
+Checks if a content was registered to exist before a given height.
 
-Checks if a contentId exists at the given height.
-
-```bash
-GET /before-proof/{contentId}/exists/{blockHeight?}
+```http
+GET /morpheus/v1/before-proof/{contentId}/exists/{blockHeight?}
 ```
 
 ##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
-| contentId | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
+| contentId | string | **Required**. The digest of the content that might be proven to exist before a logical time. E.g.: `cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho` |
 | blockHeight | number | Optional. The block height where you'd like to check the existence of the before proof. In a case of not providing it, the current height will be used. |
 
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/before-proof/dqcUBqT8K7R/exists
+curl http://test.hydra.iop.global:4703/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/exists
 ```
 
 ##### Response
@@ -755,14 +775,62 @@ Click here to expand
 ```json
 false
 ```
+
 </details>
 
-### Check Transaction Status
+#### Query Before Proof History
+
+Retrieves on which height a contentId was registered.
+
+```http
+GET /morpheus/v1/before-proof/{contentId}/history
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| contentId | string | **Required**. The digest of the content that is proven to exist before a logical time |
+
+##### Example
+
+```bash
+curl http://test.hydra.iop.global:4703/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/history
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+{
+  "contentId": "cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho",
+  "existsFromHeight": 42,
+  "queriedAtHeight": 69
+}
+```
+
+or if it was not registered yet:
+
+```json
+{
+  "contentId": "cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho",
+  "existsFromHeight": null,
+  "queriedAtHeight": 69
+}
+```
+
+</details>
+
+#### Check Transaction Status
 
 Check a DAC transaction's status if it was accepted or rejected.
 
-```bash
-GET /txn-status/{txid}
+```http
+GET /morpheus/v1/txn-status/{txid}
 ```
 
 ##### Parameters
@@ -774,7 +842,7 @@ GET /txn-status/{txid}
 ##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/txn-status/8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561
+curl http://test.hydra.iop.global:4703/morpheus/v1/txn-status/8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561
 ```
 
 ##### Response
@@ -787,6 +855,7 @@ Click here to expand
 ```json
 true
 ```
+
 </details>
 
 ## SDK

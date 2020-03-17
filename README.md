@@ -7,15 +7,15 @@ Find out more about our design philosophy and the [IoP](https://iop.global/) sta
 
 This document describes the current status of the toolset available for businesses and developers.
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
 We suggest to delve into the ideas presented in these documents in this order:
 
-- [Reading Guide](#Reading-Guide)
-  - [Hydra Blockchain & IoP DAC](#Hydra-Blockchain-and-IoP-DAC)
-      - [DAC Explained](#DAC-Explained)
-      - [Developing-on-DAC](#Developing-on-DAC)
-  - [IoP Fort Applications & Claim Management](#IoP-Fort-Applications-and-Claim-Management)
+- [Reading Guide](#reading-guide)
+  - [Hydra Blockchain and IoP DAC (Decentralized Access Control Framework)](#hydra-blockchain-and-iop-dac-decentralized-access-control-framework)
+    - [DAC Explained](#dac-explained)
+    - [Developing on DAC](#developing-on-dac)
+  - [IoP Fort Applications and Claim Management](#iop-fort-applications-and-claim-management)
 
 ## Reading Guide
 
@@ -33,7 +33,7 @@ DAC provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store
 
 You can read more about the Hydra network and its parameters [here](hydra_network.md).
 
-##### DAC Explained
+#### DAC Explained
 
 IoP DAC (or project Morpheus) is a Hydra plugin, running as a layer-2 application. Layer-2 means that everytime the node restarts/rewinds, its state will always be recreated from the layer-1 (the blockchain itself) data, hence data corruption is not possible and the is still based on the layer-1 consensus.
 
@@ -43,7 +43,7 @@ Using a blockchain as its base, DAC will always know which DIDs had which rights
 
 It's important to note, that DAC and Hydra will NOT store any private data, hence its fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
 
-##### Developing on DAC
+#### Developing on DAC
 
 > As of the time of writing this document, DAC is available at IoP's testnet and devnet. It will soon be released to mainnet as well, be prepared.
 
@@ -53,4 +53,4 @@ Read more about [here](morpheus.md) how can you access the DAC's API and its SDK
 
 ### IoP Fort Applications and Claim Management
 
-IoP Fort (or project Prometheus) is an umbrella project for applications, which are use DAC in any way. To be more specific, these applications are not just using DAC, but they use DAC and its rights management capability for various usecases where you'd like to handle your private data securely. Please read more about IoP Fort and its architecture [here](prometheus.md).
+IoP Fort (or project Prometheus) is an umbrella project for applications, which use [DAC](#dac-explained) in any way. To be more specific, these applications are not just using DAC, but they use DAC and its rights management capability for various use cases where you'd like to handle your private data securely. Please read more about IoP Fort and its architecture [here](prometheus.md).
