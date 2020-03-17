@@ -76,7 +76,6 @@ The DID document is publicly available data and does NOT contain any personal in
 {
   "did": "did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr",
   "queriedAtHeight": 51063,
-  "lastModifiedAtHeight": 126, // TODO
   "keys": [
     {
       "index": 0,
@@ -224,7 +223,6 @@ To make these cases simpler and cheaper, we do not always require registering a 
 {
   "did": "did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr",
   "queriedAtHeight": 51063,
-  "lastModifiedAtHeight": 0, // TODO
   "keys": [
     {
       "index": 0,
@@ -276,7 +274,10 @@ You can read more about it in the [Prometheus SDK](prometheus.md).
 
 ## Scenario
 
-A set of requirements that if provided, the provider (usually a layman) will receive the promised result.
+An inspection scenario describes a set of concatenated claims needed in a single presentation that are required to calculate a derived property of a DID and make an informed decision based on its value. Each claim must conform to a specified process, therefore a list of processes clearly defines the list of required claims.
+
+An inspection might contain multiple scenarios, but the inspector must be able to calculate the same derived property for each scenario of the inspection.
+
 For example if we take the [swimming pool use case](usecases/swimming_pool.md) a scenario would look like this:
 
 ```json
@@ -453,7 +454,7 @@ Requests are sent by the **subject** or its delegate (a.k.a the **claimant**) fo
     "content": { "ageOver": { "nonce": "zBASE58", "value": 42 } }
   },
   "claimant": "keyLink": "did:morpheus:ezCLAIMANT#5",
-  "process": "cjuPROCESS",
+  "processId": "cjuPROCESS",
   "evidence": { "idCardScan": "uSCAN_BASE64" },
   "nonce": "uBIG_BASE64",
 }
@@ -463,7 +464,27 @@ Note that hte `cju` prefix above is a [Content ID](#content-id) using JSON seria
 
 ## Signed Witness Request
 
-TBD
+A [witness request](#Witness-Request) signed by the **subject** or its delegate (a.k.a the **claimant**). This will be sent to an [Authority](#authority).
+
+```json
+# Example
+{
+  "signature": {
+    "publicKey": "pezBLAH",
+    "bytes": "sezFOO",
+  },
+  "content": {
+    "processId": "cjuPROCESS",
+    "claimant": "did:morpheus:ezCLAIMANT#0",
+    "claim": {
+      "subject": "did:morpheus:ezFoo",
+      "content": { "ageOver": { "nonce": "zBASE58", "value": 42 } }
+    },
+    "evidence": { "idCardScan": "uSCAN_BASE64" },
+    "nonce": "uBIG_BASE64"
+  }
+}
+```
 
 ### Evidence
 

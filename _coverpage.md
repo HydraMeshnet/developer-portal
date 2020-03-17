@@ -2,7 +2,9 @@
 
 # Internet of People Solutions
 
-> Documentation of our Decentralized Access Control Framework (project Morpheus) and TBD! that gives people power over their identity.
+> Decentralized Access Control Framework and Data Privacy Applications that gives people power over their identity.
+
+> Welcome to IoP DAC and IoP Fort Documentation.
 
 [GitLab](https://gitlab.iop-ventures.com/iop-stack/dids-and-claims/specification)
 [Getting Started](#Decentralized-Identities)

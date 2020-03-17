@@ -1,6 +1,7 @@
 # DAC - Decentralized Access Control Framework
 
-DAC, or project Morpheus is a Hydra plugin, running as a layer-2 application.
+DAC is a layer-2 decentralized consensus, an access control framework.
+DAC provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store and handle decentralized IDs (DIDs), rights and schemas on chain.
 This page gives you a detailed overview of DAC's architecture, API and SDK.
 
 ## Table of Contents
@@ -34,6 +35,11 @@ This page gives you a detailed overview of DAC's architecture, API and SDK.
   - [Example Codes](#Example-Codes)
 
 DAC is a Hydra plugin. All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
+
+Read more about custom transactions and its use cases and technical details:
+- <https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae>
+- <https://blog.ark.io/ark-core-gti-introduction-to-generic-transaction-interface-57633346c249>
+- <https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md>
 
 ## Prerequisites
 
@@ -449,7 +455,7 @@ GET /did/{did}/transactions/{fromHeight}/{untilHeight?}
 |---|---|---|
 | did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
 | fromHeight | number | **Required**. The inclusive block height as the start of the query range. |
-| untilHeight | string | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| untilHeight | number | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
 
 ##### Example
 
@@ -497,7 +503,7 @@ GET /did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 |---|---|---|
 | did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
 | fromHeight | number | **Required**. The inclusive block height as the start of the query range. |
-| untilHeight | string | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| untilHeight | number | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
 
 ##### Example
 
@@ -539,7 +545,7 @@ Click here to expand
 Returns all operations that affected the given DID. Does NOT contain rejected operations.
 
 ```bash
-GET /did/{did}/operations/{from}/{to?}
+GET /did/{did}/operations/{from}/{until?}
 ```
 
 ##### Parameters
@@ -548,7 +554,7 @@ GET /did/{did}/operations/{from}/{to?}
 |---|---|---|
 | did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
 | from | number | **Required**. The inclusive block height as the start of the query range. |
-| to | number | Optional. The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| until | number | Optional. The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
 
 ##### Example
 
@@ -606,7 +612,7 @@ Click here to expand
 Returns all operations that affected the given DID. Contains both accepted and rejected operations.
 
 ```bash
-GET /did/{did}/operation-attempts/{from}/{to?}
+GET /did/{did}/operation-attempts/{from}/{until?}
 ```
 
 ##### Parameters
@@ -615,7 +621,7 @@ GET /did/{did}/operation-attempts/{from}/{to?}
 |---|---|---|
 | did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
 | from | number | **Required**. The inclusive block height as the start of the query range. |
-| to | number | Optional. The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| until | number | Optional. The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
 
 ##### Example
 
