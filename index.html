@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>IoP Developer Portal</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="assets/vue.css">
   <link rel="stylesheet" href="assets/mermaid.css">
+  <link rel="stylesheet" href="assets/bootstrap-4.4.1.min.css">
+  <link rel="stylesheet" href="assets/bootstrap-docsify-are-friends.css">
   <script src="assets/mermaid.min.js"></script>
   <style>
     .cover-main img {
@@ -28,6 +30,60 @@
   </style>
 </head>
 <body>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#/">
+      <img src="assets/iop_logo.png" width="30" height="30" alt="">
+      IoP Developer Portal
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hydra Blockchain
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#/hydra">Install & Run</a>
+            <a class="dropdown-item" href="http://test.hydra.iop.global#/" target="_blank">Testnet Browser</a>
+            <a class="dropdown-item" href="http://dev.hydra.iop.global#/" target="_blank">Devnet Browser</a>
+            <a class="dropdown-item" href="http://hydra.iop.global#/" target="_blank">Mainnet Browser</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/dac">DAC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/fort">Fort</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            SDK
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="https://www.npmjs.com/package/@internet-of-people/morpheus-sdk" target="_blank">DAC Typescript SDK</a>
+            <a class="dropdown-item" href="#/fort?id=sdk">Fort SDK</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            API
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#/dac?id=api">DAC API</a>
+            <a class="dropdown-item" href="#/fort?id=api">Fort API</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/showcase">Showcase</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#/glossary">Glossary</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   <div id="app"></div>
   
   <script>
@@ -37,8 +93,6 @@
       name: '',
       repo: '',
       auto2top: true,
-      coverpage: true,
-      loadSidebar: true,
       maxLevel: 4,
       subMaxLevel: 2,
       markdown: {
@@ -56,12 +110,23 @@
     }
   </script>
   <script src="assets/docsify.min.js"></script>
-  <script src="assets/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  <!--<script src="assets/prism-javascript.min.js"></script>-->
   <script src="assets/prism-rust.min.js"></script>
   <script src="assets/prism-bash.min.js"></script>
   <script src="assets/prism-http.min.js"></script>
   <script src="assets/prism-typescript.min.js"></script>
   <script src="assets/prism-json.min.js"></script>
   <script src="assets/docsify.search.min.js"></script>
+  <script src="assets/jquery-3.4.1.slim.min.js"></script>
+  <script src="assets/popper.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(()=>{
+      console.log(window.location.pathname);
+      //$('.sidebar').remove();
+    });
+  </script>
 </body>
 </html>

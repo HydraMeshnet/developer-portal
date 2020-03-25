@@ -1,0 +1,30 @@
+.jumbotron {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.app-nav, .app-nav.no-badge {
+  margin:0;
+}
+
+.markdown-section pre {
+  border-radius: 0.5rem;
+}
+
+.markdown-section pre > code {
+  padding: 1rem;
+  padding-left:0;
+}
+
+.iop-logo {
+  max-width: 50px;
+  margin:auto;
+}
+
+.sidebar {
+  top: 66px;
+}
+
+.sidebar-toggle {
+  display: none;
+}

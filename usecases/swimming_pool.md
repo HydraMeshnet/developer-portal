@@ -37,7 +37,7 @@ In details, the following are the steps to achieve all this above:
 
 6. The user notices that a nearby swimming pool gives a 20% discount for citizens resident in its district.
    1. The user also notices that the swimming pool supports IoP DAC and has a service endpoint to prove district of residence based on digitalized ID cards.
-   2. The user follows a link or scans a QR code to choose this [scenario](prometheus.md?id=Signed-Scenario).
+   2. The user follows a link or scans a QR code to choose this scenario.
    3. The user creates a presentation masking out all data but their district of residence using the statement signed by the authority trusted by the swimming pool.
    4. The user signs and uploads this presentation to the service endpoint of the swimming pool. This presentation has a unique identifier which can be rendered as a QR code.
 
@@ -46,7 +46,7 @@ In details, the following are the steps to achieve all this above:
 
 ## Applications and Services
 
-In this very specific usecase we've used three applications and two services. For more detail about these services and SDK used in the applications, please visit [this page](prometheus.md).
+In this very specific usecase we've used three applications and two services. For more detail about these services and SDK used in the applications, please visit [this page](fort).
 
 ### Applications
 

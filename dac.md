@@ -1,39 +1,18 @@
-# DAC - Decentralized Access Control Framework
+# DAC (Project Morpheus)
 
-DAC is a layer-2 decentralized consensus, an access control framework.
-DAC provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store and handle decentralized IDs (DIDs), rights and schemas on chain.
+DAC is a layer-2 decentralized consensus, an access control framework. DAC's goal is to provide a [W3C compliant](https://w3c.github.io/did-core/) decentralized DID & right management API for other apps and tools.
+
 This page gives you a detailed overview of DAC's architecture, API and SDK.
 
-## Table of Contents <!-- omit in toc -->
+## What is DAC?
 
-- [Prerequisites](#prerequisites)
-  - [Local Development](#local-development)
-  - [Connecting to Real Networks](#connecting-to-real-networks)
-- [State Management](#state-management)
-  - [Layer-1](#layer-1)
-    - [Operations and Signed Operations](#operations-and-signed-operations)
-    - [Register Before Proof](#register-before-proof)
-    - [Add Key](#add-key)
-    - [Revoke Key](#revoke-key)
-    - [Add Right](#add-right)
-    - [Revoke Right](#revoke-right)
-    - [Tombstone DID](#tombstone-did)
-  - [Layer-2](#layer-2)
-    - [Query DID Document](#query-did-document)
-    - [Query DID Document Last Transaction ID](#query-did-document-last-transaction-id)
-    - [Query DID Document Transaction IDs](#query-did-document-transaction-ids)
-    - [Query DID Document Transaction Attempts IDs](#query-did-document-transaction-attempts-ids)
-    - [Query DID Operations](#query-did-operations)
-    - [Query DID Operation Attempts](#query-did-operation-attempts)
-    - [Check Transaction Validity](#check-transaction-validity)
-    - [Check If Before Proof Exists](#check-if-before-proof-exists)
-    - [Query Before Proof History](#query-before-proof-history)
-    - [Check Transaction Status](#check-transaction-status)
-- [SDK](#sdk)
-  - [Usage](#usage)
-  - [Example Codes](#example-codes)
+DAC (or project Morpheus) is running as a Hydra plugin, a layer-2 application, hence everytime the node restarts/rewinds, its state will always be recreated from the layer-1 (the blockchain itself) data, hence data corruption is not possible and the is still based on the layer-1 consensus. It uses [custom transactions](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae). So if you'd like to update your DID document, you can do that by sending a transaction to the Hydra blockchain.
 
-DAC is a Hydra plugin. All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
+All nodes by default are able to participate in the Hydra network and by default support this custom [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) (see below) transaction, but still they're not forced to handle DID Document state.
+
+Using a blockchain as its base, DAC will always know which DIDs had which rights at which block height. It means, it's not just a decentralized right management API, but it also has an auditable, consensus based timeline.
+
+It's important to note, that DAC and Hydra will NOT store any private data, hence its fully [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) compliant.
 
 Read more about custom transactions and its use cases and technical details:
 
@@ -41,68 +20,28 @@ Read more about custom transactions and its use cases and technical details:
 - <https://blog.ark.io/ark-core-gti-introduction-to-generic-transaction-interface-57633346c249>
 - <https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md>
 
-## Prerequisites
+## Develop for DAC
 
-In order to try out DAC, you have to connect to a Hydra blockchain. You can do that locally or using our infrastructure.
+In order to try out DAC, you have to connect to a Hydra blockchain. You can do that locally or using IoP's infrastructure.
+Please follow the guide [how to run a local testnet node](hydra#run-testnet-node) or read how can you [access IoP's Hydra network](hydra#hydra-networks).
 
-### Local Development
+## Samples
 
-To be able to develop locally, you'll need a testnet running on your PC. To do that, you need [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
+IoP provides a sample code base in an npm package that uses the SDK.
 
-Steps to start a local testnet:
+<a href="https://www.npmjs.com/package/@internet-of-people/examples" target="_blank" class="btn btn-sm btn-outline-primary">Download Samples</a>
 
-1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core)
-1. Go to the testnet directory:
+We also made a demonstration video what is DAC (project Morpheus) how can you use it and the samples we provide.
 
-  ```bash
-  cd docker/production/testnet
-  ```
+<iframe width="560" height="500" src="https://www.youtube.com/embed/bnFDw7pIT3Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-1. Unpack the basic configuration:
+## SDK
 
-  ```bash
-  tar -xvf mountpoints.tar.gz
-  ```
+IoP provides a Typescript SDK via npm for layer-1 and layer-2 communication.
 
-1. Start Hydra Core:
+<a href="https://www.npmjs.com/package/@internet-of-people/morpheus-sdk" target="_blank" class="btn btn-sm btn-outline-primary">Download Typescript SDK</a>
 
-  ```bash
-  NETWORK=testnet MODE=genesis FORGING_MODE=auto_forge docker-compose up -d core
-  ```
-
-  This will fire up your node and a database for it.
-
-1. Confirm that container are up:
-
-  ```plain
-  ...
-  Creating postgres-hydra ... done
-  Creating hydra-core     ... done
-  ...
-  ```
-
-1. Confirm node is running and DAC API is ready:
-
-  ```bash
-  $ tail -f mountpoints/logs/testnet/hydra-core-current.log
-  ...
-  [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
-  ...
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
-  ...
-  ```
-
-Then, you can run your code against your local node.
-
-### Connecting to Real Networks
-
-You can either choose our [testnet](hydra_network#testnet) or [devnet](hydra_network#devnet) to work with. Note, that our testnet is not always up and might be reset regurarly.
-
-Currently, we provide our SDK in Typescript only, and you can read about it [here](#SDK), how can you use it.
-
-## State Management
+## API
 
 ### Layer-1
 
@@ -857,15 +796,3 @@ true
 ```
 
 </details>
-
-## SDK
-
-IoP provides a [Typescript](https://www.typescriptlang.org/) SDK for DAC available at <https://www.npmjs.com>.
-
-### Usage
-
-Please read the [README](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) for details.
-
-### Example Codes
-
-Example codes are also available at <https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/examples>
