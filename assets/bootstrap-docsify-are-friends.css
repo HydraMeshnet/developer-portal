@@ -21,6 +21,11 @@
   margin:auto;
 }
 
+.iop-logo-sm {
+  max-width: 30px;
+  margin:auto;
+}
+
 .sidebar {
   top: 66px;
 }

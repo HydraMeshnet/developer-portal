@@ -40,7 +40,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hydra Blockchain
@@ -63,8 +63,14 @@
             SDK
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="https://www.npmjs.com/package/@internet-of-people/morpheus-sdk" target="_blank">DAC Typescript SDK</a>
-            <a class="dropdown-item" href="#/fort?id=sdk">Fort SDK</a>
+            <a class="dropdown-item" href="https://www.npmjs.com/package/@internet-of-people/morpheus-sdk" target="_blank">
+              <img src="assets/morpheus_logo.png" class="iop-logo-sm mr-2">
+              DAC SDK
+            </a>
+            <a class="dropdown-item" href="#/fort?id=sdk">
+              <img src="assets/prometheus_logo.png" class="iop-logo-sm mr-2">
+              Fort SDK
+            </a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -72,8 +78,14 @@
             API
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#/dac?id=api">DAC API</a>
-            <a class="dropdown-item" href="#/fort?id=api">Fort API</a>
+            <a class="dropdown-item" href="#/dac?id=api">
+              <img src="assets/morpheus_logo.png" class="iop-logo-sm mr-2">
+              DAC API
+            </a>
+            <a class="dropdown-item" href="#/fort?id=api">
+              <img src="assets/prometheus_logo.png" class="iop-logo-sm mr-2">
+              Fort API
+            </a>
           </div>
         </li>
         <li class="nav-item">
@@ -107,10 +119,6 @@
             return this.origin.code.apply(this, arguments);
           }
         }
-      },
-      search: {
-        depth: 6,
-        namespace: 'iop-developer-portal#1'
       }
     }
   </script>
@@ -120,7 +128,6 @@
   <script src="assets/prism-http.min.js"></script>
   <script src="assets/prism-typescript.min.js"></script>
   <script src="assets/prism-json.min.js"></script>
-  <script src="assets/docsify.search.min.js"></script>
   <script src="assets/jquery-3.4.1.slim.min.js"></script>
   <script src="assets/popper.min.js"></script>
   <script src="assets/bootstrap.min.js"></script>
