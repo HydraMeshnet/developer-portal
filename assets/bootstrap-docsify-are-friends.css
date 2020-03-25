@@ -28,3 +28,7 @@
 .sidebar-toggle {
   display: none;
 }
+
+details {
+  margin-bottom:50px;
+}

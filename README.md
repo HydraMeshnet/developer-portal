@@ -50,7 +50,7 @@
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Fort</h4>
           <h6 class="card-subtitle mb-2 text-muted">Project Prometheus</h6>
-          <p class="card-text">Fort is an umbrella project for applications, which use [DAC](#dac-explained) in any way.</p>
+          <p class="card-text">Fort is an umbrella project for applications, which use DAC in any way.</p>
           <a href="#/fort" class="btn btn-sm btn-outline-primary mt-auto">LEARN MORE</a>
         </div>
       </div>
