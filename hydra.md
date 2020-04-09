@@ -10,11 +10,21 @@ Here we describe how can you start your Hydra node connecting to any of our netw
 - Using [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 - Using [core-control](https://github.com/Internet-of-People/core-control)
 
+We strongly recommend using Docker, it is better in nearly all regards.
+Unless you have experience with Docker, we recommend the following steps:
+- Install Docker and its Docker-compose image builder.
+  For example Ubuntu/Debian-based Linux OSs need only `sudo apt install docker.io docker-compose`
+- Make sure that your user has proper access rights, i.e. is in group `docker`.
+  Check `/etc/groups` and search for line `docker`.
+  If your user is not there, add it using e.g. `sudo usermod -a -G docker your_username`
+
 ### Run Testnet Node
 
-Testnets consist of only server, hence you cannot connect to a testnet network. You can use [IoP's testnet](#Testnet) for testing or you can start your own described below.
+Note that testnet currently works out of the box only with Docker. CControl integration should also be possible (e.g. by adding some testnet-related configuration files to CControl) but not supported.
 
-1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [testnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/testnet) with the Docker files.
+The `testnet` consist of only a single - usually local - server without a real network to connect to. (The closest concept is called `regtest` in BTC, hence testnet is named misleadingly in Ark). You can use [IoP's testnet server](#Testnet) for testing or you can start your own server as described below.
+
+1. Clone the [Hydra Core repository](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [testnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/testnet) containing the Docker files.
 1. Go to the testnet directory:
 
    ```bash

@@ -1,7 +1,9 @@
 # DAC (Project Morpheus)
 
-DAC is a layer-2 decentralized consensus, an access control framework. DAC's goal is to provide a [W3C compliant](https://w3c.github.io/did-core/) decentralized DID & right management API for other apps and tools.
+DAC provides Decentralized Access Control toolset based on the [W3C specification](https://w3c.github.io/did-core/) that can handle decentralized IDs (DIDs) and store related keys and rights on chain to allow decentralized signature and right validation.
+DAC also handles schemas and content hash timestamps.
 
+DAC provides an API for easy integration with other apps and tools.
 This page gives you a detailed overview of DAC's architecture, API and SDK.
 
 ## What is DAC?
