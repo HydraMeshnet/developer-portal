@@ -1,9 +1,7 @@
 # Personalized Tickets Usecase
 
-
-This is an extension of Use Case No. 3, specializing on **non-transferable** tickets, e.g. buying and using a public transportation pass. 
+This is an extension of Use Case No. 3, specializing on **non-transferable** tickets, e.g. buying and using a public transportation pass.
 The tickets **cannot be used by anyone else**, only by the buyer's DID.
-
 
 ## Solution
 
@@ -11,9 +9,9 @@ All the concepts of use case 3 still apply. The difference lies in the ticket it
 
 ## Scenario
 
-1. User goes to the government office to get a digitalized ID card, meaning the user gets a digital proof about their name, address, photo, etc. 
+1. User goes to the government office to get a digitalized ID card, meaning the user gets a digital proof about their name, address, photo, etc.
 This step is needed only once and can be used for any number of tickets or other use cases afterwards.
-1. User goes to the ticket office (typically days before using the ticket) to buy a monthly ticket for public transportation. In exchange, the user receives a digital proof of ticket ownership (a statement). 
+1. User goes to the ticket office (typically days before using the ticket) to buy a monthly ticket for public transportation. In exchange, the user receives a digital proof of ticket ownership (a statement).
 1. User goes to the subway for traveling (e.g. from home to university) holding
    - a proof of ticket ownership
    - indirect proof of control using the previously issued DigitalID
@@ -36,11 +34,9 @@ This step is needed only once and can be used for any number of tickets or other
   - ticket Authority
   - ticket purchase Verifier
 
-
 ## Sequence Diagram
 
 This describes the process of using a DigitalID attached to a DID to convince a third party in person (offline process) that you are in control of a DID without signing anything using your private key.
-
 
 ```mermaid
 sequenceDiagram
@@ -64,7 +60,7 @@ sequenceDiagram
   Blockchain -->> -TicketSeller: key information
   
   TicketSeller -->> -User: Pass for DID with Expiry included
-    
+
   note over User,TicketInspector: Taking on a bus at a stop (maybe days later)
   User ->> +TicketInspector: Pass + Photo of Face<br>(via DHT, QR, Bluetooth, etc.)
   TicketInspector ->> +User: Look at Face

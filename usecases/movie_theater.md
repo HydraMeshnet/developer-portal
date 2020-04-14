@@ -7,12 +7,11 @@ A user wants to purchase a ticket to see a movie for mature audiences. He later 
 ## Goals
 
 - Both users want to to proof their age using a digital form of identification, but without needing to carry their private keys everywhere they go.
-- The movie theater needs to control both age and validity of the ticket. 
-- Handing over the purchased ticket should be as simple as possible. 
+- The movie theater needs to control both age and validity of the ticket.
+- Handing over the purchased ticket should be as simple as possible.
 - "forging" a ticket needs to be practically impossible.
 
 ## Solution
-
 
 ### Proof of Ticket Purchase
 
@@ -37,24 +36,23 @@ Note that the nonce is a randomly generated one-time number and thus can serve a
 
 To prove the ticket purchase later on site, the user only has to present the ticket information + nonce.
 
-
 ### Digitalized ID Card
 
 In our daily lives, we regularly use our ID cards to prove claims about ourselves to a third party. This process functions by tying the relevant information (e.g date of birth) to some non-forgeable information (the face of the user) together into a single, forging-resistant object.
-This concept can be transferred into the digital world easily. For this, we need 
+This concept can be transferred into the digital world easily. For this, we need
 
 - a photo of the applicant
 - a piece of relevant information (e.g. age)
 - at least one trusted witness
 
-If we can present statements by a trusted authority that 
+If we can present statements by a trusted authority that
 
 1. a certain photo depicts the owner of a certain DID
 2. some information is true for the same DID
 
-they give the same confidence in any statement as an ID card issued by that authority, without necessitating the proof of key ownership, instead relying on manual comparison of the face with the photo. A statement like this is indeed even more forging resistant than a physical ID card, provided the underlying cryptography scheme is reliable. Furthermore, for flexibility, the two statements can come from different authorities, the two pieces of information can be combined into a single statement, etc. 
+they give the same confidence in any statement as an ID card issued by that authority, without necessitating the proof of key ownership, instead relying on manual comparison of the face with the photo. A statement like this is indeed even more forging resistant than a physical ID card, provided the underlying cryptography scheme is reliable. Furthermore, for flexibility, the two statements can come from different authorities, the two pieces of information can be combined into a single statement, etc.
 
-To simplify the concepts presented in this section, we will refer to the combination of information about a certain DID with a photo as a "digital ID card" from now on. 
+To simplify the concepts presented in this section, we will refer to the combination of information about a certain DID with a photo as a "digital ID card" from now on.
 
 #### Proving Information vs. Privacy
 
@@ -62,10 +60,10 @@ Claim presentations are prepared for masking unrelated details from the inspecto
 
 #### Photo transmission
 
-Transferring a full image is not feasible in most cases. For this purpose, the photo itself can be masked out of the claim like any other data. 
-To be able to match the ticket exactly to the user's face, users can share a URL (possibly incl. an access key) with the inspector resolving to the picture on web storage (DHT, Google Drive, etc.) that hashes to the content ID in the digitalized ID card. known by the user and user's face actually matches that photo. 
+Transferring a full image is not feasible in most cases. For this purpose, the photo itself can be masked out of the claim like any other data.
+To be able to match the ticket exactly to the user's face, users can share a URL (possibly incl. an access key) with the inspector resolving to the picture on web storage (DHT, Google Drive, etc.) that hashes to the content ID in the digitalized ID card. known by the user and user's face actually matches that photo.
 
-Note: If "photo-hash-mining" becomes an issue in the future, the photo could be hosted by the authority creating the statement. 
+Note: If "photo-hash-mining" becomes an issue in the future, the photo could be hosted by the authority creating the statement.
 
 ### QR Code usage
 
@@ -77,27 +75,27 @@ The QR Code can of course also be used by the Inspector to validate the ticket p
 
 ****
 
-
 ### Public Proofs
 
 ARK and therefore Hydra can easily attach a content ID to a payment transaction. This can be used to attach an off-chain service request to an on-chain payment for it.
 
-  - Proof of witness service purchase: These signed witness request's ID is written to the vendor field on the Hydra transfer transaction.
-  - Proof of ticket purchase: The ticket request's content ID is written to the vendor field on the Hydra transfer transaction.
+- Proof of witness service purchase: These signed witness request's ID is written to the vendor field on the Hydra transfer transaction.
+- Proof of ticket purchase: The ticket request's content ID is written to the vendor field on the Hydra transfer transaction.
 
 ## Simplified Overview
 
-1. The User goes to the government office to get a digitalized ID card, meaning the user gets a digital proof about their name, address, photo, etc. 
+1. The User goes to the government office to get a digitalized ID card, meaning the user gets a digital proof about their name, address, photo, etc.
 This step is needed only once and can be used for any number of tickets or other use cases afterwards.
 1. User goes to the movie theater (days before the movie is shown) to buy a ticket for a movie for mature audiences. In exchange, the user receives a digital proof of ticket purchase.
 1. On the day of the movie User gets sick and he asks his friends on social media if anyone can use his ticket as he cannot go.
-1. Friend says "Sure I'd like to see that movie. Also, I'm free today evening. Please give me the ticket". 
-**Note:** We assume the Friend has already completed step 1 as well, meaning they have a digitalized ID card.
+1. Friend says "Sure I'd like to see that movie. Also, I'm free today evening. Please give me the ticket".
+
+   **Note:** We assume the Friend has already completed step 1 as well, meaning they have a digitalized ID card.
+
 1. Friend goes to the movie theater with
    - a proof of ticket purchase
    - his digital ID
-2. The inspector at the gate validates both and decides if the user can enter or not. During this process the inspector also invalidates the ticket in the movie's database for further entries (or reduces the number of allowed entries on a multi-ticket, etc.).
-
+1. The inspector at the gate validates both and decides if the user can enter or not. During this process the inspector also invalidates the ticket in the movie's database for further entries (or reduces the number of allowed entries on a multi-ticket, etc.)
 
 ### Participants
 
@@ -118,11 +116,9 @@ This step is needed only once and can be used for any number of tickets or other
   - ticket Authority
   - ticket purchase Verifier
 
-
 ## Sequence Diagram
 
 This describes the process of using a combination of claims about a DID and proving that the information in these claims applies to you to convince a third party in person (offline process) that you are in control of a DID without signing anything using your private key.
-
 
 ```mermaid
 sequenceDiagram
@@ -151,13 +147,12 @@ sequenceDiagram
   note over User,Blockchain: Transfering Ticket from User to Friend
   User ->> Friend: Ticket
   Friend ->> Friend: Prepare DigitalID<br>(optionally masking)
-    
+
   note over User,Blockchain: Entering Movies (maybe days later)
   User ->> +TicketInspector: OneTimeTicket + DigitalID<br>(via DHT, QR, Bluetooth, etc.)
   TicketInspector ->> +User: Look at Face
   User -->> -TicketInspector: Face
-  TicketInspector ->> TicketInspector: compare faces, verify ticket proof via Movie Theater, 
+  TicketInspector ->> TicketInspector: compare faces, verify ticket proof via Movie Theater,
   TicketInspector ->> TicketInspector: invalidate ticket in database
   TicketInspector -->> -User: You can enter
 ```
-

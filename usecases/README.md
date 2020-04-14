@@ -1,4 +1,4 @@
-## Other Possible Use Cases
+# Other Possible Use Cases
 
 - Auditable event (concert, performance, sport match) attendance (when the GateKeeper's invalidate action is also public on the chain).
 - Lottery bet/draw timestamping.

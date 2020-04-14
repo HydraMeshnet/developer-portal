@@ -68,7 +68,7 @@ An example of a DAC transaction (Click here to expand)
     "operationAttempts": [
       {
         "operation": "registerBeforeProof",
-        "contentId": "cqzSomething"
+        "contentId": "cjuSomething"
       },
       {
         "operation": "signed",
@@ -76,17 +76,17 @@ An example of a DAC transaction (Click here to expand)
           {
             "operation": "addKey",
             "did": "did:morpheus:ezSomething",
-            "auth": "IezSomethingElse"
+            "auth": "iezSomethingElse"
           },
           {
             "operation": "addRight",
             "did": "did:morpheus:ezSomething",
-            "auth": "IezSomethingElse",
+            "auth": "iezSomethingElse",
             "right": "update"
           }
         ],
-        "signerPublicKey": "PezSomething",
-        "signature": "SezSomething"
+        "signerPublicKey": "pezSomething",
+        "signature": "sezSomething"
       }
     ]
   },
@@ -121,17 +121,17 @@ Example of a signed operation (Click here to expand)
         {
             "operation": "addKey",
             "did": "did:morpheus:ezSomething",
-            "auth": "IezSomethingElse"
+            "auth": "iezSomethingElse"
         },
         {
             "operation": "addRight",
             "did": "did:morpheus:ezSomething",
-            "auth": "IezSomethingElse",
+            "auth": "iezSomethingElse",
             "right": "update"
         }
     ],
-    "signerPublicKey": "PezSomething",
-    "signature": "SezSomething"
+    "signerPublicKey": "pezSomething",
+    "signature": "sezSomething"
 }
 ```
 
@@ -162,12 +162,12 @@ Notes:
     {
       "operation": "addKey",
       "did": "did:morpheus:ezSomething",
-      "auth": "IezSomethingElse",
+      "auth": "iezSomethingElse",
       "expiresAtHeight": 4251,
     }
   ],
-  "signerPublicKey": "PezSomething",
-  "signature": "SezSomething"
+  "signerPublicKey": "pezSomething",
+  "signature": "sezSomething"
 }
 ```
 
@@ -180,11 +180,11 @@ Notes:
     {
       "operation": "revokeKey",
       "did": "did:morpheus:ezSomething",
-      "auth": "IezSomethingElse"
+      "auth": "iezSomethingElse"
     }
   ],
-  "signerPublicKey": "PezSomething",
-  "signature": "SezSomething"
+  "signerPublicKey": "pezSomething",
+  "signature": "sezSomething"
 }
 ```
 
@@ -199,12 +199,12 @@ For now only update or impersonate is supported, but custom rights will soon be 
     {
       "operation": "addRight",
       "did": "did:morpheus:ezSomething",
-      "auth": "IezSomethingElse",
+      "auth": "iezSomethingElse",
       "right": "update"
     }
   ],
-  "signerPublicKey": "PezSomething",
-  "signature": "SezSomething"
+  "signerPublicKey": "pezSomething",
+  "signature": "sezSomething"
 }
 ```
 
@@ -217,12 +217,12 @@ For now only update or impersonate is supported, but custom rights will soon be 
     {
       "operation": "revokeRight",
       "did": "did:morpheus:ezSomething",
-      "auth": "IezSomethingElse",
+      "auth": "iezSomethingElse",
       "right": "update"
     }
   ],
-  "signerPublicKey": "PezSomething",
-  "signature": "SezSomething"
+  "signerPublicKey": "pezSomething",
+  "signature": "sezSomething"
 }
 ```
 
@@ -239,8 +239,8 @@ For now only update or impersonate is supported, but custom rights will soon be 
       "did": "did:morpheus:ezSomething"
     }
   ],
-  "signerPublicKey": "PezSomething",
-  "signature": "SezSomething"
+  "signerPublicKey": "pezSomething",
+  "signature": "sezSomething"
 }
 ```
 

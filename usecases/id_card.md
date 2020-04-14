@@ -6,7 +6,7 @@ KYC is a concept where a service provider confirms the identity (and possibly un
 
 By connecting the proof of identity to a service-independent ID instead of a specific user-account, the service of the IVS becomes a lot more useful for both the user and other service providers (saving time and money by reusing the verification), thereby generating value for everyone involved.
 
-To keep a witness statement valid even after the key of a witness expired, the content id of the signed witness statement can be published as payload in a blockchain transaction, proving it was signed when the witness' key was still valid. 
+To keep a witness statement valid even after the key of a witness expired, the content id of the signed witness statement can be published as payload in a blockchain transaction, proving it was signed when the witness' key was still valid.
 
 To proof the validity of a witness statement involving delegated rights, an AfterEnvelope can be used to strictly order the statement and the key management process.
 
@@ -15,6 +15,7 @@ To proof the validity of a witness statement involving delegated rights, an Afte
 ## Scenario
 
 In this example we have
+
 - BANK1: Witness
 - BANK2: Verifier
 
@@ -41,7 +42,7 @@ sequenceDiagram
   User ->> +BANK1: SignedWitnessRequest<br/>process: confirmedEUCitizen
   BANK1 ->> +Blockchain: Verify DID control
   Blockchain -->> -BANK1: Confirmed
-  BANK1 -->> -User: SignedWitnessStatement 
+  BANK1 -->> -User: SignedWitnessStatement
   
   rect rgba(255, 255, 0, .1)
   opt Customer Support
@@ -60,10 +61,11 @@ sequenceDiagram
 ## Timestamping Statements
 
 This diagram extends the previous scenario and diagram with timestamping, to improve transparency of the witnessing process, e.g. in the following cases:
- - BANK2 wants to audit that BANK1 is not signing statements with fake timestamps.
- - BANK1 wants to make explicit the fact that they acted according to information available at a certain point in time.
- - BANK1 wants to audit its delegated witnesses.
- - BANK1 is regularly rotating keys, therefore it is necessary to order the statements in relation to the process of key rotation.
+
+- BANK2 wants to audit that BANK1 is not signing statements with fake timestamps.
+- BANK1 wants to make explicit the fact that they acted according to information available at a certain point in time.
+- BANK1 wants to audit its delegated witnesses.
+- BANK1 is regularly rotating keys, therefore it is necessary to order the statements in relation to the process of key rotation.
 
 ```mermaid
 sequenceDiagram
@@ -78,7 +80,7 @@ sequenceDiagram
   rect rgba(255, 255, 0, .1)
   opt If Timestamping is Required: Witnessed AFTER
   BANK1 ->> +Blockchain: get height, hash of latest block
-  Blockchain --> -BANK1: 
+  Blockchain --> -BANK1:
   end
   end
 

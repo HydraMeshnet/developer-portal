@@ -52,7 +52,7 @@ In this very specific usecase we've used three applications and two services. Fo
 
 #### User App
 
-This app is for layman who would like to use a service which requires proofs or they have to prove something they claim. It has a built-in Hydra wallet in it which can be used for e.g.: DID creation. Using this app users are able to create claims and ask for proofs from other (trusted) parties. In this example we call these parties as *Authorities*, especially a government office. 
+This app is for layman who would like to use a service which requires proofs or they have to prove something they claim. It has a built-in Hydra wallet in it which can be used for e.g.: DID creation. Using this app users are able to create claims and ask for proofs from other (trusted) parties. In this example we call these parties as *Authorities*, especially a government office.
 
 After they signed and sent their claim, they will receive back proof(s), so they can start create statements out from it by strictly sharing only those private data from the proof that they really need to share with a conditions they agree with.
 
@@ -64,8 +64,8 @@ This app is used by clerks sitting in the government office. They receive reques
 
 #### Inspector App
 
-This app is used by a cashier in this example, but it can be an automated gate too. This app is very use case specific, hence we tried to minimalize its complexity. 
-It only receives a url in a QR code, where they can download a presentation made (and signed) by a user app. 
+This app is used by a cashier in this example, but it can be an automated gate too. This app is very use case specific, hence we tried to minimalize its complexity.
+It only receives a url in a QR code, where they can download a presentation made (and signed) by a user app.
 Validating the presentation the user might (if the validation and other restrictions are valid) receive the discount while entering the pool.
 
 ### Services
@@ -73,6 +73,7 @@ Validating the presentation the user might (if the validation and other restrict
 #### Authority Service
 
 This is a lightweight service (written in Typescript) which provides endpoints for authorities where they can
+
 - provide a list which processes are available there,
 - receive witness requests,
 - provide status of a witness request,
@@ -82,6 +83,7 @@ This is a lightweight service (written in Typescript) which provides endpoints f
 #### Inspector Service
 
 This is a lightweight service (written in Typescript) which provides endpoints for inspectors/verifiers where they can
+
 - provide a list of scenarios which they support,
 - receive presentations to be able to either provide or deny the scenarios' result,
 - they can store and serve public and private blobs for data storage.

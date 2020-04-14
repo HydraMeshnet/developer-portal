@@ -3,13 +3,10 @@
 Hydra is a dPos blockchain, extended with IoP DAC, a layer-2 decentralized consensus, an access control framework.
 DAC provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store and handle decentralized IDs (DIDs), rights and schemas on chain.
 
-<div class="alert alert-warning">
-  Important Note: As of today (16th March 2020), the newest, 2.6.10 Hydra is only available on devnet. We will announce mainnet release date as soon as possible.
-</div>
-
 ## Install & Run
 
 Here we describe how can you start your Hydra node connecting to any of our networks. You have two ways to start a Hydra node.
+
 - Using [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 - Using [core-control](https://github.com/Internet-of-People/core-control)
 
@@ -20,45 +17,45 @@ Testnets consist of only server, hence you cannot connect to a testnet network. 
 1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [testnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/testnet) with the Docker files.
 1. Go to the testnet directory:
 
-  ```bash
-  $ cd docker/production/testnet
-  ```
+   ```bash
+   $ cd docker/production/testnet
+   ```
 
 1. Unpack the basic configuration:
 
-  ```bash
-  $ tar -xvf mountpoints.tar.gz
-  ```
+   ```bash
+   $ tar -xvf mountpoints.tar.gz
+   ```
 
 1. Start Hydra Core:
 
-  ```bash
-  $ NETWORK=testnet MODE=genesis FORGING_MODE=auto_forge docker-compose up -d core
-  ```
+   ```bash
+   $ NETWORK=testnet MODE=genesis FORGING_MODE=auto_forge docker-compose up -d core
+   ```
 
   This will fire up your node and a database for it.
 
 1. Confirm that containers are up:
 
-  ```plain
-  ...
-  Creating postgres-hydra ... done
-  Creating hydra-core     ... done
-  ...
-  ```
+   ```plain
+   ...
+   Creating postgres-hydra ... done
+   Creating hydra-core     ... done
+   ...
+   ```
 
 1. Confirm node is running and DAC API is ready and processing blocks:
 
-  ```bash
-  $ tail -f mountpoints/logs/testnet/hydra-core-current.log
-  ...
-  [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
-  ...
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
-  ...
-  ```
+   ```bash
+   $ tail -f mountpoints/logs/testnet/hydra-core-current.log
+   ...
+   [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
+   ...
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
+   ...
+   ```
 
 ### Run Devnet Node
 
@@ -73,45 +70,52 @@ To participate in IoP's devnet network, your job is easy. You either use Docker 
 1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [devnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/devnet) with the Docker files.
 1. Go to the network's directory:
 
-  ```bash
-  $ cd docker/production/devnet
-  ```
+   ```bash
+   $ cd docker/production/devnet
+   ```
 
 1. Unpack the basic configuration:
 
-  ```bash
-  $ tar -xvf mountpoints.tar.gz
-  ```
+   ```bash
+   $ tar -xvf mountpoints.tar.gz
+   ```
+
 1. If you'd like to start a forger, put your delegate's mnemonics into `mountpoints/config_overwrite/delegates.json`.
 1. Start Hydra Core. This will fire up your node and a database for it:
-  - As a relay node
-    ```bash
-    $ NETWORK=devnet MODE=normal FORGING_MODE=no_forge docker-compose up -d core
-    ```
-  - As a forger node
-    ```bash
-    $ NETWORK=devnet MODE=normal FORGING_MODE=auto_forge docker-compose up -d core
-    ```
+
+   - As a relay node
+
+     ```bash
+     $ NETWORK=devnet MODE=normal FORGING_MODE=no_forge docker-compose up -d core
+     ```
+
+   - As a forger node
+
+     ```bash
+     $ NETWORK=devnet MODE=normal FORGING_MODE=auto_forge docker-compose up -d core
+     ```
+
 1. Confirm that containers are up:
 
-  ```plain
-  ...
-  Creating postgres-hydra ... done
-  Creating hydra-core     ... done
-  ...
-  ```
+   ```plain
+   ...
+   Creating postgres-hydra ... done
+   Creating hydra-core     ... done
+   ...
+   ```
+
 1. Confirm node is running and DAC API is ready and processing blocks:
 
-  ```bash
-  $ tail -f mountpoints/logs/devnet/hydra-core-current.log
-  ...
-  [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
-  ...
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
-  ...
-  ```
+   ```bash
+   $ tail -f mountpoints/logs/devnet/hydra-core-current.log
+   ...
+   [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
+   ...
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
+   ...
+   ```
 
 #### Via Core Control
 
@@ -130,45 +134,52 @@ To participate in IoP's mainnet network, your job is easy. You either use Docker
 1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [mainnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/mainnet) with the Docker files.
 1. Go to the network's directory:
 
-  ```bash
-  $ cd docker/production/mainnet
-  ```
+   ```bash
+   $ cd docker/production/mainnet
+   ```
 
 1. Unpack the basic configuration:
 
-  ```bash
-  $ tar -xvf mountpoints.tar.gz
-  ```
+   ```bash
+   $ tar -xvf mountpoints.tar.gz
+   ```
+
 1. If you'd like to start a forger, put your delegate's mnemonics into `mountpoints/config_overwrite/delegates.json`.
 1. Start Hydra Core. This will fire up your node and a database for it:
-  - As a relay node
-    ```bash
-    $ NETWORK=mainnet MODE=normal FORGING_MODE=no_forge docker-compose up -d core
-    ```
-  - As a forger node
-    ```bash
-    $ NETWORK=mainnet MODE=normal FORGING_MODE=auto_forge docker-compose up -d core
-    ```
+
+   - As a relay node
+
+     ```bash
+     $ NETWORK=mainnet MODE=normal FORGING_MODE=no_forge docker-compose up -d core
+     ```
+
+   - As a forger node
+
+     ```bash
+     $ NETWORK=mainnet MODE=normal FORGING_MODE=auto_forge docker-compose up -d core
+     ```
+
 1. Confirm that containers are up:
 
-  ```plain
-  ...
-  Creating postgres-hydra ... done
-  Creating hydra-core     ... done
-  ...
-  ```
+   ```plain
+   ...
+   Creating postgres-hydra ... done
+   Creating hydra-core     ... done
+   ...
+   ```
+
 1. Confirm node is running and DAC API is ready and processing blocks:
 
-  ```bash
-  $ tail -f mountpoints/logs/mainnet/hydra-core-current.log
-  ...
-  [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
-  ...
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
-  [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
-  ...
-  ```
+   ```bash
+   $ tail -f mountpoints/logs/mainnet/hydra-core-current.log
+   ...
+   [2020-03-04 09:35:51.607] INFO : MORPHEUS HTTP API READY.
+   ...
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS Task blockApplied: Morpheus block-handler 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41 started.
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS onBlockApplied contains 0 transactions..
+   [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
+   ...
+   ```
 
 #### Via Core Control
 
@@ -181,6 +192,7 @@ The [Hydra blockchain](https://github.com/Internet-of-People/hydra-core) has thr
 ### Testnet
 
 Browser: [http://test.hydra.iop.global](http://test.hydra.iop.global)
+
 - The network we run usually locally when we are testing changes and we don't expect to involve a wider audience.
 - Although it was intended for local use or testing, we have a running testnet in the cloud where we try to integrate things first to avoid devnet outages. Hence it's available for everyone.
 - This network has play-around coins and transactions.
@@ -195,6 +207,7 @@ Any 3rd party developers can start their own local testnet for integration testi
 ### Devnet
 
 Browser: [http://dev.hydra.iop.global](http://dev.hydra.iop.global)
+
 - The network where testing occurs before being deployed on the mainnet.
 - This network is available for everyone and is used by developers for testing their applications and security experts to do responsible disclosures.
 - Has play-around coins and transactions.
@@ -212,8 +225,8 @@ Browser: [http://dev.hydra.iop.global](http://dev.hydra.iop.global)
 
 ### Mainnet
 
-
 Browser: [http://hydra.iop.global](http://hydra.iop.global)
+
 - The network we run in production, and it is the backbone of Hydra. This is usually known as the Public Network since this network is utilized by end users.
 - This network is available for everyone.
 - Has real coins, real transactions.

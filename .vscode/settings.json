@@ -2,9 +2,11 @@
     "markdown.extension.toc.levels": "2..4",
     "markdown.extension.toc.githubCompatibility": true,
     "markdownlint.config": {
-        "no-inline-html": {
-            "allowed_elements": ["details", "summary"],
+        "no-inline-html": false,
+        "no-trailing-punctuation": {
+            "punctuation": ".,;:。，；："
         },
+        "commands-show-output": false,
         "no-duplicate-header": {
             "siblings_only": true
         }

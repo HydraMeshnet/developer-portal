@@ -11,6 +11,6 @@
     "url": "git@gitlab.iop-ventures.com:iop-stack/dids-and-claims/specification.git"
   },
   "dependencies": {
-    "docsify-cli": "4.3.0"
+    "docsify-cli": "^4.4.0"
   }
 }
