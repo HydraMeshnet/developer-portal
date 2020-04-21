@@ -1,14 +1,13 @@
-# Fort (Project Prometheus)
+# IoP Fort (Project Prometheus)
 
-Fort is an umbrella project for applications, which use [DAC](dac) in any way. To be more specific, these applications are not just using DAC, but they use DAC and its rights management capability for various use cases where you'd like to handle your private data securely.
-
-## What is Fort?
-
-After reading about [IoP DAC](dac) you might think that IoP "only" provides a blockchain for DIDs. Which is far away from truth. IoP DAC is not just for DIDs, it's for decentralized IAM solutions as wel, but IoP does not stop at this point.
+Fort is an umbrella project for libraries and applications using [DAC](dac)
+for various use cases, allowing or demonstrating secure handling of private data.
+For example, we provide an SDK for developing DAC-based applications in Flutter/Dart
+and mobile applications for different participants in a simple use case for demonstration.
 
 ### Claim Management and Data Masking
 
-In real life, loads of situations occur when you must present (or even copy or share) your personal information in order to apply for services or enter a hotel. In almost all of these cases they only need a proof, that you're eligible to use their service or product. The problem with this is that massive data leaks happen frequently, so your data and your personal digital life is not safe as long as you give it to random companies daily basis.
+In real life, loads of situations occur when you must present (or even copy or share) your personal information in order to apply for services like entering a hotel. In almost all of these cases they only need a proof, that you're eligible to use their service or product. The problem with this is that massive data leaks happen frequently, so your data and your personal digital life is not safe as long as you give it to random companies daily basis.
 
 This is where DAC is very usable, but as it's only a framework. Hence, we introduce our umbrella project as we call *Project Prometheus*, or IoP Fort.
 

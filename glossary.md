@@ -265,6 +265,8 @@ An attestant entity that has given its digital signature to some [claims](#claim
 
 Any entity can be a witness. However, the requirements to trust a witness are to be clarified for each use case. There are lots of use cases that require commonly trusted witnesses, so called [authorities](#authority).
 
+Note that definitions of *witness* and *authority* correspond to [W3C's issuer](https://w3c.github.io/vc-data-model/#issuer), either untrusted or trusted.
+
 ## Authority
 
 A company, state government or any other certificate provider entity that is trusted by many to be a reliable [witness](#witness). Also, an authority might delegate signing claims to any number of witnesses who act on behalf of the authority in certain respects.
@@ -372,6 +374,8 @@ Another company, individual or any service provider entity that wants to verify 
 
 You can read more about it in the [Prometheus SDK](prometheus.md).
 
+Note that we have separated [W3C's verifier](https://w3c.github.io/vc-data-model/#dfn-verifier) into a potentially different inspector (~gatekeeper) and verifier (~API operator).
+
 ## Verifier
 
 A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights.
@@ -394,6 +398,7 @@ Content IDs are used to identify and refer to a unique piece of data, such as cl
 ## Claim
 
 A set of data that contains information about a subject entity.
+The `nonce` field is used for data-masking, which you can read about [below](#maskable-claim-properties).
 
 ```json
 # Example
@@ -403,7 +408,10 @@ A set of data that contains information about a subject entity.
 }
 ```
 
-Note: the `nonce` field is used for data-masking, which you can read about [below](#maskable-claim-properties).
+Note that this definition slightly differs from its W3C's counterpart and corresponds mostly to
+[W3C's verifiable credential](https://w3c.github.io/vc-data-model/#credentials).
+We lack the **verifiable** from the definition simply because we only care about verifiable data
+and do not bother with unverifiable ones at all.
 
 ### Claim Subject
 
@@ -599,6 +607,10 @@ A collection of claims provided for validation for a verifier.
   }, ...]
 }
 ```
+
+Note that contrary to its W3C's counterpart, this definition lacks word **verifiable**
+simply because we only care about verifiable data and do not bother with unverifiable ones at all.
+
 
 ### Licensing
 

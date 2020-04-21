@@ -1,21 +1,26 @@
-# Hydra Blockchain
+# IoP Hydra
 
-Hydra is a dPos blockchain, extended with IoP DAC, a layer-2 decentralized consensus, an access control framework.
-DAC provides a [W3C compliant](https://w3c.github.io/did-core/) toolset to store and handle decentralized IDs (DIDs), rights and schemas on chain.
+Hydra is a dPos blockchain extended with a layer-2 consensus to provide a public ledger for the IoP DAC (Decentralized Access Control) framework.
+Hydra is built utilizing the modular architecture of [Ark](https://ark.io/).
+
+DAC is based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.
 
 ## Install & Run
 
-Here we describe how can you start your Hydra node connecting to any of our networks. You have two ways to start a Hydra node.
+You can start a Hydra node in the following two ways.
 
 - Using [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 - Using [core-control](https://github.com/Internet-of-People/core-control)
 
-We strongly recommend using Docker, it is better in nearly all regards.
+To prevent surprises and required efforts debugging your software environment and deployment state,
+  we strongly recommend using Docker because its containers make operating a node
+  much safer, more deterministic and maintainable than CControl.
+  
 Unless you have experience with Docker, we recommend the following steps:
 - Install Docker and its Docker-compose image builder.
   For example Ubuntu/Debian-based Linux OSs need only `sudo apt install docker.io docker-compose`
 - Make sure that your user has proper access rights, i.e. is in group `docker`.
-  Check `/etc/groups` and search for line `docker`.
+  On Linux systems, check `/etc/groups` and search for line `docker`.
   If your user is not there, add it using e.g. `sudo usermod -a -G docker your_username`
 
 ### Run Testnet Node
@@ -246,22 +251,22 @@ Browser: [http://hydra.iop.global](http://hydra.iop.global)
 |---|---|---|
 | mainnet-genesis | europe-west1-b | 35.195.150.223 |
 | mainnet-seed-1 | europe-west1-b | 34.76.165.50 |
-| mainnet-seed-2 | europe-west1-d | 104.155.17.122 |
+| ~~mainnet-seed-2~~ | ~~europe-west1-d~~ | ~~104.155.17.122~~ |
 | mainnet-seed-3 | europe-north1-a | 35.228.202.124 |
-| mainnet-seed-4 | europe-north1-b | 35.228.73.165 |
+| ~~mainnet-seed-4~~ | ~~europe-north1-b~~ | ~~35.228.73.165~~ |
 | mainnet-seed-5 | europe-west3-c | 35.198.174.42 |
-| mainnet-seed-6 | europe-west3-a | 35.246.135.62 |
-| mainnet-seed-7 | europe-west4-a | 34.90.0.113 |
-| mainnet-seed-8 | europe-west4-b | 34.90.43.152 |
+| ~~mainnet-seed-6~~ | ~~europe-west3-a~~ | ~~35.246.135.62~~ |
+| ~~mainnet-seed-7~~ | ~~europe-west4-a~~ | ~~34.90.0.113~~ |
+| ~~mainnet-seed-8~~ | ~~europe-west4-b~~ | ~~34.90.43.152~~ |
 | mainnet-seed-9 | us-central1-a | 34.66.138.96 |
-| mainnet-seed-10 | us-central1-c | 104.154.142.55 |
+| ~~mainnet-seed-10~~ | ~~us-central1-c~~ | ~~104.154.142.55~~ |
 | mainnet-seed-11 | us-east1-b | 34.74.102.192 |
-| mainnet-seed-12 | us-east1-c | 35.231.24.181 |
+| ~~mainnet-seed-12~~ | ~~us-east1-c~~ | ~~35.231.24.181~~ |
 | mainnet-seed-13 | us-west1-b | 35.233.159.123 |
-| mainnet-seed-14 | us-west1-c | 35.230.119.77 |
-| mainnet-seed-15 | us-west2-a | 35.235.109.207 |
-| mainnet-seed-16 | us-west2-b | 34.94.151.12 |
-| mainnet-seed-17 | northamerica-northeast1-a | 35.203.123.223 |
-| mainnet-seed-18 | asia-southeast1-b | 35.240.251.207 |
+| ~~mainnet-seed-14~~ | ~~us-west1-c~~ | ~~35.230.119.77~~ |
+| ~~mainnet-seed-15~~ | ~~us-west2-a~~ | ~~35.235.109.207~~ |
+| ~~mainnet-seed-16~~ | ~~us-west2-b~~ | ~~34.94.151.12~~ |
+| ~~mainnet-seed-17~~ | ~~northamerica-northeast1-a~~ | ~~35.203.123.223~~ |
+| ~~mainnet-seed-18~~ | ~~asia-southeast1-b~~ | ~~35.240.251.207~~ |
 | mainnet-seed-19 | asia-northeast1-b | 35.190.233.247 |
 | mainnet-seed-20 | asia-south1-c | 34.93.248.166 |
