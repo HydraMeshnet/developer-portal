@@ -85,7 +85,7 @@ We also made a demonstration video what is DAC (project Morpheus) how can you us
 
 IoP provides a Typescript SDK via npm for layer-1 and layer-2 communication.
 
-<a href="https://www.npmjs.com/package/@internet-of-people/morpheus-sdk" target="_blank" class="btn btn-sm btn-outline-primary">Download Typescript SDK</a>
+<a href="https://www.npmjs.com/package/@internet-of-people/sdk" target="_blank" class="btn btn-sm btn-outline-primary">Download Typescript SDK</a>
 
 ## API
 
