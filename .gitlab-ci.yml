@@ -8,6 +8,7 @@ cache:
 
 before_script:
   - npm i docsify-cli -g
+  - docker info
     
 # the 'pages' job will deploy and build your site to the 'public' path
 pages:
