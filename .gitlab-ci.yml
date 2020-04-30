@@ -11,8 +11,8 @@ docker:
     - docker info
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -f docker/DockerFile -t CI_REGISTRY_IMAGE/developer-portal:latest .
-    - docker push CI_REGISTRY_IMAGE/developer-portal
+    - docker build -f docker/DockerFile -t $CI_REGISTRY_IMAGE/developer-portal:latest .
+    - docker push $CI_REGISTRY_IMAGE/developer-portal
     
 # the 'pages' job will deploy and build your site to the 'public' path
 pages:
