@@ -11,6 +11,8 @@ docker:
     - docker info
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
+    - echo $CI_REGISTRY
+    - echo $CI_REGISTRY_IMAGE
     - docker build -f docker/DockerFile -t $CI_REGISTRY_IMAGE/developer-portal:latest .
     - docker push $CI_REGISTRY_IMAGE/developer-portal
     
