@@ -1,14 +1,18 @@
-# requiring the environment of NodeJS 10
-image: node:10
+stages:
+  - deploy
+  - docker
 
-# add 'node_modules' to cache for speeding up builds
-cache:
-  paths:
-    - node_modules/ # Node modules and dependencies
-
-before_script:
-  - npm i docsify-cli -g
-  - docker info
+docker:
+  stage: docker
+  image: docker:stable
+  only: 
+    - master
+  before_script:
+    - docker info
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build -f docker/DockerFile -t registry.iop-ventures.com/iop-stack/infrastructure/developer-portal/doc:latest .
+    - docker push registry.iop-ventures.com/iop-stack/infrastructure/developer-portal/doc
     
 # the 'pages' job will deploy and build your site to the 'public' path
 pages:
