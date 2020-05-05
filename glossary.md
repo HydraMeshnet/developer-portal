@@ -423,8 +423,11 @@ Identifiers for claims are derived as the Content ID of its serialized form. In 
 
 ### Maskable Claim Properties
 
-To selectively disclose parts of a claim, the Claim ID can be built as the root of a [Merkle-tree](https://en.wikipedia.org/wiki/Merkle_tree). This allows the user to replace the actual data values by their content hashes, while still allowing verification of the integrity of the claim as a whole.
-For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object (see the example above) with a big enough nonce (256 bit).
+JSON documents can be represented as trees, considering primitives types - such as strings and numbers - as its leaves, while composite types - i.e. objects and arrays - creating its nodes.
+This JSON tree can be transformed into a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) by recursively creating a content ID (i.e. hashing) all child nodes first, then calculating a hash of the parent node from their children.
+The root hash of this Merkle tree provides a JSON content ID (a.k.a. digest or fingerprint) that masks the whole document. Note that this content ID enables integrity verification of contents that are potentially unknown at the moment and exposed only later on demand. You can also choose to "keep some subtree contents open", resulting in a "partially masked" Json document which has the same hash as the original one.
+
+Using JSON as data format of verifiable claims, partial masking allows the user to replace the actual claim details by their content hashes, while still allowing verification of the integrity of the claim as a whole. For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object (see the example above) with a big enough nonce (256 bit).
 
 - Properties with object or array types can also be marked as maskable. This introduces increasing depth into the tree so it must be used with care.
 - Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy when requesting witness statements, but creates additional overhead when presenting these statements together as they refer to seemingly unrelated claims.
