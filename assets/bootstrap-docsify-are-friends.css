@@ -42,3 +42,12 @@ details {
   padding: 0;
   margin:0;
 }
+
+.progress {
+  height: 2px;
+  background: #007bff;
+}
+
+.markdown-section {
+  max-width: 80%;
+}
