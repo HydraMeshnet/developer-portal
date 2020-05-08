@@ -32,7 +32,7 @@ Soon
 
 ## Using Tutorials
 
-In this section we provide you multiple guides that walk you through on a simple use case introducing and teaching you the DAC SDK.
+In this section we provide multiple guides that walk you through a simple use case introducing and teaching the DAC SDK.
 
 <div class="container ml-0 pl-0">
   <div class="row ml-0 pl-0">
@@ -40,8 +40,17 @@ In this section we provide you multiple guides that walk you through on a simple
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Contract Signature Proof On-Chain</h4>
-          <p class="card-text">In this guide you will learn how can you create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing an PII.</p>
+          <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
           <a href="#/sdk/dac_example_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 pl-0 ml-0">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h4 class="card-title">Sending HYD Programatically</h4>
+          <p class="card-text">In this guide you will learn how to send HYD without using a desktop wallet.</p>
+          <a class="btn btn-sm btn-outline-primary mt-auto disabled">COMING SOON</a>
         </div>
       </div>
     </div>

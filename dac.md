@@ -66,26 +66,26 @@ Read more about custom transactions and its use cases and technical details:
 - <https://blog.ark.io/ark-core-gti-introduction-to-generic-transaction-interface-57633346c249>
 - <https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md>
 
-## Develop for DAC
+## Develop on DAC
 
-In order to try out DAC, you have to connect to a Hydra blockchain. You can do that locally or using IoP's infrastructure.
+In order to try out DAC, you have to connect to a Hydra network. You can do that locally or using IoP's infrastructure.
 Please follow the guide [how to run a local testnet node](hydra#run-testnet-node) or read how can you [access IoP's Hydra network](hydra#hydra-networks).
 
-## Samples
+### Tutorials
 
-IoP provides a sample code base in an npm package that uses the SDK.
+We provide you detailed tutorials on various use cases where you can learn and explorer our DAC SDK. 
+
+<a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary">Visit Tutorial Center</a>
+
+### Samples
+
+We also provide you sample codes base in an npm package that uses the SDK. It's more useful for demonstration purposes.
 
 <a href="https://www.npmjs.com/package/@internet-of-people/examples" target="_blank" class="btn btn-sm btn-outline-primary">Download Samples</a>
 
 We also made a demonstration video what is DAC (project Morpheus) how can you use it and the samples we provide.
 
 <iframe width="560" height="500" src="https://www.youtube.com/embed/bnFDw7pIT3Y" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-## SDK
-
-IoP provides a Typescript SDK via npm for layer-1 and layer-2 communication.
-
-<a href="https://www.npmjs.com/package/@internet-of-people/sdk" target="_blank" class="btn btn-sm btn-outline-primary">Download Typescript SDK</a>
 
 ## API
 

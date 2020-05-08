@@ -421,11 +421,13 @@ A DID of the entity (persona, company, etc.) the claim is about.
 
 Identifiers for claims are derived as the Content ID of its serialized form. In most practical cases the `subject` and the `content` fields need to be revealed separately, but the `content` might be collapsed to its [content ID](#content-id).
 
-### Maskable Claim Properties
+### JSON Masking
 
 JSON documents can be represented as trees, considering primitives types - such as strings and numbers - as its leaves, while composite types - i.e. objects and arrays - creating its nodes.
 This JSON tree can be transformed into a [Merkle tree](https://en.wikipedia.org/wiki/Merkle_tree) by recursively creating a content ID (i.e. hashing) all child nodes first, then calculating a hash of the parent node from their children.
 The root hash of this Merkle tree provides a JSON content ID (a.k.a. digest or fingerprint) that masks the whole document. Note that this content ID enables integrity verification of contents that are potentially unknown at the moment and exposed only later on demand. You can also choose to "keep some subtree contents open", resulting in a "partially masked" Json document which has the same hash as the original one.
+
+### Maskable Claim Properties
 
 Using JSON as data format of verifiable claims, partial masking allows the user to replace the actual claim details by their content hashes, while still allowing verification of the integrity of the claim as a whole. For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object (see the example above) with a big enough nonce (256 bit).
 

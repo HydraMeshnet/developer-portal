@@ -245,7 +245,7 @@ Browser: [http://hydra.iop.global](http://hydra.iop.global)
 - The network we run in production, and it is the backbone of Hydra. This is usually known as the Public Network since this network is utilized by end users.
 - This network is available for everyone.
 - Has real coins, real transactions.
-- Has 21 servers up and running 24/7 by IOP Ventures, and each forging delegate is running their own servers
+- Has 9 servers up and running 24/7 by IOP Ventures, and each forging delegate is running their own servers
 
 | name | zone | IP |
 |---|---|---|
