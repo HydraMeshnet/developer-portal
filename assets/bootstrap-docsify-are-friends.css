@@ -49,5 +49,13 @@ details {
 }
 
 .markdown-section {
-  max-width: 80%;
+  max-width: 60rem;
+}
+
+#get-started-btn {
+  color: white;
+}
+
+.tech-logo {
+  max-height: 30px;
 }

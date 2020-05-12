@@ -67,6 +67,78 @@ Furthermore, our examples also use [multibase encoding prefixes](https://github.
 
 Example: `iezSomething` means a key identifier of a Ed25519 public-key base encoded with Base58-BTC.
 
+## DAC
+
+Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+
+## Layer-1
+
+DAC's API consists of two main parts. Layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
+
+It's called layer-1 as it's stored in the same database, the same way as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces. Basically it's the blockchain's API itself.
+
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. To improve privacy and flexibility, there is intentionally no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
+
+As it's the same as Hydra transaction, it uses the same endpoint, which is `http://YOUR_SERVER_IP:4703/api/v2/transactions`.
+
+## Layer-2
+
+DAC's API consists of two main parts. Layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
+
+Using the layer-2 API you can access its current state or the history of the state at any given time, but changing that state can only be done through sending in transactions to layer-1.
+
+## DAC Transaction
+
+It's a Hydra [custom transaction](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) sent in on [Layer-1](#Layer-1).
+
+The transaction will be forged into a valid block if it was properly paid (layer-1 block consensus). If any of the [operation attempts](#DAC-Operation-Attempt) in a single transaction is invalid at the current state of the DID, all other operation attempts in that transaction will also be ignored. If all attempts were valid, all of them make an atomic change in the layer-2 state on all the DIDs and before-proofs and later can be retrieved as [operations](#DAC-Operation).
+
+**All blockchain nodes will conclude the same way whether an operation attempt is valid or not (layer-2 DID state consensus).**
+
+## DAC Operation Attempt
+
+Operation attempts are operations that are not yet applied to the layer-2 state.
+
+Operation attepmts are part of a DAC transaction. Operations update one or more DIDs state. You can consult the [Layer-1 API documentation](/api/layer1_api.md) which operations you can apply on a DID.
+
+Some operations do not need authentication, so they can be included in the transaction as a top-level item.
+
+Some operations do need authentication, so they need to be wrapped in a signed operation. Each signed operation contains operations done in the name of a single key.
+
+A single transaction can include multiple signed operations authenticated by different keys.
+
+<details>
+<summary>
+Example of a signed operation (Click here to expand)
+</summary>
+
+```json
+{
+    "operation": "signed",
+    "signables": [
+        {
+            "operation": "addKey",
+            "did": "did:morpheus:ezSomething",
+            "auth": "iezSomethingElse"
+        },
+        {
+            "operation": "addRight",
+            "did": "did:morpheus:ezSomething",
+            "auth": "iezSomethingElse",
+            "right": "update"
+        }
+    ],
+    "signerPublicKey": "pezSomething",
+    "signature": "sezSomething"
+}
+```
+
+</details>
+
+## DAC Operation
+
+Operations differ in one thing compared to operation attempts: those are already applied to layer-2 state. We often call both just operations, but we highligh it as *attempt* when we'd like to point out that it's not yet applied.
+
 ## DID Document
 
 The DID document is publicly available data and does NOT contain any personal information, but is used to manage permissions for keypairs. The document can use the `"services"` field to refer to external service endpoints that have additional information about the entity represented by the DID. To prove the relation between the DID and these services, endpoints should refer back to the corresponding DID using e.g. DNSSEC entries.
@@ -665,6 +737,8 @@ A timestamp included in a witness statement (depending on the constraints' schem
 - proving that a signature happened **after** a time instance: bundle a block height and its hash to the object in question (a claim or a witness statement) before signing (see [After-Envelope below](#after-envelope)). It is practically impossible to guess what the hash of a future block will be. Also, it is practically impossible to change the hash of a given block, therefore knowing the block hash is good evidence for something happening after the time the block was created.
 
 > Note that tying witness statements to the blockchain and registering changes of DID Documents are both using a blockchain as a public immutable ledger but are otherwise completely unrelated actions and usually happen independently. They need to use the same blockchain only to prove the order of different events.
+
+
 
 ### Revoking a Right from a Key
 

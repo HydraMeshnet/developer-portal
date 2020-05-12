@@ -24,11 +24,11 @@ import { Crypto, Layer1, Layer2, Network } from '@internet-of-people/sdk';
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -61,11 +61,11 @@ export const hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -111,11 +111,11 @@ Loaded vault from vault.test
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -155,11 +155,11 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -207,11 +207,11 @@ Signed contract: {
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -249,11 +249,11 @@ Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -302,11 +302,11 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -346,7 +346,7 @@ const waitUntil12Sec = (): Promise<void> => {
     });
 };
 
-await waitUntil12Sec(); // it'll be included in the SDK soon
+await waitUntil12Sec(); // it'll be included in the SDK Soon in 2020
 let txStatus = await layer1.client.getTxnStatus(morpheusTxId); // no layer-1 transaction must be really confirmed
 console.log("Tx status:", txStatus.get()); // we use optional-js's Optional result
 
@@ -370,11 +370,11 @@ DAC Tx status: true
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -397,11 +397,11 @@ const contentID = Crypto.digest(signedContract);
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
@@ -427,14 +427,14 @@ Proof history: {
 
 #### ** Java **
 
-Soon
+Soon in 2020
 
 #### ** Dart **
 
-Soon
+Soon in 2020
 
 <!-- tabs:end -->
 
 4. The history show the blockheight and thus the timestamp (eg.: you can check it on the explorer) of the content ID, so the signature must have been created earlier than included into a block.
 
-<h1><a href="https://en.wikipedia.org/wiki/Q.E.D." target="_blank">Quod erat demonstrandum 🎓</h1>
+<a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>
