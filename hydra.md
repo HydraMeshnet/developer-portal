@@ -12,12 +12,12 @@ You can start a Hydra node in the following two ways.
 - Using [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 - Using [core-control](https://github.com/Internet-of-People/core-control)
 
-To prevent surprises and required efforts debugging your software environment and deployment state,
+To prevent surprises and reduce required efforts debugging your software environment and deployment state,
   we strongly recommend using Docker because its containers make operating a node
-  much safer, more deterministic and maintainable than CControl.
+  much safer, more deterministic and maintainable than with CControl.
   
 Unless you have experience with Docker, we recommend the following steps:
-- Install Docker and its Docker-compose image builder.
+- Install Docker and the Docker-compose image builder.
   For example Ubuntu/Debian-based Linux OSs need only `sudo apt install docker.io docker-compose`
 - Make sure that your user has proper access rights, i.e. is in group `docker`.
   On Linux systems, check `/etc/groups` and search for line `docker`.
@@ -25,11 +25,11 @@ Unless you have experience with Docker, we recommend the following steps:
 
 ### Run Testnet Node
 
-Note that testnet currently works out of the box only with Docker. CControl integration should also be possible (e.g. by adding some testnet-related configuration files to CControl) but not supported.
-
 The `testnet` consist of only a single - usually local - server without a real network to connect to. (The closest concept is called `regtest` in BTC, hence testnet is named misleadingly in Ark). You can use [IoP's testnet server](#Testnet) for testing or you can start your own server as described below.
 
-1. Clone the [Hydra Core repository](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [testnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/testnet) containing the Docker files.
+Testnet currently works out of the box only with Docker. CControl integration should also be possible (e.g. by adding some testnet-related configuration files to CControl) but not supported.
+
+1. Clone the [Hydra Core repository](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [testnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.31%2Bp1/docker/testnet) containing the Docker files.
 1. Go to the testnet directory:
 
    ```bash
@@ -59,7 +59,7 @@ The `testnet` consist of only a single - usually local - server without a real n
    ...
    ```
 
-1. Confirm node is running and DAC API is ready and processing blocks:
+1. Confirm that your node is running and DAC API is ready and processing blocks:
 
    ```bash
    $ tail -f mountpoints/logs/testnet/hydra-core-current.log
@@ -74,15 +74,16 @@ The `testnet` consist of only a single - usually local - server without a real n
 
 ### Run Devnet Node
 
-To participate in IoP's devnet network, your job is easy. You either use Docker or core-control it takes up minutes to install and start a relay or forger node.
+The `devnet` is a network of many forgers and relay nodes for experimentation. (The closest concept is called `testnet` in BTC).
+To participate in IoP's devnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
 
 <div class="alert alert-info">
-  Note, that syncing up with the devnet may take up to hours depending on your server's performance.
+  A full state synchronization may take hours depending on your server's performance.
 </div>
 
 #### Via Docker
 
-1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [devnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/devnet) with the Docker files.
+1. Clone [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [devnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.31%2Bp1/docker/devnet) with the Docker files.
 1. Go to the network's directory:
 
    ```bash
@@ -119,7 +120,7 @@ To participate in IoP's devnet network, your job is easy. You either use Docker 
    ...
    ```
 
-1. Confirm node is running and DAC API is ready and processing blocks:
+1. Confirm that your node is running and DAC API is ready and processing blocks:
 
    ```bash
    $ tail -f mountpoints/logs/devnet/hydra-core-current.log
@@ -138,15 +139,15 @@ Please follow the detailed guide in the [core-control's repository](https://gith
 
 ### Run Mainnet Node
 
-To participate in IoP's mainnet network, your job is easy. You either use Docker or core-control it takes up minutes to install and start a relay or forger node.
+To participate in IoP's mainnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
 
 <div class="alert alert-info">
-  Note, that syncing up with the mainnet may take up to hours depending on your server's performance.
+  A full state synchronization may take hours depending on your server's performance.
 </div>
 
 #### Via Docker
 
-1. Clone out [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [mainnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.10/docker/production/mainnet) with the Docker files.
+1. Clone [Hydra Core](https://github.com/Internet-of-People/hydra-core). Alternatively you can download only the [mainnet directory](https://github.com/Internet-of-People/hydra-core/tree/hydra-2.6.31%2Bp1/docker/mainnet) with the Docker files.
 1. Go to the network's directory:
 
    ```bash

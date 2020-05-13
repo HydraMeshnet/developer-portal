@@ -19,7 +19,7 @@ First you need to access the SDK in the code.
 In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
 ```typescript
-import { Ark, Crypto, Layer1, Network } from '@internet-of-people/sdk';
+import { Ark, Layer1, Network } from '@internet-of-people/sdk';
 ```
 
 #### ** Dart **
@@ -42,47 +42,8 @@ For simplicity we're going to use some constants here. In a real world applicati
 
 ```typescript
 export const network = Network.Testnet;
-export const vaultPath = "vault.test";
 export const walletPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
 export const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J"; // genesis
-```
-
-#### ** Dart **
-
-Soon in 2020
-
-#### ** Java **
-
-Soon in 2020
-
-<!-- tabs:end -->
-
-#### Step 3. Create a Vault
-
-Cryptographic keys are managed by the Vault component. It is persistent and its current implementation simply stores contents in a file. 
-<br>
-The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>. You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.
-
-<!-- tabs:start -->
-
-#### ** Javascript **
-
-```typescript
-let vault;
-try {
-    vault = Crypto.PersistentVault.loadFile(vaultPath);
-}
-catch (e) {
-    const phrase = new Crypto.Bip39('en').generatePhrase(); // YOU HAVE TO SAVE IT TO A SAFE PLACE!
-    vault = Crypto.PersistentVault.fromSeedPhrase(phrase, vaultPath);
-}
-
-console.log("Loaded vault from ", vaultPath);
-```
-
-Outputs:
-```bash
-Loaded vault from vault.test
 ```
 
 #### ** Dart **
@@ -99,7 +60,7 @@ Soon in 2020
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Now you have everything to send a transaction which is also as easy as you can imagine. You create an API and you're good to go!
+        You can send a transaction with minimal effort: just create a client instance and call the send operation.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">

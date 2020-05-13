@@ -71,21 +71,20 @@ Example: `iezSomething` means a key identifier of a Ed25519 public-key base enco
 
 Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 
+DAC's API consists of two main parts. Layer-1 and layer-2. Layer-1 receives, orders and performs transactions (i.e. write operations) maintaining a consensus of the general ledger state. Layer-2 adds more consensus rules for additional state information related to access control and serves read operations only.
+
 ## Layer-1
 
-DAC's API consists of two main parts. Layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
+Custom transactions of Layer-1 are stored the same way in the same database as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces. Basically it's the blockchain's API itself.
 
-It's called layer-1 as it's stored in the same database, the same way as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces. Basically it's the blockchain's API itself.
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) custom transaction types for managing operations on DID documents. To improve privacy and flexibility, there is intentionally no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
 
-We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md), custom transactions for managing operations on DID documents. To improve privacy and flexibility, there is intentionally no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
-
-As it's the same as Hydra transaction, it uses the same endpoint, which is `http://YOUR_SERVER_IP:4703/api/v2/transactions`.
+As Layer1 is based on custom Hydra transactions, you can initiate DAC operations simply by using the Hydra transactions endpoint `http://YOUR_SERVER_IP:4703/api/v2/transactions`.
 
 ## Layer-2
 
-DAC's API consists of two main parts. Layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
-
-Using the layer-2 API you can access its current state or the history of the state at any given time, but changing that state can only be done through sending in transactions to layer-1.
+The Layer-2 consensus evaluates custom transactions accepted on Layer1, validates them using additional consensus rules related to access control and maintains its own additional state. Accordingly, DAC transactions accepted on Layer-1 are only sent successfully to the network, but still may contain invalid DAC operations and can be rejected by the Layer-2 consensus.
+On layer-2 you can query the full history or a snapshot of the state at any given time, but changing that state can only be done through sending in transactions to layer-1.
 
 ## DAC Transaction
 
@@ -97,9 +96,9 @@ The transaction will be forged into a valid block if it was properly paid (layer
 
 ## DAC Operation Attempt
 
-Operation attempts are operations that are not yet applied to the layer-2 state.
+Operation attempts are DAC operations that are not yet applied to the layer-2 state.
 
-Operation attepmts are part of a DAC transaction. Operations update one or more DIDs state. You can consult the [Layer-1 API documentation](/api/layer1_api.md) which operations you can apply on a DID.
+Operation attempts are part of a DAC transaction. Operations update one or more DIDs state. You can consult the [Layer-1 API documentation](/api/layer1_api.md) which operations you can apply on a DID.
 
 Some operations do not need authentication, so they can be included in the transaction as a top-level item.
 

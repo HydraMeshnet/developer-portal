@@ -15,7 +15,7 @@
 <div class="jumbotron">
   <h1 class="display-3 text-center">Welcome to the IoP Developer Portal!</h1>
   <p class="lead">
-    Take full control of your digital life! Internet of People provides you self-sovereign identities (SSI) and offers to own multiple independent private personas. You can create and witness claims about personas and also share only relevant parts of such claims for verification, letting you securely manage every aspect of your life.
+    Take full control of your digital life! Internet of People (IoP) provides self-sovereign identity (SSI) allowing multiple independent private personas. You can create and witness claims about personas and also share only the requested parts of such claims for verification, letting you securely manage every aspect of your life.
   </p>
   <p>
     IoP's technology is open source and available for anyone. Although IoP is dedicated to providing a complete solution to the problems of online identity and privacy, IoP is fully modular without vendor lock-in: users and businesses are free to use and combine any part of the stack they want.
@@ -38,7 +38,7 @@
           </div>
           <p class="card-text">dPos blockchain extended with a layer-2 consensus to provide a public ledger for IoP DAC. Can be deployed in minutes with Docker.</p>
           <div class="mt-auto">
-            <a href="/#/hydra?id=install-amp-run" class="btn btn-sm btn-outline-primary w-50">INSTALL</a>
+            <a href="/#/hydra" class="btn btn-sm btn-outline-primary w-50">INSTALL</a>
             <img src="/assets/docker_square_logo.png" class="tech-logo ml-2" title="Docker">
             <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Typescript">
           </div>

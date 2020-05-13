@@ -4,11 +4,11 @@ DAC's API consists of two main parts. [Layer-1](glossary.md?id=Layer-1) and [lay
 
 #### Why is it Separated?
 
-DAC operates as a plugin inside the Hydra blockchain. Hence, it shares the same consensus as the Hydra network itself use when you send in a simple transaction. It's stored in the same database, the same way as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
+DAC operates as a plugin inside the Hydra blockchain. Hence it shares the same consensus rules with the Hydra network for transactions. DAC transactions are stored in the same database, the same way as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
 
-So when you send in a DAC transaction, it's a basically a Hydra transaction, works almost the same way, hence it uses the same API, as we call layer-1 API. It modifies the blockchain's state.
+A DAC transaction is simply a Hydra transaction containing customized data. Therefore DAC transactions are sent simply like other Hydra transactions using the Layer-1 API to modify the blockchain's state.
 
-In the other hand we have to read the state as well. The API where you can read DAC's state we call layer-2 API.
+However, reading the ledger's extended DAC-related state can be done only separately on the Layer-2 API.
 
 <div class="row">
   <div class="col-sm-6">
