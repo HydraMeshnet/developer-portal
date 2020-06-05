@@ -36,12 +36,16 @@ Soon in 2020
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity we're going to use some constants here. In a real world application you'll need secure config management of course. 
+        For simplicity we're going to use some constants here. In a real world application you'll need secure config management of course.<br>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Hints</h5>
             <ul>
+                <li>
+                    Interested how to create such a secure, persistent vault?
+                    Check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                </li>
                 <li>The gas passphrase and public key is the Hydra wallet's credential that pays for the actual on-chain transactions with HYD.</li>
             </ul>
         </div>
@@ -54,7 +58,6 @@ Soon in 2020
 
 ```typescript
 export const network = Network.Testnet;
-export const vaultPath = "vault.test";
 export const hydraGasPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
 export const hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
 ```
@@ -73,8 +76,7 @@ Soon in 2020
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send DAC transactions usually you need a DID. To have a DID you need a vault that stores your keys and is also used for signing data. This vault is saved on the disk, hence you can load it any time.
-        If the vault is not yet created, you can just create a new one with a freshly generated seed phrase.
+        In order to send DAC transactions usually you need a DID which has a key. To have a DID you need a vault that stores your DIDs and its' keys and is also used for signing data. 
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -92,21 +94,15 @@ Soon in 2020
 #### ** Javascript **
 
 ```typescript
-let vault;
-try {
-    vault = Crypto.PersistentVault.loadFile(vaultPath);
-}
-catch (e) {
-    const phrase = new Crypto.Bip39('en').generatePhrase(); // YOU HAVE TO SAVE IT TO A SAFE PLACE!
-    vault = Crypto.PersistentVault.fromSeedPhrase(phrase, vaultPath);
-}
+import { Crypto } from '@internet-of-people/sdk';
 
-console.log("Loaded vault from ", vaultPath);
-```
+// YOU HAVE TO SAVE IT TO A SAFE PLACE!
+const phrase = new Crypto.Bip39('en').generate().phrase;
 
-Outputs:
-```bash
-Loaded vault from vault.test
+const vault = await Crypto.Vault.create(
+  phrase,
+  '8qjaX^UNAafDL@!#', // this is for plausible deniability
+);
 ```
 
 #### ** Java **
@@ -123,7 +119,10 @@ Soon in 2020
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Even though a Vault can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create one or use a previously created.
+        Even though we can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create one or use a previously created.
+        <p>
+            In order to create a DID, we need to use a <code>Crypto</code> plugin from the SDK, called the <code>Morpheus</code> plugin, which will utilizes the previously created vault to be able handle your DIDs.
+        </p>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -141,10 +140,8 @@ Soon in 2020
 #### ** Javascript **
 
 ```typescript
-let did = vault.activeDid();
-if (did === undefined) {
-    did = vault.createDid();
-}
+const morpheus = Crypto.morpheus(vault);
+const did = morpheus.pub.personas.did(0); // we will use the first DID
 console.log("Using DID: ", did.toString());
 ```
 
@@ -162,6 +159,8 @@ Soon in 2020
 Soon in 2020
 
 <!-- tabs:end -->
+
+> Note: to learn more about the Morpheus and other plugins, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
 
 #### Step 5. Sign the Contract
 
@@ -188,7 +187,9 @@ Soon in 2020
 const keyId = did.defaultKeyId(); // acquire the default key
 const contractStr = "A long legal document, e.g. a contract with all details";
 const contractBytes = new Uint8Array(Buffer.from(contractStr));
-const signedContract = vault.signDidOperations(keyId, contractBytes); // YOU NEED TO SAVE IT TO A SAFE PLACE!
+const morpheusPrivate = await morpheus.priv(); // acquire the plugin's private interface that's provides you the sign interface
+const signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes); // YOU NEED TO SAVE IT TO A SAFE PLACE!
+
 console.log("Signed contract:", JSON.stringify({
     content: Buffer.from(signedContract.content).toString('utf8'), // you must use this Buffer wrapper at the moment, we will improve in later releases
     publicKey: signedContract.publicKey.toString(),
@@ -215,11 +216,13 @@ Soon in 2020
 
 <!-- tabs:end -->
 
+> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
+
 #### Step 6. Create a Proof by Collapsing Data
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        As our goal is not to share the contract itself just the fact, you have to do something with the result from the previous step. That data contains the original content and a proof that you've signed it. To be able to share it without revealing its content use our Crypto library to collapse its content into a single hash. We call it a JSON masking, read more about it <a href="/#/glossary?id=json-masking">here</a>.
+        As our goal is not to share the contract itself just the fact, you have to do something with the result from the previous step. That data contains the original content and a proof that you've signed it. To be able to share it without revealing its content, use our Crypto library to collapse its content into a single hash. We call it a JSON masking, read more about it <a href="/#/glossary?id=json-masking">here</a>.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -288,10 +291,15 @@ const opAttempts = new Layer1.OperationAttemptsBuilder() // let's create our ope
     .registerBeforeProof(beforeProof)
     .getAttempts();
 
-const layer1Api = await Layer1.createApi(network); // let's initialize our layer-1 API
-let nonce = await layer1Api.client.getWalletNonce(hydraGasPublicKey);
-nonce = nonce.plus(1);
-const txId = await layer1Api.sendMorpheusTx(opAttempts, hydraGasPassphrase, nonce);
+// let's initialize our layer-1 API
+const layer1Api = await Layer1.createApi(network);
+
+// let's query and then increment the current nonce of the owner of the tx fee
+let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
+nonce = nonce + BigInt(1);
+
+// and now we are ready to send it
+const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
 console.log("Transaction ID: ", txId);
 ```
 

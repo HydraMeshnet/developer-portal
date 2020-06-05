@@ -81,7 +81,7 @@ We provide you detailed tutorials on various use cases where you can learn and e
 
 We also provide you sample codes base in an npm package that uses the SDK. It's more useful for demonstration purposes.
 
-<a href="https://www.npmjs.com/package/@internet-of-people/examples" target="_blank" class="btn btn-sm btn-outline-primary">Download Samples</a>
+<a href="https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/examples" target="_blank" class="btn btn-sm btn-outline-primary">Download Samples</a>
 
 We also made a demonstration video what is DAC (project Morpheus) and how can you use it.
 
