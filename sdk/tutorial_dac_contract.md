@@ -152,7 +152,8 @@ console.log("Using DID: ", did.toString());
 ```
 
 Outputs
-```bash
+
+```text
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 ```
 
@@ -204,7 +205,7 @@ console.log("Signed contract:", JSON.stringify({
 ```
 
 Outputs
-```bash
+```text
 Signed contract: {
     "content": "A long legal document, e.g. a contract with all details",
     "publicKey": "pez7aYuvoDPM5i7xedjwjsWaFVzL3qRKPv4sBLv3E3pAGi6",
@@ -252,7 +253,8 @@ console.log("Before proof:", beforeProof);
 ```
 
 Outputs
-```bash
+
+```text
 Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 ```
 
@@ -310,7 +312,8 @@ console.log("Transaction ID: ", txId);
 ```
 
 Outputs
-```bash
+
+```text
 Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 ```
 
@@ -372,7 +375,8 @@ console.log("DAC Tx status:", dacTxStatus.get()); // the SDK uses optional-js's 
 ```
 
 Outputs
-```bash
+
+```text
 Tx status: {
     "id": "af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19",
     "blockId": "0adae3bd423939959aa800339555a6a2816f7ca1efef343bd1ab05fda185ae1c",
@@ -431,7 +435,8 @@ console.log("Proof history:", history)
 ```
 
 Outputs:
-```bash
+
+```text
 Proof history: {
     "contentId": "cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw",
     "existsFromHeight": 507997,

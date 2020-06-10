@@ -28,7 +28,6 @@ Soon in 2020
 
 <!-- tabs:end -->
 
-
 ## Tutorial Center
 
 In this section we provide multiple guides that walk you through a simple use case introducing and teaching the DAC SDK.

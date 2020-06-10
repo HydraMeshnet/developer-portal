@@ -1,6 +1,6 @@
 # DAC SDK Tutorial: Create a Secure & Persistent Vault
 
-In this tutorial you will create a secure vault which is encrypted and persisted on the disk. To do that, you'll use the Vault's optional context parameter.
+In this tutorial you will create a secure vault which is encrypted with a password and persisted on the disk. You will also try some of the features that do not require the user to enter the unlock password.
 
 #### Prerequisites
 
@@ -34,10 +34,10 @@ Soon in 2020
 #### Step 2. Create a Secure Vault
 
 The SDK provides you multiple tools to protect your wallet:
-- an optional **BIP 39** password. It's for [plausible deniability](https://en.wikipedia.org/wiki/Plausible_deniability). It's very similar to adding a <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)" target="_blank">salt</a> to passwords.
-- an encrypt password for encrypting your seed. It's useful if you wish to persist the vault's state as the seed in the state will be encrypted. Hence, to access the seed in various cases it will require you to provide this password as a so called *Unlock Password*. It uses [XChaCha20Poly1305](https://tools.ietf.org/html/draft-arciszewski-xchacha-03) and it derivates the key from the password with [Argon2i](https://en.wikipedia.org/wiki/Argon2).
-- state management.
 
+- an optional **BIP 39** password. It's for [plausible deniability](https://en.wikipedia.org/wiki/Plausible_deniability) and is sometimes called the 25th word of the mnemonic phrase. It's very similar to adding a <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)" target="_blank">salt</a> to passwords.
+- an unlock password for encrypting your seed. It's useful if you wish to persist the vault's state as the seed in the state will be encrypted. Hence, to access the seed in various cases it will require you to provide this password as a so called *Unlock Password*. It uses [XChaCha20Poly1305](https://tools.ietf.org/html/draft-arciszewski-xchacha-03) and it derivates the key from the password with [Argon2i](https://en.wikipedia.org/wiki/Argon2).
+- public state management for providing tools for convenient integrations without the need to unlock the vault for some operations.
 
 Below you can observe how you create a secured vault.
 
@@ -54,7 +54,7 @@ const phrase = new Crypto.Bip39('en').generate().phrase;
 const vault = Crypto.Vault.create(
   phrase,
   '8qjaX^UNAafDL@!#',
-  'encrypt password',
+  'unlock password',
 );
 ```
 
@@ -86,11 +86,15 @@ const phrase = new Crypto.Bip39('en').generate().phrase;
 const vault = Crypto.Vault.create(
   phrase,
   '8qjaX^UNAafDL@!#',
-  'encrypt password',
+  'unlock password',
 );
 
 const serializedState = JSON.stringify(vault.save());
-await fsAsync.writeFile('secure_storage/vault.state', serializedState);
+await fsAsync.writeFile(
+  'secure_storage/vault.state',
+  serializedState,
+  { encoding: 'utf-8' },
+);
 ```
 
 #### ** Java **
