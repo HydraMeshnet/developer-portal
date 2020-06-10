@@ -36,7 +36,7 @@ Soon in 2020
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity we're going to use some constants here. In a real world application you'll need secure config management of course.<br>
+        For simplicity you're going to use some constants here. In a real world application you'll need secure config management of course.<br>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -60,6 +60,7 @@ Soon in 2020
 export const network = Network.Testnet;
 export const hydraGasPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
 export const hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
+export const unlockPassword = '+*7=_X8<3yH:v2@s';
 ```
 
 #### ** Java **
@@ -84,6 +85,7 @@ Soon in 2020
             <ul>
                 <li>The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>.</li>
                 <li>You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.</li>
+                <li>If you eager to know what are these passwords for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
             </ul>
         </div>
     </div>
@@ -99,9 +101,10 @@ import { Crypto } from '@internet-of-people/sdk';
 // YOU HAVE TO SAVE IT TO A SAFE PLACE!
 const phrase = new Crypto.Bip39('en').generate().phrase;
 
-const vault = await Crypto.Vault.create(
+const vault = Crypto.Vault.create(
   phrase,
   '8qjaX^UNAafDL@!#', // this is for plausible deniability
+  unlockPassword,
 );
 ```
 
@@ -119,9 +122,9 @@ Soon in 2020
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Even though we can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create one or use a previously created.
+        Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create one or use a previously created.
         <p>
-            In order to create a DID, we need to use a <code>Crypto</code> plugin from the SDK, called the <code>Morpheus</code> plugin, which will utilizes the previously created vault to be able handle your DIDs.
+            In order to create a DID, you need to use a <code>Crypto</code> plugin from the SDK, called the <code>Morpheus</code> plugin, which will utilizes the previously created vault to be able handle your DIDs.
         </p>
     </div>
     <div class="col-6">
@@ -130,6 +133,7 @@ Soon in 2020
             <ul>
                 <li>Most operations of our Decentralized Access Control (DAC) system are related to a user and in decentralized systems users are identified by decentralized IDs (DID).</li>
                 <li>New DIDs are saved in the Vault's state as the new active DID.</li>
+                <li>If you eager to know what is this rewind for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
             </ul>
         </div>
     </div>
@@ -140,8 +144,10 @@ Soon in 2020
 #### ** Javascript **
 
 ```typescript
-const morpheus = Crypto.morpheus(vault);
-const did = morpheus.pub.personas.did(0); // we will use the first DID
+Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
+const morpheus = Crypto.MorpheusPlugin.get(vault);
+
+const did = morpheus.pub.personas.did(0); // you are going to use the first DID
 console.log("Using DID: ", did.toString());
 ```
 
@@ -187,13 +193,13 @@ Soon in 2020
 const keyId = did.defaultKeyId(); // acquire the default key
 const contractStr = "A long legal document, e.g. a contract with all details";
 const contractBytes = new Uint8Array(Buffer.from(contractStr));
-const morpheusPrivate = await morpheus.priv(); // acquire the plugin's private interface that's provides you the sign interface
+const morpheusPrivate = morpheus.priv(unlockPassword); // acquire the plugin's private interface that's provides you the sign interface
 const signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes); // YOU NEED TO SAVE IT TO A SAFE PLACE!
 
 console.log("Signed contract:", JSON.stringify({
     content: Buffer.from(signedContract.content).toString('utf8'), // you must use this Buffer wrapper at the moment, we will improve in later releases
     publicKey: signedContract.publicKey.toString(),
-    signature: signedContract.signature.toString()
+    signature: signedContract.signature.toString(),
 }, null, 2));
 ```
 
@@ -298,7 +304,7 @@ const layer1Api = await Layer1.createApi(network);
 let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
 nonce = nonce + BigInt(1);
 
-// and now we are ready to send it
+// and now you are ready to send it
 const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
 console.log("Transaction ID: ", txId);
 ```
@@ -356,12 +362,12 @@ const waitUntil12Sec = (): Promise<void> => {
 
 await waitUntil12Sec(); // it'll be included in the SDK Soon in 2020
 let txStatus = await layer1.client.getTxnStatus(morpheusTxId); // no layer-1 transaction must be really confirmed
-console.log("Tx status:", txStatus.get()); // we use optional-js's Optional result
+console.log("Tx status:", txStatus.get()); // the SDK uses optional-js's Optional result
 
-// now we can query from the layer-2 API as well!
+// now you can query from the layer-2 API as well!
 const layer2Api = await Layer2.createApi(network);
 let dacTxStatus = await layer2Api.getTxnStatus(morpheusTxId);
-console.log("DAC Tx status:", dacTxStatus.get()); // we use optional-js's Optional result
+console.log("DAC Tx status:", dacTxStatus.get()); // the SDK uses optional-js's Optional result
 
 ```
 
