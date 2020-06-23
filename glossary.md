@@ -106,6 +106,8 @@ Some operations do need authentication, so they need to be wrapped in a signed o
 
 A single transaction can include multiple signed operations authenticated by different keys.
 
+> Note, that a state you modify via operation attempts is always the state that is already forged and is in a block. Hence, for example you cannot add a key and revoke that key in the same transaction or in a different transaction before the 1st one is confirmed as the revoke key operation will fail as the actual confirmed state does not contain such a key at that point.
+
 <details>
 <summary>
 Example of a signed operation (Click here to expand)
