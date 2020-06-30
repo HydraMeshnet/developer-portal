@@ -18,7 +18,7 @@ In Typescript you need to use multiple modules from the sdk. Please read more ab
 Here, you only use the Crypto module.
 
 ```typescript
-import { Crypto } from '@internet-of-people/sdk';
+{{{TS_STEP_1}}}
 ```
 
 #### ** Java **
@@ -46,14 +46,7 @@ Below you can observe how you create a secured vault.
 #### ** Javascript **
 
 ```typescript
-// YOU HAVE TO SAVE IT TO A SAFE PLACE!
-const phrase = new Crypto.Bip39('en').generate().phrase;
-
-const vault = Crypto.Vault.create(
-  phrase,
-  '8qjaX^UNAafDL@!#',
-  'unlock password',
-);
+{{{TS_STEP_2}}}
 ```
 
 #### ** Java **
@@ -75,14 +68,7 @@ Now you have a wallet, you possibly want to save its state to disk for future pu
 #### ** Javascript **
 
 ```typescript
-import { promises as fsAsync } from 'fs';
-
-const serializedState = JSON.stringify(vault.save());
-await fsAsync.writeFile(
-  'tutorial_vault.state',
-  serializedState,
-  { encoding: 'utf-8' },
-);
+{{{TS_STEP_3}}}
 ```
 
 #### ** Java **
@@ -109,12 +95,7 @@ It's easy and almost the same.
 #### ** Javascript **
 
 ```typescript
-const backup = await fsAsync.readFile(
-    'tutorial_vault.state',
-    { encoding: 'utf-8' },
-);
-
-const vault = Crypto.Vault.load(JSON.parse(backup));
+{{{TS_STEP_4}}}
 ```
 
 #### ** Java **

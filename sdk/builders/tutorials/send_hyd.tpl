@@ -19,7 +19,7 @@ First you need to access the SDK in the code.
 In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
 ```typescript
-import { Layer1, Network } from '@internet-of-people/sdk';
+{{{TS_STEP_1}}}
 ```
 
 #### ** Dart **
@@ -51,9 +51,7 @@ Soon in 2020
 #### ** Javascript **
 
 ```typescript
-export const network = Network.Testnet;
-export const walletPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
-export const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J"; // genesis
+{{{TS_STEP_2}}}
 ```
 
 #### ** Dart **
@@ -88,10 +86,7 @@ Soon in 2020
 #### ** Javascript **
 
 ```typescript
-const layer1Api = await Layer1.createApi(network);
-const amount = 1e8 / 10; // 0.1 HYD
-const txId = await layer1Api.sendTransferTxWithPassphrase(walletPassphrase, targetAddress, BigInt(amount)); 
-console.log('Transaction ID: ', txId);
+{{{TS_STEP_3}}}
 ```
 
 Outputs:

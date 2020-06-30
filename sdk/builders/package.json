@@ -1,0 +1,19 @@
+{
+  "name": "builder",
+  "version": "1.0.0",
+  "description": "-",
+  "repository": {},
+  "main": "./main.js",
+  "scripts": {
+    "build": "node main.js",
+    "clean": "rimraf dist && rimraf node_modules"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "handlebars": "4.7.6"
+  },
+  "devDependencies": {
+    "rimraf": "3.0.0"
+  }
+}
