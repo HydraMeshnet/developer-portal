@@ -3,9 +3,9 @@ const fs = require('fs');
 const Handlebars = require('handlebars');
 const marker = '///###';
 
-const run = (title, command, params) => {
+const run = (dir, title, command, params) => {
   console.log(title);
-  const cmd = spawnSync(command,params);
+  const cmd = spawnSync(command,params, {cwd: dir});
   if(cmd.error) {
     console.log(`ERROR: ${cmd.error}`);
     process.exit(1);
@@ -61,18 +61,30 @@ const tutorials = [
 
 tutorials.forEach(tutorial => {
   console.log(`### ${tutorial} ###`);
-  const template = Handlebars.compile(fs.readFileSync(`./tutorials/${tutorial}.tpl`).toString());
+  let template = Handlebars.compile(fs.readFileSync(`./templates/${tutorial}.tpl`).toString());
 
   // TYPESCRIPT
-  run('- Installing TS...','npm', ['--prefix', `./ts/${tutorial}`, 'install', `./ts/${tutorial}`]);
-  run('- Building TS...','npm', ['run', 'build', '--prefix', `./ts/${tutorial}`]);
-  run('- Testing TS...','node',[`ts/${tutorial}`]);
+  run(`./ts/${tutorial}`, '- Installing TS...','npm', ['install']);
+  run(`./ts/${tutorial}`, '- Building TS...','npm', ['run', 'build']);
+  run(`./ts/${tutorial}`, '- Testing TS...','node',['.']);
+
+  // DART
+  //run(`./dart/${tutorial}`, '- Installing Dart...','pub',['get']);
+  //run(`./dart/${tutorial}`, '- Testing Dart...','dart',['bin/main.dart']);
   
   console.log('- Parsing TS code...');
   const tsBlocks = collectBlocks(`./ts/${tutorial}/src/main.ts`);
-  
-  console.log('- Applying TS code to the template...');
-  const tsResult = template(tsBlocks);
 
-  fs.writeFileSync(`../tutorial_${tutorial}.md`, tsResult);
+  console.log('- Parsing Dart code...')
+  //const dartBlocks = collectBlocks(`./dart/${tutorial}/bin/main.dart`);
+
+  const blocks = {
+    ...tsBlocks,
+    //...dartBlocks,
+  };
+  
+  console.log('- Applying code to the template...');
+  const result = template(blocks);
+
+  fs.writeFileSync(`../tutorial_${tutorial}.md`, result);
 });

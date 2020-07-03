@@ -47,7 +47,7 @@ console.log("Signed contract:", JSON.stringify({
 ///###TS_STEP_5
 
 ///###TS_STEP_6
-const beforeProof = Crypto.digest(signedContract);
+const beforeProof = Crypto.digestJson(signedContract);
 console.log("Before proof:", beforeProof);
 ///###TS_STEP_6
 
@@ -92,7 +92,7 @@ console.log("DAC Tx status:", dacTxStatus.get()); // the SDK uses optional-js's 
 
 ///###TS_STEP_9
 // we assume here that signedContract is in scope and available
-const expectedContentId = Crypto.digest(signedContract);
+const expectedContentId = Crypto.digestJson(signedContract);
 ///###TS_STEP_9
 
 ///###TS_STEP_10

@@ -211,7 +211,7 @@ Soon in 2020
             <ul>
                 <li>The signed contract is hashed into a content ID that proves the content without exposing it.</li>
                 <li>Hashing an object into a content ID is also usually mentioned as digesting.</li>
-                <li>We also allow partial masking when only parts of the object are digested see more about it <a href="https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#JSON-Masking">here</a>.</li>
+                <li>We also allow partial masking when only parts of the object are digested see more about it <a href="https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#json-digesting">here</a>.</li>
             </ul>
         </div>
     </div>

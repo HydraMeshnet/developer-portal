@@ -14,7 +14,9 @@ First you need to access the SDK in the code.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** Typescript **
+
+The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). After putting it into your package.json, you can start using it.
 
 In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
@@ -23,6 +25,8 @@ import { Layer1, Network } from '@internet-of-people/sdk';
 ```
 
 #### ** Dart **
+
+The Dart package is available through [pub.dev](https://pub.dev/packages/iop-sdk). After putting it into your pubspec.yaml, you can start using it.
 
 Soon in 2020
 
@@ -48,7 +52,7 @@ Soon in 2020
 
  <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** Typescript **
 
 ```typescript
 export const network = Network.Testnet;
@@ -85,7 +89,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** Typescript **
 
 ```typescript
 const layer1Api = await Layer1.createApi(network);
@@ -102,6 +106,11 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 #### ** Dart **
 
 Soon in 2020
+
+Outputs:
+```bash
+Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
+```
 
 #### ** Java **
 
