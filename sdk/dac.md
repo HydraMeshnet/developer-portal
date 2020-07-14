@@ -1,8 +1,8 @@
-# IoP DAC SDK
+# IOP DAC SDK
 
 DAC is a **D**ecentralized **A**ccess **C**ontrol framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 
-Please visit [DAC documentation](/dac) page for more information.
+Please visit [DAC documentation](/dac) page for more information or checkout our [get started page](/get_started) to get a full overview of IOP's stack.
 
 ## Install
 
@@ -67,7 +67,7 @@ In this section we provide multiple guides that walk you through a simple use ca
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Swimming Pool Discount</h4>
-          <p class="card-text">In this guide we introduce you more advanced concepts and other participants in the IoP ecosystem.</p>
+          <p class="card-text">In this guide we introduce you more advanced concepts and other participants in the IOP ecosystem.</p>
           <a class="btn btn-sm btn-outline-primary mt-auto disabled">COMING SOON</a>
         </div>
       </div>

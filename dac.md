@@ -1,11 +1,11 @@
-# IoP DAC (Project Morpheus)
+# IOP DAC (Project Morpheus)
 
-Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 
 This page gives you a detailed overview of DAC's architecture, API and SDK that
 provides an easy integration with other apps and tools.
 
-## What is IoP DAC?
+## What is IOP DAC?
 
 DAC is a decentralized identity and access management (IAM) framework, therefore
 it can manage and verify access control requirements of interconnected organizations in a single system.
@@ -51,7 +51,7 @@ Also note that hashes stored on ledger are small and do not give any hint about 
 
 DAC needs a ledger to order and keep a history of transactions using a decentralized consensus.
 Though there's no technical requirement to use any specific ledger technology,
-DAC is only implemented for the IoP Hydra blockchain.
+DAC is only implemented for the IOP Hydra blockchain.
 
 In practice, DAC will always know which DIDs had which rights at which block height. It means, it's not just a decentralized right management API, but it also has an auditable, consensus based timeline.
 DAC is running as a layer-2 plugin in the Hydra blockchain. Every time the node restarts/rewinds, its state is always recreated from layer-1 blockchain data. Consequently, data corruption is impossible and DAC state is still based on the layer-1 consensus. DAC uses [custom Ark transactions](https://blog.ark.io/an-introduction-to-blockchain-application-development-part-2-2-909b4984bae). So if you'd like to update your DID document, you can do that by sending a transaction to the Hydra blockchain.
@@ -68,8 +68,8 @@ Read more about custom transactions and its use cases and technical details:
 
 ## Develop on DAC
 
-In order to try out DAC, you have to connect to a Hydra network. You can do that locally or using IoP's infrastructure.
-Please follow the guide [how to run a local testnet node](hydra#run-testnet-node) or read how can you [access IoP's Hydra network](hydra#hydra-networks).
+In order to try out DAC, you have to connect to a Hydra network. You can do that locally or using IOP's infrastructure.
+Please follow the guide [how to run a local testnet node](hydra#run-testnet-node) or read how can you [access IOP's Hydra network](hydra#hydra-networks).
 
 ### Tutorials
 

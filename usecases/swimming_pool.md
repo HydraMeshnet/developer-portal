@@ -36,7 +36,7 @@ In details, the following are the steps to achieve all this above:
    3. The user might upload the same witness request several times. The authority has to give the same ticket for the same signed request, so the authorities do not need to work twice and the users do not need to backup tickets.
 
 6. The user notices that a nearby swimming pool gives a 20% discount for citizens resident in its district.
-   1. The user also notices that the swimming pool supports IoP DAC and has a service endpoint to prove district of residence based on digitalized ID cards.
+   1. The user also notices that the swimming pool supports IOP DAC and has a service endpoint to prove district of residence based on digitalized ID cards.
    2. The user follows a link or scans a QR code to choose this scenario.
    3. The user creates a presentation masking out all data but their district of residence using the statement signed by the authority trusted by the swimming pool.
    4. The user signs and uploads this presentation to the service endpoint of the swimming pool. This presentation has a unique identifier which can be rendered as a QR code.

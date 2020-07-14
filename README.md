@@ -13,12 +13,12 @@
 </style>
 
 <div class="jumbotron">
-  <h1 class="display-3 text-center">Welcome to the IoP Developer Portal!</h1>
+  <h1 class="display-3 text-center">Welcome to the IOP Developer Portal!</h1>
   <p class="lead">
-    Take full control of your digital life! Internet of People (IoP) provides self-sovereign identity (SSI) allowing multiple independent private personas. You can create and witness claims about personas and also share only the requested parts of such claims for verification, letting you securely manage every aspect of your life.
+    Take full control of your digital life! Internet of People (IOP) provides self-sovereign identity (SSI) allowing multiple independent private personas. You can create and witness claims about personas and also share only the requested parts of such claims for verification, letting you securely manage every aspect of your life.
   </p>
   <p>
-    IoP's technology is open source and available for anyone. Although IoP is dedicated to providing a complete solution to the problems of online identity and privacy, IoP is fully modular without vendor lock-in: users and businesses are free to use and combine any part of the stack they want.
+    IOP's technology is open source and available for anyone. Although IOP is dedicated to providing a complete solution to the problems of online identity and privacy, IOP is fully modular without vendor lock-in: users and businesses are free to use and combine any part of the stack they want.
   </p>
   <div class="text-center mb-5 mt-4">
     <a href="/#/get_started" id="get-started-btn" class="btn btn-lg btn-primary">GET STARTED</a>
@@ -32,11 +32,11 @@
               <img src="/assets/hydra_logo.png" class="iop-logo mt-2">
             </div>
             <div class="col-10 mt-2 pl-3">
-              <h4 class="card-title">IoP Hydra Blockchain</h4>
+              <h4 class="card-title">IOP Hydra Blockchain</h4>
               <h6 class="card-subtitle text-muted">Project Hydra</h6>
             </div>
           </div>
-          <p class="card-text">dPos blockchain extended with a layer-2 consensus to provide a public ledger for IoP DAC. Can be deployed in minutes with Docker.</p>
+          <p class="card-text">dPos blockchain extended with a layer-2 consensus to provide a public ledger for IOP DAC. Can be deployed in minutes with Docker.</p>
           <div class="mt-auto">
             <a href="/#/hydra" class="btn btn-sm btn-outline-primary w-50">INSTALL</a>
             <img src="/assets/docker_square_logo.png" class="tech-logo ml-2" title="Docker">
@@ -53,11 +53,11 @@
               <img src="/assets/morpheus_logo.png" class="iop-logo mt-2">
             </div>
             <div class="col-10 mt-2 pl-3">
-              <h4 class="card-title">IoP DAC</h4>
+              <h4 class="card-title">IOP DAC</h4>
               <h6 class="card-subtitle text-muted">Project Morpheus</h6>
             </div>
           </div>
-          <p class="card-text">Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.</p>
+          <p class="card-text">Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.</p>
           <div class="d-inline-flex">
             <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
             <a href="/#/api/api" class="btn btn-sm btn-outline-primary w-25">API</a>

@@ -1,4 +1,4 @@
-# IoP Fort (Project Prometheus)
+# IOP Fort (Project Prometheus)
 
 Fort is an umbrella project for libraries and applications using [DAC](dac)
 for various use cases, allowing or demonstrating secure handling of private data.
@@ -9,9 +9,9 @@ and mobile applications for different participants in a simple use case for demo
 
 In real life, loads of situations occur when you must present (or even copy or share) your personal information in order to apply for services like entering a hotel. In almost all of these cases they only need a proof, that you're eligible to use their service or product. The problem with this is that massive data leaks happen frequently, so your data and your personal digital life is not safe as long as you give it to random companies daily basis.
 
-This is where DAC is very usable, but as it's only a framework. Hence, we introduce our umbrella project as we call *Project Prometheus*, or IoP Fort.
+This is where DAC is very usable, but as it's only a framework. Hence, we introduce our umbrella project as we call *Project Prometheus*, or IOP Fort.
 
-IoP Fort is currently a set of mobile SDKs built in [Flutter](https://flutter.dev/) (cross-platform) and a set of backend (currently reference) applications that works offline *or* on top of DAC.
+IOP Fort is currently a set of mobile SDKs built in [Flutter](https://flutter.dev/) (cross-platform) and a set of backend (currently reference) applications that works offline *or* on top of DAC.
 
 Using these SDKs you'll be able to provide solutions for the mentioned problems above by letting the users be able to strictly define what data (and only that data) they would like to share or present with other parties. It's a bit complex, so to be able to enhance the further reading, we created a reference use case with where we describe in a very detailed way an exact problem which we implemented for you using Fort SDK and DAC, as an example. You can read about it in the next section.
 
@@ -19,15 +19,15 @@ Using these SDKs you'll be able to provide solutions for the mentioned problems 
 
 ### The Swimming Pool KYC Usecase
 
-To be able to understand how powerful IoP DAC and Fort all together as quickly as possible, we took a common situation when one would like to apply for a discount but that requires some personal data. Please read the story [here](usecases/swimming_pool.md).
+To be able to understand how powerful IOP DAC and Fort all together as quickly as possible, we took a common situation when one would like to apply for a discount but that requires some personal data. Please read the story [here](usecases/swimming_pool.md).
 
-We also created a reference implementation where we actually solve this via IoP DAC and IoP Fort. The source code and its documentation is available [here](https://github.com/Internet-of-People/morpheus-kyc-ui).
+We also created a reference implementation where we actually solve this via IOP DAC and IOP Fort. The source code and its documentation is available [here](https://github.com/Internet-of-People/morpheus-kyc-ui).
 
 This implementation contains all help you need to start building your own application with the SDKs you can find [here](#SDK).
 
 ### Other Possible Use Cases
 
-Of course, the possbilities are endless, but we'd like to provide some more example to help you understand the power of IoP.
+Of course, the possbilities are endless, but we'd like to provide some more example to help you understand the power of IOP.
 
 - [Digitalize ID Card](usecases/id_card.md)
 - [Buying Tickets for Public Transportation](usecases/public_transportation.md)
@@ -50,7 +50,7 @@ Beside these, there are other scenarios as well we did not specified:
         <h4 class="card-title">Dart SDK</h4>
         <h6 class="card-subtitle mb-2 text-muted">For Flutter mobile app development.</h6>
         <p class="card-text">
-          This package gives you all tools you need to develop IoP Fort applications using Dart and Flutter
+          This package gives you all tools you need to develop IOP Fort applications using Dart and Flutter
         </p>
         <a href="https://github.com/Internet-of-People/morpheus-dart" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Download Dart SDK</a>
       </div>

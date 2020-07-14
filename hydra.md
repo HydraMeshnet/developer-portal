@@ -1,6 +1,6 @@
-# IoP Hydra
+# IOP Hydra
 
-Hydra is a dPos blockchain extended with a layer-2 consensus to provide a public ledger for the IoP DAC (Decentralized Access Control) framework.
+Hydra is a dPos blockchain extended with a layer-2 consensus to provide a public ledger for the IOP DAC (Decentralized Access Control) framework.
 Hydra is built utilizing the modular architecture of [Ark](https://ark.io/).
 
 DAC is based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.
@@ -25,7 +25,7 @@ Unless you have experience with Docker, we recommend the following steps:
 
 ### Run Testnet Node
 
-The `testnet` consist of only a single - usually local - server without a real network to connect to. (The closest concept is called `regtest` in BTC, hence testnet is named misleadingly in Ark). You can use [IoP's testnet server](#Testnet) for testing or you can start your own server as described below.
+The `testnet` consist of only a single - usually local - server without a real network to connect to. (The closest concept is called `regtest` in BTC, hence testnet is named misleadingly in Ark). You can use [IOP's testnet server](#Testnet) for testing or you can start your own server as described below.
 
 Testnet currently works out of the box only with Docker. CControl integration should also be possible (e.g. by adding some testnet-related configuration files to CControl) but not supported.
 
@@ -75,7 +75,7 @@ Testnet currently works out of the box only with Docker. CControl integration sh
 ### Run Devnet Node
 
 The `devnet` is a network of many forgers and relay nodes for experimentation. (The closest concept is called `testnet` in BTC).
-To participate in IoP's devnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
+To participate in IOP's devnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
 
 <div class="alert alert-info">
   A full state synchronization may take hours depending on your server's performance.
@@ -139,7 +139,7 @@ Please follow the detailed guide in the [core-control's repository](https://gith
 
 ### Run Mainnet Node
 
-To participate in IoP's mainnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
+To participate in IOP's mainnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
 
 <div class="alert alert-info">
   A full state synchronization may take hours depending on your server's performance.

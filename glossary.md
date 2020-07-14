@@ -345,8 +345,6 @@ Note that definitions of *witness* and *authority* correspond to [W3C's issuer](
 A company, state government or any other certificate provider entity that is trusted by many to be a reliable [witness](#witness). Also, an authority might delegate signing claims to any number of witnesses who act on behalf of the authority in certain respects.
 For example, a bank or university can delegate appropriate rights to its clerks or employees. Delegations may be granted or revoked over time.
 
-You can read more about it in the [Prometheus SDK](prometheus.md).
-
 ## Scenario
 
 An inspection scenario describes a set of concatenated claims needed in a single presentation that are required to calculate a derived property of a DID and make an informed decision based on its value. Each claim must conform to a specified process, therefore a list of processes clearly defines the list of required claims.
@@ -445,8 +443,6 @@ For example if we take the [swimming pool use case](usecases/swimming_pool.md) a
 
 Another company, individual or any service provider entity that wants to verify the validity of a claim, presented by the subject in the form of a statement from a witness that is deemed trustworthy by the inspector. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc. Usually inspectors provide a list of [scenarios](#Scenario) with all the details they need.
 
-You can read more about it in the [Prometheus SDK](prometheus.md).
-
 Note that we have separated [W3C's verifier](https://w3c.github.io/vc-data-model/#dfn-verifier) into a potentially different inspector (~gatekeeper) and verifier (~API operator).
 
 ## Verifier
@@ -454,8 +450,6 @@ Note that we have separated [W3C's verifier](https://w3c.github.io/vc-data-model
 A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights.
 
 *The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.*
-
-You can read more about it in the [Prometheus SDK](prometheus.md).
 
 ## Content ID
 
