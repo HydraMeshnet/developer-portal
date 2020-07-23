@@ -14,7 +14,7 @@ First as always, you need to access the SDK.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
@@ -26,7 +26,7 @@ In Typescript you need to use multiple modules from the sdk. Please read more ab
 
 Soon in 2020
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -54,7 +54,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_2}}}
@@ -64,7 +64,7 @@ Soon in 2020
 
 Soon in 2020
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -90,7 +90,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_3}}}
@@ -100,7 +100,7 @@ Soon in 2020
 
 Soon in 2020
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -129,7 +129,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_4}}}
@@ -145,7 +145,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 Soon in 2020
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -172,7 +172,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_5}}}
@@ -187,11 +187,7 @@ Signed contract: {
 }
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -219,7 +215,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_6}}}
@@ -231,11 +227,7 @@ Outputs
 Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -265,7 +257,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_7}}}
@@ -277,11 +269,7 @@ Outputs
 Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -314,7 +302,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_8}}}
@@ -332,11 +320,7 @@ Tx status: {
 DAC Tx status: true
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -352,17 +336,13 @@ Assume that you have to prove the fact of signing later.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_9}}}
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -372,7 +352,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_10}}}
@@ -388,11 +368,7 @@ Proof history: {
 }
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 

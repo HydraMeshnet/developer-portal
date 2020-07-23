@@ -4,9 +4,31 @@ In this tutorial you will implement the simplest possible thing with the SDK: yo
 
 #### Prerequisites
 
+<!-- tabs:start -->
+
+#### ** NodeJS (Typescript) **
+
 - [NodeJS 12](https://nodejs.org/en/)
 - Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
 - Depending on your choice you will need a wallet that has at least 0.3 HYD.
+
+#### ** Flutter (Android) **
+
+- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
+- Depending on your choice you will need a wallet that has at least 0.3 HYD.
+- [Flutter](https://flutter.dev/docs/get-started/install) installed.
+- A sample Flutter project. Please follow their [Test Drive](https://flutter.dev/docs/get-started/test-drive) page to create it. In the end, you'll have a simple counter application.
+
+This sample project will have a `lib/main.dart`.
+That will be the file where we will work. Except the imports we will write our code into the `_incrementcounter` method, but we have to change it to async, like this:
+
+```dart
+Future<void> _incrementCounter() async {
+   // our code will be here...
+};
+```
+
+<!-- tabs:end -->
 
 #### Step 1. Import SDK
 
@@ -14,7 +36,7 @@ First you need to access the SDK in the code.
 
 <!-- tabs:start -->
 
-#### ** Typescript **
+#### ** NodeJS (Typescript) **
 
 The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). After putting it into your package.json, you can start using it.
 
@@ -24,15 +46,23 @@ In Typescript you need to use multiple modules from the sdk. Please read more ab
 {{{TS_STEP_1}}}
 ```
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
-The Dart package is available through [pub.dev](https://pub.dev/packages/iop-sdk). After putting it into your pubspec.yaml, you can start using it.
+To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
-Soon in 2020
+- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It'll add our Dart SDK into your `pubspec.yaml` file.
 
-#### ** Java **
+You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+```bash
+curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
+```
 
-Soon in 2020
+When the script finished, the only remaining task you have to do, is to import the SDK in the `lib/main.dart`, where we do our work.
+
+```dart
+{{{FLUTTER_STEP_1}}}
+```
 
 <!-- tabs:end -->
 
@@ -52,19 +82,17 @@ Soon in 2020
 
  <!-- tabs:start -->
 
-#### ** Typescript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_2}}}
 ```
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
-Soon in 2020
-
-#### ** Java **
-
-Soon in 2020
+```dart
+{{{FLUTTER_STEP_2}}}
+```
 
 <!-- tabs:end -->
 
@@ -87,7 +115,7 @@ Soon in 2020
 
 <!-- tabs:start -->
 
-#### ** Typescript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_3}}}
@@ -98,18 +126,16 @@ Outputs:
 Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
-Soon in 2020
+```dart
+{{{FLUTTER_STEP_3}}}
+```
 
 Outputs:
 ```bash
 Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
-
-#### ** Java **
-
-Soon in 2020
 
 <!-- tabs:end -->
 

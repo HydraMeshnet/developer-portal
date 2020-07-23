@@ -12,7 +12,7 @@ First as always, you need to access the SDK.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 Here, you only use the Crypto module.
@@ -21,11 +21,7 @@ Here, you only use the Crypto module.
 {{{TS_STEP_1}}}
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -43,17 +39,13 @@ Below you can observe how you create a secured vault.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_2}}}
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -65,17 +57,13 @@ Now you have a wallet, you possibly want to save its state to disk for future pu
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_3}}}
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 
@@ -92,17 +80,13 @@ It's easy and almost the same.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 {{{TS_STEP_4}}}
 ```
 
-#### ** Java **
-
-Soon in 2020
-
-#### ** Dart **
+#### ** Flutter (Android) **
 
 Soon in 2020
 

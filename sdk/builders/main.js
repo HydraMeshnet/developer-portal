@@ -55,8 +55,8 @@ const collectBlocks = (path) => {
 
 const tutorials = [
   'send_hyd',
-  'create_vault',
-  'dac_contract',
+  //'create_vault',
+  //'dac_contract',
 ];
 
 tutorials.forEach(tutorial => {
@@ -64,23 +64,23 @@ tutorials.forEach(tutorial => {
   let template = Handlebars.compile(fs.readFileSync(`./templates/${tutorial}.tpl`).toString());
 
   // TYPESCRIPT
-  run(`./ts/${tutorial}`, '- Installing TS...','npm', ['install']);
+  /*run(`./ts/${tutorial}`, '- Installing TS...','npm', ['install']);
   run(`./ts/${tutorial}`, '- Building TS...','npm', ['run', 'build']);
-  run(`./ts/${tutorial}`, '- Testing TS...','node',['.']);
+  run(`./ts/${tutorial}`, '- Testing TS...','node',['.']);*/
 
-  // DART
-  //run(`./dart/${tutorial}`, '- Installing Dart...','pub',['get']);
-  //run(`./dart/${tutorial}`, '- Testing Dart...','dart',['bin/main.dart']);
+  // FLUTTER
+  //run(`./flutter/${tutorial}`, '- Installing Flutter...','flutter',['pub','get']);
+  //run(`./flutter/${tutorial}`, '- Testing Flutter...','flutter',['test']);
   
   console.log('- Parsing TS code...');
   const tsBlocks = collectBlocks(`./ts/${tutorial}/src/main.ts`);
 
-  console.log('- Parsing Dart code...')
-  //const dartBlocks = collectBlocks(`./dart/${tutorial}/bin/main.dart`);
+  console.log('- Parsing Flutter code...')
+  const flutterBlocks = collectBlocks(`./flutter/${tutorial}/lib/main.dart`);
 
   const blocks = {
     ...tsBlocks,
-    //...dartBlocks,
+    ...flutterBlocks,
   };
   
   console.log('- Applying code to the template...');
