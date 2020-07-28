@@ -4,7 +4,27 @@ In this tutorial you will create a secure vault which is encrypted with a passwo
 
 #### Prerequisites
 
+<!-- tabs:start -->
+
+#### ** NodeJS (Typescript) **
+
 - [NodeJS 12](https://nodejs.org/en/)
+
+#### ** Flutter (Android) **
+
+- [Flutter](https://flutter.dev/docs/get-started/install) installed.
+- A sample Flutter project. Please follow their [Test Drive](https://flutter.dev/docs/get-started/test-drive) page to create it. In the end, you'll have a simple counter application.
+
+This sample project will have a `lib/main.dart`.
+That will be the file where we will work. Except the imports we will write our code into the `_incrementcounter` method, but we have to change it to async, like this:
+
+```dart
+Future<void> _incrementCounter() async {
+   // our code will be here...
+};
+```
+
+<!-- tabs:end -->
 
 #### Step 1. Import SDK
 
@@ -12,7 +32,7 @@ First as always, you need to access the SDK.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 Here, you only use the Crypto module.
@@ -21,13 +41,24 @@ Here, you only use the Crypto module.
 import { Crypto } from '@internet-of-people/sdk';
 ```
 
-#### ** Java **
+#### ** Flutter (Android) **
 
-Soon in 2020
+To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
-#### ** Dart **
+- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It'll add our Dart SDK into your `pubspec.yaml` file.
 
-Soon in 2020
+You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+```bash
+curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
+```
+
+When the script finished, the only remaining task you have to do, is to import the SDK's crypto package and a helper package from dart in the `lib/main.dart`, where we do our work.
+
+```dart
+import 'dart:io';
+import 'package:iop_sdk/crypto.dart';
+```
 
 <!-- tabs:end -->
 
@@ -43,7 +74,7 @@ Below you can observe how you create a secured vault.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 // YOU HAVE TO SAVE IT TO A SAFE PLACE!
@@ -56,13 +87,17 @@ const vault = Crypto.Vault.create(
 );
 ```
 
-#### ** Java **
+#### ** Flutter (Android) **
 
-Soon in 2020
-
-#### ** Dart **
-
-Soon in 2020
+```dart
+// YOU HAVE TO SAVE IT TO A SAFE PLACE!
+final phrase = Bip39('en').generatePhrase();
+final vault = Vault.create(
+  phrase,
+  '8qjaX^UNAafDL@!#',
+  'unlock password',
+);
+```
 
 <!-- tabs:end -->
 
@@ -72,7 +107,7 @@ Now you have a wallet, you possibly want to save its state to disk for future pu
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 import { promises as fsAsync } from 'fs';
@@ -85,13 +120,15 @@ await fsAsync.writeFile(
 );
 ```
 
-#### ** Java **
+#### ** Flutter (Android) **
 
-Soon in 2020
-
-#### ** Dart **
-
-Soon in 2020
+```dart
+final serializedState = vault.save();
+await File('tutorial_vault.state').writeAsString(
+  serializedState,
+  flush: true,
+);
+```
 
 <!-- tabs:end -->
 
@@ -106,7 +143,7 @@ It's easy and almost the same.
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 ```typescript
 const backup = await fsAsync.readFile(
@@ -117,13 +154,12 @@ const backup = await fsAsync.readFile(
 const vault = Crypto.Vault.load(JSON.parse(backup));
 ```
 
-#### ** Java **
+#### ** Flutter (Android) **
 
-Soon in 2020
-
-#### ** Dart **
-
-Soon in 2020
+```dart
+final backup = await File('tutorial_vault.state').readAsString();
+final vault = Vault.load(backup);
+```
 
 <!-- tabs:end -->
 

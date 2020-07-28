@@ -10,12 +10,12 @@ In this tutorial you will implement the simplest possible thing with the SDK: yo
 
 - [NodeJS 12](https://nodejs.org/en/)
 - Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need a wallet that has at least 0.3 HYD.
+- Depending on your choice you will need some HYDs to cover transaction fees.
 
 #### ** Flutter (Android) **
 
 - Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need a wallet that has at least 0.3 HYD.
+- Depending on your choice you will need some HYDs to cover transaction fees.
 - [Flutter](https://flutter.dev/docs/get-started/install) installed.
 - A sample Flutter project. Please follow their [Test Drive](https://flutter.dev/docs/get-started/test-drive) page to create it. In the end, you'll have a simple counter application.
 

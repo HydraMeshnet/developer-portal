@@ -55,8 +55,8 @@ const collectBlocks = (path) => {
 
 const tutorials = [
   'send_hyd',
-  //'create_vault',
-  //'dac_contract',
+  'create_vault',
+  'dac_contract',
 ];
 
 tutorials.forEach(tutorial => {

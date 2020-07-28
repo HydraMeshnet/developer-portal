@@ -81,7 +81,7 @@ const waitUntil12Sec = (): Promise<void> => {
 };
 
 await waitUntil12Sec(); // it'll be included in the SDK Soon in 2020
-let txStatus = await layer1Api.getTxnStatus(txId); // no layer-1 transaction must be really confirmed
+let txStatus = await layer1Api.getTxnStatus(txId); // layer-1 transaction must be confirmed
 console.log("Tx status:", txStatus.get()); // the SDK uses optional-js's Optional result
 
 // now you can query from the layer-2 API as well!
@@ -96,8 +96,8 @@ const expectedContentId = Crypto.digestJson(signedContract);
 ///###TS_STEP_9
 
 ///###TS_STEP_10
-let history = await layer2Api.getBeforeProofHistory(expectedContentId);
-console.log("Proof history:", history)
+const history = await layer2Api.getBeforeProofHistory(expectedContentId);
+console.log("Proof history:", history);
 ///###TS_STEP_10
 
 if(history.contentId !== expectedContentId) {

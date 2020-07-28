@@ -52,7 +52,7 @@ final txId = await layer1Api.sendTransferTxWithPassphrase(
 ///###FLUTTER_STEP_3
 
 if(txId == null) {
-  throw new Exception('TX could not be sent');
+  throw Exception('TX could not be sent');
 }
 
 ///###FLUTTER_STEP_3
