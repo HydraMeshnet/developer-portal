@@ -55,9 +55,9 @@ await File('tutorial_vault.state').writeAsString(
 
 ///###FLUTTER_STEP_4
 final backup = await File('tutorial_vault.state').readAsString();
-final vault = Vault.load(backup);
+final loadedVault = Vault.load(backup);
 ///###FLUTTER_STEP_4
-    if(backup != serializedState) {
+    if(loadedVault.save() != serializedState) {
       throw Exception('Vaults are not identical');
     }
 

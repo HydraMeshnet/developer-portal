@@ -34,10 +34,10 @@ const backup = await fsAsync.readFile(
     { encoding: 'utf-8' },
 );
 
-const vault = Crypto.Vault.load(JSON.parse(backup));
+const loadedVault = Crypto.Vault.load(JSON.parse(backup));
 ///###TS_STEP_4
 
-if(backup !== serializedState) {
+if(JSON.stringify(loadedVault.save()) !== serializedState) {
     throw new Error('Vaults are not identical');
 }
 
