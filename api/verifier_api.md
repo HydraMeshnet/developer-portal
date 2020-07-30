@@ -38,7 +38,7 @@ Click here to expand
 
 This endpoint is for verifying the validity of a signature by looking up DID documents and comparing access rights.
 
-**The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.**
+**The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the signatures and the timeline of events.**
 
 ```http
 POST /validate
