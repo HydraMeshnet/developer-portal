@@ -151,14 +151,14 @@ const backup = await fsAsync.readFile(
     { encoding: 'utf-8' },
 );
 
-const vault = Crypto.Vault.load(JSON.parse(backup));
+const loadedVault = Crypto.Vault.load(JSON.parse(backup));
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
 final backup = await File('tutorial_vault.state').readAsString();
-final vault = Vault.load(backup);
+final loadedVault = Vault.load(backup);
 ```
 
 <!-- tabs:end -->

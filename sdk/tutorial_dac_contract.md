@@ -409,7 +409,7 @@ int nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
 nonce = nonce + 1;
 
 // and now you are ready to send it
-final txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
+final txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce: nonce);
 print('Transaction ID: $txId');
 ```
 

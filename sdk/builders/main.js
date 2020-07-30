@@ -15,6 +15,8 @@ const run = (dir, title, command, params) => {
     console.log(`ERROR: ${cmd.stderr}`);
     process.exit(1);
   }
+
+  return cmd.stdout.toString();
 };
 
 const collectBlocks = (path) => {
@@ -64,19 +66,27 @@ tutorials.forEach(tutorial => {
   let template = Handlebars.compile(fs.readFileSync(`./templates/${tutorial}.tpl`).toString());
 
   // TYPESCRIPT
-  /*run(`./ts/${tutorial}`, '- Installing TS...','npm', ['install']);
+  run(`./ts/${tutorial}`, '- Installing TS...','npm', ['install']);
   run(`./ts/${tutorial}`, '- Building TS...','npm', ['run', 'build']);
-  run(`./ts/${tutorial}`, '- Testing TS...','node',['.']);*/
+  run(`./ts/${tutorial}`, '- Testing TS...','node',['.']);
 
   // FLUTTER
-  //run(`./flutter/${tutorial}`, '- Installing Flutter...','flutter',['pub','get']);
-  //run(`./flutter/${tutorial}`, '- Testing Flutter...','flutter',['test']);
+  const flutterSoZip = './test/Linux-x86.zip';
+  run(`./flutter/${tutorial}`, '- Installing Flutter Native Lib...','curl',['-sS','--proto','=https','--tlsv1.2','-#L','-o',flutterSoZip,'https://github.com/Internet-of-People/morpheus-rust/releases/latest/download/Linux-x86.zip']);
+  run(`./flutter/${tutorial}`,' - Unzipping...', 'unzip',['-o',flutterSoZip, '-d','./test']);
+  run(`./flutter/${tutorial}`,' - Cleanup...', 'rm',[flutterSoZip]);
+  run(`./flutter/${tutorial}`, '- Installing Flutter...','flutter',['pub','get']);
+  const flutterOut = run(`./flutter/${tutorial}`, '- Testing Flutter...','flutter',['test']);
+  if(flutterOut.indexOf('Test failed') > -1 || flutterOut.indexOf('Some tests failed') > -1) {
+    console.log(flutterOut);
+    process.exit(1);
+  }
   
   console.log('- Parsing TS code...');
   const tsBlocks = collectBlocks(`./ts/${tutorial}/src/main.ts`);
 
   console.log('- Parsing Flutter code...')
-  const flutterBlocks = collectBlocks(`./flutter/${tutorial}/lib/main.dart`);
+  const flutterBlocks = collectBlocks(`./flutter/${tutorial}/test/main_test.dart`);
 
   const blocks = {
     ...tsBlocks,

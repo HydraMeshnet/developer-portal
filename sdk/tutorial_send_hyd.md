@@ -139,11 +139,13 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```dart
 final layer1Api = Layer1Api(network);
 final amount = 1e8 ~/ 10;
+
 final txId = await layer1Api.sendTransferTxWithPassphrase(
   walletPassphrase,
   targetAddress,
   amount,
 );
+
 print('Transaction ID: $txId');
 ```
 
