@@ -1,6 +1,6 @@
 # IOP DAC (Project Morpheus)
 
-Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger. See [our DID method](w3c) for further details. 
 
 This page gives you a detailed overview of DAC's architecture, API and SDK that
 provides an easy integration with other apps and tools.
