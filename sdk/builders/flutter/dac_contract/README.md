@@ -1,6 +1,6 @@
 # tutorials
 
-Before-proof Contract via DAC Tutorial
+Tutorial: Before-proof Contract via DAC
 
 ## Getting Started
 

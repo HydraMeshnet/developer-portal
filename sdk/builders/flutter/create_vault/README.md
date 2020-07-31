@@ -1,6 +1,6 @@
 # tutorials
 
-Create a Secure Vault Tutorial
+Tutorial Create a Secure Vault
 
 ## Getting Started
 

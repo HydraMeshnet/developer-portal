@@ -94,7 +94,7 @@ await Future.delayed(Duration(seconds: 12));  // it'll be included in the SDK So
 
 // layer-1 transaction must be confirmed
 final txStatus = await layer1Api.getTxnStatus(txId);
-print('Tx status: ${txStatus.value}');  // the SDK uses optional's Optional result
+print('Tx status: ${json.encode(txStatus.value.toJson())}');  // the SDK uses optional's Optional result
 
 // now you can query from the layer-2 API as well!
 final layer2Api = Layer2Api(network);
@@ -109,7 +109,7 @@ final expectedContentId = digestJson(signedContractJson);
 
 ///###FLUTTER_STEP_10
 final history = await layer2Api.getBeforeProofHistory(expectedContentId);
-print('Proof history: $history');
+print('Proof history: ${json.encode(history.toJson())}');
 ///###FLUTTER_STEP_10
 
 if(history.contentId != expectedContentId) {

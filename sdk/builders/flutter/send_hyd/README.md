@@ -1,6 +1,6 @@
 # tutorials
 
-Sending Hydra Tutorial
+Tutorial: Sending Hydra
 
 ## Getting Started
 

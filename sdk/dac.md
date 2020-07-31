@@ -8,7 +8,7 @@ Please visit [DAC documentation](/dac) page for more information or checkout our
 
 <!-- tabs:start -->
 
-#### ** Javascript **
+#### ** NodeJS (Typescript) **
 
 You can install it via [npm](https://www.npmjs.com/package/@internet-of-people/sdk) or you can use our [Github repository](https://github.com/Internet-of-People/morpheus-ts).
 
@@ -18,13 +18,17 @@ npm install @internet-of-people/sdk --save
 
 <span class="text-muted">Note: The package provides type definitions for [Typescript](https://www.typescriptlang.org/).</span>
 
-#### ** Dart **
+#### ** Flutter (Android) **
 
-Soon in 2020
+To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
-#### ** Java **
+- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It'll add our Dart SDK into your `pubspec.yaml` file.
 
-Soon in 2020
+You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+```bash
+curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
+```
 
 <!-- tabs:end -->
 
