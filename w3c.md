@@ -67,7 +67,7 @@ For example, the implicit DID Document of `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 The queries on the Hydra layer-2 do not return W3C-compliant DID documents, because many details seem to be a moving target there. The Layer-2 API returns the whole history of state changes on the DID document, but it is easy to transform these documents into standard ones, because the underlying structures are very similar.
 
-Example from <https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document>
+Example from [https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document](https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document)
 
 ```json
 {
