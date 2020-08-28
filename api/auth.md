@@ -6,6 +6,27 @@ We use [JWT](https://jwt.io) in http authentication headers. In the end it will 
 
 The Bearer token is issued by the caller and verified by the callee service.
 
+## Sequence diagram
+
+```mermaid
+sequenceDiagram
+
+App->>+Client SDK: download private blob
+Client SDK->>+Client SDK: Sign URL by secret key
+Client SDK-->>-Client SDK: bearer(public key, URL)
+Client SDK->>+Service: GET /privateBlob + bearer
+
+Service->>+Server SDK: check bearer(public key, URL)
+Server SDK-->>-Service: timestamp
+
+Service->>Service: check last timestamp by pk was older than the current one
+Service->>Service: save current timestamp by pk for at least expiration + leeway
+Service->>Service: lookup blob in DB
+
+Service-->>-Client SDK: blob
+Client SDK-->>-App: blob
+```
+
 ## Example JWT Header
 
 ```json
@@ -17,7 +38,7 @@ The Bearer token is issued by the caller and verified by the callee service.
 
 IOP SSI uses Ed25519 keys, wrapped into a Multicipher format, hence the `alg` JWT header field is set to that. We put one of the DID's public key to the `kid` as the authentication key for the caller.
 
-## Example JWT payload:
+## Example JWT payload
 
 ```json
 {
@@ -31,7 +52,7 @@ To avoid replay attacks, each token needs a nonce, which we implement with alway
 
 Whenever there is a POST request that needs authorization, the JSON digest of the POST payload needs to be added in the `jti` field of the JWT payload. This ensures that the POST payload will not be tampered with even if some parts of the host environment is outsourced (Cloudflare, GCP, AWS, etc.)
 
-## Example JWT signature:
+## Example JWT signature
 
 ```json
 sez838N6VoprCcoQnZ45BQ2kL3YXKpgQCg6v97jM1L8y6uQs3ZRn7L5HV5RmwkSJvcqeB23DcWWpST9TB4u7YYAhKen
