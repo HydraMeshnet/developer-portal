@@ -8,22 +8,22 @@ IOP's technology is open source and available for anyone. Although IOP is dedica
 
 ## IOP Technology Stack
 
-As mentioned, IOP is fully modular, hence has several, well separated entities, but we are separated the stack into two main categories.
+IOP is fully modular and has several well-separated entities. The stack is divided into two main components:
 
-- IOP DAC
+- IOP **D**ecentralized **A**ccess **C**ontrol (DAC)
 - IOP Hydra
 
-These two main components give you a complete solution for various usecases where you have to manage your digital IDs (DID) or you have to implement a SSI based application.
+These two main components provide a complete solution for various use cases. Examples include managing digital IDs (DID) or implementing an SSI-based application.
 
-The diagram below shows you a complete structure and relationship matrix between these two main components and its entities. After the diagram we provide a detailed explanation.
+The diagram below shows the structure and relationship matrix between these two main components and its entities. After the diagram we provide a detailed explanation about these entities and their role inside the system.
 
 <img src="/assets/SSI_flow.png" class="d-block mx-auto">
 
 ### DAC
 
-DAC is a Decentralized Access Control framework based on [W3C standards](https://w3c.github.io/did-core) to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.
+DAC is a Decentralized Access Control framework based on [W3C standards](https://w3c.github.io/did-core) to provide SSI solutions and to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification. Keeping the verifiable claims (VCs) off-ledger enhances user privacy, while the capability of authenticating the data inside the claims is preserved.
 
-These entities defined below are all part of our framework that we call DAC.
+The entities defined below are part of our DAC framework.
 
 <div class="mb-4">
     <a href="/#/dac" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN DAC</a>
@@ -37,17 +37,17 @@ These entities defined below are all part of our framework that we call DAC.
 
 ##### Wallet (Holder)
 
-An application that holds public and private keys and other informations, such as verified claims or its presentations. It can create a claim and can send it to an Authority to verify/prove it. We call this process as "witnessing", hence the name is [Witness Request](/glossary?id=witness-request).
+An application that holds public and private keys and other information, such as verified claims or its representations. It can create a claim (a.k.a.: [Witness Request](/glossary?id=witness-request)) and sign it, thus transforming it to a [Signed Witness Request](/glossary?id=signed-witness-request). This ties the identity of the signer to the Witness Request. Once signed, the holder can send it to an Authority that verifies it. We call this process "witnessing", hence the name Witness Request.
 
 ##### Authority (Issuer)
 
-A company, state government or any other certificate provider entity that is trusted by many to be a reliable [witness](/glossary?id=witness). It can receive and after verification sign Witness Requests. These verified data will be sent back as a verified claim, or as we call: [Signed Witness Request](/glossary?id=signed-witness-request).
+A company, government or any other certificate provider entity that is trusted by many to be a reliable [witness](/glossary?id=witness). It can receive a Signed Witness Request from a holder. After verifying the data, the Authority signs the statemen and sends it back as a verified claim, or what we call a [Signed Witness Statement](/glossary?id=signed-witness-statement).
 
 <a href="/#/api/authority_api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
 
 ##### Inspector
 
-Another company, individual or any service provider entity that wants to verify the validity of a claim, presented by the subject in the form of a statement from a witness that is deemed trustworthy by the inspector. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc.
+Another company, individual or any service provider that wants to verify the validity of a claim, presented by its subject. This claim appears as a statement signed by a witness that is deemed trustworthy by the inspector. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc.
 
 Usually inspectors provide a list of [scenarios](/glossary?id=scenario) with all the details they need.
 
@@ -55,7 +55,7 @@ Usually inspectors provide a list of [scenarios](/glossary?id=scenario) with all
 
 ##### Verifier
 
-Note that we have separated [W3C's verifier](https://w3c.github.io/vc-data-model/#dfn-verifier) into a potentially different inspector (~gatekeeper) and verifier (~API operator).
+Note that we separated [W3C's verifier](https://w3c.github.io/vc-data-model/#dfn-verifier) into a potentially different inspector (gatekeeper) and verifier (API operator).
 
 A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights.
 
@@ -66,18 +66,18 @@ A service provider entity (might be conflated with the inspector) that is verify
 #### Layer-1 and Layer-2 API
 
 DAC extends the Hydra Blockchain with a plugin that adds two additional APIs to the Blockchain.
-A layer-1 and a layer-2 API. These APIs enables you to write and read the consensus based DAC state.
+A layer-1 and a layer-2 API. These APIs enables you to write and read the consensus-based DAC state.
 
 <a href="/#/api/api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
 
 ### Hydra Blockchain (Project Hydra)
 
-A dPos blockchain extended with a plugin to provide a public ledger for IOP DAC. Can be deployed in minutes with Docker.
+A dPos blockchain extended with a plugin to provide a public ledger for IOP DAC. This can be deployed in minutes with Docker.
 
 <a href="/#/hydra" class="btn btn-sm btn-outline-primary">LEARN MORE</a>
 
 ## Showcase
 
-To be able to present our vision, we have an umbrella project, IOP Fort (or project Prometheus), where we demonstrate how can these technologies/modules be used for various usecases.
+To be able to present our vision, we have an umbrella project, IOP Fort (or project Prometheus), where we demonstrate how these technologies/modules can be used for various use cases.
 
 <a href="/#/fort" class="btn btn-sm btn-outline-primary mt-auto mb-2">LEARN MORE</a>
