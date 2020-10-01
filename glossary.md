@@ -455,8 +455,8 @@ A service provider entity that is verifying the validity of a signature by looki
 Content IDs are used to identify and refer to a unique piece of data, such as claims. Content IDs are usually created by defining a serialization format for a dataset and applying a hash function. It has the following properties:
 
 - Different data will be provably hashed to different values in practical applications.
-- Knowing only the hash of a data you cannot guess the data itself (calculation of pre-image is hard).
-- Knowing both the hash and the data you cannot create a different data that hashes to the same number (calculation of second pre-image is hard).
+- Knowing only the hash of a data you cannot guess the data itself (calculating the pre-image is hard).
+- Knowing both the hash and the data you cannot create a different data that hashes to the same number (calculating a second pre-image is hard).
 
 These properties imply that if you present a content ID to an *untrusted* peer and they show you some content that has the content ID you asked for, you can be sure that they showed you the genuine content.
 
@@ -748,6 +748,6 @@ Therefore, if delegation was involved and the object is not wrapped in an AfterE
 - A verifier must a give a **warning** (yellow) to an inspector when there is no proof in the statement that signing happened **after** that grant. (There might be other information off-chain that could prove the ordering of events.)
 - A verifier must give an **error** (red) to an inspector when either the signature is cryptographically invalid or it can be proven that signing happened **before** the right was granted.
 
-### After-Envelope
+### After-envelope
 
-To verify that a [Witness Statement](#witness-statement) has been signed after a certain block, it can be wrapped inside an afterEnvelope attribute before signing it to create a [Signed Witness Statement](#signed-witness-statement). The AfterEnvelope includes the height and the hash of a recent block of the chain, proving that this information was known to the creator of the envelope. This concept can be applied to any object that is signable, like claim presentations, witness requests, etc.
+To verify that a [Witness Statement](#witness-statement) has been signed after a certain block, it can be wrapped inside an after-envelope attribute before signing it to create a [Signed Witness Statement](#signed-witness-statement). The after-envelope includes the height and the hash of a recent block of the chain, proving that this information was known to the creator of the envelope. This concept can be applied to any object that is signable, like claim presentations, witness requests, etc.
