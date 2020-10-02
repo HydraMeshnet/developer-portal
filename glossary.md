@@ -18,6 +18,12 @@ depending on their circumstances, such as a "dating persona" and/or a "job perso
 
 A key identifier (e.g. a Bitcoin address) deterministically derived from a public key. The derivation process must be irreversible, so that the public key cannot be guessed from the key identifier. To achieve this, derivations usually involve hash functions. Note that different use cases might mandate different hashing algorithms and display formats to identify the same public key. For this reason, you can always check whether a KeyId belongs to a public key, but 2 different KeyIds could belong to the same public key.
 
+## Schemas
+
+Schemas help communicating parties to settle an agreement on the data structures used. For example, before verification of claims, the presenter and verifier have to agree on the type and format of claims to be verified (see [Claim Schema](#claim-schema)).
+
+We currently support JSON schemas.
+
 ## DID
 
 All entities can generate a **d**ecentralized **id**entifier, a DID. Starting from a private/public keypair owned by an entity, a related DID is derived as KeyId of the public key.
@@ -463,8 +469,7 @@ These properties imply that if you present a content ID to an *untrusted* peer a
 
 ## Claim
 
-A set of data that contains information about a subject entity.
-The `nonce` field is used for [data-masking](#maskable-claim-properties).
+Each DID might have a set of related data (i.e. claims) about the subject it represents. [Witness Signatures](#) attest the validity of the claims. These claims can be collected inside a digital wallet and presented for verification. It is possible to keep sensitive parts of the claims private, i.e. masked out from verifiers. This ensures that the verifier only sees the data relevant for him.
 
 ```json
 # Example
@@ -473,6 +478,7 @@ The `nonce` field is used for [data-masking](#maskable-claim-properties).
   "content": { "ageOver": { "nonce": "zB58bar", "value": 42 } }
 }
 ```
+*The `nonce` field is used for [data-masking](#maskable-claim-properties).*
 
 Note that this definition slightly differs from its W3C's counterpart and corresponds mostly to
 [W3C's verifiable credential](https://w3c.github.io/vc-data-model/#credentials).
@@ -718,12 +724,18 @@ It is mathematically possible to retain sensitive data from the signed claim, wh
 }
 ```
 
-## Timestamping Statements
+## Timestamp Proofs
 
-A timestamp included in a witness statement is only reliable if the witness is trusted by the inspector. Additional confidence in the timestamp of a signed statement (e.g. for a contract) can be achieved by using a blockchain.
+Signatures require verifying that contents were signed by a valid key. Since keys can be valid during a given time only, it is necessary that a signature has a notion of time tied to it. Using timestamp proofs, it is possible to check that the key was valid when the signature was generated, even if the key is not valid anymore or was not valid before a give time. An example is the digital signature of a president, which is only valid when it was generated during his term. 
+
+Two types of timestamps can be included in a witness statement to achieve proof of validity:
 
 - proving that a signature happened **before** a time instance: sending the hash of the signed witness statement to the blockchain in a transaction. The consensus of the blockchain nodes makes it practically impossible to insert transactions into the history of the blockchain, therefore it provides a strict ordering among blocks.
 - proving that a signature happened **after** a time instance: bundle a block height and its hash to the object in question (a claim or a witness statement) before signing (see [After-Envelope below](#after-envelope)). It is practically impossible to guess what the hash of a future block will be. Additionally, it is practically impossible to change the hash of a given block, therefore knowing the block hash is good evidence for something that happened after the time the block was created.
+
+This is summarized in the figure below:
+
+<img src="./assets/proof-timestamps.png" class="d-block mx-auto">
 
 > Note that tying witness statements to the blockchain and registering changes of DID Documents are completely unrelated actions and usually happen independently. They use the same blockchain to prove the order of different events.
 

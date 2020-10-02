@@ -19,9 +19,11 @@ The diagram below shows the structure and relationship matrix between these two 
 
 <img src="/assets/SSI_flow.png" class="d-block mx-auto">
 
-### DAC
+### Decentralized Access Control
 
-DAC is a Decentralized Access Control framework based on [W3C standards](https://w3c.github.io/did-core) to provide SSI solutions and to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification. Keeping the verifiable claims (VCs) off-ledger enhances user privacy, while the capability of authenticating the data inside the claims is preserved.
+Our DAC framework is an identity and access management (IAM) framework based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions. The framework combines the management and verification of access control requirements of interconnected organizations in a single system. The system is designed to offer privacy by default. By using public blockchain technologies, it enables to keep a verifiable history of the system without revealing private data. 
+
+It is possible to create and store multiple schemas, DIDs, keys, rights and proof timestamps on a public blockchain. These can define authentication rules and manage access rights for each user. Designed with a privacy-first mindset, our DAC framework allows each real life person to have multiple, seemingly independent personas to split user data into unrelated datasets by topic, (e.g. professional life, family, friends, etc.) for better privacy. The verifiable claims (VCs) are kept off-ledger to enhance user privacy, while the capability of authenticating the data inside the claims is preserved.
 
 The entities defined below are part of our DAC framework.
 
@@ -37,7 +39,7 @@ The entities defined below are part of our DAC framework.
 
 ##### Wallet (Holder)
 
-An application that holds public and private keys and other information, such as verified claims or its representations. It can create a claim (a.k.a.: [Witness Request](/glossary?id=witness-request)) and sign it, thus transforming it to a [Signed Witness Request](/glossary?id=signed-witness-request). This ties the identity of the signer to the Witness Request. Once signed, the holder can send it to an Authority that verifies it. We call this process "witnessing", hence the name Witness Request.
+An application that holds public and private keys and other information, such as VCs or its representations. It can create a claim (a.k.a.: [Witness Request](/glossary?id=witness-request)) and sign it, thus transforming it to a [Signed Witness Request](/glossary?id=signed-witness-request). This ties the identity of the signer to the Witness Request. Once signed, the holder can send it to an Authority that verifies it. We call this process "witnessing", hence the name Witness Request.
 
 ##### Authority (Issuer)
 
@@ -70,7 +72,7 @@ A layer-1 and a layer-2 API. These APIs enables you to write and read the consen
 
 <a href="/#/api/api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
 
-### Hydra Blockchain (Project Hydra)
+### The Hydra Blockchain
 
 A dPos blockchain extended with a plugin to provide a public ledger for IOP DAC. This can be deployed in minutes with Docker.
 

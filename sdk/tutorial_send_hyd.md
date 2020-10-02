@@ -1,6 +1,6 @@
 # SDK Tutorial: Sending HYD Programatically
 
-In this tutorial you will implement the simplest possible thing with the SDK: you'll send HYDs with code from one wallet to a another one.
+In this tutorial you will implement a Hydra transaction with the SDK. The wallet is pre-generated from a seed: you'll send HYDs with code from one wallet to a another one.
 
 #### Prerequisites
 

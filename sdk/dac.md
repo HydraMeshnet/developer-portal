@@ -1,8 +1,8 @@
 # IOP DAC SDK
 
-DAC is a **D**ecentralized **A**ccess **C**ontrol framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+IOP's DAC is a **D**ecentralized **A**ccess **C**ontrol framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 
-Please visit [DAC documentation](/dac) page for more information or checkout our [get started page](/get_started) to get a full overview of IOP's stack.
+Please visit the [get started page](/get_started) to get a full overview of the IOP stack.
 
 ## Install
 
