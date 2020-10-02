@@ -3,7 +3,7 @@
 DAC's API consists of two main parts.
 
 - DID document state reading and writing through [Layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
-- Claim verification and issuance through [Authoirties](glossary.md?id=Authority), [Inspectors](glossary.md?id=Inspector) and [Verifiers](glossary.md?id=Verifier)
+- Claim verification and issuance through [Authorities](glossary.md?id=Authority), [Inspectors](glossary.md?id=Inspector) and [Verifiers](glossary.md?id=Verifier)
 
 Please visit [DAC documentation](/dac) page for more information or checkout our [get started page](/get_started) to get a full overview of IOP's stack.
 

@@ -28,7 +28,6 @@ It is possible to create and store multiple schemas, DIDs, keys, rights and proo
 The entities defined below are part of our DAC framework.
 
 <div class="mb-4">
-    <a href="/#/dac" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN DAC</a>
     <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
     <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary">API</a>
     <img src="/assets/flutter_square_logo.png" class="tech-logo ml-2" title="Supports Flutter/Dart">

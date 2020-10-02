@@ -730,10 +730,10 @@ Signatures require verifying that contents were signed by a valid key. Since key
 
 Two types of timestamps can be included in a witness statement to achieve proof of validity:
 
-- proving that a signature happened **before** a time instance: sending the hash of the signed witness statement to the blockchain in a transaction. The consensus of the blockchain nodes makes it practically impossible to insert transactions into the history of the blockchain, therefore it provides a strict ordering among blocks.
+- proving that a signature happened **before** a time instance: sending the hash of the signed witness statement to the blockchain in a transaction. The consensus of the blockchain nodes makes it practically impossible to insert transactions into the history of the blockchain, therefore it provides a strict ordering among blocks. This is often referred to as [Proof of Existence](#proof-of-existence).
 - proving that a signature happened **after** a time instance: bundle a block height and its hash to the object in question (a claim or a witness statement) before signing (see [After-Envelope below](#after-envelope)). It is practically impossible to guess what the hash of a future block will be. Additionally, it is practically impossible to change the hash of a given block, therefore knowing the block hash is good evidence for something that happened after the time the block was created.
 
-This is summarized in the figure below:
+This is summarized in the figure below, where both the Proof of Existence (blue) and after-envelope (green) are contained in block 30. These ensure that the proof was generated during the time between block 10 and block 30. If the key was valid during this period, the signature is also valid.
 
 <img src="./assets/proof-timestamps.png" class="d-block mx-auto">
 
@@ -751,14 +751,19 @@ Therefore, if a key is *restricted* in any way, all statements that were signed 
 - A verifier must give an **error** (red) to an inspector when either the signature is cryptographically invalid or it can be proven that signing happened **after** the revocation.
 
 >As a special case, the implicit DID document's default key could be revoked in the future, when the elliptic-curve cryptography is replaced by a quantum-proof version.
+
 ### Granting a Right to a Key
 
-When a key was granted new rights on a DID, in most use cases you have to prove that the signature happened **after** that grant.
+When a key was granted new rights on a DID, in most use cases the signature has to happen **after** that grant.
 
-Therefore, if delegation was involved and the object is not wrapped in an AfterEnvelope (or the envelope is invalid), verification of the signature must return a warning that the integrity of the statement could not be fully verified.
+Therefore, if delegation was involved and the object is not wrapped in an after-envelope (or the envelope is invalid), verification of the signature must return a warning that the integrity of the statement could not be fully verified.
 
-- A verifier must a give a **warning** (yellow) to an inspector when there is no proof in the statement that signing happened **after** that grant. (There might be other information off-chain that could prove the ordering of events.)
+- A verifier must give a **warning** (yellow) to an inspector when there is no proof in the statement that signing happened **after** the grant. (There might be other information off-chain that could prove the ordering of events.)
 - A verifier must give an **error** (red) to an inspector when either the signature is cryptographically invalid or it can be proven that signing happened **before** the right was granted.
+
+### Proof of Existence
+
+The Proof of Existence proves that a signature has been created before a certain timestamp or block. It consists of the hash of the signature, that is included in a block. Since it is very hard to undo or change transactions once included in the blockchain, the inclusion of the hash in the blockchain testifies that the signature already existed at the time of the transaction. This can be generalized to documents, witness request or any electronic file. 
 
 ### After-envelope
 
