@@ -458,7 +458,7 @@ A service provider entity that is verifying the validity of a signature by looki
 
 ## Vault
 
-A vault is our version of a hierarchical deterministic wallet, which has additional capabilities with regard to our DAC framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39 and BIP44 standards from a master seed. Additionaly, it keeps track on which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. The state does not contain private data, which means that it preserves privacy. 
+A vault is our version of a hierarchical deterministic wallet, which has additional capabilities with regard to our DAC framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39 and BIP44 standards from a master seed. Additionaly, it keeps track on which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. To prevent leakage of the private keys, the vault encrypts the master seed with a password.
 
 ## Content ID
 

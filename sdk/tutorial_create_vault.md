@@ -9,6 +9,7 @@ In this tutorial you will create a secure vault which is encrypted with a passwo
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
+- Download [the project template]() and setup the environment as described in its readme.
 
 #### ** Flutter (Android) **
 
