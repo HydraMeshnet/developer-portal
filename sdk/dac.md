@@ -50,21 +50,22 @@ In this section we provide multiple guides that walk you through a simple use ca
     <div class="col-sm-4 pl-0 ml-0">
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
-          <h4 class="card-title">Contract Signature Proof On-Chain</h4>
-          <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
-          <a href="/#/sdk/tutorial_dac_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 pl-0 ml-0">
-      <div class="card h-100">
-        <div class="card-body d-flex flex-column">
           <h4 class="card-title">Create/Load a Secure Vault</h4>
           <p class="card-text">Learn how to create a secure, persistent vault using DAC SDK.</p>
           <a href="/#/sdk/tutorial_create_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>
+    <div class="col-sm-4 pl-0 ml-0">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h4 class="card-title">Contract Signature Proof On-Chain</h4>
+          <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
+          <a href="/#/sdk/tutorial_dac_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+        </div>
+      </div>
+    </div>
+    
   </div>
   <div class="row ml-0 pl-0 mt-3">
     <div class="col-sm-4 pl-0 ml-0">

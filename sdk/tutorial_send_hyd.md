@@ -1,6 +1,6 @@
 # SDK Tutorial: Sending HYD Programatically
 
-In this tutorial you will implement a Hydra transaction with the SDK. The wallet is pre-generated from a seed: you'll send HYDs with code from one wallet to a another one.
+In this tutorial you will implement a Hydra transaction with the SDK. A pre-generated wallet can be accessed through a passphrase: you'll send HYDs with code from this wallet to another one.
 
 #### Prerequisites
 
@@ -9,7 +9,7 @@ In this tutorial you will implement a Hydra transaction with the SDK. The wallet
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Setting-up the project template, which can be cloned from our repository.
+- Download [the project template]() and setup the environment as described in the readme.
 
 #### ** Flutter (Android) **
 
@@ -31,15 +31,16 @@ Future<void> _incrementCounter() async {
 
 #### Step 1. Import SDK
 
-First you need to access the SDK in the code.
+First you need access to the SDK in the code. 
 
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
 
-The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). After putting it into your package.json, you can start using it.
+The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
 
-In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+
 
 ```typescript
 import { Layer1, Network } from '@internet-of-people/sdk';
@@ -49,8 +50,8 @@ import { Layer1, Network } from '@internet-of-people/sdk';
 
 To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
-- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
-- It'll add our Dart SDK into your `pubspec.yaml` file.
+- It downloads the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It adds our Dart SDK into your `pubspec.yaml` file.
 
 You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
 ```bash
@@ -70,7 +71,7 @@ import 'package:iop_sdk/network.dart';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity you're going to use some constants here. In a real world application you'll use a vault which is persisted and encrypted carefully.
+        For simplicity you're going to use a pre-generated wallet and target address. In a real world application you would access your wallet through a vault which is persisted and encrypted carefully. Once you have access to your keys, you can use similar code snippets to send tokens to any address.
     </div>
     <div class="col-6">
         <div class="alert alert-info">
@@ -104,14 +105,14 @@ final walletPassphrase = 'scout try doll stuff cake welcome random taste load to
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        You can send a transaction with minimal effort: just create a client instance and call the send operation.
+        You can send a transaction by creating a client instance and call the send operation. This is done inside an asynchronous function (`const main` in the project template). The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Hints</h5>
             <ul>
                 <li>Hydra uses 8 decimals, hence you use <code>1e8</code> notation, which means 100000000 flakes which is 1 HYD.</li>
-                <li>Here you use passphrase to send the transaction, but you can also send transactions using a <a href="https://en.bitcoin.it/wiki/Wallet_import_format#:~:text=Wallet%20Import%20Format%20(WIF%2C%20also,gobittest.appspot.com%2FPrivateKey" target="_blank">WIF</a> via <code>sendTransferTxWithWIF</code><br>Later, we will provide an another way, where you'll be able to send transactions using your own vault.</li>
+                <li>Here a passphrase is used to send the transaction, but you can also send transactions using a <a href="https://en.bitcoin.it/wiki/Wallet_import_format#:~:text=Wallet%20Import%20Format%20(WIF%2C%20also,gobittest.appspot.com%2FPrivateKey" target="_blank">WIF</a> via <code>sendTransferTxWithWIF</code><br>Later, we will provide an another way, where you'll be able to send transactions using your own vault.</li>
             </ul>
         </div>
     </div>
@@ -154,5 +155,6 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
 
 <!-- tabs:end -->
+Congratulations, you sent your first hydra transactions using our SDK! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on [GitHub](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) or contact us <a href="mailto:prometheus@iop-ventures.com">here</a>.
 
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

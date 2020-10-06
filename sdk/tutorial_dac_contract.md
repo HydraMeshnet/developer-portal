@@ -1,6 +1,6 @@
 # DAC SDK Tutorial: Contract Signature Proof On-Chain
 
-In this tutorial you will create a DID, then you will sign a contract with it. After the contract is signed, you will store a proof about it on-chain.
+In this tutorial you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store a proof about it on-chain.
 
 #### Prerequisites
 
@@ -9,8 +9,8 @@ In this tutorial you will create a DID, then you will sign a contract with it. A
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need some HYDs to cover transaction fees.
+- Download [the project template]() and setup the environment as described in the readme.
+
 
 #### ** Flutter (Android) **
 
@@ -32,14 +32,17 @@ Future<void> _incrementCounter() async {
 
 #### Step 1. Import SDK
 
-First as always, you need to access the SDK.
+First you need access to the SDK in the code. 
 
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
 
-In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
 
+In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+
+For this tutorial you will use the Crypto, Layer1, Layer2 and Network module from our stack.
 ```typescript
 import { Crypto, Layer1, Layer2, Network } from '@internet-of-people/sdk';
 ```
@@ -74,7 +77,7 @@ import 'package:iop_sdk/network.dart';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity you're going to use some constants here. In a real world application you'll need secure configuration management of course.<br>
+        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -84,7 +87,7 @@ import 'package:iop_sdk/network.dart';
                     Interested how to create such a secure, persistent vault?
                     Check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
                 </li>
-                <li>The gas passphrase and public key is the Hydra wallet's credential that pays for the actual on-chain transactions with HYD.</li>
+                <li>The gas passphrase and public key is the Hydra wallet's credential that pays for the actual on-chain transactions with testnet HYD.</li>
             </ul>
         </div>
     </div>
@@ -116,7 +119,7 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send DAC transactions usually you need a DID which has a key. To have a DID you need a vault that stores your DIDs and its keys and is also used for signing data. 
+        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -124,7 +127,7 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
             <ul>
                 <li>The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>.</li>
                 <li>You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.</li>
-                <li>If you eager to know what are these passwords for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                <li>If you are eager to know what these passwords are for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
             </ul>
         </div>
     </div>
@@ -135,13 +138,13 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
 #### ** NodeJS (Typescript) **
 
 ```typescript
-// YOU HAVE TO SAVE IT TO A SAFE PLACE!
+// YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 const phrase = new Crypto.Bip39('en').generate().phrase;
 
 const vault = Crypto.Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#', // this is for plausible deniability
-  unlockPassword,
+  '8qjaX^UNAafDL@!#',   //The 25th word of the passphrase
+  unlockPassword,       //Encrypts the master seed
 );
 ```
 
@@ -163,18 +166,17 @@ final vault = Vault.create(
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create one or use a previously created.
+        Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create a DID or use a previously created one.
         <p>
-            In order to create a DID, you need to use a <code>Crypto</code> plugin from the SDK, called the <code>Morpheus</code> plugin, which will utilizes the previously created vault to be able handle your DIDs.
+            In order to create a DID, you need to initialize the <code>Crypto</code> plugin from the SDK, which enabled the previously created vault to handle your DIDs. This is done by the <code>Crypto.MorpheusPlugin.rewind()</code> function.
         </p>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Hints</h5>
             <ul>
-                <li>Most operations of our Decentralized Access Control (DAC) system are related to a user and in decentralized systems users are identified by decentralized IDs (DID).</li>
-                <li>New DIDs are saved in the Vault's state as the new active DID.</li>
-                <li>If you eager to know what is this rewind for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                <li>Most operations of our DAC system are related to a user, which is identified by DIDs.</li>
+                <li>New DIDs are appended to the list of active DID in the vault's state.</li>
             </ul>
         </div>
     </div>
@@ -224,13 +226,13 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        As we mentioned, your goal is to store a proof on-chain about the fact that you signed a contract. At this point you have everything to sign it. At the end of this step, you have the data with our signature attached to it.
+        Your goal is to store a proof on-chain about the fact that you signed a contract. At this point you have everything to sign it. At the end of this step, you have generated the data with your signature attached to it.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Tips &amp; Tricks</h5>
+            <h5>Hints</h5>
             <ul>
-                <li>When a DID is created it has a public key by default attached which can act on behalf of the DID by signing related operations. Such an unmodified (keys untouched) DID is called a <a href="/#/glossary?id=implicit-throw-away-did-document">throw-away DID</a>.</li>
+                <li>When a DID is created, it has a public key by default attached, which can act on behalf of the DID by signing related operations. Such an unmodified (keys untouched) DID is called a <a href="/#/glossary?id=implicit-throw-away-did-document">throw-away DID</a>.</li>
                 <li>Signed data is similar to warranty tickets in a sense that it's not mandatory to keep it safe, until you have to prove that you have signed the contract.</li>
             </ul>
         </div>
