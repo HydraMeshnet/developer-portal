@@ -74,7 +74,7 @@ import 'package:iop_sdk/network.dart';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity you're going to use some constants here. In a real world application you'll need secure config management of course.<br>
+        For simplicity you're going to use some constants here. In a real world application you'll need secure configuration management of course.<br>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -116,7 +116,7 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send DAC transactions usually you need a DID which has a key. To have a DID you need a vault that stores your DIDs and its' keys and is also used for signing data. 
+        In order to send DAC transactions usually you need a DID which has a key. To have a DID you need a vault that stores your DIDs and its keys and is also used for signing data. 
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -224,7 +224,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        As we mentioned, your goal is to store a proof on-chain about the fact that you signed a contract. At this point you have everything to sign it. The end of this step, you have the data with our signature atteched to it.
+        As we mentioned, your goal is to store a proof on-chain about the fact that you signed a contract. At this point you have everything to sign it. At the end of this step, you have the data with our signature attached to it.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -321,26 +321,26 @@ Signed contract: {
 
 ```typescript
 const beforeProof = Crypto.digestJson(signedContract);
-console.log("Before proof:", beforeProof);
+console.log("Proof of Existence:", beforeProof);
 ```
 
 Outputs
 
 ```text
-Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
+Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
 final beforeProof = digestJson(signedContractJson);
-print('Before proof: ${beforeProof.value}');
+print('Proof of Existence: ${beforeProof.value}');
 ```
 
 Outputs
 
 ```text
-Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
+Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 ```
 
 <!-- tabs:end -->
@@ -349,11 +349,11 @@ Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Arriving this step, you have a single hash (before proof) which is a cryptographic proof that a contract is signed by us. Later you can prove this fact with exposing the original content with your signature.
+        Arriving this step, you have a single hash (Proof of Existence) which is a cryptographic proof that a contract has been signed by you ("the signature exists"). Later you can prove this fact with exposing the original signed content.
         <br>
-        The operation will register this hash on the blockchain in a transaction, hence the timestamp of the containing block will provide a proof with a consensus that the content had to be created until this time.
+        The operation will register this hash on the blockchain in a transaction, hence the timestamp of the containing block will provide a proof with a consensus that the content was created before this time.
         <br>
-        A single DAC transaction consists of one or multiple <a href="/#/dac?id=operations-and-signed-operations">DAC operations</a>. Registering a hash - or as we call before proof - is also such an operation. Read more about DAC operations <a href="/#/dac?id=operations-and-signed-operations">here</a>.
+        A single DAC transaction consists of one or multiple <a href="/#/glossary?id=operations-and-signed-operations">DAC operations</a>. Registering a hash - or as we call Proof of Existence - is also such an operation. Read more about DAC operations <a href="/#/dac?id=operations-and-signed-operations">here</a>.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -425,13 +425,13 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Aaaand you did it. Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
+        Aaaand you did it! Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
         <br>
-        Though the transaction was successfully sent, it takes time until its included in a block and thus accepted by the blockchain consensus. After sent, you can fetch transaction status on both layer1 or layer2.
+        Though the transaction was successfully sent, it takes time until it is included in a block and thus accepted by the blockchain consensus. After sendin the transaction, you can fetch its status both on layer-1 and layer-2.
         <br>
         If a transaction was accepted on
         <ul>
-            <li>layer-1 then it was just a valid Hydra token transaction without any DAC consensus e.g. its format is OK, fees are covered and is forged into a block</li>
+            <li>layer-1, then it was just a valid Hydra transaction without any DAC consensus e.g. its format is OK, fees are covered and is forged into a block</li>
             <li>layer-2 then it was also accepted as a valid DAC transaction</li>
         </ul>
     </div>

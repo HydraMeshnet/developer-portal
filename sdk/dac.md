@@ -10,7 +10,7 @@ Please visit the [get started page](/get_started) to get a full overview of the 
 
 #### ** NodeJS (Typescript) **
 
-You can install it via [npm](https://www.npmjs.com/package/@internet-of-people/sdk) or you can use our [Github repository](https://github.com/Internet-of-People/morpheus-ts).
+To install the Typescript SDK, use [npm](https://www.npmjs.com/package/@internet-of-people/sdk) or our [Github repository](https://github.com/Internet-of-People/morpheus-ts).
 
 ```bash
 npm install @internet-of-people/sdk --save
@@ -20,9 +20,9 @@ npm install @internet-of-people/sdk --save
 
 #### ** Flutter (Android) **
 
-To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
+To access our SDK in your Flutter Android application, run our installer script, which does the following:
 
-- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It downloads the necessary dynamic libraries and puts them at the right place. These files are required, because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
 - It'll add our Dart SDK into your `pubspec.yaml` file.
 
 You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):

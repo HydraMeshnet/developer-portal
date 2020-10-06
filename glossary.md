@@ -456,6 +456,10 @@ A service provider entity that is verifying the validity of a signature by looki
 
 *The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.*
 
+## Vault
+
+A vault is our version of a hierarchical deterministic wallet, which has additional capabilities with regard to our DAC framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39 and BIP44 standards from a master seed. Additionaly, it keeps track on which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. The state does not contain private data, which means that it preserves privacy. 
+
 ## Content ID
 
 Content IDs are used to identify and refer to a unique piece of data, such as claims. Content IDs are usually created by defining a serialization format for a dataset and applying a hash function. It has the following properties:
@@ -482,7 +486,7 @@ Each DID might have a set of related data (i.e. claims) about the subject it rep
 
 Note that this definition slightly differs from its W3C's counterpart and corresponds mostly to
 [W3C's verifiable credential](https://w3c.github.io/vc-data-model/#credentials).
-We lack the **verifiable** from the definition simply because we only care about verifiable data
+We lack the **verifiable** from the definition, because we only care about verifiable data
 and do not bother with unverifiable ones at all.
 
 ### Claim Subject

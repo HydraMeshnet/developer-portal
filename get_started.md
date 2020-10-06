@@ -42,7 +42,7 @@ An application that holds public and private keys and other information, such as
 
 ##### Authority (Issuer)
 
-A company, government or any other certificate provider entity that is trusted by many to be a reliable [witness](/glossary?id=witness). It can receive a Signed Witness Request from a holder. After verifying the data, the Authority signs the statemen and sends it back as a verified claim, or what we call a [Signed Witness Statement](/glossary?id=signed-witness-statement).
+A company, government or any other certificate provider entity that is trusted by many to be a reliable [witness](/glossary?id=witness). It can receive a Signed Witness Request from a holder. After verifying the data, the Authority signs the statement and sends it back as a verified claim, or what we call a [Signed Witness Statement](/glossary?id=signed-witness-statement).
 
 <a href="/#/api/authority_api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
 

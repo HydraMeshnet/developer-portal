@@ -9,8 +9,7 @@ In this tutorial you will implement a Hydra transaction with the SDK. The wallet
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need some HYDs to cover transaction fees.
+- Setting-up the project template, which can be cloned from our repository.
 
 #### ** Flutter (Android) **
 
