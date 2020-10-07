@@ -2,18 +2,18 @@
 
 DAC's API consists of two main parts.
 
-- DID document state reading and writing through [Layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
+- DID document state reading and writing through [layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
 - Claim verification and issuance through [Authorities](glossary.md?id=Authority), [Inspectors](glossary.md?id=Inspector) and [Verifiers](glossary.md?id=Verifier)
 
 Please visit our [get started page](/get_started) to get a full overview of IOP's stack.
 
-## Layer 1 and Layer 2 APIs
+## Layer-1 and Layer-2 APIs
 
-DAC operates as a plugin inside the Hydra blockchain (both on testnet, devnet and mainnet). Hence it shares the same consensus rules with the Hydra network for transactions. DAC transactions are stored in the same database, the same way as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
+DAC operates as a plugin inside the Hydra blockchain. Hence it shares the same consensus rules with the Hydra network for transactions. DAC transactions are stored in the same database as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
 
-A DAC transaction is simply a Hydra transaction containing customized data. Therefore DAC transactions are sent simply like other Hydra transactions using the Layer-1 API to modify the blockchain's state.
+A DAC transaction is simply a Hydra transaction containing customized data. Therefore DAC transactions are sent like other Hydra transactions using the layer-1 API to modify the blockchain's state.
 
-However, reading the ledger's extended DAC-related state can be done only separately on the Layer-2 API.
+However, the ledger's DAC-related state is separated from the layer-1 state. Reading the layer-2 state can be done using the layer-2 API.
 
 <div class="row">
   <div class="col-sm-6">
@@ -26,7 +26,7 @@ However, reading the ledger's extended DAC-related state can be done only separa
           </div>
         </div>
         <div class="card-text mt-3">
-          Use it for:
+          Use it to:
           <ul>
               <li>Add a key to a DID</li>
               <li>Revoke a key from a DID</li>
@@ -53,7 +53,7 @@ However, reading the ledger's extended DAC-related state can be done only separa
           </div>
         </div>
         <div class="card-text mt-3">
-          Use it for:
+          Use it to:
           <ul>
               <li>Query DID Document</li>
               <li>Query DID Document Transactions</li>
@@ -74,7 +74,7 @@ However, reading the ledger's extended DAC-related state can be done only separa
 
 ## DAC Entities' APIs
 
-As explained in detailed on the [get started page](/get_started), DAC has multiple entities defined for claim verification and issuance. IOP right now does not host such entities, but provides you a well defined API described here and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
+As explained in detail on the [Get Started page](/get_started), DAC has multiple entities defined for claim verification and issuance. IOP does not host these entities, but provides you a well-defined API described below and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
 
 <div class="row">
   <div class="col-sm-6">

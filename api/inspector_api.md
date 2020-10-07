@@ -1,14 +1,14 @@
 # Inspector API
 
-To understand what's an inspector, please read our glossary [here](glossary?id=inspector).
+To understand what an inspector is, please read our glossary [here](glossary?id=inspector).
 
 ## Endpoints
 
 ### List Scenarios
 
-Returns all inspection [scenarios](glossary?id=scenario) available at this [inspector](glossary?id=inspector).
+Returns all inspection [scenarios](glossary?id=scenario) available for this [inspector](glossary?id=inspector).
 
-Note: It's possible that `scenarios` will not be objects but only a [content id](glossary?id=content-id). In that case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
+Note: It is possible that `scenarios` will not be objects, but be referred to by [content ids](glossary?id=content-id). In this case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
 
 ```http
 GET /scenarios
@@ -55,7 +55,7 @@ curl http://127.0.0.1:8080/blob/cjuFURvWkcd-82J83erY_dEUhlRf9Yn8OiWWl7SxVpBvf4
 
 | Name | Type | Description |
 |---|---|---|
-| id | string | **Required**. The id of the blow you'd like to download |
+| id | string | **Required**. The id of the blob you'd like to download |
 
 #### Response
 

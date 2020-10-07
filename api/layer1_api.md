@@ -1,12 +1,12 @@
 # Layer-1 API
 
-DAC's API consists of two main parts. Layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
+DAC's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
 
-Read more about what is layer-1 in its [definition](glossary.md?id=Layer-1).
+Read more about layer-1 [here](glossary.md?id=Layer-1).
 
 ## DAC Transaction Example
 
-You can easily send in a DAC transaction as it's really the same as a Hydra transaction.
+You can send in a DAC transaction, which is the same as a plain Hydra transaction, but with additional data.
 
 ```bash
 curl --header "Content-Type: application/json" \
@@ -65,7 +65,7 @@ Example transaction content (Click here to expand)
 
 ## Operations
 
-The following operations can be put into the layer-1 custom transaction.
+The following operations can be put into the layer-1 custom transactions:
 
 ### Register Before Proof
 
@@ -81,7 +81,7 @@ The following operations can be put into the layer-1 custom transaction.
 Notes:
 
 - `auth` is a multiCipher public key or key identifier.
-- `expiresAtHeight` is optional auto-revokation at given height
+- `expiresAtHeight` allows optional auto-revokation at a given height
 
 ```json
 {
@@ -118,7 +118,7 @@ Notes:
 
 ### Add Right
 
-For now only update or impersonate is supported, but custom rights will soon be supported as well.
+For now only update or impersonate is supported, but custom rights will be added soon.
 
 ```json
 {

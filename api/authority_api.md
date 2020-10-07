@@ -1,10 +1,10 @@
 # Authority API
 
-To understand what's an authority, please read our glossary [here](glossary?id=authority).
+To understand the role of an authority, please read our glossary [here](glossary?id=authority).
 
 ## Endpoint Authentication
 
-Some of the endpoints require authentication. For that we use the [standard HTTP auth header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) as a [Bearer token](https://tools.ietf.org/html/rfc6750) in [JWT](https://jwt.io) format. Please read our [detailed specifcation](/api/auth) on the authentication format.
+Some of the endpoints require authentication. We use the [standard HTTP auth header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization) as a [Bearer token](https://tools.ietf.org/html/rfc6750) in [JWT](https://jwt.io) format for this. Please read our [detailed specifcation](/api/auth) on the authentication format.
 
 ## Endpoints
 
@@ -12,7 +12,7 @@ Some of the endpoints require authentication. For that we use the [standard HTTP
 
 Returns all [processes](glossary?id=process) available at the [authority](glossary?id=authority).
 
-Note: It's possible that process will not be objects but only a [content id](glossary?id=content-id). In that case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
+Note: It's possible that processes will not be objects, but will be referred to as [content IDs](glossary?id=content-id). In that case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
 
 ```http
 GET /processes
@@ -45,7 +45,7 @@ Click here to expand
 
 ### Download Public Blob
 
-The public hashweb of the Authority that serves only public (not confidential, not personally identifiable, e.g. processes and schemas) data for unauthorized clients.
+The public hashweb of the Authority that serves only public data (not confidential, not personally identifiable, e.g. processes and schemas) for unauthorized clients.
 
 ```http
 GET /blob/:id
@@ -61,7 +61,7 @@ curl http://127.0.0.1:8080/blob/cjunI8lB1BEtampkcvotOpF-zr1XmsCRNvntciGl3puOkg
 
 | Name | Type | Description |
 |---|---|---|
-| id | string | **Required**. The id of the blow you'd like to download |
+| id | string | **Required**. The id of the blob you'd like to download |
 
 #### Response
 
@@ -101,7 +101,7 @@ curl -H 'Authentication: Bearer eyJhbGciOiJNdWx0aWNpcGhlciIsImtpZCI6InBlejJDTGtC
 
 | Name | Type | Description |
 |---|---|---|
-| id | string | **Required**. The id of the blow you'd like to download |
+| id | string | **Required**. The id of the blob you'd like to download |
 
 #### Response
 
@@ -118,7 +118,7 @@ CONFIDENTAL_DATA
 
 ### Post Witness Request
 
-Returns a capability link to poll for status of the request. Since some verification and checks are done before accepting the request into the queue, we need to rate-limit this endpoint in the future.
+Returns a capability link to poll the status of a request. Since some verification and checks are done before accepting the request into the queue, we need to rate-limit this endpoint in the future.
 
 ```http
 POST /requests
@@ -134,8 +134,8 @@ curl -d '{"signature":{"publicKey":"pez7aYuvoDPM5i7xedjwjsWaFVzL3qRKPv4sBLv3E3pA
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
-| blockHeight | number | Optional. A logical timefilter, practically how the DID document looked like at that blockHeight. If not providing it, the current height will be used. |
+| did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
+| blockHeight | number | Optional. A logical timefilter that returns how the DID document looked like at that blockHeight. If it is not provided, the current height is used. |
 
 #### Response
 
@@ -154,7 +154,7 @@ Click here to expand
 
 ### List Witness Requests (clerk)
 
-Contains hashlinks to the witness requests and some metadata (like when it was requested, assigned clerk, status of the request, etc.). It's used internally by for example clerks, hence it must be authenticated and authorized. TODO: authentication is not yet implemented.
+Contains hashlinks to the witness requests and some metadata (when it was requested, assigned clerk, status of the request, etc.). It is used internally by clerks for example, hence it must be authenticated and authorized. TODO: authentication is not yet implemented.
 
 ```http
 GET /requests
@@ -194,7 +194,7 @@ Click here to expand
 
 This endpoint includes some secret in the URI that was generated when the request was accepted for processing.
 
-Pending/Approved/Denied. For approved requests, signed witness statement can be downloaded. For denied, a description of the problem is stated.
+Pending/Approved/Denied. For approved requests, signed witness statements can be downloaded. For denied requests, a description of the problem is stated.
 
 ```http
 GET /requests/:capabilityLink/status
@@ -210,7 +210,7 @@ curl -H 'Authentication: Bearer eyJhbGciOiJFZERTQSJ9.eyJleHAiOjE1OTYxMjEzMTIsIml
 
 | Name | Type | Description |
 |---|---|---|
-| capabilityLink | string | **Required**. The capbailityLink received back when the request was sent in. |
+| capabilityLink | string | **Required**. The capbailityLink received when the request was sent in. |
 
 #### Response
 
@@ -258,7 +258,7 @@ Click here to expand
 
 ### Approve Witness Request (Clerk)
 
-Authority entities (such as a clerk) can approve a request here by creating a [signed witness statement](glossary?id=signed-witness-statement).
+Authority entities (such as a clerk) can approve a request by creating a [signed witness statement](glossary?id=signed-witness-statement).
 
 ```http
 POST /requests/:capabilityLink/approve

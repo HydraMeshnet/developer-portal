@@ -1,14 +1,14 @@
 # Layer-2 API
 
-DAC's API consists of two main parts. Layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
+DAC's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
 
-Read more about what is layer-2 in its [definition](glossary.md?id=Layer-2).
+Read more about layer-2 [here]](glossary.md?id=Layer-2).
 
 ## Endpoints
 
 ### Query DID Document
 
-Returns the DID document (the implicit one if there were no operations yet on this DID)
+Returns the DID document (the implicit one if there were no operations yet on this DID).
 
 ```http
 GET /morpheus/v1/did/{did}/document/{blockHeight?}
@@ -18,8 +18,8 @@ GET /morpheus/v1/did/{did}/document/{blockHeight?}
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
-| blockHeight | number | Optional. A logical timefilter, practically how the DID document looked like at that blockHeight. If not providing it, the current height will be used. |
+| did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
+| blockHeight | number | Optional. A logical timefilter that returns how the DID document looked like at that blockHeight. If it is not provided, the current height is used. |
 
 #### Example
 
@@ -118,7 +118,7 @@ Click here to expand
 ### Query DID Document Last Transaction ID
 
 Returns the latest transaction's ID which modified the DID document. It can be used for nonce generation.
-If the DID document is not yet updated, it will return 404.
+If the DID document is not yet updated, it returns 404.
 
 ```http
 GET /morpheus/v1/did/{did}/transactions/last
@@ -128,7 +128,7 @@ GET /morpheus/v1/did/{did}/transactions/last
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
+| did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
 
 #### Example
 
@@ -155,7 +155,7 @@ Click here to expand
 ### Query DID Document Transaction IDs
 
 Returns the transaction's ID which modified the DID document.
-If the DID document is not yet updated, it will return an empty array.
+If the DID document is not yet updated, it returns an empty array.
 
 ```http
 GET /morpheus/v1/did/{did}/transactions/{fromHeight}/{untilHeight?}
@@ -165,9 +165,9 @@ GET /morpheus/v1/did/{did}/transactions/{fromHeight}/{untilHeight?}
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
-| fromHeight | number | **Required**. The inclusive block height as the start of the query range. |
-| untilHeight | number | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
+| fromHeight | number | **Required**. The block height as the start of the query range (inclusive). |
+| untilHeight | number | Optional.The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
 #### Example
 
@@ -203,8 +203,8 @@ Click here to expand
 
 ### Query DID Document Transaction Attempts IDs
 
-Returns the transaction's ID which modified the DID document. **Note**: also contains all transactions there were rejected.
-If the DID document is not yet updated, it will return an empty array.
+Returns the transaction's ID which modified the DID document. **Note**: also contains all transactions that were rejected.
+If the DID document is not yet updated, it returns an empty array.
 
 ```http
 GET /morpheus/v1/did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
@@ -214,9 +214,9 @@ GET /morpheus/v1/did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
-| fromHeight | number | **Required**. The inclusive block height as the start of the query range. |
-| untilHeight | number | Optional.The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
+| fromHeight | number | **Required**. The block height as the start of the query range (inclusive). |
+| untilHeight | number | Optional. The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
 #### Example
 
@@ -266,9 +266,9 @@ GET /morpheus/v1/did/{did}/operations/{from}/{until?}
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
-| from | number | **Required**. The inclusive block height as the start of the query range. |
-| until | number | Optional. The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
+| from | number | **Required**. The block height as the start of the query range (inclusive). |
+| until | number | Optional. The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
 #### Example
 
@@ -334,9 +334,9 @@ GET /morpheus/v1/did/{did}/operation-attempts/{from}/{until?}
 
 | Name | Type | Description |
 |---|---|---|
-| did | string | **Required**. The DID of the document that you'd like to query. E.g.: `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr` |
-| from | number | **Required**. The inclusive block height as the start of the query range. |
-| until | number | Optional. The inclusive block height as the end of the query range. If not providing it, the current height will be used. |
+| did | string | **Required**. The DID of the document that you'd like to query. (e.g.  `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
+| from | number | **Required**. The block height as the start of the query range (inclusive). |
+| until | number | Optional. The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
 #### Example
 
@@ -402,9 +402,9 @@ Click here to expand
 
 ### Check Transaction Validity
 
-Also known as "dry run". Using this endpoint you can validate your transaction to avoid being rejected and spending Hydras for basically nothing. Returns an array of errors.
+Also known as "dry run". Using this endpoint you can validate your transaction to avoid being rejected and spending Hydras for invalid transactions. Returns an array of errors.
 
-If the transaction is valid, it will return an empty array.
+If the transaction is valid, it returns an empty array.
 
 ```http
 POST /morpheus/v1/check-transaction-validity
@@ -442,7 +442,7 @@ Error object's structure:
 
 ### Check If Before Proof Exists
 
-Checks if a content was registered to exist before a given height.
+Checks if a content was existed before a given height.
 
 ```http
 GET /morpheus/v1/before-proof/{contentId}/exists/{blockHeight?}
@@ -452,8 +452,8 @@ GET /morpheus/v1/before-proof/{contentId}/exists/{blockHeight?}
 
 | Name | Type | Description |
 |---|---|---|
-| contentId | string | **Required**. The digest of the content that might be proven to exist before a logical time. E.g.: `cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho` |
-| blockHeight | number | Optional. The block height where you'd like to check the existence of the before proof. In a case of not providing it, the current height will be used. |
+| contentId | string | **Required**. The digest of the content that might be proven to exist before a logical time (e.g.  `cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho`) |
+| blockHeight | number | Optional. The block height where you'd like to check the existence of the before proof. If it is not provided, the current height is used. |
 
 #### Example
 
@@ -476,7 +476,7 @@ false
 
 ### Query Before Proof History
 
-Retrieves on which height a contentId was registered.
+Retrieves at which height a contentId was registered.
 
 ```http
 GET /morpheus/v1/before-proof/{contentId}/history
@@ -486,7 +486,7 @@ GET /morpheus/v1/before-proof/{contentId}/history
 
 | Name | Type | Description |
 |---|---|---|
-| contentId | string | **Required**. The digest of the content that is proven to exist before a logical time |
+| contentId | string | **Required**. The digest of the content that is proven to exist before a logical time. |
 
 #### Example
 
@@ -533,7 +533,7 @@ GET /morpheus/v1/txn-status/{txid}
 
 | Name | Type | Description |
 |---|---|---|
-| txId | string | **Required**. The Hydra transaction (containing the DAC transaction) ID that you'd like to query. E.g.: `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`
+| txId | string | **Required**. The Hydra transaction (containing the DAC transaction) ID that you'd like to query (e.g. `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`).
 
 #### Example
 

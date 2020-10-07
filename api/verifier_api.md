@@ -1,6 +1,6 @@
 # Verifier API
 
-To understand what's a verifier, please read our glossary [here](glossary?id=verifier).
+To understand what a verifier is, please read our glossary [here](glossary?id=verifier).
 
 ## Endpoints
 
