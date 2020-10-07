@@ -105,7 +105,7 @@ final walletPassphrase = 'scout try doll stuff cake welcome random taste load to
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        You can send a transaction by creating a client instance and call the send operation. This is done inside an asynchronous function (`const main` in the project template). The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
+        You can send a transaction by creating a client instance and call the send operation. This is done inside an asynchronous function. The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -155,6 +155,6 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
 
 <!-- tabs:end -->
-Congratulations, you sent your first hydra transactions using our SDK! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on [GitHub](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
+Congratulations, you sent your first hydra transactions using our SDK! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

@@ -42,7 +42,7 @@ The purpose of a DID is to reason about identity (in the mathematical sense of "
 
 ## Proof of DID Control (Authentication and Authorization)
 
-To prove control over a DID, an entity has to prove control over a certain keypair (private and public key) by signing a one-time object (e.g. a Witness Request or a Witness Statement).
+To prove control over a DID, an entity has to prove control over a certain key pair (private and public key) by signing a one-time object (e.g. a Witness Request or a Witness Statement).
 
 To verify the signature, the relevant public key needs to be recovered from the signature. Validation then happens by verifying the signature (authentication) and then resolving the DID in question to its DID document and making sure the key used is authorized to act on behalf of the DID in this process (has the correct rights, authorization). If the DID Document mentions a KeyId instead of a public key, the public key used to validate the signature is hashed and compared with the KeyId.
 For example, impersonation and changing the access control rules are separated as different rights. Defining all possible rights is out of scope for this document.
@@ -96,17 +96,17 @@ On layer-2 you can query the full history or a snapshot of its state at any give
 
 A DAC transaction is a Hydra [custom transaction](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) sent in on [layer-1](#Layer-1).
 
-The transaction will be forged into a valid block if it was properly formed and contains sufficient fees (layer-1 block consensus). Custom transactions enable to include multiple operation attempts. If any of the [operation attempts](#DAC-Operation-Attempt) in a single transaction is invalid regarding the current state of the DID, all other operation attempts in the same transaction are also ignored. If all attempts are valid, an atomic change on the layer-2 state on all the DIDs is executed. Proof of Existence and after-envelopes can be retrieved as [operations](#DAC-Operation).
+The transaction will be forged into a valid block if it was properly formed and contains sufficient fees (layer-1 block consensus). Custom transactions enable to include multiple operation attempts. If any of the [operation attempts](#DAC-Operation-Attempt) in a single transaction is invalid regarding the current state of the DID, all other operation attempts in the same transaction are also ignored. If all attempts are valid, an atomic change on the layer-2 state of all the DIDs is executed. Proof of Existence and after-envelopes can be retrieved as [operations](#DAC-Operation).
 
 **All blockchain nodes will reach the same way conclusion whether an operation attempt is valid or not, due to the layer-2 state consensus mechanism.**
 
 ## DAC Operation
 
-DAC operations update the state of one or more DIDs. The [Layer-1 API documentation](/api/layer1_api.md) clarifies which operations can be applied on a DID.
+DAC operations update the state of one or more DIDs. The [Layer-1 API documentation](/api/layer1_api.md) clarifies which operations can be applied regarding the state of a DID.
 
 Some operations do not need explicit authentication, so they can be included in the transaction as a top-level item.
 
-Some operations do need authentication, so they have to be wrapped in a signed operation. Each signed operation contains operations that are authorized by an entity with access to a public/private keypair.
+Some operations do need authentication, so they have to be wrapped in a signed operation. Each signed operation contains operations that are authorized by an entity with access to a public/private key pair.
 
 A single transaction can include multiple signed operations authenticated by different keys.
 
@@ -143,11 +143,11 @@ Example of a signed operation (Click here to expand)
 
 ## DAC Operation Attempt
 
-Operation attempts are similar to unconfirmed transactions in Bitcoin. To update the layer-2 state, these operation attempts have to be verified by the delegates. One layer-1 transaction can contain multiple operation attempts that have to be verified and executed atomically. This ensures state consistency.
+Operation attempts are similar to unconfirmed transactions in Bitcoin. These are placed in layer-1 transactions and are only considered by delegates if the layer-1 transaction is valid. To update the layer-2 state, delegates verify these operation attempts by a separate consensus mechanism. One confirmed layer-1 transaction can contain multiple operation attempts that have to be verified and executed atomically. This ensures state consistency. 
 
 ## DID Document
 
-The DID document is publicly available data and does NOT contain any personal information. Instead, it is used to manage permissions for keypairs. The document can use the `"services"` field to refer to external service endpoints that have additional information about the entity represented by the DID. To prove the relation between the DID and these services, endpoints should refer back to the corresponding DID using e.g. DNSSEC entries.
+The DID document is publicly available data and does NOT contain any personal information. Instead, it is used to manage permissions for key pairs. The document can use the `"services"` field to refer to external service endpoints that have additional information about the entity represented by the DID. To prove the relation between the DID and these services, endpoints should refer back to the corresponding DID using e.g. DNSSEC entries.
 
 ```json
 # Current layer-2 endpoint returns DID documents in this format:
@@ -473,7 +473,7 @@ These properties imply that if you present a content ID to an *untrusted* peer a
 
 ## Claim
 
-Each DID might have a set of related data (i.e. claims) about the subject it represents. [Witness Signatures](#) attest to the validity of the claims. These claims can be collected inside a digital wallet and presented for verification. It is possible to keep sensitive parts of the claims private, i.e. masked out from verifiers. This ensures that the verifier only sees the data relevant for him.
+Each DID might have a set of related data (i.e. claims) about the subject it represents. [Witness Signatures](#signed-witness-statement) attest to the validity of the claims. These claims can be collected inside a digital wallet and presented for verification. It is possible to keep sensitive parts of the claims private, i.e. masked out from verifiers. This ensures that the verifier only sees the data relevant for him.
 
 ```json
 # Example

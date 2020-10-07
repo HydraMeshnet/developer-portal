@@ -169,7 +169,7 @@ final vault = Vault.create(
         Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
         <p>
             In order to create a DID, you need to initialize the <code>Morpheus</code> plugin from the SDK, which enabled the previously created vault to handle your DIDs. This is done by the <code>Crypto.MorpheusPlugin.rewind()</code> function.
-
+            <br><br>
             To interact with the plugin you call a get function, which returns the interface to the plugin. The plugin consists of a public part (`pub`) that can be accessed without the password. The private part (`priv`)requires the unlock password explicitely.
         </p>
     </div>
@@ -234,7 +234,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
         <div class="alert alert-info pb-0 mb-0">
             <h5>Hints</h5>
             <ul>
-                <li>When a DID is created, it has a default public key, which can act on behalf of the DID by signing related operations. Such an unmodified (keys untouched) DID is called a <a href="/#/glossary?id=implicit-throw-away-did-document">throw-away DID</a>.</li>
+                <li>When a DID is created, it has a default public key and DID document attached to it. These can act on behalf of the DID by signing related operations. This unmodified (keys untouched) DID Document is called an <a href="/#/glossary?id=implicit-did-document">implicit DID Document</a>.</li>
                 <li>Signed data is similar to warranty tickets in a sense that it's not mandatory to keep it safe, until you have to prove that you have signed the contract.</li>
             </ul>
         </div>
@@ -305,7 +305,7 @@ Signed contract: {
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Sharing the signed contract itself is often not a good way of proving its existence. A better approach consists of storing the hash of the signed contract, which reveals nothing about the content of the contract. If somebody wants to verify that the contract has indeed been sign, they can verify it by comparing the hash stored on the blockchain with the result of hashing the contract.
+        Sharing the signed contract itself is often not a good way of proving its existence. A better approach consists of storing the hash of the signed contract, which reveals nothing about the content of the contract. If somebody wants to verify that the contract has indeed been signed, they can verify it by comparing the hash stored on the blockchain with the result of hashing the contract.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -579,6 +579,6 @@ Proof history: {
 
 4. This returns the blockheight, which you can use to check the timestamp (eg.: on the explorer) of the content ID. This means that the signature must have been created before being included in that block.
 
-Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on [GitHub](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
+Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

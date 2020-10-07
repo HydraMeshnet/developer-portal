@@ -154,7 +154,7 @@ Click here to expand
 
 ### List Witness Requests (clerk)
 
-Contains hashlinks to the witness requests and some metadata (when it was requested, assigned clerk, status of the request, etc.). It is used internally by clerks for example, hence it must be authenticated and authorized. TODO: authentication is not yet implemented.
+Contains hashlinks to the witness requests and some metadata (when it was requested, assigned clerk, status of the request, etc.). It is used internally by clerks for example, hence it must be authenticated and authorized.
 
 ```http
 GET /requests
