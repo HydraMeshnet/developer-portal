@@ -1,6 +1,6 @@
 # IOP Hydra
 
-Hydra is a dPos blockchain extended with a layer-2 consensus to provide a public ledger for the IOP DAC (Decentralized Access Control) framework.
+Hydra is a dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP DAC (Decentralized Access Control) framework.
 Hydra is built utilizing the modular architecture of [Ark](https://ark.io/).
 
 DAC is based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.
@@ -31,7 +31,7 @@ Browser: [http://dev.hydra.iop.global](http://dev.hydra.iop.global)
 - The network where testing occurs before being deployed on the mainnet.
 - The network is available for everyone and is used by developers for testing their applications and by security experts for responsible disclosures.
 - The network has play-around coins and transactions.
-- Currently we have no faucet. [Contact us](https://iop.global/contact-us/) for getting DHYDs.
+- Currently, we have no faucet. [Contact us](https://iop.global/contact-us/) for getting DHYDs.
 - Has 5 servers up and running 24/7 by IOP Ventures, but there are delegates who are testing their forging tools on their own devnet servers.
 
 | name | zone | IP |
@@ -47,7 +47,7 @@ Browser: [http://dev.hydra.iop.global](http://dev.hydra.iop.global)
 
 Browser: [http://hydra.iop.global](http://hydra.iop.global)
 
-- The backbone of Hydra and the network we run in production. This is usually known as the Public Network since this network is utilized by end users.
+- The backbone of Hydra and the network we run in production. This is usually known as the Public Network since this network is utilized by end-users.
 - This network is available for everyone.
 - It has real transactions with real coins.
 - It has 9 servers up and running 24/7 by IOP Ventures, and each forging delegate is running their own servers
@@ -85,18 +85,18 @@ You can start a Hydra node in the following two ways:
 
 To prevent surprises and reduce required efforts debugging your software environment and deployment state,
   we strongly recommend using Docker, since its containers make operating a node
-  much safer, more deterministic and maintainable than with core-control.
+  much safer, more deterministic, and maintainable than with core-control.
   
 Unless you have experience with Docker, we recommend following these steps:
 - Install Docker and the Docker-compose image builder.
-  For example Ubuntu/Debian-based Linux OS only need  `sudo apt install docker.io docker-compose`
+  For example, Ubuntu/Debian-based Linux OS only need  `sudo apt install docker.io docker-compose`
 - Make sure that your user has proper access rights, i.e. is in group `docker`.
   On Linux systems, check `/etc/group` and search for line `docker`.
   If your user is not there, add it using e.g. `sudo usermod -a -G docker your_username`
 
 ### Run Testnet Node
 
-The `testnet` consist of only a single - usually local - server without a real network to connect to. (The closest concept is called `regtest` in BTC). You can use [IOP's testnet server](#Testnet) for testing or you can start your own server as described below.
+The `testnet` consists of only a single - usually local - server without a real network to connect to. (The closest concept is called `regtest` in BTC). You can use [IOP's testnet server](#Testnet) for testing or you can start your own server as described below.
 
 Testnet currently works out of the box only with Docker. Core-control integration should also be possible (e.g. by adding some testnet-related configuration files to core-control) but not supported.
 

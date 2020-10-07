@@ -22,10 +22,10 @@ npm install @internet-of-people/sdk --save
 
 To access our SDK in your Flutter Android application, run our installer script, which does the following:
 
-- It downloads the necessary dynamic libraries and puts them at the right place. These files are required, because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It downloads the necessary dynamic libraries and puts them in the right place. These files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
 - It'll add our Dart SDK into your `pubspec.yaml` file.
 
-You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
@@ -34,7 +34,7 @@ curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/t
 
 ## Tutorial Center
 
-In this section we provide multiple guides that walk you through a simple use case introducing and teaching the DAC SDK.
+In this section, we provide multiple guides that walk you through a simple use case introducing and teaching the DAC SDK.
 
 <div class="container ml-0 pl-0">
   <div class="row ml-0 pl-0">

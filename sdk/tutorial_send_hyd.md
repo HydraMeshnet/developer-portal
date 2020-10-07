@@ -1,6 +1,6 @@
-# SDK Tutorial: Sending HYD Programatically
+# SDK Tutorial: Sending HYD Programmatically
 
-In this tutorial you will implement a Hydra transaction with the SDK. A pre-generated wallet can be accessed through a passphrase: you'll send HYDs with code from this wallet to another one.
+In this tutorial, you will implement a Hydra transaction with the SDK. A pre-generated wallet can be accessed through a passphrase: you'll send HYDs with code from this wallet to another one.
 
 #### Prerequisites
 
@@ -19,7 +19,7 @@ In this tutorial you will implement a Hydra transaction with the SDK. A pre-gene
 - A sample Flutter project. Please follow their [Test Drive](https://flutter.dev/docs/get-started/test-drive) page to create it. In the end, you'll have a simple counter application.
 
 This sample project will have a `lib/main.dart`.
-That will be the file where we will work. Except the imports we will write our code into the `_incrementcounter` method, but we have to change it to async, like this:
+That will be the file where we will work. Except for the imports, we will write our code into the `_incrementcounter` method, but we have to change it to async, like this:
 
 ```dart
 Future<void> _incrementCounter() async {
@@ -31,7 +31,7 @@ Future<void> _incrementCounter() async {
 
 #### Step 1. Import SDK
 
-First you need access to the SDK in the code. 
+First, you need access to the SDK in the code. 
 
 <!-- tabs:start -->
 
@@ -53,12 +53,12 @@ To be able to use our SDK in your Flutter Android application, you need to run o
 - It downloads the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
 - It adds our Dart SDK into your `pubspec.yaml` file.
 
-You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
 
-When the script finished, the only remaining task you have to do, is to import the SDK in the `lib/main.dart`, where we do our work.
+When the script finished, the only remaining task you have to do is to import the SDK in the `lib/main.dart`, where we do our work.
 
 ```dart
 import 'package:iop_sdk/layer1.dart';
@@ -155,6 +155,6 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
 
 <!-- tabs:end -->
-Congratulations, you sent your first hydra transactions using our SDK! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on [GitHub](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) or contact us <a href="mailto:prometheus@iop-ventures.com">here</a>.
+Congratulations, you sent your first hydra transactions using our SDK! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on [GitHub](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

@@ -7,26 +7,26 @@ We assume that the reader has a basic understanding of
 
 ## Entity
 
-A unique, real life actor such as a person, IoT device, company, group of people, etc. that a system wants to distinguish.
+A unique, real-life actor such as a person, IoT device, company, group of people, etc. that a system wants to distinguish.
 
 ## Persona
 
-An aspect of the personal life of a user, that he/she wants to keep separated. Real people might have multiple identities/roles
+An aspect of the personal life of a user, that he/she wants to keep separate. Real people might have multiple identities/roles
 depending on their circumstances, such as a "dating persona" and/or a "job persona". Morpheus makes this separation explicit by allowing the user to create multiple personas, represented by separate DIDs (see [DID below](#did)).
 
 ## KeyId
 
-A key identifier (e.g. a Bitcoin address) deterministically derived from a public key. The derivation process must be irreversible, so that the public key cannot be guessed from the key identifier. To achieve this, derivations usually involve hash functions. Note that different use cases might mandate different hashing algorithms and display formats to identify the same public key. For this reason, you can always check whether a KeyId belongs to a public key, but 2 different KeyIds could belong to the same public key.
+A key identifier (e.g. a Bitcoin address) that is deterministically derived from a public key. The derivation process must be irreversible so that the public key cannot be guessed from the key identifier. To achieve this, derivations usually involve hash functions. Note that different use cases might mandate different hashing algorithms and display formats to identify the same public key. For this reason, you can always check whether a KeyId belongs to a public key, but 2 different KeyIds could belong to the same public key.
 
 ## Schemas
 
-Schemas help communicating parties to settle an agreement on the data structures used. For example, before verification of claims, the presenter and verifier have to agree on the type and format of claims to be verified (see [Claim Schema](#claim-schema)).
+Schemas help interacting parties to settle an agreement on the data structures used. For example, before verification of claims, the presenter and verifier have to agree on the type and format of claims to be verified (see [Claim Schema](#claim-schema)).
 
 We currently support JSON schemas.
 
 ## DID
 
-All entities can generate a **d**ecentralized **id**entifier, a DID. Starting from a private/public keypair owned by an entity, a related DID is derived as KeyId of the public key.
+All entities can generate a **d**ecentralized **id**entifier, a DID. Starting from a private/public key pair owned by an entity, a related DID is derived as KeyId of the public key.
 By default, the originating public key is used to authenticate the controller of the DID, see [
 DID document below](#implicit-throw-away-did-document).
 
@@ -38,16 +38,16 @@ The purpose of a DID is to reason about identity (in the mathematical sense of "
 - different DIDs of the same entity by default seem unrelated to third parties.
 - you can replace the authenticating keys (see below) while retaining the DID itself.
 - you can split different rights (impersonation, update) on different keys.
-- you can grant multiple keys the same rights.
+- you can grant the same rights to multiple keys.
 
 ## Proof of DID Control (Authentication and Authorization)
 
 To prove control over a DID, an entity has to prove control over a certain keypair (private and public key) by signing a one-time object (e.g. a Witness Request or a Witness Statement).
 
-To verify the signature, the relevant public key needs to be recovered from the signature. Validation then happens by verifying the signature (authentication) and then resolving the DID in question to its DID document and making sure the key used is authorized to act on behalf on the DID in this process (has the correct rights, authorization). If the DID Document mentions a KeyId instead of a public key, the public key used to validate the signature is hashed and compared with the KeyId.
-For example, impersonation and changing the access control rules are clearly separated as different rights. Defining all possible rights is out of scope for this document.
+To verify the signature, the relevant public key needs to be recovered from the signature. Validation then happens by verifying the signature (authentication) and then resolving the DID in question to its DID document and making sure the key used is authorized to act on behalf of the DID in this process (has the correct rights, authorization). If the DID Document mentions a KeyId instead of a public key, the public key used to validate the signature is hashed and compared with the KeyId.
+For example, impersonation and changing the access control rules are separated as different rights. Defining all possible rights is out of scope for this document.
 
-Authorization rules for modifying access control rules receive special care. As an example, it is clear that an operation modifying the access control rules of a DID must be signed by a key that has appropriate rights for modification. However, we have a special rule to allow only modifying *other keys* and to explicitly forbid any modification for the *signer key* itself. Thus, the system protects users from accidentally revoking their own access rights or gaining additional rights without the mediation of another key.  
+Authorization rules for modifying access control rules receive special care. As an example, it is clear that an operation modifying the access control rules of a DID must be signed by a key that has appropriate rights for modification. However, we have a special rule to allow only modifying *other keys* and to explicitly forbid any modification for the *signer key* itself. Thus, the system protects users from accidentally revoking their access rights or gaining additional rights without the mediation of another key.  
 
 ## Multicipher
 
@@ -71,17 +71,17 @@ The second character discriminates the actual cipher suite used:
 
 Furthermore, our examples also use [multibase encoding prefixes](https://github.com/multiformats/multibase).
 
-Example: `iezSomething` means a key identifier of a Ed25519 public-key base encoded with Base58-BTC.
+Example: `iezSomething` means a key identifier of an Ed25519 public-key base encoded with Base58-BTC.
 
 ## DAC
 
 The Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 
-DAC's API consists of two main parts: layer-1 and layer-2. Layer-1 receives, orders and performs transactions (i.e. write operations), while maintaining a consensus of the general ledger state. Layer-2 adds more consensus rules for additional state information related to access control and serves read operations only.
+DAC's API consists of two main parts: layer-1 and layer-2. Layer-1 receives, orders, and performs transactions (i.e. write operations) while maintaining a consensus of the general ledger state. Layer-2 adds more consensus rules for additional state information related to access control and serves read operations only.
 
 ## Layer-1
 
-Custom transactions of layer-1 are stored in blocks the same way as regular Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces. Basically, this API allows for interaction with the blockchain layer.
+Custom transactions of layer-1 are stored in blocks the same way as regular Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces. This API allows for interaction with the blockchain layer.
 
 We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) custom transaction types for managing operations on DID documents. To improve privacy and flexibility, there is no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
 
@@ -96,7 +96,7 @@ On layer-2 you can query the full history or a snapshot of its state at any give
 
 A DAC transaction is a Hydra [custom transaction](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) sent in on [layer-1](#Layer-1).
 
-The transaction will be forged into a valid block if it was properly formed and contains sufficient fees (layer-1 block consensus). Custom transactions enable to include multiple operation attempts. If any of the [operation attempts](#DAC-Operation-Attempt) in a single transaction is invalid with regard to the current state of the DID, all other operation attempts in the same transaction are also ignored. If all attempts are valid, an atomic change on the layer-2 state on all the DIDs is executed. ??Before-proofs and later can be retrieved as [operations](#DAC-Operation)??.
+The transaction will be forged into a valid block if it was properly formed and contains sufficient fees (layer-1 block consensus). Custom transactions enable to include multiple operation attempts. If any of the [operation attempts](#DAC-Operation-Attempt) in a single transaction is invalid regarding the current state of the DID, all other operation attempts in the same transaction are also ignored. If all attempts are valid, an atomic change on the layer-2 state on all the DIDs is executed. Proof of Existence and after-envelopes can be retrieved as [operations](#DAC-Operation).
 
 **All blockchain nodes will reach the same way conclusion whether an operation attempt is valid or not, due to the layer-2 state consensus mechanism.**
 
@@ -106,11 +106,11 @@ DAC operations update the state of one or more DIDs. The [Layer-1 API documentat
 
 Some operations do not need explicit authentication, so they can be included in the transaction as a top-level item.
 
-Some operations do need authentication, so they have to be wrapped in a signed operation. Each signed operation contains operations done that are authorized by an entity with access to a public/private keypair.
+Some operations do need authentication, so they have to be wrapped in a signed operation. Each signed operation contains operations that are authorized by an entity with access to a public/private keypair.
 
 A single transaction can include multiple signed operations authenticated by different keys.
 
-> Note, that operation attempts modify the state as if these operations have not been applied to the state. If one transaction contains multiple operations, they are executed on the state based on the transactions of the previously accepted blocks. Hence, for example you cannot add a key and revoke that key in the same transaction. It is also not possible to revoke a key, when a previous transaction creating that key has not been accepted in the blockchain.
+> Note, that operation attempts modify the state as if these operations have not been applied to the state. If one transaction contains multiple operations, these are executed on the state based on the transactions of the previously accepted blocks. Hence, for example, you cannot add a key and revoke that key in the same transaction. It is also not possible to revoke a key when a previous transaction creating that key has not been accepted in the blockchain.
 
 
 <details>
@@ -143,7 +143,7 @@ Example of a signed operation (Click here to expand)
 
 ## DAC Operation Attempt
 
-Operation attempts are similar to unconfirmed transactions in Bitcoin. In order to update the layer-2 state, these operation attempts have to be verified by the delegates. One layer-1 transaction can contain multiple operation attempts that have to be verified and executed atomically. This ensures state consistency.
+Operation attempts are similar to unconfirmed transactions in Bitcoin. To update the layer-2 state, these operation attempts have to be verified by the delegates. One layer-1 transaction can contain multiple operation attempts that have to be verified and executed atomically. This ensures state consistency.
 
 ## DID Document
 
@@ -283,17 +283,17 @@ The DID document is publicly available data and does NOT contain any personal in
 }
 ```
 
-TBD: The `"services"` object could also be used to link to a revocation list, an API endpoint that returns a list of all statements signed by this entity that have been revoked.
+TBD: The `"services"` object could also be used to link to a revocation list, an API endpoint that returns a list of all the revoked statements signed by this entity.
 
 Where
 
 - `@context` defines the DID document format (JSON-LD context).
-- `keys` is strictly ordered and append only. Some attributes of the key at a specific index might be changed though (e.g. `revokedHeight`).
+- `keys` is strictly ordered and append-only. Some attributes of the key at a specific index might be changed though (e.g. `revokedHeight`).
 - (TODO) In the `"keyLink": "did:morpheus:ezBar#key-5"` the URI can be split by the `#` character into a controller DID and a key index. The controller is optional and can be left out to refer to keys in the same DID document. You need the controller part to explicitly grant rights to an entity represented by a different DID.
 
 ## Implicit DID Document
 
-Some minimalistic use cases only need signatures and simple authorization tokens and don't need support for multiple devices, organizational structures with delegates or other advanced features.
+Some minimalistic use cases only need signatures and simple authorization tokens and don't need support for multiple devices, organizational structures with delegates, or other advanced features.
 
 To make such cases simpler and cheaper, it is not required to register a DID by adding a DID document to the blockchain. When there's no explicitly registered DID document, the implicit document below is returned as default.
 
@@ -339,20 +339,20 @@ In other words, the default way to prove control over a newly created DID is by 
 
 ## Witness
 
-An attestant entity that digitally signed some [claims](#claim). Any entity can be a witness. However, the requirements to trust a witness have to be clarified for each use case. There are lots of use cases that require commonly trusted witnesses, so called [authorities](#authority).
+An attestant entity that digitally signed some [claims](#claim). Any entity can be a witness. However, the requirements to trust a witness have to be clarified for each use case. There are lots of use cases that require commonly trusted witnesses, so-called [authorities](#authority).
 
-It is possible for witnesses to change the cryptographic keys they use for signing statements over time.
+Witnesses can change the cryptographic keys they use for signing statements over time.
 
 Note that the definitions of *witness* and *authority* correspond to [W3C's issuer](https://w3c.github.io/vc-data-model/#issuer), either untrusted or trusted.
 
 ## Authority
 
-A company, state government or any other certificate provider entity that is trusted to be a reliable [witness](#witness). Also, an authority might delegate signing claims to any number of witnesses who act on behalf of the authority.
+A company, state government, or any other certificate provider entity that is trusted to be a reliable [witness](#witness). Also, an authority might delegate signing claims to any number of witnesses who act on behalf of the authority.
 For example, a bank or university delegates appropriate rights to its clerks or employees. Delegations may be granted or revoked over time.
 
 ## Scenario
 
-A scenario describes the set of processes and claims needed whenever an entity presents its credential. The values presented by the entity have to fulfill each claim, so that the inspector can make an informed decision about the properties tied to the DID. Each claim must conform to a specific process, therefore the scenario has to define the list of required processes in addition to the required claims.
+A scenario describes the set of processes and claims needed whenever an entity presents its credential. The values presented by the entity have to fulfill each claim so that the inspector can make an informed decision about the properties tied to the DID. Each claim must conform to a specific process, therefore the scenario has to define the list of required processes in addition to the required claims.
 
 An inspection might involve multiple scenarios, but the inspector must be able to calculate the same derived property for each scenario of the inspection.
 
@@ -446,7 +446,7 @@ For the [swimming pool use case](usecases/swimming_pool.md), a scenario could lo
 
 ## Inspector
 
-A company, individual or service provider entity that wants to verify the validity of a claim, presented by the subject in the form of a [Signed Witness Statement](#signed-witness-statement). The trust in the validity of the statement is derived from the inspector's trust in the witness. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc. Usually inspectors provide a list of [scenarios](#Scenario) with all the details they need.
+A company, individual, or service provider entity that wants to verify the validity of a claim, presented by the subject in the form of a [Signed Witness Statement](#signed-witness-statement). The trust in the validity of the statement is derived from the inspector's trust in the witness. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc. Usually, inspectors provide a list of [scenarios](#Scenario) with all the details they need.
 
 Note that we have separated [W3C's verifier](https://w3c.github.io/vc-data-model/#dfn-verifier) into a potentially different inspector (gatekeeper) and verifier (API operator).
 
@@ -454,26 +454,26 @@ Note that we have separated [W3C's verifier](https://w3c.github.io/vc-data-model
 
 A service provider entity that is verifying the validity of a signature by looking up DID documents and comparing access rights. This can be the same entity as the inspector.
 
-*The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures and other information relevant to validate the cryptography.*
+*The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures, and other information relevant to validate the cryptography.*
 
 ## Vault
 
-A vault is our version of a hierarchical deterministic wallet, which has additional capabilities with regard to our DAC framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39 and BIP44 standards from a master seed. Additionaly, it keeps track on which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. To prevent leakage of the private keys, the vault encrypts the master seed with a password.
+A vault is our version of a hierarchical deterministic wallet, which has additional capabilities regarding our DAC framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39, and BIP44 standards from a master seed. Additionally, it keeps track of which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. To prevent leakage of the private keys, the vault encrypts the master seed with a password.
 
 ## Content ID
 
 Content IDs are used to identify and refer to a unique piece of data, such as claims. Content IDs are usually created by defining a serialization format for a dataset and applying a hash function. It has the following properties:
 
 - Different data will be provably hashed to different values in practical applications.
-- Knowing only the hash of a data you cannot guess the data itself (calculating the pre-image is hard).
-- Knowing both the hash and the data you cannot create a different data that hashes to the same number (calculating a second pre-image is hard).
+- Knowing only the hash of data you cannot guess the data itself (calculating the pre-image is hard).
+- Knowing both the hash and the data you cannot create different data that hashes to the same number (calculating a second pre-image is hard).
 
 These properties imply that if you present a content ID to an *untrusted* peer and they show you some content that has the content ID you asked for, you can be sure that they showed you the genuine content.
 
 
 ## Claim
 
-Each DID might have a set of related data (i.e. claims) about the subject it represents. [Witness Signatures](#) attest the validity of the claims. These claims can be collected inside a digital wallet and presented for verification. It is possible to keep sensitive parts of the claims private, i.e. masked out from verifiers. This ensures that the verifier only sees the data relevant for him.
+Each DID might have a set of related data (i.e. claims) about the subject it represents. [Witness Signatures](#) attest to the validity of the claims. These claims can be collected inside a digital wallet and presented for verification. It is possible to keep sensitive parts of the claims private, i.e. masked out from verifiers. This ensures that the verifier only sees the data relevant for him.
 
 ```json
 # Example
@@ -486,7 +486,7 @@ Each DID might have a set of related data (i.e. claims) about the subject it rep
 
 Note that this definition slightly differs from its W3C's counterpart and corresponds mostly to
 [W3C's verifiable credential](https://w3c.github.io/vc-data-model/#credentials).
-We lack the **verifiable** from the definition, because we only care about verifiable data
+We lack the **verifiable** from the definition because we only care about verifiable data
 and do not bother with unverifiable ones at all.
 
 ### Claim Subject
@@ -504,14 +504,14 @@ This JSON tree can be transformed into a [Merkle tree](https://en.wikipedia.org/
 
 ### Maskable Claim Properties
 
-Using JSON as data format of verifiable claims, partial masking allows the user to replace the actual claim details by their content hashes, while still allowing verification of the integrity of the claim as a whole. For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object (see the example above) with a big enough nonce (256 bit).
+Using JSON as the data format of verifiable claims, partial masking allows the user to replace the actual claim details by their content hashes, while still allowing verification of the integrity of the claim as a whole. For certain low entropy data, e.g. the `ageOver` property, it's relatively easy to brute-force the value from its hash. To make it harder, properties can be marked as "maskable". The value of these properties will be wrapped into an object (see the example above) with a big enough nonce (256 bit).
 
-- Properties with object or array types can also be marked as maskable. This introduces increasing depth into the tree so it must be used with care.
+- Properties with an object or array type can also be marked as maskable. This introduces increasing depth into the tree so it must be used with care.
 - Using the same subject, same claim properties, but different nonces will result in different content hashes for the claim. This can improve privacy when requesting witness statements, but creates additional overhead when presenting these statements together as they refer to seemingly unrelated claims.
 
 ## Claim Schema
 
-A schema for the `content` field of a claim, defining what information it needs. These schemas can be defined ahead of time by witnesses (or anyone for that matter) and registered on a blockchain, so that the contents of the claims they attest can reliably be machine-read.
+A schema for the `content` field of a claim, defining what information it needs. These schemas can be defined ahead of time by witnesses (or anyone for that matter) and registered on a blockchain so that the contents of the claims they attest can reliably be machine-read.
 
 ```json
 # Example
@@ -548,11 +548,11 @@ Requests are sent by the **subject** or its delegate (a.k.a the **claimant**) fo
 }
 ```
 
-Note that hte `cju` prefix above is a [Content ID](#content-id) using JSON serialization and Base64 encoded after applying an SHA3-256 digest algorithm.
+Note that the `cju` prefix above is a [Content ID](#content-id) using JSON serialization and Base64 encoded after applying a SHA3-256 digest algorithm.
 
 ## Signed Witness Request
 
-A [witness request](#Witness-Request) tied to its subject through a digital signature. This is sent to and verified by an [Authority](#authority), who in turn creates a [witness statement](#Witness-Statement).
+A [witness request](#Witness-Request) is tied to its subject through a digital signature. This is sent to and verified by an [Authority](#authority), who in turn creates a [witness statement](#Witness-Statement).
 
 ```json
 # Example
@@ -600,7 +600,7 @@ This makes the process of requesting a statement fully transparent to anyone.
 {
   "name": "ID Card Based Age Verification",
   "version": 1,
-  "description": "Describes how an age can be verified based on a presented ID card. Links to a regulation of a given jurisdiction.",
+  "description": "Describes how age can be verified based on a presented ID card. Links to a regulation of a given jurisdiction.",
   "claimSchema": "cjuCLAIM_SCHEMA",
   "evidenceSchema": "cjuEVIDENCE_SCHEMA",
   "constraintsSchema": "cjuCONSTRAINTS_SCHEMA",
@@ -609,7 +609,7 @@ This makes the process of requesting a statement fully transparent to anyone.
 
 ## Witness Statement
 
-The complete testimony to be signed, containing the claim, the constraints and a nonce.
+The complete testimony to be signed, containing the claim, the constraints, and a nonce.
 
 ```json
 # Example
@@ -694,19 +694,19 @@ simply because we only care about verifiable data and do not bother with unverif
 
 ### Licensing
 
-Claim presentations and therefore evidences (using self-signed presentations) can be shared with 3rd parties for a wide variety of purposes, including commercial use.
+Claim presentations and therefore evidence (using self-signed presentations) can be shared with 3rd parties for a wide variety of purposes, including commercial use.
 
 Based on dozens of user privacy violation scandals, terms of utilizing user data must be clarified and respected.
 
 For example, registering on a webshop to buy a USB drive, you only want to share your e-mail to receive the receipt or warranty documents, but not for direct marketing or user tracking.
 
-To avoid arbitrary usage of the data within the claim, presentations define licenses to restrict terms of usage. Whenever user data is utilized in any way, the data processor must present a valid license attached to personal data to prove its compliance to regulations.
+To avoid arbitrary usage of the data within the claim, presentations define licenses to restrict terms of usage. Whenever user data is utilized in any way, the data processor must present a valid license attached to personal data to prove its compliance with regulations.
 
 ## Masked Claim Presentation
 
 The creator of the claim presentation can choose to present only parts of a claim together with the [Signed Witness Statements](#Signed-Witness-Statement) to a verifier, masking out remaining parts leaving just their content hashes.
 
-It is mathematically possible to retain sensitive data from the signed claim, while still having an evidence of the original signature on the original data (see [Maskable Claim Properties](#maskable-claim-properties)).
+It is mathematically possible to retain sensitive data from the signed claim, while still having evidence of the original signature on the original data (see [Maskable Claim Properties](#maskable-claim-properties)).
 
 ```json
 # Example
@@ -730,7 +730,7 @@ It is mathematically possible to retain sensitive data from the signed claim, wh
 
 ## Timestamp Proofs
 
-Signatures require verifying that contents were signed by a valid key. Since keys can be valid during a given time only, it is necessary that a signature has a notion of time tied to it. Using timestamp proofs, it is possible to check that the key was valid when the signature was generated, even if the key is not valid anymore or was not valid before a give time. An example is the digital signature of a president, which is only valid when it was generated during his term. 
+Signatures require verifying that contents were signed by a valid key. Since keys can be valid during a given time only, it is necessary that a signature has a notion of time tied to it. Using timestamp proofs, it is possible to check that the key was valid when the signature was generated, even if the key is not valid anymore or was not valid before a given time. An example is the digital signature of a president, which is only valid when it was generated during his term. 
 
 Two types of timestamps can be included in a witness statement to achieve proof of validity:
 
@@ -747,7 +747,7 @@ This is summarized in the figure below, where both the Proof of Existence (blue)
 
 ### Revoking a Right from a Key
 
-When a right is revoked from a key of a DID Document, there might be some signatures that are cryptographically valid, but without a proof of when that signature happened. These cannot be treated as fully authorized signatures, because there is no way to ensure that the signature was created before the key got revoked.
+When a right is revoked from a key of a DID Document, there might be some signatures that are cryptographically valid, but without proof of when that signature happened. These cannot be treated as fully authorized signatures, because there is no way to ensure that the signature was created before the key got revoked.
 
 Therefore, if a key is *restricted* in any way, all statements that were signed with that key and NOT registered to the blockchain before the restriction (SIGNED_BEFORE) will expire.
 
@@ -767,7 +767,7 @@ Therefore, if delegation was involved and the object is not wrapped in an after-
 
 ### Proof of Existence
 
-The Proof of Existence proves that a signature has been created before a certain timestamp or block. It consists of the hash of the signature, that is included in a block. Since it is very hard to undo or change transactions once included in the blockchain, the inclusion of the hash in the blockchain testifies that the signature already existed at the time of the transaction. This can be generalized to documents, witness request or any electronic file. 
+The Proof of Existence proves that a signature has been created before a certain timestamp or block. It consists of the hash of the signature, that is included in a block. Since it is very hard to undo or change transactions once included in the blockchain, the inclusion of the hash in the blockchain testifies that the signature already existed at the time of the transaction. This can be generalized to documents, witness requests, or any electronic file. 
 
 ### After-envelope
 
