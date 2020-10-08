@@ -1,6 +1,6 @@
 # DAC SDK Tutorial: Create a Secure & Persistent Vault
 
-In this tutorial you will create a secure vault which is encrypted with a password and persisted on the disk. You will also try some of the features that do not require the user to enter the unlock password.
+In this tutorial, you will create a secure vault that is encrypted with a password and persisted on the disk. You will also try some of the features that do not require the password that unlocks the vault.
 
 #### Prerequisites
 
@@ -9,6 +9,7 @@ In this tutorial you will create a secure vault which is encrypted with a passwo
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
+- Download [the project template](https://github.com/Internet-of-People/ts-template) and setup the environment as described in the readme.
 
 #### ** Flutter (Android) **
 
@@ -28,14 +29,17 @@ Future<void> _incrementCounter() async {
 
 #### Step 1. Import SDK
 
-First as always, you need to access the SDK.
+First, you need access to the SDK in the code. 
 
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
 
-In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
-Here, you only use the Crypto module.
+The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
+
+In Typescript, you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+
+Here, you only need the Crypto module.
 
 ```typescript
 {{{TS_STEP_1}}}
@@ -65,31 +69,35 @@ When the script finished, the only remaining task you have to do, is to import t
 
 The SDK provides you multiple tools to protect your wallet:
 
-- an optional **BIP 39** password. It's for [plausible deniability](https://en.wikipedia.org/wiki/Plausible_deniability) and is sometimes called the 25th word of the mnemonic phrase. It's very similar to adding a <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)" target="_blank">salt</a> to passwords.
-- an unlock password for encrypting your seed. It's useful if you wish to persist the vault's state as the seed in the state will be encrypted. Hence, to access the seed in various cases it will require you to provide this password as a so called *Unlock Password*. It uses [XChaCha20Poly1305](https://tools.ietf.org/html/draft-arciszewski-xchacha-03) and it derivates the key from the password with [Argon2i](https://en.wikipedia.org/wiki/Argon2).
-- public state management for providing tools for convenient integrations without the need to unlock the vault for some operations.
+- an optional **BIP 39** password, which is sometimes called the 25th word of the mnemonic phrase. It is very similar to adding a salt to passwords.
+- an unlock password to encrypt your seed. This is useful if you wish to persist the vault's state. Hence, to derive the state, you need to decrypt the encrypted seed using this *Unlock Password*. 
+- public state management for providing tools for convenient integration without the need to unlock the vault for some operations.
 
-Below you can observe how you create a secured vault.
-
+Below you can observe the code to create a secure vault.
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
+Firstly, a BIP39-compliant passphrase is generated, which can be used to create a master seed. This master seed in turn can create your secure vault. The second argument serves as the BIP39 password and the third argument is the unlock password used to encrypt/decrypt the vault's seed. 
 
 ```typescript
 {{{TS_STEP_2}}}
 ```
 
 #### ** Flutter (Android) **
-
+Firstly, a BIP39-compliant passphrase is generated, which can be used to create a master seed. This master seed in turn can create your secure vault. The second argument serves as the BIP39 password and the third argument is the unlock password used to encrypt/decrypt the vault's seed. 
 ```dart
 {{{FLUTTER_STEP_2}}}
 ```
 
 <!-- tabs:end -->
 
+**Technical Note**: 
+- The BIP39 password serves as an additional security measure and offers plausible deniablity. 
+- The seed is encrypted using the XChaCha20-Poly1305 stream cipher and the key is derivated from the password with Argon2i.
+
 #### Step 3. Persist State
 
-Now you have a wallet, you possibly want to save its state to disk for future purpose. You can do that easily.
+Now that you created an encrypted vault, you possibly want to save its state for future purposes. You can do that easily by saving the JSON-file that represents your vault.
 
 <!-- tabs:start -->
 
@@ -98,23 +106,34 @@ Now you have a wallet, you possibly want to save its state to disk for future pu
 ```typescript
 {{{TS_STEP_3}}}
 ```
+tutorial_vault.state:
+```JSON
+{
+  "encryptedSeed": "uah9tbqSWh8w-mDVyW1zOpxejIptN-gFpmk6qpT9rgE_D3S8rj8pA0poSMcDqEsAzBaQ6TdFgGYOyJMGS7N7k99Ujo7Msm7Bk0kwYXO3tixvp4fqoAZNEpoXxVMzgX71xFQIiOPFF2cI",
+  "plugins": []
+}
+
+```
+*The state currently is empty as there have been no interactions with our modules (generation of new keys or DIDs). Try generating new keys and DIDs and see how your state looks like then.*
 
 #### ** Flutter (Android) **
 
 ```dart
 {{{FLUTTER_STEP_3}}}
 ```
+tutorial_vault.state:
+```JSON
+{
+  "encryptedSeed": "uah9tbqSWh8w-mDVyW1zOpxejIptN-gFpmk6qpT9rgE_D3S8rj8pA0poSMcDqEsAzBaQ6TdFgGYOyJMGS7N7k99Ujo7Msm7Bk0kwYXO3tixvp4fqoAZNEpoXxVMzgX71xFQIiOPFF2cI",
+  "plugins": []
+}
 
+```
 <!-- tabs:end -->
 
 #### Final Step: Loading a secure Vault
 
-You've learnt how to create a secure, persisted vault. But what if you'd like to **load** an already existing vault-state?
-It's easy and almost the same.
-
-<p>
-    In this example you load the vault's content from the disk into memory.
-</p>
+You have learned how to create a secure, persisted vault. But what if you would like to **load** the state of an already existing vault? The code snippet below does this by reading your saved file and loads it with our SDK.
 
 <!-- tabs:start -->
 
@@ -134,6 +153,5 @@ It's easy and almost the same.
 
 #### Conclusion
 
-Your 🦄 is happy again. You have an encrypted, BIP39 password protected vault persisted on your safe storage. Congratulations! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on [GitHub](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
-
+Your 🦄 is happy again. You have an encrypted, BIP39 password-protected vault persisted on your safe storage. Congratulations! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

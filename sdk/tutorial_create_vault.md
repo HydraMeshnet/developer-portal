@@ -74,7 +74,7 @@ The SDK provides you multiple tools to protect your wallet:
 - an unlock password to encrypt your seed. This is useful if you wish to persist the vault's state. Hence, to derive the state, you need to decrypt the encrypted seed using this *Unlock Password*. 
 - public state management for providing tools for convenient integration without the need to unlock the vault for some operations.
 
-Below you can observe the code to create a secure vault. Firstly, a BIP39 compliant passphrase is generated, which can be used to create a master seed. This master seed in turn can create your secure vault. The second argument serves as the BIP39 password and the third argument is the unlock password used to encrypt/decrypt the vault's seed.
+ 
 
 <!-- tabs:start -->
 
@@ -104,7 +104,9 @@ final vault = Vault.create(
 ```
 
 <!-- tabs:end -->
-
+**Technical Note**: 
+- The BIP39 password serves as an additional security measure and offers plausible deniablity. 
+- The seed is encrypted using the XChaCha20-Poly1305 stream cipher and the key is derivated from the password with Argon2i.
 #### Step 3. Persist State
 
 Now that you created an encrypted vault, you possibly want to save its state for future purposes. You can do that easily by saving the JSON-file that represents your vault.

@@ -1,4 +1,4 @@
-# IOP DAC SDK
+# IOP DAC SDK (Project Morpheus)
 
 IOP's DAC is a **D**ecentralized **A**ccess **C**ontrol framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 

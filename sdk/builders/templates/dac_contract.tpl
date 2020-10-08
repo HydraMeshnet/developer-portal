@@ -1,6 +1,6 @@
 # DAC SDK Tutorial: Contract Signature Proof On-Chain
 
-In this tutorial you will create a DID, then you will sign a contract with it. After the contract is signed, you will store a proof about it on-chain.
+In this tutorial, you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store a proof about this on-chain.
 
 #### Prerequisites
 
@@ -9,8 +9,7 @@ In this tutorial you will create a DID, then you will sign a contract with it. A
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need some HYDs to cover transaction fees.
+- Download [the project template](https://github.com/Internet-of-People/ts-template) and setup the environment as described in the readme.
 
 #### ** Flutter (Android) **
 
@@ -32,13 +31,17 @@ Future<void> _incrementCounter() async {
 
 #### Step 1. Import SDK
 
-First as always, you need to access the SDK.
+First, you need access to the SDK in the code. 
 
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
 
-In Typescript you need to use multiple modules from the sdk. Please read more about Typescript modules [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
+
+In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+
+For this tutorial, you will use the Crypto, Layer1, Layer2, and Network module from our stack.
 
 ```typescript
 {{{TS_STEP_1}}}
@@ -68,17 +71,16 @@ When the script finished, the only remaining task you have to do, is to import s
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity you're going to use some constants here. In a real world application you'll need secure config management of course.<br>
-    </div>
+        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know:</h5>
             <ul>
                 <li>
                     Interested how to create such a secure, persistent vault?
                     Check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
                 </li>
-                <li>The gas passphrase and public key is the Hydra wallet's credential that pays for the actual on-chain transactions with HYD.</li>
+                <li>The gas passphrase and public key is the Hydra wallet's credential that pays for the actual on-chain transactions with testnet HYD.</li>
             </ul>
         </div>
     </div>
@@ -104,15 +106,14 @@ When the script finished, the only remaining task you have to do, is to import s
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send DAC transactions usually you need a DID which has a key. To have a DID you need a vault that stores your DIDs and its' keys and is also used for signing data. 
-    </div>
+        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know</h5>
             <ul>
                 <li>The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>.</li>
                 <li>You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.</li>
-                <li>If you eager to know what are these passwords for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                <li>If you are eager to know what these passwords are for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
             </ul>
         </div>
     </div>
@@ -138,18 +139,17 @@ When the script finished, the only remaining task you have to do, is to import s
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create one or use a previously created.
+        Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
         <p>
-            In order to create a DID, you need to use a <code>Crypto</code> plugin from the SDK, called the <code>Morpheus</code> plugin, which will utilizes the previously created vault to be able handle your DIDs.
+            To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs.
         </p>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know:</h5>
             <ul>
-                <li>Most operations of our Decentralized Access Control (DAC) system are related to a user and in decentralized systems users are identified by decentralized IDs (DID).</li>
-                <li>New DIDs are saved in the Vault's state as the new active DID.</li>
-                <li>If you eager to know what is this rewind for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                <li>Most operations of our DAC system are related to a user, which is identified by DIDs.</li>
+                <li>New DIDs are appended to the list of active DID in the vault's state.</li>
             </ul>
         </div>
     </div>
@@ -158,7 +158,7 @@ When the script finished, the only remaining task you have to do, is to import s
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
-
+Initializing the Morpheus plugin is done by the <code>Crypto.MorpheusPlugin.rewind()</code> function. To interact with the plugin you call a get function, which returns the interface to the plugin. The plugin consists of a public part (`pub`) that can be accessed without the password. The private part (`priv`)requires the unlock password explicitely.
 ```typescript
 {{{TS_STEP_4}}}
 ```
@@ -170,7 +170,6 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 ```
 
 > Note: to learn more about the Morpheus and other plugins, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
-
 #### ** Flutter (Android) **
 
 ```dart
@@ -191,13 +190,12 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        As we mentioned, your goal is to store a proof on-chain about the fact that you signed a contract. At this point you have everything to sign it. The end of this step, you have the data with our signature atteched to it.
-    </div>
+        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Tips &amp; Tricks</h5>
+            <h5>Good to know:</h5>
             <ul>
-                <li>When a DID is created it has a public key by default attached which can act on behalf of the DID by signing related operations. Such an unmodified (keys untouched) DID is called a <a href="/#/glossary?id=implicit-throw-away-did-document">throw-away DID</a>.</li>
+                <li>When a DID is created, it has a default public key and DID document attached to it. These can act on behalf of the DID by signing related operations. This unmodified (keys untouched) DID Document is called an <a href="/#/glossary?id=implicit-did-document">implicit DID Document</a>.</li>
                 <li>Signed data is similar to warranty tickets in a sense that it's not mandatory to keep it safe, until you have to prove that you have signed the contract.</li>
             </ul>
         </div>
@@ -242,15 +240,15 @@ Signed contract: {
 
 <!-- tabs:end -->
 
-#### Step 6. Create a Proof by Collapsing Data
+#### Step 6. Create a Proof of Existence by Hashing the Data
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        As our goal is not to share the contract itself just the fact, you have to do something with the result from the previous step. That data contains the original content and a proof that you've signed it. To be able to share it without revealing its content, use our Crypto library to collapse its content into a single hash. We call it a JSON masking, read more about it <a href="/#/glossary?id=json-masking">here</a>.
+        Sharing the signed contract itself is often not a good way of proving its existence. A better approach consists of storing the hash of the signed contract, which reveals nothing about the content of the contract. If somebody wants to verify that the contract has indeed been signed, they can verify it by comparing the hash stored on the blockchain with the result of hashing the contract.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know:</h5>
             <ul>
                 <li>The signed contract is hashed into a content ID that proves the content without exposing it.</li>
                 <li>Hashing an object into a content ID is also usually mentioned as digesting.</li>
@@ -271,7 +269,7 @@ Signed contract: {
 Outputs
 
 ```text
-Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
+Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 ```
 
 #### ** Flutter (Android) **
@@ -283,26 +281,24 @@ Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 Outputs
 
 ```text
-Before proof: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
+Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 ```
 
 <!-- tabs:end -->
 
-#### Step 7. Creating DAC Transaction
+#### Step 7. Creating a DAC Transaction
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Arriving this step, you have a single hash (before proof) which is a cryptographic proof that a contract is signed by us. Later you can prove this fact with exposing the original content with your signature.
-        <br>
-        The operation will register this hash on the blockchain in a transaction, hence the timestamp of the containing block will provide a proof with a consensus that the content had to be created until this time.
-        <br>
-        A single DAC transaction consists of one or multiple <a href="/#/dac?id=operations-and-signed-operations">DAC operations</a>. Registering a hash - or as we call before proof - is also such an operation. Read more about DAC operations <a href="/#/dac?id=operations-and-signed-operations">here</a>.
+        To store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a DAC transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
+        <br><br>
+        A single DAC transaction consists of one or multiple <a href="/#/glossary?id=dac-operation">DAC operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know:</h5>
             <ul>
-                <li>As you see in the example, you create operation attemps. We call those attempts, because the blockchain or as we call <a href="/#/dac?id=layer-1">layer-1</a> will accept it if the transaction itself is valid, but <a href="/#/dac?id=layer-2">layer-2</a> might still reject it.</li>
+                <li>As you see in the example, you create operation attemps. We call those attempts, because even if the blockchain (<a href="/#/glossary?id=layer-1">layer-1</a>) accepts the transaction, the <a href="/#/glossary?id=layer-2">layer-2</a> consensus mechanism might still reject it.</li>
                 <li>When you send in a transaction with a Hydra account, the transaction has to contain a nonce, which is increased by one after each and every transaction.</li>
                 <li>If you provide the ID of an existing block into the signed contents then you can also prove that the content was created after the timestamp of that block.</li>
             </ul>
@@ -343,21 +339,21 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 <div class="row no-gutters">
     <div class="col-6 pr-3">
         Aaaand you did it. Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
-        <br>
-        Though the transaction was successfully sent, it takes time until its included in a block and thus accepted by the blockchain consensus. After sent, you can fetch transaction status on both layer1 or layer2.
-        <br>
+        <br><br>
+        Even though the transaction was successfully sent, it takes some time until it is included in a block and accepted by the consensus mechanism. After sending the transaction, you can fetch its status both on layer-1 and layer-2.
+        <br><br>
         If a transaction was accepted on
         <ul>
-            <li>layer-1 then it was just a valid Hydra token transaction without any DAC consensus e.g. its format is OK, fees are covered and is forged into a block</li>
-            <li>layer-2 then it was also accepted as a valid DAC transaction</li>
+            <li>layer-1, it was a valid Hydra transaction without any layer-2 consensus (e.g. its format is valid, fees are covered and is forged into a block)</li>
+            <li>layer-2, it was also accepted as a valid DAC transaction</li>
         </ul>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know:</h5>
             <ul>
-                <li>Don't forget, that the Hydra network's blocktime is 12s. Currently the SDK's API does not help you to wait till the block is forged, but until then, we put there a sleep that simulates this in the code.</li>
-                <li>Sending in DAC transactions, always confirm its validity at layer2 consensus.</li>
+                <li>Don't forget, that the Hydra network's blocktime is 12s. Therefor, we put a timeout to ensure that the block containing our transaction has been forged.</li>
+                <li>If you send in DAC transactions, remember to always confirm its validity on the layer-2.</li>
             </ul>
         </div>
     </div>
@@ -405,11 +401,11 @@ DAC Tx status: true
 
 #### Final Step: Proving
 
-Assume that you have to prove the fact of signing later. 
+The following steps allow you to prove the fact that you signed a contract when necessary. 
 
-1. To do so, you have to load and present the contents of the `signedContract` from your safe storage.
+1. Load and present the contents of the signed contract from your safe storage.
 
-2. Having the contents of the signed contract, anyone can calculate its content ID.
+2. Anyone can calculate its content ID, by hashing the content of the signed contract.
 
 <!-- tabs:start -->
 
@@ -427,7 +423,7 @@ Assume that you have to prove the fact of signing later.
 
 <!-- tabs:end -->
 
-3. History of the content ID can then be queried from layer-2 API.
+3. The history of the content ID can be queried on layer-2 by using its API.
 
 <!-- tabs:start -->
 
@@ -465,6 +461,8 @@ Proof history: {
 
 <!-- tabs:end -->
 
-4. The history show the blockheight and thus the timestamp (eg.: you can check it on the explorer) of the content ID, so the signature must have been created earlier than included into a block.
+4. This returns the blockheight, which you can use to check the timestamp (eg.: on the explorer) of the content ID. This means that the signature must have been created before being included in that block.
+
+Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

@@ -352,7 +352,7 @@ For example, a bank or university delegates appropriate rights to its clerks or 
 
 ## Scenario
 
-A scenario describes the set of processes and claims needed whenever an entity presents its credential. The values presented by the entity have to fulfill each claim so that the inspector can make an informed decision about the properties tied to the DID. Each claim must conform to a specific process, therefore the scenario has to define the list of required processes in addition to the required claims.
+A scenario describes the set of processes and claims a verifier accepts for a given use case. The values inside the claim presented by an entity have to fulfill the required claims of a scenario. This way an inspector can make an informed decision about the properties tied to the DID of the presenting entity. Each claim must conform to a specific process, therefore the scenario has to define the list of required processes in addition to the required claims.
 
 An inspection might involve multiple scenarios, but the inspector must be able to calculate the same derived property for each scenario of the inspection.
 

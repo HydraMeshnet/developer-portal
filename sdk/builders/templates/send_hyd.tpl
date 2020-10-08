@@ -9,8 +9,7 @@ In this tutorial you will implement the simplest possible thing with the SDK: yo
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need some HYDs to cover transaction fees.
+- Download [the project template](https://github.com/Internet-of-People/ts-template) and setup the environment as described in the readme.
 
 #### ** Flutter (Android) **
 

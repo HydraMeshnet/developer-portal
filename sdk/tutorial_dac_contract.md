@@ -1,6 +1,6 @@
 # DAC SDK Tutorial: Contract Signature Proof On-Chain
 
-In this tutorial, you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store a proof about it on-chain.
+In this tutorial, you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store a proof about this on-chain.
 
 #### Prerequisites
 
@@ -9,7 +9,7 @@ In this tutorial, you will create a Decentralized ID (DID), then you will sign a
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Download [the project template]() and setup the environment as described in the readme.
+- Download [the project template](https://github.com/Internet-of-People/ts-template) and setup the environment as described in the readme.
 
 
 #### ** Flutter (Android) **
@@ -228,7 +228,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through the private interface (`morpheus.priv(unlockPassword)`). We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
+        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -353,15 +353,15 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a DAC transaction. Such transactions are created by the `OperationAttemptsBuilder()` method. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
+        In order to store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a DAC transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
         <br><br>
-        A single DAC transaction consists of one or multiple <a href="/#/glossary?id=operations-and-signed-operations">DAC operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation. Read more about DAC operations <a href="/#/dac?id=operations-and-signed-operations">here</a>.
+        A single DAC transaction consists of one or multiple <a href="/#/glossary?id=operations-and-signed-operations">DAC operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Hints</h5>
             <ul>
-                <li>As you see in the example, you create operation attemps. We call those attempts, because even if the blockchain (<a href="/#/dac?id=layer-1">layer-1</a>) accepts the transaction, the <a href="/#/dac?id=layer-2">layer-2</a> consensus mechanism might still reject it.</li>
+                <li>As you see in the example, you create operation attemps. We call those attempts, because even if the blockchain (<a href="/#/glossary?id=layer-1">layer-1</a>) accepts the transaction, the <a href="/#/glossary?id=layer-2">layer-2</a> consensus mechanism might still reject it.</li>
                 <li>When you send in a transaction with a Hydra account, the transaction has to contain a nonce, which is increased by one after each and every transaction.</li>
                 <li>If you provide the ID of an existing block into the signed contents then you can also prove that the content was created after the timestamp of that block.</li>
             </ul>

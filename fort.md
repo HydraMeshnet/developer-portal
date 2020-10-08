@@ -1,7 +1,6 @@
 # IOP Fort (Project Prometheus)
 
-Fort is an umbrella project for libraries and applications using [DAC](dac)
-for various use cases, allowing or demonstrating secure handling of private data.
+Fort is an umbrella project for libraries and applications using Decentralized Acces Control for various use cases, allowing or demonstrating secure handling of private data.
 For example, we provide an SDK for developing DAC-based applications in Flutter/Dart
 and mobile applications for different participants in a simple use case for demonstration.
 

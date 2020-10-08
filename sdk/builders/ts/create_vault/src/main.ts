@@ -3,7 +3,7 @@ import { Crypto } from '@internet-of-people/sdk';
 ///###TS_STEP_1
 
 ///###TS_STEP_2
-// YOU HAVE TO SAVE IT TO A SAFE PLACE!
+// YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 const phrase = new Crypto.Bip39('en').generate().phrase;
 
 const vault = Crypto.Vault.create(
