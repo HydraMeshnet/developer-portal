@@ -71,7 +71,6 @@ tutorials.forEach(tutorial => {
   run(`./ts/${tutorial}`, '- Testing TS...','node',['.']);
 
   // FLUTTER
-  /*
   const flutterSoZip = './test/Linux-x86.zip';
   run(`./flutter/${tutorial}`, '- Installing Flutter Native Lib...','curl',['-sS','--proto','=https','--tlsv1.2','-#L','-o',flutterSoZip,'https://github.com/Internet-of-People/morpheus-rust/releases/latest/download/Linux-x86.zip']);
   run(`./flutter/${tutorial}`,' - Unzipping...', 'unzip',['-o',flutterSoZip, '-d','./test']);
@@ -82,7 +81,7 @@ tutorials.forEach(tutorial => {
     console.log(flutterOut);
     process.exit(1);
   }
-  */
+
   console.log('- Parsing TS code...');
   const tsBlocks = collectBlocks(`./ts/${tutorial}/src/main.ts`);
 
@@ -90,7 +89,8 @@ tutorials.forEach(tutorial => {
   const flutterBlocks = collectBlocks(`./flutter/${tutorial}/test/main_test.dart`);
 
   const blocks = {
-    ...tsBlocks
+    ...tsBlocks,
+    ...flutterBlocks,
   };
   
   console.log('- Applying code to the template...');

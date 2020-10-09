@@ -9,7 +9,7 @@ In this tutorial, you will create a Decentralized ID (DID), then you will sign a
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
-- Download [the project template](https://github.com/Internet-of-People/ts-template) and setup the environment as described in the readme.
+- Download [the project template](https://github.com/Internet-of-People/ts-template/archive/master.zip) and setup the environment as described in the readme.
 
 #### ** Flutter (Android) **
 
@@ -158,7 +158,7 @@ When the script finished, the only remaining task you have to do, is to import s
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
-Initializing the Morpheus plugin is done by the <code>Crypto.MorpheusPlugin.rewind()</code> function. To interact with the plugin you call a get function, which returns the interface to the plugin. The plugin consists of a public part (`pub`) that can be accessed without the password. The private part (`priv`)requires the unlock password explicitely.
+Initializing the Morpheus plugin is done by the <code>rewind()</code> function. To interact with the plugin you call a get function, which returns the interface to the plugin. The plugin consists of a public part (<code>pub</code>) that can be accessed without the password. The private part (<code>priv</code>) requires the unlock password explicitely.
 ```typescript
 {{{TS_STEP_4}}}
 ```
