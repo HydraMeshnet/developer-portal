@@ -13,17 +13,15 @@ In this tutorial, you will create a Decentralized ID (DID), then you will sign a
 
 #### ** Flutter (Android) **
 
-- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need some HYDs to cover transaction fees.
-- [Flutter](https://flutter.dev/docs/get-started/install) installed.
+- [Flutter](https://flutter.dev/docs/get-started/install)
 - A sample Flutter project. Please follow their [Test Drive](https://flutter.dev/docs/get-started/test-drive) page to create it. In the end, you'll have a simple counter application.
 
-This sample project will have a `lib/main.dart`.
-That will be the file where we will work. Except the imports we will write our code into the `_incrementcounter` method, but we have to change it to async, like this:
+This sample project has a `lib/main.dart` file.
+This is the file where you will work. Except for the imports, we will write our code into the `_incrementcounter` method, which is changed to async, as follows:
 
 ```dart
 Future<void> _incrementCounter() async {
-   // our code will be here...
+   // our code comes here...
 };
 ```
 
@@ -33,6 +31,8 @@ Future<void> _incrementCounter() async {
 
 First, you need access to the SDK in the code. 
 
+For this tutorial, you will use the Crypto, Layer-1, Layer-2, and Network module from our stack.
+
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
@@ -41,7 +41,6 @@ The Typescript package is available on [npmjs.com](https://www.npmjs.com/package
 
 In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
-For this tutorial, you will use the Crypto, Layer1, Layer2, and Network module from our stack.
 
 ```typescript
 {{{TS_STEP_1}}}
@@ -51,15 +50,15 @@ For this tutorial, you will use the Crypto, Layer1, Layer2, and Network module f
 
 To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
-- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
-- It'll add our Dart SDK into your `pubspec.yaml` file.
+- It downloads the dynamic libraries you need and puts those files in the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It adds our Dart SDK into your `pubspec.yaml` file.
 
-You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
 
-When the script finished, the only remaining task you have to do, is to import some of the SDK's package alongside with Dart utilities in the `lib/main.dart`, where we do our work.
+When the script is finished, the only remaining task is to import the SDK in the `lib/main.dart`.
 
 ```dart
 {{{FLUTTER_STEP_1}}}
@@ -71,7 +70,8 @@ When the script finished, the only remaining task you have to do, is to import s
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>    </div>
+        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>
+    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
@@ -106,10 +106,11 @@ When the script finished, the only remaining task you have to do, is to import s
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.    </div>
+        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
+    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Good to know</h5>
+            <h5>Good to know:</h5>
             <ul>
                 <li>The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>.</li>
                 <li>You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.</li>
@@ -141,7 +142,7 @@ When the script finished, the only remaining task you have to do, is to import s
     <div class="col-6 pr-3">
         Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
         <p>
-            To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs.
+            To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs. The plugin consists of a public part that can be accessed without the password. The private part requires the unlock password explicitly.
         </p>
     </div>
     <div class="col-6">
@@ -158,7 +159,6 @@ When the script finished, the only remaining task you have to do, is to import s
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
-Initializing the Morpheus plugin is done by the <code>rewind()</code> function. To interact with the plugin you call a get function, which returns the interface to the plugin. The plugin consists of a public part (<code>pub</code>) that can be accessed without the password. The private part (<code>priv</code>) requires the unlock password explicitely.
 ```typescript
 {{{TS_STEP_4}}}
 ```
@@ -170,6 +170,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 ```
 
 > Note: to learn more about the Morpheus and other plugins, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
+
 #### ** Flutter (Android) **
 
 ```dart
@@ -190,7 +191,8 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.    </div>
+        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
+        </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
@@ -338,7 +340,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Aaaand you did it. Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
+        Aaaand you did it! Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
         <br><br>
         Even though the transaction was successfully sent, it takes some time until it is included in a block and accepted by the consensus mechanism. After sending the transaction, you can fetch its status both on layer-1 and layer-2.
         <br><br>

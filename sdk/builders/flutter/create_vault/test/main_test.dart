@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 ///###FLUTTER_STEP_1
 import 'dart:io';
+
+//Import the Crypto module from our SDK
 import 'package:iop_sdk/crypto.dart';
 ///###FLUTTER_STEP_1
 
@@ -16,8 +18,10 @@ import 'package:iop_sdk/crypto.dart';
 void main() {
   test('Create Vault', () async {
 ///###FLUTTER_STEP_2
-// YOU HAVE TO SAVE IT TO A SAFE PLACE!
+// YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 final phrase = Bip39('en').generatePhrase();
+
+// Creates a new vault using a passphrase, password and unlock password, which encrypts/decrypts the seed
 final vault = Vault.create(
   phrase,
   '8qjaX^UNAafDL@!#',
@@ -26,7 +30,10 @@ final vault = Vault.create(
 ///###FLUTTER_STEP_2
 
 ///###FLUTTER_STEP_3
+// Saves the encrypted seed of the vault.
 final serializedState = vault.save();
+
+// Writes the state to a file
 await File('tutorial_vault.state').writeAsString(
   serializedState,
   flush: true,
@@ -34,6 +41,7 @@ await File('tutorial_vault.state').writeAsString(
 ///###FLUTTER_STEP_3
 
 ///###FLUTTER_STEP_4
+// Reads and loads the vault from the saved file
 final backup = await File('tutorial_vault.state').readAsString();
 final loadedVault = Vault.load(backup);
 ///###FLUTTER_STEP_4

@@ -8,6 +8,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 ///###FLUTTER_STEP_1
+// Import the necessary modules from our SDK
 import 'package:iop_sdk/layer1.dart';
 import 'package:iop_sdk/network.dart';
 ///###FLUTTER_STEP_1
@@ -15,15 +16,22 @@ import 'package:iop_sdk/network.dart';
 void main() {
   test('Sending Hydra', () async {
 ///###FLUTTER_STEP_2
+// Select the testnet
 final network = Network.TestNet;
-final targetAddress = 'tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J'; // genesis
+
+// Gives access to a pre-generated wallet on the testnet
 final walletPassphrase = 'scout try doll stuff cake welcome random taste load town clerk ostrich';
+
+// The genesis address
+final targetAddress = 'tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J'; // genesis
 ///###FLUTTER_STEP_2
 
 ///###FLUTTER_STEP_3
+// Return an api that can interact with the hydra blockchain
 final layer1Api = Layer1Api(network);
-final amount = 1e8 ~/ 10;
 
+// Sends a hydra transaction using a passphrase
+final amount = 1e8 ~/ 10;
 final txId = await layer1Api.sendTransferTxWithPassphrase(
   walletPassphrase,
   targetAddress,
@@ -37,6 +45,7 @@ if(txId == null) {
 }
 
 ///###FLUTTER_STEP_3
+// Prints the transaction ID
 print('Transaction ID: $txId');
 ///###FLUTTER_STEP_3
   });
