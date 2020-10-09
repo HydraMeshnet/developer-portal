@@ -36,7 +36,7 @@
               <h6 class="card-subtitle text-muted">Project Hydra</h6>
             </div>
           </div>
-          <p class="card-text">dPos blockchain extended with a layer-2 consensus to provide a public ledger for IOP DAC. Can be deployed in minutes with Docker.</p>
+          <p class="card-text">dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP DAC. It can be deployed in minutes with Docker.</p>
           <div class="mt-auto">
             <a href="/#/hydra" class="btn btn-sm btn-outline-primary w-50">INSTALL</a>
             <img src="/assets/docker_square_logo.png" class="tech-logo ml-2" title="Docker">
