@@ -37,7 +37,6 @@ final txId = await layer1Api.sendTransferTxWithPassphrase(
   targetAddress,
   amount,
 );
-
 ///###FLUTTER_STEP_3
 
 if(txId == null) {

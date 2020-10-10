@@ -41,7 +41,6 @@ The Typescript package is available on [npmjs.com](https://www.npmjs.com/package
 
 In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
-
 ```typescript
 {{{TS_STEP_1}}}
 ```
@@ -54,6 +53,7 @@ To be able to use our SDK in your Flutter Android application, you need to run o
 - It adds our Dart SDK into your `pubspec.yaml` file.
 
 You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
+
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
@@ -159,11 +159,12 @@ When the script is finished, the only remaining task is to import the SDK in the
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
+
 ```typescript
 {{{TS_STEP_4}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
@@ -177,7 +178,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 {{{FLUTTER_STEP_4}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
@@ -192,7 +193,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 <div class="row no-gutters">
     <div class="col-6 pr-3">
         Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
-        </div>
+    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
@@ -212,7 +213,8 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 {{{TS_STEP_5}}}
 ```
 
-Outputs
+Outputs:
+
 ```text
 Signed contract: {
     "content": "A long legal document, e.g. a contract with all details",
@@ -229,7 +231,8 @@ Signed contract: {
 {{{FLUTTER_STEP_5}}}
 ```
 
-Outputs
+Outputs:
+
 ```text
 Signed contract: {
     "content": "A long legal document, e.g. a contract with all details",
@@ -268,7 +271,7 @@ Signed contract: {
 {{{TS_STEP_6}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
@@ -280,7 +283,7 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 {{{FLUTTER_STEP_6}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
@@ -316,7 +319,7 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 {{{TS_STEP_7}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
@@ -328,7 +331,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 {{{FLUTTER_STEP_7}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
@@ -369,7 +372,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 {{{TS_STEP_8}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Tx status: {
@@ -387,7 +390,7 @@ DAC Tx status: true
 {{{FLUTTER_STEP_8}}}
 ```
 
-Outputs
+Outputs:
 
 ```text
 Tx status: {

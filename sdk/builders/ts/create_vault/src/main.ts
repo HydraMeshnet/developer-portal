@@ -1,5 +1,5 @@
 ///###TS_STEP_1
-//Import the Crypto module from our SDK
+// Import the Crypto module from our SDK
 import { Crypto } from '@internet-of-people/sdk';
 ///###TS_STEP_1
 

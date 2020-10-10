@@ -21,13 +21,14 @@ The diagram below shows the structure and relationship matrix between these two 
 
 ### Decentralized Access Control
 
-Our DAC framework is an identity and access management (IAM) framework based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions. The framework combines the management and verification of access control requirements of interconnected organizations in a single system. The system offers privacy by default. Public blockchain technologies enable us to keep a verifiable history of the system without revealing private data. 
+Our DAC framework is an identity and access management (IAM) framework based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions. The framework combines the management and verification of access control requirements of interconnected organizations in a single system. The system offers privacy by default. Public blockchain technologies enable us to keep a verifiable history of the system without revealing private data.
 
 It is possible to create and store multiple schemas, DIDs, keys, rights, and proof timestamps on a public blockchain. These can define authentication rules and manage access rights for each user. Designed with a privacy-first mindset, our DAC framework allows each real-life person to have multiple, seemingly independent personas to split user data into unrelated datasets by topic, (e.g. professional life, family, friends, etc.) for better privacy. The verifiable claims (VCs) are kept off-chain to enhance user privacy, while it preserves the capability of authenticating the data inside the claims.
 
 The entities defined below are part of our DAC framework.
 
 <div class="mb-4">
+    <a href="/#/dac" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
     <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
     <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary">API</a>
     <img src="/assets/flutter_square_logo.png" class="tech-logo ml-2" title="Supports Flutter/Dart">

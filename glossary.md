@@ -75,7 +75,7 @@ Example: `iezSomething` means a key identifier of an Ed25519 public-key base enc
 
 ## DAC
 
-The Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+The Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger. See [our DID method](w3c) for further details.
 
 DAC's API consists of two main parts: layer-1 and layer-2. Layer-1 receives, orders, and performs transactions (i.e. write operations) while maintaining a consensus of the general ledger state. Layer-2 adds more consensus rules for additional state information related to access control and serves read operations only.
 

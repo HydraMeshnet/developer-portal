@@ -50,8 +50,8 @@ To be able to use our SDK in your Flutter Android application, you need to run o
 - It downloads the dynamic libraries you need and puts those files in the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
 - It adds our Dart SDK into your `pubspec.yaml` file.
 
-
 You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
+
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
@@ -89,8 +89,9 @@ Below you can observe the code to create a secure vault.
 
 <!-- tabs:end -->
 
-**Technical Note**: 
-- The BIP39 password serves as an additional security measure and offers plausible deniability. 
+**Technical Note**:
+
+- The BIP39 password serves as an additional security measure and offers plausible deniability.
 - The seed is encrypted using the XChaCha20-Poly1305 stream cipher and the key is derivated from the password with Argon2i.
 
 #### Step 3. Persist State
@@ -104,14 +105,17 @@ Now that you created an encrypted vault, you possibly want to save its state for
 ```typescript
 {{{TS_STEP_3}}}
 ```
+
 tutorial_vault.state:
-```JSON
+
+```json
 {
   "encryptedSeed": "uah9tbqSWh8w-mDVyW1zOpxejIptN-gFpmk6qpT9rgE_D3S8rj8pA0poSMcDqEsAzBaQ6TdFgGYOyJMGS7N7k99Ujo7Msm7Bk0kwYXO3tixvp4fqoAZNEpoXxVMzgX71xFQIiOPFF2cI",
   "plugins": []
 }
 
 ```
+
 *The state currently is empty as there have been no interactions with our modules (generation of new keys or DIDs). Try generating new keys and DIDs and see how your state looks like then.*
 
 #### ** Flutter (Android) **
@@ -119,8 +123,10 @@ tutorial_vault.state:
 ```dart
 {{{FLUTTER_STEP_3}}}
 ```
+
 tutorial_vault.state:
-```JSON
+
+```json
 {
   "encryptedSeed": "uah9tbqSWh8w-mDVyW1zOpxejIptN-gFpmk6qpT9rgE_D3S8rj8pA0poSMcDqEsAzBaQ6TdFgGYOyJMGS7N7k99Ujo7Msm7Bk0kwYXO3tixvp4fqoAZNEpoXxVMzgX71xFQIiOPFF2cI",
   "plugins": []
@@ -152,4 +158,5 @@ You have learned how to create a secure, persisted vault. But what if you would 
 #### Conclusion
 
 Your 🦄 is happy again. You have an encrypted, BIP39 password-protected vault persisted on your safe storage. Congratulations! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
+
 <a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

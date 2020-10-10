@@ -38,7 +38,6 @@ final vault = Vault.create(
   phrase,
   '8qjaX^UNAafDL@!#', // The 25th word of the passphrase
   unlockPassword,     // Encrypts the master seed
-
 );
 ///###FLUTTER_STEP_3
 

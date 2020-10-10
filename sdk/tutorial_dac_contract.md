@@ -13,17 +13,15 @@ In this tutorial, you will create a Decentralized ID (DID), then you will sign a
 
 #### ** Flutter (Android) **
 
-- Selecting a Hydra network. We recommend using our `testnet` or `devnet`. In this tutorial, you're going to use `testnet`.
-- Depending on your choice you will need some HYDs to cover transaction fees.
-- [Flutter](https://flutter.dev/docs/get-started/install) installed.
+- [Flutter](https://flutter.dev/docs/get-started/install)
 - A sample Flutter project. Please follow their [Test Drive](https://flutter.dev/docs/get-started/test-drive) page to create it. In the end, you'll have a simple counter application.
 
-This sample project will have a `lib/main.dart`.
-That will be the file where we will work. Except the imports we will write our code into the `_incrementcounter` method, but we have to change it to async, like this:
+This sample project has a `lib/main.dart` file.
+This is the file where you will work. Except for the imports, we will write our code into the `_incrementcounter` method, which is changed to async, as follows:
 
 ```dart
 Future<void> _incrementCounter() async {
-   // our code will be here...
+   // our code comes here...
 };
 ```
 
@@ -33,6 +31,8 @@ Future<void> _incrementCounter() async {
 
 First, you need access to the SDK in the code. 
 
+For this tutorial, you will use the Crypto, Layer-1, Layer-2, and Network module from our stack.
+
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
@@ -41,9 +41,8 @@ The Typescript package is available on [npmjs.com](https://www.npmjs.com/package
 
 In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
-For this tutorial, you will use the Crypto, Layer1, Layer2, and Network module from our stack.
-
 ```typescript
+// Import the necessary modules from our SDK
 import { Crypto, Layer1, Layer2, Network } from '@internet-of-people/sdk';
 ```
 
@@ -51,20 +50,22 @@ import { Crypto, Layer1, Layer2, Network } from '@internet-of-people/sdk';
 
 To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
-- It'll download the dynamic libraries you need and puts those files to the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
-- It'll add our Dart SDK into your `pubspec.yaml` file.
+- It downloads the dynamic libraries you need and puts those files in the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
+- It adds our Dart SDK into your `pubspec.yaml` file.
 
-You just have to run this under your project's root on your Linux or MacOS (Windows is not yet supported):
+You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
+
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
 
-When the script finished, the only remaining task you have to do, is to import some of the SDK's package alongside with Dart utilities in the `lib/main.dart`, where we do our work.
+When the script is finished, the only remaining task is to import the SDK in the `lib/main.dart`.
 
 ```dart
 import 'dart:convert';
 import 'dart:typed_data';
 
+// Import the necessary modules from our SDK
 import 'package:iop_sdk/crypto.dart';
 import 'package:iop_sdk/layer1.dart';
 import 'package:iop_sdk/layer2.dart';
@@ -77,7 +78,8 @@ import 'package:iop_sdk/network.dart';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>    </div>
+        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>
+    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
@@ -109,7 +111,10 @@ export const unlockPassword = '+*7=_X8<3yH:v2@s';
 #### ** Flutter (Android) **
 
 ```dart
+// Select the testnet
 final network = Network.TestNet;
+
+// These details give access to a pre-generated account that pay the gas for the transaction
 final hydraGasPassphrase = 'scout try doll stuff cake welcome random taste load town clerk ostrich';
 final hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
 final unlockPassword = '+*7=_X8<3yH:v2@s';
@@ -121,10 +126,11 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.    </div>
+        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
+    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Good to know</h5>
+            <h5>Good to know:</h5>
             <ul>
                 <li>The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>.</li>
                 <li>You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.</li>
@@ -142,23 +148,25 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
 // YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 const phrase = new Crypto.Bip39('en').generate().phrase;
 
-// Creates a new vault based on the BIP39 passphrase, password and unlock password.
+// Creates a new vault based on the BIP39 passphrase, password and unlock password
 const vault = Crypto.Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#',
-  unlockPassword,
+  '8qjaX^UNAafDL@!#',   // The 25th word of the passphrase
+  unlockPassword,       // Encrypts the master seed
 );
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-// YOU HAVE TO SAVE IT TO A SAFE PLACE!
+// YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 final phrase = Bip39('en').generatePhrase();
+
+// Creates a new vault based on the BIP39 passphrase, password and unlock password
 final vault = Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#', // this is for plausible deniability
-  unlockPassword,
+  '8qjaX^UNAafDL@!#', // The 25th word of the passphrase
+  unlockPassword,     // Encrypts the master seed
 );
 ```
 
@@ -170,7 +178,7 @@ final vault = Vault.create(
     <div class="col-6 pr-3">
         Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
         <p>
-            To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs.
+            To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs. The plugin consists of a public part that can be accessed without the password. The private part requires the unlock password explicitly.
         </p>
     </div>
     <div class="col-6">
@@ -187,9 +195,9 @@ final vault = Vault.create(
 <!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
-Initializing the Morpheus plugin is done by the <code>rewind()</code> function. To interact with the plugin you call a get function, which returns the interface to the plugin. The plugin consists of a public part (<code>pub</code>) that can be accessed without the password. The private part (<code>priv</code>) requires the unlock password explicitely.
+
 ```typescript
-// Initialize and get the Morpheus plugin:
+// Initialize the Morpheus plugin on your personal vault:
 Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
 const morpheus = Crypto.MorpheusPlugin.get(vault);
 
@@ -198,24 +206,27 @@ const did = morpheus.pub.personas.did(0);
 console.log("Using DID: ", did.toString());
 ```
 
-Outputs
+Outputs:
 
 ```text
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 ```
 
 > Note: to learn more about the Morpheus and other plugins, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
+
 #### ** Flutter (Android) **
 
 ```dart
+// Initialize the Morpheus plugin on your personal vault:
 MorpheusPlugin.rewind(vault, unlockPassword);
 final morpheusPlugin = MorpheusPlugin.get(vault);
 
+// Selects the first DID
 final did = morpheusPlugin.public.personas.did(0);  // you are going to use the first DID
 print('Using DID: ${did.toString()}');
 ```
 
-Outputs
+Outputs:
 
 ```text
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
@@ -229,7 +240,8 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.    </div>
+        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
+    </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
@@ -265,7 +277,8 @@ console.log("Signed contract:", JSON.stringify({
 }, null, 2));
 ```
 
-Outputs
+Outputs:
+
 ```text
 Signed contract: {
     "content": "A long legal document, e.g. a contract with all details",
@@ -279,13 +292,18 @@ Signed contract: {
 #### ** Flutter (Android) **
 
 ```dart
+// Acquire the default key
 final keyId = did.defaultKeyId(); // acquire the default key
+
+// The contract details
 final contractStr = 'A long legal document, e.g. a contract with all details';
 final contractBytes = Uint8List.fromList(utf8.encode(contractStr)).buffer.asByteData();
+
+// Acquire the plugin's private interface that provides you the sign interface
 final morpheusPrivate = morpheusPlugin.private(unlockPassword); // acquire the plugin's private interface that provides you the sign interface
 
+// The signed contract, which you need to store securely!
 final signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes); // YOU NEED TO SAVE IT TO A SAFE PLACE!
-
 final signedContractJson = <String, dynamic>{
   'content': utf8.decode(signedContract.content.content.buffer.asUint8List()), // you must use this Buffer wrapper at the moment, we will improve in later releases,
   'publicKey': signedContract.signature.publicKey.value,
@@ -294,7 +312,8 @@ final signedContractJson = <String, dynamic>{
 print('Signed contract: ${stringifyJson(signedContractJson)}');
 ```
 
-Outputs
+Outputs:
+
 ```text
 Signed contract: {
     "content": "A long legal document, e.g. a contract with all details",
@@ -332,10 +351,10 @@ Signed contract: {
 ```typescript
 // The beforeProof (a.k.a. Proof of Existence) is generated by hashing the signed contract
 const beforeProof = Crypto.digestJson(signedContract);
-console.log("Before proof:", beforeProof);
+console.log("Proof of Existence:", beforeProof);
 ```
 
-Outputs
+Outputs:
 
 ```text
 Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
@@ -344,11 +363,12 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 #### ** Flutter (Android) **
 
 ```dart
+// The beforeProof (a.k.a. Proof of Existence) is generated by hashing the signed contract
 final beforeProof = digestJson(signedContractJson);
 print('Proof of Existence: ${beforeProof.value}');
 ```
 
-Outputs
+Outputs:
 
 ```text
 Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
@@ -398,7 +418,7 @@ const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPa
 console.log("Transaction ID: ", txId);
 ```
 
-Outputs
+Outputs:
 
 ```text
 Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
@@ -407,23 +427,24 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 #### ** Flutter (Android) **
 
 ```dart
-final opAttempts = OperationAttemptsBuilder()  // let's create our operation attempts data structure
+// Let's create our operation attempts data structure
+final opAttempts = OperationAttemptsBuilder()
   .registerBeforeProof(beforeProof)
   .getAttempts();
 
-// let's initialize our layer-1 API
+// Let's initialize our layer-1 API
 final layer1Api = Layer1Api(network);
 
-// let's query and then increment the current nonce of the owner of the tx fee
+// Let's query and then increment the current nonce of the owner of the tx fee
 int nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
 nonce = nonce + 1;
 
-// and now you are ready to send it
+// Now you are ready to send the transaction
 final txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce: nonce);
 print('Transaction ID: $txId');
 ```
 
-Outputs
+Outputs:
 
 ```text
 Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
@@ -435,7 +456,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Aaaand you did it. Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
+        Aaaand you did it! Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
         <br><br>
         Even though the transaction was successfully sent, it takes some time until it is included in a block and accepted by the consensus mechanism. After sending the transaction, you can fetch its status both on layer-1 and layer-2.
         <br><br>
@@ -473,13 +494,13 @@ await waitUntil12Sec();
 let txStatus = await layer1Api.getTxnStatus(txId);
 console.log("Tx status:", txStatus.get());
 
-// Now you can query from the layer-2 API as well!
+// Let's initialize the layer-2 API to query the transaction status
 const layer2Api = await Layer2.createApi(network);
 let dacTxStatus = await layer2Api.getTxnStatus(txId);
 console.log("DAC Tx status:", dacTxStatus.get());
 ```
 
-Outputs
+Outputs:
 
 ```text
 Tx status: {
@@ -494,19 +515,20 @@ DAC Tx status: true
 #### ** Flutter (Android) **
 
 ```dart
+// Block confirmation time
 await Future.delayed(Duration(seconds: 12));  // it'll be included in the SDK Soon in 2020
 
-// layer-1 transaction must be confirmed
+// Layer-1 transaction must be confirmed
 final txStatus = await layer1Api.getTxnStatus(txId);
 print('Tx status: ${json.encode(txStatus.value.toJson())}');  // the SDK uses optional's Optional result
 
-// now you can query from the layer-2 API as well!
+// Let's initialize the layer-2 API to query the transaction status
 final layer2Api = Layer2Api(network);
 final dacTxStatus = await layer2Api.getTxnStatus(txId);
 print('DAC Tx status: ${dacTxStatus.value}');  // the SDK uses optional's Optional result
 ```
 
-Outputs
+Outputs:
 
 ```text
 Tx status: {
@@ -540,7 +562,7 @@ const expectedContentId = Crypto.digestJson(signedContract);
 #### ** Flutter (Android) **
 
 ```dart
-// we assume here that signedContract is in scope and available
+// We assume that signedContract is in scope and available
 final expectedContentId = digestJson(signedContractJson);
 ```
 
@@ -553,6 +575,7 @@ final expectedContentId = digestJson(signedContractJson);
 #### ** NodeJS (Typescript) **
 
 ```typescript
+// Query the blockchain for the hash of the signed contract (Proof of Existence)
 const history = await layer2Api.getBeforeProofHistory(expectedContentId);
 console.log("Proof history:", history);
 ```
@@ -570,6 +593,7 @@ Proof history: {
 #### ** Flutter (Android) **
 
 ```dart
+// Query the blockchain for the hash of the signed contract (Proof of Existence)
 final history = await layer2Api.getBeforeProofHistory(expectedContentId);
 print('Proof history: ${json.encode(history.toJson())}');
 ```

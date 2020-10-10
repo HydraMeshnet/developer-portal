@@ -51,6 +51,7 @@ To be able to use our SDK in your Flutter Android application, you need to run o
 - It adds our Dart SDK into your `pubspec.yaml` file.
 
 You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
+
 ```bash
 curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
 ```
@@ -119,6 +120,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 ```
 
 Outputs:
+
 ```bash
 Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
@@ -130,6 +132,7 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
 
 Outputs:
+
 ```bash
 Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 ```
