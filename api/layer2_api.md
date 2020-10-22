@@ -1,6 +1,6 @@
 # Layer-2 API
 
-DAC's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
+SSI's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
 
 Read more about layer-2 [here]](glossary.md?id=Layer-2).
 
@@ -412,7 +412,7 @@ POST /morpheus/v1/check-transaction-validity
 
 #### Parameters
 
-The body must contain an array of operations that you're going to include in the DAC transaction. See in the example.
+The body must contain an array of operations that you're going to include in the SSI transaction. See in the example.
 
 #### Example
 
@@ -523,7 +523,7 @@ or if it was not registered yet:
 
 ### Check Transaction Status
 
-Check a DAC transaction's status if it was accepted or rejected.
+Check an SSI transaction's status if it was accepted or rejected.
 
 ```http
 GET /morpheus/v1/txn-status/{txid}
@@ -533,7 +533,7 @@ GET /morpheus/v1/txn-status/{txid}
 
 | Name | Type | Description |
 |---|---|---|
-| txId | string | **Required**. The Hydra transaction (containing the DAC transaction) ID that you'd like to query (e.g. `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`).
+| txId | string | **Required**. The Hydra transaction (containing the SSI transaction) ID that you'd like to query (e.g. `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`).
 
 #### Example
 

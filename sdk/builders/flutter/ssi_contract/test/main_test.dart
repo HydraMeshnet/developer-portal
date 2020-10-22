@@ -18,7 +18,7 @@ import 'package:iop_sdk/network.dart';
 ///###FLUTTER_STEP_1
 
 void main() {
-  test('DAC Contract - Before Proof', () async {
+  test('SSI Contract - Before Proof', () async {
 ///###FLUTTER_STEP_2
 // Select the testnet
 final network = Network.TestNet;
@@ -114,8 +114,8 @@ print('Tx status: ${json.encode(txStatus.value.toJson())}');  // the SDK uses op
 
 // Let's initialize the layer-2 API to query the transaction status
 final layer2Api = Layer2Api(network);
-final dacTxStatus = await layer2Api.getTxnStatus(txId);
-print('DAC Tx status: ${dacTxStatus.value}');  // the SDK uses optional's Optional result
+final ssiTxStatus = await layer2Api.getTxnStatus(txId);
+print('SSI Tx status: ${ssiTxStatus.value}');  // the SDK uses optional's Optional result
 ///###FLUTTER_STEP_8
 
 ///###FLUTTER_STEP_9

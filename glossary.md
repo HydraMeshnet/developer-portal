@@ -73,36 +73,36 @@ Furthermore, our examples also use [multibase encoding prefixes](https://github.
 
 Example: `iezSomething` means a key identifier of an Ed25519 public-key base encoded with Base58-BTC.
 
-## DAC
+## SSI
 
-The Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger. See [our DID method](w3c) for further details.
+The Self-Sovereign Identity framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger. See [our DID method](w3c) for further details.
 
-DAC's API consists of two main parts: layer-1 and layer-2. Layer-1 receives, orders, and performs transactions (i.e. write operations) while maintaining a consensus of the general ledger state. Layer-2 adds more consensus rules for additional state information related to access control and serves read operations only.
+SSI's API consists of two main parts: layer-1 and layer-2. Layer-1 receives, orders, and performs transactions (i.e. write operations) while maintaining a consensus of the general ledger state. Layer-2 adds more consensus rules for additional state information related to access control and serves read operations only.
 
 ## Layer-1
 
 Custom transactions of layer-1 are stored in blocks the same way as regular Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces. This API allows for interaction with the blockchain layer.
 
-We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) custom transaction types for managing operations on DID documents. To improve privacy and flexibility, there is no relation between authentication/authorization of DAC operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
+We use [AIP29](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) custom transaction types for managing operations on DID documents. To improve privacy and flexibility, there is no relation between authentication/authorization of SSI operations using Ed25519 keys and the authentication/authorization of the Hydra transaction using secp256k1 addresses.
 
-As layer-1 is based on custom Hydra transactions, you can initiate DAC operations simply by using the Hydra transaction's endpoint `http://YOUR_SERVER_IP:4703/api/v2/transactions`.
+As layer-1 is based on custom Hydra transactions, you can initiate SSI operations simply by using the Hydra transaction's endpoint `http://YOUR_SERVER_IP:4703/api/v2/transactions`.
 
 ## Layer-2
 
-The layer-2 consensus mechanism evaluates the custom transactions accepted on layer-1. It validates them using additional consensus rules related to access control and maintains its own state. Accordingly, Hydra transactions accepted on layer-1 may contain invalid DAC operations and can be rejected by the layer-2 consensus mechanism.
+The layer-2 consensus mechanism evaluates the custom transactions accepted on layer-1. It validates them using additional consensus rules related to access control and maintains its own state. Accordingly, Hydra transactions accepted on layer-1 may contain invalid SSI operations and can be rejected by the layer-2 consensus mechanism.
 On layer-2 you can query the full history or a snapshot of its state at any given time, but changing that state can only be done through sending in transactions to layer-1.
 
-## DAC Transaction
+## SSI Transaction
 
-A DAC transaction is a Hydra [custom transaction](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) sent in on [layer-1](#Layer-1).
+A SSI transaction is a Hydra [custom transaction](https://github.com/ArkEcosystem/AIPs/blob/master/AIPS/aip-29.md) sent in on [layer-1](#Layer-1).
 
-The transaction will be forged into a valid block if it was properly formed and contains sufficient fees (layer-1 block consensus). Custom transactions enable to include multiple operation attempts. If any of the [operation attempts](#DAC-Operation-Attempt) in a single transaction is invalid regarding the current state of the DID, all other operation attempts in the same transaction are also ignored. If all attempts are valid, an atomic change on the layer-2 state of all the DIDs is executed. Proof of Existence and after-envelopes can be retrieved as [operations](#DAC-Operation).
+The transaction will be forged into a valid block if it was properly formed and contains sufficient fees (layer-1 block consensus). Custom transactions enable to include multiple operation attempts. If any of the [operation attempts](#SSI-Operation-Attempt) in a single transaction is invalid regarding the current state of the DID, all other operation attempts in the same transaction are also ignored. If all attempts are valid, an atomic change on the layer-2 state of all the DIDs is executed. Proof of Existence and after-envelopes can be retrieved as [operations](#SSI-Operation).
 
 **All blockchain nodes will reach the same way conclusion whether an operation attempt is valid or not, due to the layer-2 state consensus mechanism.**
 
-## DAC Operation
+## SSI Operation
 
-DAC operations update the state of one or more DIDs. The [Layer-1 API documentation](/api/layer1_api.md) clarifies which operations can be applied regarding the state of a DID.
+SSI operations update the state of one or more DIDs. The [Layer-1 API documentation](/api/layer1_api.md) clarifies which operations can be applied regarding the state of a DID.
 
 Some operations do not need explicit authentication, so they can be included in the transaction as a top-level item.
 
@@ -141,7 +141,7 @@ Example of a signed operation (Click here to expand)
 
 </details>
 
-## DAC Operation Attempt
+## SSI Operation Attempt
 
 Operation attempts are similar to unconfirmed transactions in Bitcoin. These are placed in layer-1 transactions and are only considered by delegates if the layer-1 transaction is valid. To update the layer-2 state, delegates verify these operation attempts by a separate consensus mechanism. One confirmed layer-1 transaction can contain multiple operation attempts that have to be verified and executed atomically. This ensures state consistency. 
 
@@ -458,7 +458,7 @@ A service provider entity that is verifying the validity of a signature by looki
 
 ## Vault
 
-A vault is our version of a hierarchical deterministic wallet, which has additional capabilities regarding our DAC framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39, and BIP44 standards from a master seed. Additionally, it keeps track of which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. To prevent leakage of the private keys, the vault encrypts the master seed with a password.
+A vault is our version of a hierarchical deterministic wallet, which has additional capabilities regarding our SSI framework. It has two functionalities: key generation and state storage. The different keys are generated according to the BIP32, BIP39, and BIP44 standards from a master seed. Additionally, it keeps track of which kind of keys have been used and what kind of layer-2 objects (e.g. DID's) have been initialized. To prevent leakage of the private keys, the vault encrypts the master seed with a password.
 
 ## Content ID
 

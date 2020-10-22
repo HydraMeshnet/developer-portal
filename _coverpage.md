@@ -4,7 +4,7 @@
 
 > Decentralized Access Control Framework and Data Privacy Applications that gives people power over their identity.
 
-> Welcome to IOP DAC and IOP Fort Documentation.
+> Welcome to IOP SSI and IOP Fort Documentation.
 
 [GitLab](https://gitlab.iop-ventures.com/iop-stack/dids-and-claims/specification)
 [Getting Started](#Decentralized-Identities)

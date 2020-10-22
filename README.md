@@ -36,7 +36,7 @@
               <h6 class="card-subtitle text-muted">Project Hydra</h6>
             </div>
           </div>
-          <p class="card-text">dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP DAC. It can be deployed in minutes with Docker.</p>
+          <p class="card-text">dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP SSI. It can be deployed in minutes with Docker.</p>
           <div class="mt-auto">
             <a href="/#/hydra" class="btn btn-sm btn-outline-primary w-50">INSTALL</a>
             <img src="/assets/docker_square_logo.png" class="tech-logo ml-2" title="Docker">
@@ -53,13 +53,13 @@
               <img src="/assets/morpheus_logo.png" class="iop-logo mt-2">
             </div>
             <div class="col-10 mt-2 pl-3">
-              <h4 class="card-title">IOP DAC</h4>
+              <h4 class="card-title">IOP SSI</h4>
               <h6 class="card-subtitle text-muted">Project Morpheus</h6>
             </div>
           </div>
           <p class="card-text">Decentralized Access Control framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.</p>
           <div class="d-inline-flex">
-            <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
+            <a href="/#/sdk/ssi" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
             <a href="/#/api/api" class="btn btn-sm btn-outline-primary w-25">API</a>
             <img src="/assets/flutter_square_logo.png" class="tech-logo ml-2" title="Flutter">
             <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Typescript">

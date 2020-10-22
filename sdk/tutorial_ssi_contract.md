@@ -1,4 +1,4 @@
-# DAC SDK Tutorial: Contract Signature Proof On-Chain
+# SSI SDK Tutorial: Contract Signature Proof On-Chain
 
 In this tutorial, you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store a proof about this on-chain.
 
@@ -42,7 +42,8 @@ The Typescript package is available on [npmjs.com](https://www.npmjs.com/package
 In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
 ```typescript
-{{{TS_STEP_1}}}
+// Import the necessary modules from our SDK
+import { Crypto, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-people/sdk';
 ```
 
 #### ** Flutter (Android) **
@@ -61,7 +62,14 @@ curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/t
 When the script is finished, the only remaining task is to import the SDK in the `lib/main.dart`.
 
 ```dart
-{{{FLUTTER_STEP_1}}}
+import 'dart:convert';
+import 'dart:typed_data';
+
+// Import the necessary modules from our SDK
+import 'package:iop_sdk/crypto.dart';
+import 'package:iop_sdk/layer1.dart';
+import 'package:iop_sdk/layer2.dart';
+import 'package:iop_sdk/network.dart';
 ```
 
 <!-- tabs:end -->
@@ -91,13 +99,25 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_2}}}
+// Select the testnet
+export const network = Network.Testnet;
+
+// These details give access to a pre-generated account that pay the gas for the transaction.
+export const hydraGasPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
+export const hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
+export const unlockPassword = '+*7=_X8<3yH:v2@s';
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_2}}}
+// Select the testnet
+final network = Network.TestNet;
+
+// These details give access to a pre-generated account that pay the gas for the transaction
+final hydraGasPassphrase = 'scout try doll stuff cake welcome random taste load town clerk ostrich';
+final hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
+final unlockPassword = '+*7=_X8<3yH:v2@s';
 ```
 
 <!-- tabs:end -->
@@ -106,7 +126,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        In order to send layer-2 (DAC) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
+        In order to send layer-2 (SSI) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -125,13 +145,29 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_3}}}
+// YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
+const phrase = new Crypto.Bip39('en').generate().phrase;
+
+// Creates a new vault based on the BIP39 passphrase, password and unlock password
+const vault = Crypto.Vault.create(
+  phrase,
+  '8qjaX^UNAafDL@!#',   // The 25th word of the passphrase
+  unlockPassword,       // Encrypts the master seed
+);
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_3}}}
+// YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
+final phrase = Bip39('en').generatePhrase();
+
+// Creates a new vault based on the BIP39 passphrase, password and unlock password
+final vault = Vault.create(
+  phrase,
+  '8qjaX^UNAafDL@!#', // The 25th word of the passphrase
+  unlockPassword,     // Encrypts the master seed
+);
 ```
 
 <!-- tabs:end -->
@@ -140,7 +176,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Even though you can create an infinite amount of DIDs, DAC operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
+        Even though you can create an infinite amount of DIDs, SSI operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
         <p>
             To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs. The plugin consists of a public part that can be accessed without the password. The private part requires the unlock password explicitly.
         </p>
@@ -149,7 +185,7 @@ When the script is finished, the only remaining task is to import the SDK in the
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
             <ul>
-                <li>Most operations of our DAC system are related to a user, which is identified by DIDs.</li>
+                <li>Most operations of our SSI system are related to a user, which is identified by DIDs.</li>
                 <li>New DIDs are appended to the list of active DID in the vault's state.</li>
             </ul>
         </div>
@@ -161,7 +197,13 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_4}}}
+// Initialize the Morpheus plugin on your personal vault:
+Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
+const morpheus = Crypto.MorpheusPlugin.get(vault);
+
+// Selects the first DID
+const did = morpheus.pub.personas.did(0);
+console.log("Using DID: ", did.toString());
 ```
 
 Outputs:
@@ -175,7 +217,13 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_4}}}
+// Initialize the Morpheus plugin on your personal vault:
+MorpheusPlugin.rewind(vault, unlockPassword);
+final morpheusPlugin = MorpheusPlugin.get(vault);
+
+// Selects the first DID
+final did = morpheusPlugin.public.personas.did(0);  // you are going to use the first DID
+print('Using DID: ${did.toString()}');
 ```
 
 Outputs:
@@ -210,7 +258,23 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_5}}}
+// Acquire the default key
+const keyId = did.defaultKeyId();
+
+// The contract details
+const contractStr = "A long legal document, e.g. a contract with all details";
+const contractBytes = new Uint8Array(Buffer.from(contractStr));
+
+// Acquire the plugin's private interface that provides you the sign interface
+const morpheusPrivate = morpheus.priv(unlockPassword); 
+
+// The signed contract, which you need to store securely!
+const signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes);
+console.log("Signed contract:", JSON.stringify({
+    content: Buffer.from(signedContract.content).toString('utf8'),
+    publicKey: signedContract.publicKey.toString(),
+    signature: signedContract.signature.toString(),
+}, null, 2));
 ```
 
 Outputs:
@@ -228,7 +292,24 @@ Signed contract: {
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_5}}}
+// Acquire the default key
+final keyId = did.defaultKeyId(); // acquire the default key
+
+// The contract details
+final contractStr = 'A long legal document, e.g. a contract with all details';
+final contractBytes = Uint8List.fromList(utf8.encode(contractStr)).buffer.asByteData();
+
+// Acquire the plugin's private interface that provides you the sign interface
+final morpheusPrivate = morpheusPlugin.private(unlockPassword); // acquire the plugin's private interface that provides you the sign interface
+
+// The signed contract, which you need to store securely!
+final signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes); // YOU NEED TO SAVE IT TO A SAFE PLACE!
+final signedContractJson = <String, dynamic>{
+  'content': utf8.decode(signedContract.content.content.buffer.asUint8List()), // you must use this Buffer wrapper at the moment, we will improve in later releases,
+  'publicKey': signedContract.signature.publicKey.value,
+  'signature': signedContract.signature.bytes.value,
+};
+print('Signed contract: ${stringifyJson(signedContractJson)}');
 ```
 
 Outputs:
@@ -268,7 +349,9 @@ Signed contract: {
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_6}}}
+// The beforeProof (a.k.a. Proof of Existence) is generated by hashing the signed contract
+const beforeProof = Crypto.digestJson(signedContract);
+console.log("Proof of Existence:", beforeProof);
 ```
 
 Outputs:
@@ -280,7 +363,9 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_6}}}
+// The beforeProof (a.k.a. Proof of Existence) is generated by hashing the signed contract
+final beforeProof = digestJson(signedContractJson);
+print('Proof of Existence: ${beforeProof.value}');
 ```
 
 Outputs:
@@ -291,13 +376,13 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 
 <!-- tabs:end -->
 
-#### Step 7. Creating a DAC Transaction
+#### Step 7. Creating a SSI Transaction
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        To store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a DAC transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
+        To store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a SSI transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
         <br><br>
-        A single DAC transaction consists of one or multiple <a href="/#/glossary?id=dac-operation">DAC operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
+        A single SSI transaction consists of one or multiple <a href="/#/glossary?id=ssi-operation">SSI operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -316,7 +401,21 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_7}}}
+// Let's create our operation attempts data structure
+const opAttempts = new Layer1.OperationAttemptsBuilder()
+    .registerBeforeProof(beforeProof)
+    .getAttempts();
+
+// Let's initialize our layer-1 API
+const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
+
+// Let's query and then increment the current nonce of the owner of the tx fee
+let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
+nonce = BigInt(nonce) + BigInt(1);
+
+// Now you are ready to send the transaction
+const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
+console.log("Transaction ID: ", txId);
 ```
 
 Outputs:
@@ -328,7 +427,21 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_7}}}
+// Let's create our operation attempts data structure
+final opAttempts = OperationAttemptsBuilder()
+  .registerBeforeProof(beforeProof)
+  .getAttempts();
+
+// Let's initialize our layer-1 API
+final layer1Api = Layer1Api(network);
+
+// Let's query and then increment the current nonce of the owner of the tx fee
+int nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
+nonce = nonce + 1;
+
+// Now you are ready to send the transaction
+final txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce: nonce);
+print('Transaction ID: $txId');
 ```
 
 Outputs:
@@ -339,18 +452,18 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 
 <!-- tabs:end -->
 
-#### Step 8. Query DAC Transaction from Blockchain
+#### Step 8. Query SSI Transaction from Blockchain
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        Aaaand you did it! Your DAC transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
+        Aaaand you did it! Your SSI transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
         <br><br>
         Even though the transaction was successfully sent, it takes some time until it is included in a block and accepted by the consensus mechanism. After sending the transaction, you can fetch its status both on layer-1 and layer-2.
         <br><br>
         If a transaction was accepted on
         <ul>
             <li>layer-1, it was a valid Hydra transaction without any layer-2 consensus (e.g. its format is valid, fees are covered and is forged into a block)</li>
-            <li>layer-2, it was also accepted as a valid DAC transaction</li>
+            <li>layer-2, it was also accepted as a valid SSI transaction</li>
         </ul>
     </div>
     <div class="col-6">
@@ -358,7 +471,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
             <h5>Good to know:</h5>
             <ul>
                 <li>Don't forget, that the Hydra network's blocktime is 12s. Therefor, we put a timeout to ensure that the block containing our transaction has been forged.</li>
-                <li>If you send in DAC transactions, remember to always confirm its validity on the layer-2.</li>
+                <li>If you send in SSI transactions, remember to always confirm its validity on the layer-2.</li>
             </ul>
         </div>
     </div>
@@ -369,7 +482,22 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_8}}}
+// Block confirmation time
+const waitUntil12Sec = (): Promise<void> => {
+    return new Promise((resolve) => {
+        return setTimeout(resolve, 12*1000);
+    });
+};
+await waitUntil12Sec();
+
+// Layer-1 transaction must be confirmed
+let txStatus = await layer1Api.getTxnStatus(txId);
+console.log("Tx status:", txStatus.get());
+
+// Let's initialize the layer-2 Morpheus API to query the transaction status
+const layer2MorpheusApi = await Layer2.createMorpheusApi(NetworkConfig.fromNetwork(network));
+let ssiTxStatus = await layer2MorpheusApi.getTxnStatus(txId);
+console.log("SSI Tx status:", ssiTxStatus.get());
 ```
 
 Outputs:
@@ -381,13 +509,23 @@ Tx status: {
     "confirmations": 1,
     ...
 }
-DAC Tx status: true
+SSI Tx status: true
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_8}}}
+// Block confirmation time
+await Future.delayed(Duration(seconds: 12));  // it'll be included in the SDK Soon in 2020
+
+// Layer-1 transaction must be confirmed
+final txStatus = await layer1Api.getTxnStatus(txId);
+print('Tx status: ${json.encode(txStatus.value.toJson())}');  // the SDK uses optional's Optional result
+
+// Let's initialize the layer-2 API to query the transaction status
+final layer2Api = Layer2Api(network);
+final ssiTxStatus = await layer2Api.getTxnStatus(txId);
+print('SSI Tx status: ${ssiTxStatus.value}');  // the SDK uses optional's Optional result
 ```
 
 Outputs:
@@ -399,7 +537,7 @@ Tx status: {
     "confirmations": 1,
     ...
 }
-DAC Tx status: true
+SSI Tx status: true
 ```
 
 <!-- tabs:end -->
@@ -417,13 +555,15 @@ The following steps allow you to prove the fact that you signed a contract when 
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_9}}}
+// We assume that signedContract is in scope and available
+const expectedContentId = Crypto.digestJson(signedContract);
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_9}}}
+// We assume that signedContract is in scope and available
+final expectedContentId = digestJson(signedContractJson);
 ```
 
 <!-- tabs:end -->
@@ -435,7 +575,9 @@ The following steps allow you to prove the fact that you signed a contract when 
 #### ** NodeJS (Typescript) **
 
 ```typescript
-{{{TS_STEP_10}}}
+// Query the blockchain for the hash of the signed contract (Proof of Existence)
+const history = await layer2MorpheusApi.getBeforeProofHistory(expectedContentId);
+console.log("Proof history:", history);
 ```
 
 Outputs:
@@ -451,7 +593,9 @@ Proof history: {
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_10}}}
+// Query the blockchain for the hash of the signed contract (Proof of Existence)
+final history = await layer2Api.getBeforeProofHistory(expectedContentId);
+print('Proof history: ${json.encode(history.toJson())}');
 ```
 
 Outputs:
@@ -470,4 +614,4 @@ Proof history: {
 
 Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
-<a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>
+<a href="/#/sdk/ssi?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

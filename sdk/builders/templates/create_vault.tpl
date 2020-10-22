@@ -1,4 +1,4 @@
-# DAC SDK Tutorial: Create a Secure & Persistent Vault
+# SSI SDK Tutorial: Create a Secure & Persistent Vault
 
 In this tutorial, you will create a secure vault that is encrypted with a password and persisted on the disk. You will also try some of the features that do not require the password that unlocks the vault.
 
@@ -159,4 +159,4 @@ You have learned how to create a secure, persisted vault. But what if you would 
 
 Your 🦄 is happy again. You have an encrypted, BIP39 password-protected vault persisted on your safe storage. Congratulations! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
-<a href="/#/sdk/dac?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>
+<a href="/#/sdk/ssi?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

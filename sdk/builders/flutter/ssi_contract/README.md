@@ -1,6 +1,6 @@
 # tutorials
 
-Tutorial: Before-proof Contract via DAC
+Tutorial: Before-proof Contract via SSI
 
 ## Getting Started
 

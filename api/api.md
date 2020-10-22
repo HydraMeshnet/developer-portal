@@ -1,6 +1,6 @@
-# DAC API
+# SSI API
 
-DAC's API consists of two main parts.
+SSI's API consists of two main parts.
 
 - DID document state reading and writing through [layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
 - Claim verification and issuance through [Authorities](glossary.md?id=Authority), [Inspectors](glossary.md?id=Inspector) and [Verifiers](glossary.md?id=Verifier)
@@ -9,11 +9,11 @@ Please visit our [get started page](/get_started) to get a full overview of IOP'
 
 ## Layer-1 and Layer-2 APIs
 
-DAC operates as a plugin inside the Hydra blockchain. Hence it shares the same consensus rules with the Hydra network for transactions. DAC transactions are stored in the same database as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
+IOP SSI operates as a plugin inside the Hydra blockchain. Hence it shares the same consensus rules with the Hydra network for transactions. SSI transactions are stored in the same database as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
 
-A DAC transaction is simply a Hydra transaction containing customized data. Therefore DAC transactions are sent like other Hydra transactions using the layer-1 API to modify the blockchain's state.
+An SSI transaction is simply a Hydra transaction containing customized data. Therefore SSI transactions are sent like other Hydra transactions using the layer-1 API to modify the blockchain's state.
 
-However, the ledger's DAC-related state is separated from the layer-1 state. Reading the layer-2 state can be done using the layer-2 API.
+However, the ledger's SSI-related state is separated from the layer-1 state. Reading the layer-2 state can be done using the layer-2 API.
 
 <div class="row">
   <div class="col-sm-6">
@@ -60,7 +60,7 @@ However, the ledger's DAC-related state is separated from the layer-1 state. Rea
               <li>Query DID Document Operations</li>
               <li>Query Before Proof Existance</li>
               <li>Query Before Proof History</li>
-              <li>Query DAC Transaction Status</li>
+              <li>Query SSI Transaction Status</li>
               <li>Etc.</li>
           </ul>
         </div>
@@ -72,9 +72,9 @@ However, the ledger's DAC-related state is separated from the layer-1 state. Rea
   </div>
 </div>
 
-## DAC Entities' APIs
+## SSI Entities' APIs
 
-As explained in detail on the [Get Started page](/get_started), DAC has multiple entities defined for claim verification and issuance. IOP does not host these entities, but provides you a well-defined API described below and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
+As explained in detail on the [Get Started page](/get_started), SSI has multiple entities defined for claim verification and issuance. IOP does not host these entities, but provides you a well-defined API described below and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
 
 <div class="row">
   <div class="col-sm-6">

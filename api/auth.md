@@ -15,7 +15,7 @@ The Bearer token is issued by the caller and verified by the callee service.
 }
 ```
 
-DAC uses Ed25519 keys, wrapped into a Multicipher format, hence the `alg` JWT header field is set to that. We put one of the DID's public key to the `kid` as the authentication key for the caller.
+IOP SSI uses Ed25519 keys, wrapped into a Multicipher format, hence the `alg` JWT header field is set to that. We put one of the DID's public key to the `kid` as the authentication key for the caller.
 
 ## Example JWT payload:
 

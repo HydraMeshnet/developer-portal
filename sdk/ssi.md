@@ -1,6 +1,6 @@
-# IOP DAC SDK (Project Morpheus)
+# IOP SSI SDK (Project Morpheus)
 
-IOP's DAC is a **D**ecentralized **A**ccess **C**ontrol framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+IOP's SSI is a **S**elf **S**overeign **I**dentity framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
 
 Please visit the [get started page](/get_started) to get a full overview of the IOP stack.
 
@@ -34,7 +34,7 @@ curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/t
 
 ## Tutorial Center
 
-In this section, we provide multiple guides that walk you through a simple use case introducing and teaching the DAC SDK.
+In this section, we provide multiple guides that walk you through a simple use case introducing and teaching the SSI SDK.
 
 <div class="container ml-0 pl-0">
   <div class="row ml-0 pl-0">
@@ -51,7 +51,7 @@ In this section, we provide multiple guides that walk you through a simple use c
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Create/Load a Secure Vault</h4>
-          <p class="card-text">Learn how to create a secure, persistent vault using DAC SDK.</p>
+          <p class="card-text">Learn how to create a secure, persistent vault using SSI SDK.</p>
           <a href="/#/sdk/tutorial_create_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
@@ -61,7 +61,7 @@ In this section, we provide multiple guides that walk you through a simple use c
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Contract Signature Proof On-Chain</h4>
           <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
-          <a href="/#/sdk/tutorial_dac_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+          <a href="/#/sdk/tutorial_ssi_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>

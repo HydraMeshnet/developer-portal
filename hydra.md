@@ -1,9 +1,9 @@
 # IOP Hydra
 
-Hydra is a dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP DAC (Decentralized Access Control) framework.
+Hydra is a dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP SSI (Self-Sovereign Identity) framework.
 Hydra is built utilizing the modular architecture of [Ark](https://ark.io/).
 
-DAC is based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.
+IOP SSI is based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.
 
 ## Hydra Networks
 
@@ -130,7 +130,7 @@ Testnet currently works out of the box only with Docker. Core-control integratio
    ...
    ```
 
-1. Confirm that your node is running and DAC API is ready and processing blocks:
+1. Confirm that your node is running and SSI API is ready and processing blocks:
 
    ```bash
    $ tail -f mountpoints/logs/testnet/hydra-core-current.log
@@ -191,7 +191,7 @@ To participate in IOP's devnet network, you can use either Docker or core-contro
    ...
    ```
 
-1. Confirm that your node is running and DAC API is ready and processing blocks:
+1. Confirm that your node is running and SSI API is ready and processing blocks:
 
    ```bash
    $ tail -f mountpoints/logs/devnet/hydra-core-current.log
@@ -255,7 +255,7 @@ To participate in IOP's mainnet network, you can use either Docker or core-contr
    ...
    ```
 
-1. Confirm node is running and DAC API is ready and processing blocks:
+1. Confirm node is running and SSI API is ready and processing blocks:
 
    ```bash
    $ tail -f mountpoints/logs/mainnet/hydra-core-current.log

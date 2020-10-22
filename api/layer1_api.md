@@ -1,12 +1,12 @@
 # Layer-1 API
 
-DAC's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
+SSI's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
 
 Read more about layer-1 [here](glossary.md?id=Layer-1).
 
-## DAC Transaction Example
+## IOP SSI Transaction Example
 
-You can send in a DAC transaction, which is the same as a plain Hydra transaction, but with additional data.
+You can send in a SSI transaction, which is the same as a plain Hydra transaction, but with additional data.
 
 ```bash
 curl --header "Content-Type: application/json" \

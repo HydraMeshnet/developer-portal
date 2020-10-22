@@ -103,8 +103,8 @@ console.log("Tx status:", txStatus.get());
 
 // Let's initialize the layer-2 Morpheus API to query the transaction status
 const layer2MorpheusApi = await Layer2.createMorpheusApi(NetworkConfig.fromNetwork(network));
-let dacTxStatus = await layer2MorpheusApi.getTxnStatus(txId);
-console.log("DAC Tx status:", dacTxStatus.get());
+let ssiTxStatus = await layer2MorpheusApi.getTxnStatus(txId);
+console.log("SSI Tx status:", ssiTxStatus.get());
 ///###TS_STEP_8
 
 ///###TS_STEP_9

@@ -10,7 +10,7 @@ IOP's technology is open source and available for anyone. Although IOP provides 
 
 IOP is fully modular and has several well-separated entities. The stack is divided into two main components:
 
-- IOP **D**ecentralized **A**ccess **C**ontrol (DAC)
+- IOP **S**elf **S**overeign **I**dentity (SSI)
 - IOP Hydra
 
 These two main components provide a complete solution for various use cases. Examples include managing digital IDs (DID) or implementing an SSI-based application.
@@ -21,16 +21,16 @@ The diagram below shows the structure and relationship matrix between these two 
 
 ### Decentralized Access Control
 
-Our DAC framework is an identity and access management (IAM) framework based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions. The framework combines the management and verification of access control requirements of interconnected organizations in a single system. The system offers privacy by default. Public blockchain technologies enable us to keep a verifiable history of the system without revealing private data.
+Our SSI framework is a framework for self-controlled identities, data protection and access management (IAM) based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions. The framework combines the management and verification of access control requirements of interconnected organizations in a single system. The system offers privacy by default. Public blockchain technologies enable us to keep a verifiable history of the system without revealing private data.
 
-It is possible to create and store multiple schemas, DIDs, keys, rights, and proof timestamps on a public blockchain. These can define authentication rules and manage access rights for each user. Designed with a privacy-first mindset, our DAC framework allows each real-life person to have multiple, seemingly independent personas to split user data into unrelated datasets by topic, (e.g. professional life, family, friends, etc.) for better privacy. The verifiable claims (VCs) are kept off-chain to enhance user privacy, while it preserves the capability of authenticating the data inside the claims.
+It is possible to create and store multiple schemas, DIDs, keys, rights, and proof timestamps on a public blockchain. These can define authentication rules and manage access rights for each user. Designed with a privacy-first mindset, our SSI framework allows each real-life person to have multiple, seemingly independent personas to split user data into unrelated datasets by topic, (e.g. professional life, family, friends, etc.) for better privacy. The verifiable claims (VCs) are kept off-chain to enhance user privacy, while it preserves the capability of authenticating the data inside the claims.
 
-The entities defined below are part of our DAC framework.
+The entities defined below are part of our SSI framework.
 
 <div class="mb-4">
-    <a href="/#/dac" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
-    <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
-    <a href="/#/sdk/dac" class="btn btn-sm btn-outline-primary">API</a>
+    <a href="/#/ssi" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
+    <a href="/#/sdk/ssi" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
+    <a href="/#/sdk/ssi" class="btn btn-sm btn-outline-primary">API</a>
     <img src="/assets/flutter_square_logo.png" class="tech-logo ml-2" title="Supports Flutter/Dart">
     <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Supports Typescript">
 </div>
@@ -67,13 +67,13 @@ A service provider entity (might be conflated with the inspector) that is verify
 
 #### Layer-1 and Layer-2 API
 
-DAC extends the Hydra Blockchain with a plugin that adds two additional APIs to the Blockchain: a layer-1 and a layer-2 API. These APIs enable you to write and read the consensus-based DAC state.
+SSI extends the Hydra Blockchain with a plugin that adds two additional APIs to the Blockchain: a layer-1 and a layer-2 API. These APIs enable you to write and read the consensus-based SSI state.
 
 <a href="/#/api/api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
 
 ### The Hydra Blockchain
 
-A dPoS blockchain extended with a plugin to provide a public ledger for IOP DAC. This can be deployed in minutes with Docker.
+A dPoS blockchain extended with a plugin to provide a public ledger for IOP SSI. This can be deployed in minutes with Docker.
 
 <a href="/#/hydra" class="btn btn-sm btn-outline-primary">LEARN MORE</a>
 
