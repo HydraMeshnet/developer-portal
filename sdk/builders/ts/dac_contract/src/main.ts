@@ -1,6 +1,6 @@
 ///###TS_STEP_1
 // Import the necessary modules from our SDK
-import { Crypto, Layer1, Layer2, Network } from '@internet-of-people/sdk';
+import { Crypto, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-people/sdk';
 ///###TS_STEP_1
 
 ///###TS_STEP_2
@@ -77,7 +77,7 @@ const opAttempts = new Layer1.OperationAttemptsBuilder()
     .getAttempts();
 
 // Let's initialize our layer-1 API
-const layer1Api = await Layer1.createApi(network);
+const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
 
 // Let's query and then increment the current nonce of the owner of the tx fee
 let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
@@ -101,9 +101,9 @@ await waitUntil12Sec();
 let txStatus = await layer1Api.getTxnStatus(txId);
 console.log("Tx status:", txStatus.get());
 
-// Let's initialize the layer-2 API to query the transaction status
-const layer2Api = await Layer2.createApi(network);
-let dacTxStatus = await layer2Api.getTxnStatus(txId);
+// Let's initialize the layer-2 Morpheus API to query the transaction status
+const layer2MorpheusApi = await Layer2.createMorpheusApi(NetworkConfig.fromNetwork(network));
+let dacTxStatus = await layer2MorpheusApi.getTxnStatus(txId);
 console.log("DAC Tx status:", dacTxStatus.get());
 ///###TS_STEP_8
 
@@ -114,7 +114,7 @@ const expectedContentId = Crypto.digestJson(signedContract);
 
 ///###TS_STEP_10
 // Query the blockchain for the hash of the signed contract (Proof of Existence)
-const history = await layer2Api.getBeforeProofHistory(expectedContentId);
+const history = await layer2MorpheusApi.getBeforeProofHistory(expectedContentId);
 console.log("Proof history:", history);
 ///###TS_STEP_10
 

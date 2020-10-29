@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@internet-of-people/sdk": "3.1.1"
+    "@internet-of-people/sdk": "4.0.0"
   },
   "devDependencies": {
     "rimraf": "3.0.0",

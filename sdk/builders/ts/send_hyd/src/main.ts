@@ -1,6 +1,6 @@
 ///###TS_STEP_1
 // Import the necessary modules from our SDK
-import { Layer1, Network } from '@internet-of-people/sdk';
+import { Layer1, Network, NetworkConfig } from '@internet-of-people/sdk';
 ///###TS_STEP_1
 
 ///###TS_STEP_2
@@ -18,7 +18,7 @@ export const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J";
 
 ///###TS_STEP_3
 // Return an api that can interact with the hydra blockchain
-const layer1Api = await Layer1.createApi(network);
+const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
 
 // Sends a hydra transaction using a passphrase
 const amount = 1e8 / 10; // 0.1 HYD
