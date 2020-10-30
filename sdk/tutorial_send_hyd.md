@@ -76,7 +76,7 @@ import 'package:iop_sdk/network.dart';
     <div class="col-6">
         <div class="alert alert-info">
             <h5><strong>Interested how to create such a vault?</strong></h5>
-            Check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+            Check out our Create a Secure Vault tutorial <a href="/sdk/tutorial_create_vault">here</a>.
         </div>
     </div>
 </div>
@@ -175,4 +175,4 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 <!-- tabs:end -->
 Congratulations, you sent your first hydra transactions using our SDK! Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
-<a href="/#/sdk/ssi?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>
+<a href="/sdk/?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

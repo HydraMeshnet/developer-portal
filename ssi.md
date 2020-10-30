@@ -1,17 +1,49 @@
 # IOP SSI (Project Morpheus)
 
-Self-Sovereign Identity framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger. See [our DID method](w3c) for further details.
+Our SSI framework is a framework for self-controlled identities, data protection and access management (IAM) based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions. The framework combines the management and verification of access control requirements of interconnected organizations in a single system. The system offers privacy by default. Public blockchain technologies enable us to keep a verifiable history of the system without revealing private data. See [our DID method](w3c) for further details.
 
 This page gives you a detailed overview of SSI's architecture, API and SDK that
 provides an easy integration with other apps and tools.
 
-## What is IOP SSI?
+## Architecture
 
-SSI is a decentralized identity and access management (IAM) framework, therefore
-it can manage and verify access control requirements of interconnected organizations in a single system.
-SSI keeps a timeline of all previous changes, thus proofs (e.g. timestamped signatures) can be later verified retrospectively.
+It is possible to create and store multiple schemas, DIDs, keys, rights, and proof timestamps on a public blockchain. These can define authentication rules and manage access rights for each user. Designed with a privacy-first mindset, our SSI framework allows each real-life person to have multiple, seemingly independent personas to split user data into unrelated datasets by topic, (e.g. professional life, family, friends, etc.) for better privacy. The verifiable claims (VCs) are kept off-chain to enhance user privacy, while it preserves the capability of authenticating the data inside the claims.
 
-### Identity, Keys and Access Control
+The entities defined below are part of our SSI framework.
+
+<img src="/assets/SSI_flow.png" class="d-block mx-auto my-5">
+
+### Entities
+
+#### Wallet (Holder)
+
+An application that holds public and private keys and other information, such as claims or its representations. It can create a claim (a.k.a.: [Witness Request](/glossary?id=witness-request)) and sign it, thus transforming it to a [Signed Witness Request](/glossary?id=signed-witness-request). This ties the identity of the signer to the Witness Request. Once signed, the holder can send it to an Authority that verifies it. We call this process "witnessing", hence the name Witness Request.
+
+#### Authority (Issuer)
+
+A company, government, or any other certificate provider entity that is trusted by many to be a reliable [witness](/glossary?id=witness). It can receive a Signed Witness Request from a holder. After verifying the data, the Authority signs the statement and sends it back as a verified claim, or what we call a [Signed Witness Statement](/glossary?id=signed-witness-statement).
+
+<a href="/api/authority_api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
+
+#### Inspector
+
+A company,  service provider, or any individual that wants to verify a claim presented by its subject. This claim appears as a statement signed by a witness that is deemed trustworthy by the inspector. For example, an inspector can be a conductor, an event gatekeeper, a bartender, etc.
+
+Usually, inspectors provide a list of [scenarios](/glossary?id=scenario) with all the details they need.
+
+<a href="/api/inspector_api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
+
+#### Verifier
+
+Note that we separated [W3C's verifier](https://w3c.github.io/vc-data-model/#dfn-verifier) into a potentially different inspector (gatekeeper) and verifier (API operator).
+
+A service provider entity (might be conflated with the inspector) that is verifying the validity of a signature by looking up DID documents and comparing access rights.
+
+*The verifier does not see any private information contained in the claim, only cryptographical hashes, signatures, and other information relevant to validate the cryptography.*
+
+<a href="/api/verifier_api" class="btn btn-sm btn-outline-primary mt-auto mb-2">BROWSE API</a>
+
+## Identity, Keys and Access Control
 
 Like any access control system, SSI allows creating multiple users (a.k.a DID, persona, profile),
 define authentication rules and manage access rights for each user you control.
@@ -69,13 +101,13 @@ Read more about custom transactions and its use cases and technical details:
 ## Develop on SSI
 
 In order to try out SSI, you have to connect to a Hydra network. You can do that locally or using IOP's infrastructure.
-Please follow the guide [how to run a local testnet node](hydra#run-testnet-node) or read how can you [access IOP's Hydra network](hydra#hydra-networks).
+Please follow the guide [how to run a local testnet node](/hydra#run-testnet-node) or read how can you [access IOP's Hydra network](/hydra#hydra-networks).
 
 ### Tutorials
 
 We provide you detailed tutorials on various use cases where you can learn and explorer our SSI SDK. 
 
-<a href="/#/sdk/ssi" class="btn btn-sm btn-outline-primary">Visit Tutorial Center</a>
+<a href="/sdk/" class="btn btn-sm btn-outline-primary">Visit Tutorial Center</a>
 
 ### Samples
 
@@ -91,4 +123,4 @@ We also made a demonstration video what is SSI (project Morpheus) and how can yo
 
 We provide you a detailed API documentation where you learn what's the difference between layer-1 and layer-2 APIs.
 
-<a href="/#/api/api" class="btn btn-sm btn-outline-primary">BROWSE API DOCUMENTATION</a>
+<a href="/api/" class="btn btn-sm btn-outline-primary">BROWSE API DOCUMENTATION</a>

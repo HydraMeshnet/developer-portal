@@ -1,6 +1,6 @@
 # Authority API
 
-To understand the role of an authority, please read our glossary [here](glossary?id=authority).
+To understand the role of an authority, please read our glossary [here](/glossary?id=authority).
 
 ## Endpoint Authentication
 
@@ -10,9 +10,9 @@ Some of the endpoints require authentication. We use the [standard HTTP auth hea
 
 ### List Processes
 
-Returns all [processes](glossary?id=process) available at the [authority](glossary?id=authority).
+Returns all [processes](/glossary?id=process) available at the [authority](/glossary?id=authority).
 
-Note: It's possible that processes will not be objects, but will be referred to as [content IDs](glossary?id=content-id). In that case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
+Note: It's possible that processes will not be objects, but will be referred to as [content IDs](/glossary?id=content-id). In that case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
 
 ```http
 GET /processes
@@ -258,7 +258,7 @@ Click here to expand
 
 ### Approve Witness Request (Clerk)
 
-Authority entities (such as a clerk) can approve a request by creating a [signed witness statement](glossary?id=signed-witness-statement).
+Authority entities (such as a clerk) can approve a request by creating a [signed witness statement](/glossary?id=signed-witness-statement).
 
 ```http
 POST /requests/:capabilityLink/approve
@@ -274,7 +274,7 @@ curl -H 'Authentication: Bearer eyJhbGciOiJFZERTQSJ9.eyJleHAiOjE1OTYxMjEzMTIsIml
 
 | Name | Type | Description |
 |---|---|---|
-| BODY | string | **Required**. A JSON object represents the [signed witness statement](glossary?id=signed-witness-statement). |
+| BODY | string | **Required**. A JSON object represents the [signed witness statement](/glossary?id=signed-witness-statement). |
 
 #### Response
 

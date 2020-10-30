@@ -44,7 +44,7 @@ For example, keyId `iezbeWGSY2dqcUBqT8K7R14xr` is transformed into Morpheus DID
 
 ## CRUD operations
 
-Morpheus DIDs are currently mapped to DID Documents on the Hydra ledger. As with many distributed ledgers, the commands and queries are well-separated from each other, and the decentralized consensus confirms or rejects the commands aggregated into the state that can be queried. Find the description of the related [APIs here](https://developer.iop.global/#/api/api).
+Morpheus DIDs are currently mapped to DID Documents on the Hydra ledger. As with many distributed ledgers, the commands and queries are well-separated from each other, and the decentralized consensus confirms or rejects the commands aggregated into the state that can be queried. Find the description of the related [APIs here](https://developer.iop.global/api/).
 
 ### Create DID
 
@@ -119,11 +119,11 @@ In other words, the default way to prove control over a newly created DID is by 
 
 Whenever the controller of a DID decides to explicitly publish a default DID Document or apply any change to it, the commands changing the DID document must be stored on the ledger.
 
-Though one could always send the whole new DID Document to be stored on ledger and find the diffs during validation, sending in the commands that cause those changes is more practical. We start from the implicit document, send ordered atomic operations (e.g. `addKey`, `revokeRight`, `tombstone`, etc), validate and apply them or reject all operation attempts in a transaction if any of them failed. In our solution a single transaction may have commands to change multiple DID documents and either all or none are changed. For further details on this, see [Layer 1 API here](https://developer.iop.global/#/api/layer1_api)
+Though one could always send the whole new DID Document to be stored on ledger and find the diffs during validation, sending in the commands that cause those changes is more practical. We start from the implicit document, send ordered atomic operations (e.g. `addKey`, `revokeRight`, `tombstone`, etc), validate and apply them or reject all operation attempts in a transaction if any of them failed. In our solution a single transaction may have commands to change multiple DID documents and either all or none are changed. For further details on this, see [Layer 1 API here](https://developer.iop.global/api/layer1_api)
 
 ### Read (Resolve DID Document)
 
-We provide ledger queries to access a snapshot of the whole DID Document at any given time or specialized requests for authorization checks. For a detailed description, see [Layer 2 API here](https://developer.iop.global/#/api/layer2_api).
+We provide ledger queries to access a snapshot of the whole DID Document at any given time or specialized requests for authorization checks. For a detailed description, see [Layer 2 API here](https://developer.iop.global/api/layer2_api).
 
 When no DID Document state is found on the ledger for a specific DID, queries work with the implicit DID Document instead.
 

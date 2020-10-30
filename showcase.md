@@ -10,7 +10,7 @@ Let us start with a 10 minute pitch about what kind of applications our platform
 
 IOP provides a sample code base in an npm package that uses the SDK.
 
-<a href="https://www.npmjs.com/package/@internet-of-people/examples" target="_blank" class="btn btn-sm btn-outline-primary">DOWNLOAD SAMPLES</a>
+<a href="https://github.com/Internet-of-People/ts-examples" target="_blank" class="btn btn-sm btn-outline-primary">DOWNLOAD SAMPLES</a>
 
 ### Demonstration Dev Demo
 
@@ -22,7 +22,7 @@ We also made a demonstration video what is SSI (project Morpheus) how can you us
 
 To be able to understand how powerful IOP SSI and Fort all together as quickly as possible, we took a common situation when one would like to apply for a discount but that requires some personal data. We call it as *The Swimming Pool KYC Use Case*.
 
-<a href="/#/usecases/swimming_pool.md" class="btn btn-sm btn-outline-primary">Learn More</a>
+<a href="/usecases/swimming_pool.md" class="btn btn-sm btn-outline-primary">Learn More</a>
 
 ### Reference Implementation
 

@@ -1,6 +1,10 @@
-# IOP SSI SDK (Project Morpheus)
+# SDK
+
+We provide a Typescript and Dart SDK to be able to use our SSI and DNS solutions.
 
 IOP's SSI is a **S**elf **S**overeign **I**dentity framework based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable credentials/claims (VCs) off-ledger.
+
+IOP's DNS provides a decentralized solution for resolving domains. However, our DNS solution does not end here. We strive to create a naming system that is decentralized, open and generic purpose.
 
 Please visit the [get started page](/get_started) to get a full overview of the IOP stack.
 
@@ -34,6 +38,10 @@ curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/t
 
 ## Tutorial Center
 
+<!-- tabs:start -->
+
+#### ** SSI **
+
 In this section, we provide multiple guides that walk you through a simple use case introducing and teaching the SSI SDK.
 
 <div class="container ml-0 pl-0">
@@ -43,7 +51,7 @@ In this section, we provide multiple guides that walk you through a simple use c
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Sending HYD Programatically</h4>
           <p class="card-text">In this guide you will learn how to send HYD without using a desktop wallet.</p>
-          <a href="/#/sdk/tutorial_send_hyd" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+          <a href="/sdk/tutorial_send_hyd" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>
@@ -52,7 +60,7 @@ In this section, we provide multiple guides that walk you through a simple use c
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Create/Load a Secure Vault</h4>
           <p class="card-text">Learn how to create a secure, persistent vault using SSI SDK.</p>
-          <a href="/#/sdk/tutorial_create_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+          <a href="/sdk/tutorial_create_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>
@@ -61,21 +69,16 @@ In this section, we provide multiple guides that walk you through a simple use c
         <div class="card-body d-flex flex-column">
           <h4 class="card-title">Contract Signature Proof On-Chain</h4>
           <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
-          <a href="/#/sdk/tutorial_ssi_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+          <a href="/sdk/tutorial_ssi_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>
     
   </div>
-  <div class="row ml-0 pl-0 mt-3">
-    <div class="col-sm-4 pl-0 ml-0">
-      <div class="card h-100">
-        <div class="card-body d-flex flex-column">
-          <h4 class="card-title">Swimming Pool Discount</h4>
-          <p class="card-text">In this guide we introduce you more advanced concepts and other participants in the IOP ecosystem.</p>
-          <a class="btn btn-sm btn-outline-primary mt-auto disabled">COMING SOON</a>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+
+#### ** DNS **
+
+🦄 COMING SOON 🦄
+
+<!-- tabs:end -->

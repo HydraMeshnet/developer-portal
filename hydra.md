@@ -1,6 +1,6 @@
 # IOP Hydra
 
-Hydra is a dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP SSI (Self-Sovereign Identity) framework.
+Hydra is a dPoS blockchain extended with a layer-2 consensus to provide a public ledger for the IOP SSI (Self-Sovereign Identity) and IOP DNS (Domain Naming System) frameworks.
 Hydra is built utilizing the modular architecture of [Ark](https://ark.io/).
 
 IOP SSI is based on <a href="https://w3c.github.io/did-core">W3C standards</a> to store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.

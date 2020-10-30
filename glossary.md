@@ -739,11 +739,9 @@ Two types of timestamps can be included in a witness statement to achieve proof 
 
 This is summarized in the figure below, where both the Proof of Existence (blue) and after-envelope (green) are contained in block 30. These ensure that the proof was generated during the time between block 10 and block 30. If the key was valid during this period, the signature is also valid.
 
-<img src="./assets/proof-timestamps.png" class="d-block mx-auto">
+<img src="/assets/proof-timestamps.png" class="d-block mx-auto">
 
 > Note that tying witness statements to the blockchain and registering changes of DID Documents are completely unrelated actions and usually happen independently. They use the same blockchain to prove the order of different events.
-
-
 
 ### Revoking a Right from a Key
 
@@ -772,3 +770,13 @@ The Proof of Existence proves that a signature has been created before a certain
 ### After-envelope
 
 To verify that a [Witness Statement](#witness-statement) has been signed after a certain block, it can be wrapped inside an after-envelope attribute before signing it to create a [Signed Witness Statement](#signed-witness-statement). The after-envelope includes the height and the hash of a recent block of the chain, proving that this information was known to the creator of the envelope. This concept can be applied to any object that is signable, like claim presentations, witness requests, etc.
+
+### DNS
+
+Decentralized Naming System similar to the <a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank">Domain Name System</a> to provide a decentralized, consensus based solution for resolving data under schema restricted domains.</p>
+
+Read more about on its [dedicated page](/dns).
+
+### DNS Principal
+
+An authentication method that can be used to authenticate when applying DNS operations. Currently it can only be a public key, while later we plan to use DIDs as well.

@@ -1,19 +1,13 @@
-# SSI API
+# API
 
-SSI's API consists of two main parts.
+Our API consists of two main parts.
 
-- DID document state reading and writing through [layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without touching the state.
-- Claim verification and issuance through [Authorities](glossary.md?id=Authority), [Inspectors](glossary.md?id=Inspector) and [Verifiers](glossary.md?id=Verifier)
+- Write SSI/DNS states via [layer-1](glossary.md?id=Layer-1) transactions.
+- Read SSI/DNS states via [layer-2](glossary.md?id=Layer-2) APIs.
 
-Please visit our [get started page](/get_started) to get a full overview of IOP's stack.
+Please visit our [get started page](get_started) to get a full overview of IOP's stack.
 
-## Layer-1 and Layer-2 APIs
-
-IOP SSI operates as a plugin inside the Hydra blockchain. Hence it shares the same consensus rules with the Hydra network for transactions. SSI transactions are stored in the same database as other Hydra transactions. This financial layer keeps track of balances of wallets and orders the transactions in the pool based on paid fees and wallet nonces.
-
-An SSI transaction is simply a Hydra transaction containing customized data. Therefore SSI transactions are sent like other Hydra transactions using the layer-1 API to modify the blockchain's state.
-
-However, the ledger's SSI-related state is separated from the layer-1 state. Reading the layer-2 state can be done using the layer-2 API.
+## Which API Do I Need?
 
 <div class="row">
   <div class="col-sm-6">
@@ -26,19 +20,18 @@ However, the ledger's SSI-related state is separated from the layer-1 state. Rea
           </div>
         </div>
         <div class="card-text mt-3">
-          Use it to:
+          Use it to do SSI or DNS <strong>write</strong> operations, such as
           <ul>
-              <li>Add a key to a DID</li>
-              <li>Revoke a key from a DID</li>
-              <li>Add a right to a DID</li>
-              <li>Revoke a right from a DID</li>
-              <li>Tombstone a DID</li>
-              <li>Register a before proof</li>
-              <li>Etc.</li>
+            <li>Add/revoke a key to a DID</li>
+            <li>Add/revoke a right to a DID</li>
+            <li>Tombstone a DID</li>
+            <li>Register a before proof</li>
+            <li>Register/resolve a domain</li>
+            <li>Etc.</li>
           </ul>
         </div>
         <div class="mt-auto">
-          <a href="/#/api/layer1_api" class="btn btn-outline-primary">BROWSE LAYER-1 API</a>
+          <a href="/api/layer1_api" class="btn btn-outline-primary">BROWSE LAYER-1 API</a>
         </div>
       </div>
     </div>
@@ -55,17 +48,16 @@ However, the ledger's SSI-related state is separated from the layer-1 state. Rea
         <div class="card-text mt-3">
           Use it to:
           <ul>
-              <li>Query DID Document</li>
-              <li>Query DID Document Transactions</li>
-              <li>Query DID Document Operations</li>
-              <li>Query Before Proof Existance</li>
-              <li>Query Before Proof History</li>
+              <li>Query DID Document or its Transactions, Operations</li>
+              <li>Query Proof of Existance or its History</li>
               <li>Query SSI Transaction Status</li>
+              <li>Resolve a DNS domain</li>
+              <li>Query a DNS domain's metadata</li>
               <li>Etc.</li>
           </ul>
         </div>
         <div class="mt-auto">
-          <a href="/#/api/layer2_api" class="btn btn-outline-primary">BROWSE LAYER-2 API</a>
+          <a href="/api/layer2_api" class="btn btn-outline-primary">BROWSE LAYER-2 API</a>
         </div>
       </div>
     </div>
@@ -87,7 +79,7 @@ As explained in detail on the [Get Started page](/get_started), SSI has multiple
           </div>
         </div>
         <div class="mt-3">
-          <a href="/#/api/authority_api" class="btn btn-outline-primary">BROWSE AUTHORITY API</a>
+          <a href="/api/authority_api" class="btn btn-outline-primary">BROWSE AUTHORITY API</a>
         </div>
       </div>
     </div>
@@ -102,7 +94,7 @@ As explained in detail on the [Get Started page](/get_started), SSI has multiple
           </div>
         </div>
         <div class="mt-3">
-          <a href="/#/api/inspector_api" class="btn btn-outline-primary">BROWSE INSPECTOR API</a>
+          <a href="/api/inspector_api" class="btn btn-outline-primary">BROWSE INSPECTOR API</a>
         </div>
       </div>
     </div>
@@ -117,7 +109,7 @@ As explained in detail on the [Get Started page](/get_started), SSI has multiple
           </div>
         </div>
         <div class="mt-3">
-          <a href="/#/api/verifier_api" class="btn btn-outline-primary">BROWSE VERIFIER API</a>
+          <a href="/api/verifier_api" class="btn btn-outline-primary">BROWSE VERIFIER API</a>
         </div>
       </div>
     </div>

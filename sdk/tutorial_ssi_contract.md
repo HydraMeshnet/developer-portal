@@ -86,7 +86,7 @@ import 'package:iop_sdk/network.dart';
             <ul>
                 <li>
                     Interested how to create such a secure, persistent vault?
-                    Check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                    Check out our Create a Secure Vault tutorial <a href="/sdk/tutorial_create_vault">here</a>.
                 </li>
                 <li>The gas passphrase and public key is the Hydra wallet's credential that pays for the actual on-chain transactions with testnet HYD.</li>
             </ul>
@@ -134,7 +134,7 @@ final unlockPassword = '+*7=_X8<3yH:v2@s';
             <ul>
                 <li>The Vault is a hierarchical deterministic key generator, a general purpose version of a <a href="https://en.bitcoin.it/wiki/Deterministic_wallet" target="_blank">Bitcoin HD wallet</a>.</li>
                 <li>You'll generate a human-readable seed phrase (a.k.a mnemonic word list, cold wallet) for recovery.</li>
-                <li>If you are eager to know what these passwords are for, please check out our Create a Secure Vault tutorial <a href="/#/sdk/tutorial_create_vault">here</a>.
+                <li>If you are eager to know what these passwords are for, please check out our Create a Secure Vault tutorial <a href="/sdk/tutorial_create_vault">here</a>.
             </ul>
         </div>
     </div>
@@ -246,7 +246,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
             <ul>
-                <li>When a DID is created, it has a default public key and DID document attached to it. These can act on behalf of the DID by signing related operations. This unmodified (keys untouched) DID Document is called an <a href="/#/glossary?id=implicit-did-document">implicit DID Document</a>.</li>
+                <li>When a DID is created, it has a default public key and DID document attached to it. These can act on behalf of the DID by signing related operations. This unmodified (keys untouched) DID Document is called an <a href="/glossary?id=implicit-did-document">implicit DID Document</a>.</li>
                 <li>Signed data is similar to warranty tickets in a sense that it's not mandatory to keep it safe, until you have to prove that you have signed the contract.</li>
             </ul>
         </div>
@@ -382,13 +382,13 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
     <div class="col-6 pr-3">
         To store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a SSI transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
         <br><br>
-        A single SSI transaction consists of one or multiple <a href="/#/glossary?id=ssi-operation">SSI operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
+        A single SSI transaction consists of one or multiple <a href="/glossary?id=ssi-operation">SSI operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
             <ul>
-                <li>As you see in the example, you create operation attemps. We call those attempts, because even if the blockchain (<a href="/#/glossary?id=layer-1">layer-1</a>) accepts the transaction, the <a href="/#/glossary?id=layer-2">layer-2</a> consensus mechanism might still reject it.</li>
+                <li>As you see in the example, you create operation attemps. We call those attempts, because even if the blockchain (<a href="/glossary?id=layer-1">layer-1</a>) accepts the transaction, the <a href="/glossary?id=layer-2">layer-2</a> consensus mechanism might still reject it.</li>
                 <li>When you send in a transaction with a Hydra account, the transaction has to contain a nonce, which is increased by one after each and every transaction.</li>
                 <li>If you provide the ID of an existing block into the signed contents then you can also prove that the content was created after the timestamp of that block.</li>
             </ul>
@@ -614,4 +614,4 @@ Proof history: {
 
 Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
-<a href="/#/sdk/ssi?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>
+<a href="/sdk/?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

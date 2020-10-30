@@ -1,12 +1,12 @@
 # Verifier API
 
-To understand what a verifier is, please read our glossary [here](glossary?id=verifier).
+To understand what a verifier is, please read our glossary [here](/glossary?id=verifier).
 
 ## Endpoints
 
 ### Getting After Proof
 
-Whenever a user wants to wrap their presentation in an [AfterEnvelop](https://iop-stack.iop.rocks/dids-and-claims/specification/#/glossary?id=after-envelope), they can query the latest block height and id from this endpoint.
+Whenever a user wants to wrap their presentation in an [AfterEnvelop](https://iop-stack.iop.rocks/dids-and-claims/specification/glossary?id=after-envelope), they can query the latest block height and id from this endpoint.
 
 ```http
 GET /after-proof

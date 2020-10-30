@@ -1,14 +1,14 @@
 # Inspector API
 
-To understand what an inspector is, please read our glossary [here](glossary?id=inspector).
+To understand what an inspector is, please read our glossary [here](/glossary?id=inspector).
 
 ## Endpoints
 
 ### List Scenarios
 
-Returns all inspection [scenarios](glossary?id=scenario) available for this [inspector](glossary?id=inspector).
+Returns all inspection [scenarios](/glossary?id=scenario) available for this [inspector](/glossary?id=inspector).
 
-Note: It is possible that `scenarios` will not be objects, but be referred to by [content ids](glossary?id=content-id). In this case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
+Note: It is possible that `scenarios` will not be objects, but be referred to by [content ids](/glossary?id=content-id). In this case, use the [blob storage endpoint](#Download-Public-Blob) to download the process itself.
 
 ```http
 GET /scenarios
@@ -92,7 +92,7 @@ Click here to expand
 
 ### Upload Presentation
 
-Users can share a claim [presentation](glossary?id=claim-presentation) with the inspector service anytime before they want to get an inspection. They could host it anywhere and present a URL on their servers, but most users will not have the self-hosted infrastructure.
+Users can share a claim [presentation](/glossary?id=claim-presentation) with the inspector service anytime before they want to get an inspection. They could host it anywhere and present a URL on their servers, but most users will not have the self-hosted infrastructure.
 
 ```http
 POST /presentation
@@ -108,7 +108,7 @@ curl -d '{"signature":{"publicKey":"pez7aYuvoDPM5i7xedjwjsWaFVzL3qRKPv4sBLv3E3pA
 
 | Name | Type | Description |
 |---|---|---|
-| BODY | string | **Required**. A JSON object containing the the [claim presentation](glossary?id=claim-presentation). |
+| BODY | string | **Required**. A JSON object containing the the [claim presentation](/glossary?id=claim-presentation). |
 
 #### Response
 

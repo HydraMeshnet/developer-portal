@@ -4,6 +4,8 @@ Fort is an umbrella project for libraries and applications using Decentralized A
 For example, we provide an SDK for developing SSI-based applications in Flutter/Dart
 and mobile applications for different participants in a simple use case for demonstration.
 
+<a href="/showcase" class="btn btn-sm btn-outline-primary">VIEW SHOWCASE</a>
+
 ### Claim Management and Data Masking
 
 In real life, loads of situations occur when you must present (or even copy or share) your personal information in order to apply for services like entering a hotel. In almost all of these cases they only need a proof, that you're eligible to use their service or product. The problem with this is that massive data leaks happen frequently, so your data and your personal digital life is not safe as long as you give it to random companies daily basis.
@@ -82,17 +84,3 @@ Beside these, there are other scenarios as well we did not specified:
     </div>
   </div>
 </div>
-
-## API
-
-### Authority
-
-Please check the API documentation in its repository.
-
-<a href="https://github.com/internet-of-people/morpheus-ts/tree/master/packages/authority-service/README.md#API" target="_blank" class="btn btn-sm btn-outline-primary">Read API Documentation</a>
-
-### Inspector
-
-Please check the API documentation in its repository.
-
-<a href="https://github.com/internet-of-people/morpheus-ts/tree/master/packages/authority-service/README.md#API" target="_blank" class="btn btn-sm btn-outline-primary">Read API Documentation</a>

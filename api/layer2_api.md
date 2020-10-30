@@ -1,12 +1,16 @@
 # Layer-2 API
 
-SSI's API consists of two main parts: layer-1 and layer-2. On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state.
+Our API consists of two main parts: [layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state. 
 
-Read more about layer-2 [here]](glossary.md?id=Layer-2).
+To interact with the layer-2 API we suggest to use our [SDK](/sdk/), but you can easily access it through simple REST.
+
+Please visit our [get started page](/get_started) to get a full overview of IOP's stack.
 
 ## Endpoints
 
-### Query DID Document
+### SSI
+
+#### Query DID Document
 
 Returns the DID document (the implicit one if there were no operations yet on this DID).
 
@@ -14,20 +18,20 @@ Returns the DID document (the implicit one if there were no operations yet on th
 GET /morpheus/v1/did/{did}/document/{blockHeight?}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
 | blockHeight | number | Optional. A logical timefilter that returns how the DID document looked like at that blockHeight. If it is not provided, the current height is used. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document
+curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -115,7 +119,7 @@ Click here to expand
 
 </details>
 
-### Query DID Document Last Transaction ID
+#### Query DID Document Last Transaction ID
 
 Returns the latest transaction's ID which modified the DID document. It can be used for nonce generation.
 If the DID document is not yet updated, it returns 404.
@@ -124,19 +128,19 @@ If the DID document is not yet updated, it returns 404.
 GET /morpheus/v1/did/{did}/transactions/last
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | did | string | **Required**. The DID of the document that you'd like to query (e.g. `did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr`). |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
+curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -152,7 +156,7 @@ Click here to expand
 
 </details>
 
-### Query DID Document Transaction IDs
+#### Query DID Document Transaction IDs
 
 Returns the transaction's ID which modified the DID document.
 If the DID document is not yet updated, it returns an empty array.
@@ -161,7 +165,7 @@ If the DID document is not yet updated, it returns an empty array.
 GET /morpheus/v1/did/{did}/transactions/{fromHeight}/{untilHeight?}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
@@ -169,13 +173,13 @@ GET /morpheus/v1/did/{did}/transactions/{fromHeight}/{untilHeight?}
 | fromHeight | number | **Required**. The block height as the start of the query range (inclusive). |
 | untilHeight | number | Optional.The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
+curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -201,7 +205,7 @@ Click here to expand
 
 </details>
 
-### Query DID Document Transaction Attempts IDs
+#### Query DID Document Transaction Attempts IDs
 
 Returns the transaction's ID which modified the DID document. **Note**: also contains all transactions that were rejected.
 If the DID document is not yet updated, it returns an empty array.
@@ -210,7 +214,7 @@ If the DID document is not yet updated, it returns an empty array.
 GET /morpheus/v1/did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
@@ -218,13 +222,13 @@ GET /morpheus/v1/did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 | fromHeight | number | **Required**. The block height as the start of the query range (inclusive). |
 | untilHeight | number | Optional. The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
+curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -254,7 +258,7 @@ Click here to expand
 
 </details>
 
-### Query DID Operations
+#### Query DID Operations
 
 Returns all operations that affected the given DID. Does NOT contain rejected operations.
 
@@ -262,7 +266,7 @@ Returns all operations that affected the given DID. Does NOT contain rejected op
 GET /morpheus/v1/did/{did}/operations/{from}/{until?}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
@@ -270,13 +274,13 @@ GET /morpheus/v1/did/{did}/operations/{from}/{until?}
 | from | number | **Required**. The block height as the start of the query range (inclusive). |
 | until | number | Optional. The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operations/0
+curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operations/0
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -322,7 +326,7 @@ Click here to expand
 
 </details>
 
-### Query DID Operation Attempts
+#### Query DID Operation Attempts
 
 Returns all operations that affected the given DID. Contains both accepted and rejected operations.
 
@@ -330,7 +334,7 @@ Returns all operations that affected the given DID. Contains both accepted and r
 GET /morpheus/v1/did/{did}/operation-attempts/{from}/{until?}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
@@ -338,13 +342,13 @@ GET /morpheus/v1/did/{did}/operation-attempts/{from}/{until?}
 | from | number | **Required**. The block height as the start of the query range (inclusive). |
 | until | number | Optional. The block height as the end of the query range (inclusive). If it is not provided, the current height is used. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operation-attempts/0
+curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operation-attempts/0
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -400,7 +404,7 @@ Click here to expand
 
 </details>
 
-### Check Transaction Validity
+#### Check Transaction Validity
 
 Also known as "dry run". Using this endpoint you can validate your transaction to avoid being rejected and spending Hydras for invalid transactions. Returns an array of errors.
 
@@ -410,17 +414,17 @@ If the transaction is valid, it returns an empty array.
 POST /morpheus/v1/check-transaction-validity
 ```
 
-#### Parameters
+##### Parameters
 
 The body must contain an array of operations that you're going to include in the SSI transaction. See in the example.
 
-#### Example
+##### Example
 
 ```bash
-curl -d '[{"operation": "registerBeforeProof", "contentId": "test"}]' -H "Content-Type: application/json" -X POST http://test.hydra.iop.global:4703/morpheus/v1/check-transaction-validity
+curl -d '[{"operation": "registerBeforeProof", "contentId": "test"}]' -H "Content-Type: application/json" -X POST https://test.hydra.iop.global:4705/morpheus/v1/check-transaction-validity
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -440,7 +444,7 @@ Error object's structure:
 | invalidOperationAttempt | object | The operation that was rejected. |
 | message | string | The rejection reason. |
 
-### Check If Before Proof Exists
+#### Check If Before Proof Exists
 
 Checks if a content was existed before a given height.
 
@@ -448,20 +452,20 @@ Checks if a content was existed before a given height.
 GET /morpheus/v1/before-proof/{contentId}/exists/{blockHeight?}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | contentId | string | **Required**. The digest of the content that might be proven to exist before a logical time (e.g.  `cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho`) |
 | blockHeight | number | Optional. The block height where you'd like to check the existence of the before proof. If it is not provided, the current height is used. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/exists
+curl https://test.hydra.iop.global:4705/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/exists
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -474,7 +478,7 @@ false
 
 </details>
 
-### Query Before Proof History
+#### Query Before Proof History
 
 Retrieves at which height a contentId was registered.
 
@@ -482,19 +486,19 @@ Retrieves at which height a contentId was registered.
 GET /morpheus/v1/before-proof/{contentId}/history
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | contentId | string | **Required**. The digest of the content that is proven to exist before a logical time. |
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/history
+curl https://test.hydra.iop.global:4705/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/history
 ```
 
-#### Response
+##### Response
 
 <details>
 <summary>
@@ -521,7 +525,7 @@ or if it was not registered yet:
 
 </details>
 
-### Check Transaction Status
+#### Check Transaction Status
 
 Check an SSI transaction's status if it was accepted or rejected.
 
@@ -529,19 +533,216 @@ Check an SSI transaction's status if it was accepted or rejected.
 GET /morpheus/v1/txn-status/{txid}
 ```
 
-#### Parameters
+##### Parameters
 
 | Name | Type | Description |
 |---|---|---|
 | txId | string | **Required**. The Hydra transaction (containing the SSI transaction) ID that you'd like to query (e.g. `8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561`).
 
-#### Example
+##### Example
 
 ```bash
-curl http://test.hydra.iop.global:4703/morpheus/v1/txn-status/8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561
+curl https://test.hydra.iop.global:4705/morpheus/v1/txn-status/8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561
 ```
 
-#### Response
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+true
+```
+
+</details>
+
+### DNS
+
+#### Resolve Domain
+
+Returns the data that was registered with the given domain.
+
+```http
+GET /coeus/v1/resolve/{domain}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| domain | string | **Required**. A domain you'd like to resolve, e.g. `.schema.company`.
+
+##### Example
+
+```bash
+curl https://test.hydra.iop.global:4705/coes/v1/resolve/.schema.company
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+{
+  "data": {
+    "it-department": {
+      "junior": {
+        "min": 1500,
+        "max": 2000
+      },
+      "senior": {
+        "min": 3000,
+        "max": 4000
+      },
+      "architect": {
+        "min": 3500,
+        "max": 5000
+      }
+    }
+  }
+}
+```
+
+</details>
+
+#### Query Metadata of a Domain
+
+Returns the metadata of the given domain.
+
+```http
+GET /coeus/v1/metadata/{domain}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| domain | string | **Required**. A domain you'd like to query, e.g. `.schema.company`.
+
+##### Example
+
+```bash
+curl https://test.hydra.iop.global:4705/coes/v1/metadata/.schema.company
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+{
+  "owner": "pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA",
+  "subtreePolicies": {}, // for other features in the future 
+  "registrationPolicy": "owner", // who can register under this domain, where owner means only the owner, any means anyone.
+  "expiresAtHeight": 1000 // the domain will expire at this block height.
+}
+```
+
+</details>
+
+#### Query All Children of a Domain
+
+Returns all subdomains (only one level down) under the given domain.
+
+```http
+GET /coeus/v1/children/{domain}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| domain | string | **Required**. A domain you'd like to query, e.g. `.schema.company`.
+
+##### Example
+
+```bash
+curl https://test.hydra.iop.global:4705/coes/v1/children/.schema.company
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+{
+  "children": [
+    "it",
+    "finance",
+    "marketing"
+  ]
+}
+```
+
+</details>
+
+#### Query Last Nonce Used by a Public Key
+
+Returns all the last nonce used by a public key. Constructing Coeus transactions requires two nonces. One for the wallet who pays for the Hydra transaction and an other for the Coeus operation. The latter one is the owner of the domain which we query here.
+
+```http
+GET /coeus/v1/last-nonce/{publicKey}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| publicKey | string | **Required**. The public key you'd like get query.
+
+##### Example
+
+```bash
+curl https://test.hydra.iop.global:4705/coes/v1/last-nonce/pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA
+```
+
+##### Response
+
+<details>
+<summary>
+Click here to expand
+</summary>
+
+```json
+{
+  "nonce": "4"
+}
+```
+
+</details>
+
+#### Query Transaction Status
+
+Returns if the Coeus transaction was successful on layer-2. Keep in mind, that a success layer-1 transaction does not mean that it success on layer-2 as well.
+
+```http
+GET /coeus/v1/txn-status/{transactionId}
+```
+
+##### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| transactionId | string | **Required**. The layer-1 transaction id.
+
+##### Example
+
+```bash
+curl https://test.hydra.iop.global:4705/coes/v1/txn-status/6fdc8415e1f9149806dd426b961cd5a3b171081414f96f61ff94d1e2977208d3
+```
+
+##### Response
 
 <details>
 <summary>
