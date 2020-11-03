@@ -773,10 +773,10 @@ To verify that a [Witness Statement](#witness-statement) has been signed after a
 
 ### DNS
 
-Decentralized Naming System similar to the <a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank">Domain Name System</a> to provide a decentralized, consensus based solution for resolving data under schema restricted domains.</p>
+Decentralized Naming System similar to the <a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank">Domain Name System</a> to provide a decentralized, consensus-based solution for resolving data under schema-restricted domains.</p>
 
 Read more about on its [dedicated page](/dns).
 
 ### DNS Principal
 
-An authentication method that can be used to authenticate when applying DNS operations. Currently it can only be a public key, while later we plan to use DIDs as well.
+An authentication method that can be used to authenticate when applying DNS operations. Currently it can only be a public key, we plan to enable DIDs later as well.

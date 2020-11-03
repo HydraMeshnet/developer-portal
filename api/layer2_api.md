@@ -577,7 +577,7 @@ GET /coeus/v1/resolve/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coes/v1/resolve/.schema.company
+curl https://test.hydra.iop.global:4705/coeus/v1/resolve/.schema.company.salaryoffers
 ```
 
 ##### Response
@@ -627,7 +627,7 @@ GET /coeus/v1/metadata/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coes/v1/metadata/.schema.company
+curl https://test.hydra.iop.global:4705/coeus/v1/metadata/.schema.company
 ```
 
 ##### Response
@@ -665,7 +665,7 @@ GET /coeus/v1/children/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coes/v1/children/.schema.company
+curl https://test.hydra.iop.global:4705/coeus/v1/children/.schema.company
 ```
 
 ##### Response
@@ -704,7 +704,7 @@ GET /coeus/v1/last-nonce/{publicKey}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coes/v1/last-nonce/pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA
+curl https://test.hydra.iop.global:4705/coeus/v1/last-nonce/pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA
 ```
 
 ##### Response
@@ -739,7 +739,7 @@ GET /coeus/v1/txn-status/{transactionId}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coes/v1/txn-status/6fdc8415e1f9149806dd426b961cd5a3b171081414f96f61ff94d1e2977208d3
+curl https://test.hydra.iop.global:4705/coeus/v1/txn-status/6fdc8415e1f9149806dd426b961cd5a3b171081414f96f61ff94d1e2977208d3
 ```
 
 ##### Response

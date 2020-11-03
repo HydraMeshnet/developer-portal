@@ -22,11 +22,11 @@ Please visit our [get started page](get_started) to get a full overview of IOP's
         <div class="card-text mt-3">
           Use it to do SSI or DNS <strong>write</strong> operations, such as
           <ul>
-            <li>Add/revoke a key to a DID</li>
-            <li>Add/revoke a right to a DID</li>
+            <li>Add/revoke a key to/from a DID</li>
+            <li>Add/revoke a right to/from a DID</li>
             <li>Tombstone a DID</li>
-            <li>Register a before proof</li>
-            <li>Register/resolve a domain</li>
+            <li>Register a Proof of Existence</li>
+            <li>Name your data (i.e. register DNS domain)</li>
             <li>Etc.</li>
           </ul>
         </div>
@@ -51,8 +51,8 @@ Please visit our [get started page](get_started) to get a full overview of IOP's
               <li>Query DID Document or its Transactions, Operations</li>
               <li>Query Proof of Existance or its History</li>
               <li>Query SSI Transaction Status</li>
-              <li>Resolve a DNS domain</li>
-              <li>Query a DNS domain's metadata</li>
+              <li>Resolve data of a DNS domain</li>
+              <li>Query metadata of a DNS domain</li>
               <li>Etc.</li>
           </ul>
         </div>

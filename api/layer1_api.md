@@ -72,7 +72,7 @@ Example transaction content (Click here to expand)
 ### SSI Operations
 
 To be able to update the SSI state, you need to add `operationAttempts` to your layer-1 transaction.
-Belowe the available operations can be put into a layer-1 custom transaction that writes the SSI state.
+Below the available operations can be put into a layer-1 custom transaction that writes the SSI state.
 
 #### Register Proof of Existence
 
@@ -247,11 +247,11 @@ Example transaction content (Click here to expand)
 ### DNS Operations
 
 To be able to update the DNS state, you need to add operation `bundles` to your layer-1 transaction.
-Belowe the available operations can be put into a bundle in a layer-1 custom transaction that writes the DNS state.
+Below the available operations can be put into a bundle in a layer-1 custom transaction that writes the DNS state.
 
 #### Register Domain
 
-Registers a domain with the given data for the given [principal](/glossary?id=dns-principal) as the owner. Note, that the data must comply with the root domain's predefined schema.
+Registers a domain with the given data for the given [principal](/glossary?id=dns-principal) as the owner. Note, that the data must also comply with the predefined schema of the parent domain.
 
 ```json
 {
@@ -282,7 +282,7 @@ Registers a domain with the given data for the given [principal](/glossary?id=dn
 
 #### Update Domain
 
-Updates the data of the given domain. Note, that the new data must also comply with the root domain's predefined schema.
+Updates the data of the given domain. Note, that the new data must also comply with the predefined schema of the parent domain.
 
 ```json
 {
@@ -309,7 +309,7 @@ Updates the data of the given domain. Note, that the new data must also comply w
 
 #### Renew Domain
 
-Renews the given domain to a new block height.
+Extends lifetime of the given domain to a new block height. 
 
 ```json
 {

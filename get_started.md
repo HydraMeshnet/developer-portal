@@ -37,11 +37,11 @@ A layer-2 transaction is simply a Hydra transaction containing customized data. 
 
 However, the ledger's layer-2 related state is separated from the layer-1 state. Reading the layer-2 state can be done using the layer-2 API.
 
-Currently, layer-2 maintains two independent state, discussed below.
+Currently, layer-2 maintains a state that consists of two independent components as discussed below.
 
 #### Self Sovereign Identity (SSI)
 
-Our SSI framework is a framework for self-controlled identities, data protection and access management (IAM) based on [W3C standards](https://w3c.github.io/did-core) that provides fully open SSI solutions.
+Our SSI framework provides self-controlled identities, data protection and access management (IAM) based on [W3C standards](https://w3c.github.io/did-core) enabling fully open SSI solutions.
 
 <div class="mb-4">
   <a href="/ssi" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
@@ -60,7 +60,7 @@ IOP's DNS provides a decentralized solution for resolving domains. However, our 
 
 - decentralized, i.e. fault-tolerant, unsupervised and anyone can join the network with his own node;
 - open, i.e. anyone can register and maintain his own set of names;
-- and generic purpose, i.e. it can name not only network addresses, but anything from schemas and protocols through cryptocurrency accounts and DIDs to devices and rights.
+- generic purpose, i.e. it can name not only network addresses, but anything from schemas and protocols through cryptocurrency accounts and DIDs to devices and rights.
 
 <div class="mb-4">
   <a href="/dns" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
