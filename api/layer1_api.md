@@ -256,25 +256,21 @@ Registers a domain with the given data for the given [principal](/glossary?id=dn
 ```json
 {
   "type": "register",
-  "name": ".schema.company.salaryoffers",
+  "name": ".schema.acme.product",
   "owner": "pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA",
   "subtreePolicies": {},
   "registrationPolicy": "owner",
   "data": {
-    "it-department": {
-      "junior": {
-        "min": 1500,
-        "max": 2000
-      },
-      "senior": {
-        "min": 3000,
-        "max": 4000
-      },
-      "architect": {
-        "min": 3500,
-        "max": 5000
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A product from Acme's catalog",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "description": "The unique identifier for a product"
       }
-    }
+    },
+    "required": ["id"]
   },
   "expiresAtHeight": 10000
 }
@@ -287,23 +283,25 @@ Updates the data of the given domain. Note, that the new data must also comply w
 ```json
 {
   "type": "update",
-  "name": ".schema.company.salaryoffer",
+  "name": ".schema.acme.product",
   "data": {
-    "it-department": {
-      "junior": {
-        "min": 2000,
-        "max": 2500
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A product from Acme's catalog",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "description": "The unique identifier for a product"
       },
-      "senior": {
-        "min": 3500,
-        "max": 4500
-      },
-      "architect": {
-        "min": 4000,
-        "max": 6000
+      "price": {
+        "type": "number",
+        "minimum": 0,
+        "exclusiveMinimum": true
       }
-    }
-  }
+    },
+  },
+  "required": ["id", "price"]
+},
 }
 ```
 
@@ -314,7 +312,7 @@ Extends lifetime of the given domain to a new block height.
 ```json
 {
   "type": "renew",
-  "name": ".schema.company.salaryoffer",
+  "name": ".schema.acme.product",
   "expiresAtHeight": 20000
 }
 ```
@@ -326,7 +324,7 @@ Transfers the ownership of the domain to a new [principal](/glossary?id=dns-prin
 ```json
 {
   "type": "transfer",
-  "name": ".schema.company.salaryoffer",
+  "name": ".schema.acme.product",
   "toOwner": "pszkrWygFdYDVWr6L2G1Mt84RQVaJoy8ixcGhjCxqKqAoYn"
 }
 ```
@@ -338,6 +336,6 @@ Deletes the domain. After this operations is completed, the domain is available 
 ```json
 {
   "type": "delete",
-  "name": ".schema.company.salaryoffer"
+  "name": ".schema.acme.product"
 }
 ```

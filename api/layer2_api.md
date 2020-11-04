@@ -577,7 +577,7 @@ GET /coeus/v1/resolve/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/resolve/.schema.company.salaryoffers
+curl https://test.hydra.iop.global:4705/coeus/v1/resolve/.schema.acme.product
 ```
 
 ##### Response
@@ -590,20 +590,16 @@ Click here to expand
 ```json
 {
   "data": {
-    "it-department": {
-      "junior": {
-        "min": 1500,
-        "max": 2000
-      },
-      "senior": {
-        "min": 3000,
-        "max": 4000
-      },
-      "architect": {
-        "min": 3500,
-        "max": 5000
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A product from Acme's catalog",
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "description": "The unique identifier for a product"
       }
-    }
+    },
+    "required": ["id"]
   }
 }
 ```
@@ -627,7 +623,7 @@ GET /coeus/v1/metadata/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/metadata/.schema.company
+curl https://test.hydra.iop.global:4705/coeus/v1/metadata/.schema.acme.product
 ```
 
 ##### Response
@@ -641,7 +637,7 @@ Click here to expand
 {
   "owner": "pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA",
   "subtreePolicies": {}, // for other features in the future 
-  "registrationPolicy": "owner", // who can register under this domain, where owner means only the owner, any means anyone.
+  "registrationPolicy": "owner", // who can register under this domain, "owner" or "any" (i.e. anyone without restrictions).
   "expiresAtHeight": 1000 // the domain will expire at this block height.
 }
 ```
@@ -665,7 +661,7 @@ GET /coeus/v1/children/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/children/.schema.company
+curl https://test.hydra.iop.global:4705/coeus/v1/children/.schema.acme
 ```
 
 ##### Response
@@ -678,9 +674,8 @@ Click here to expand
 ```json
 {
   "children": [
-    "it",
-    "finance",
-    "marketing"
+    "product",
+    "order",
   ]
 }
 ```
