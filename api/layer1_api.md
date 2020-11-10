@@ -6,6 +6,8 @@ To interact with the layer-1 API we suggest to use our [SDK](/sdk/), because sig
 
 > IMPORTANT NOTE: if at least one layer-2 operation fails in a transaction, the whole transaction fails at layer-2. Even though it fails at layer-2, you still have to pay for its cost at layer-1.
 
+> IMPORTANT NOTE: the number of operations in a single transaction is not limited explicitly, but the total size for operations is. The layer-2 transaction asset must not exceed 1MB, otherwise all contained operations will be rejected at layer-2 as a DoS attempt.
+
 Please visit our [get started page](/get_started) to get a full overview of IOP's stack.
 
 ## Write SSI State
