@@ -1,6 +1,6 @@
 # SDK Tutorial: Sending HYD Programmatically
 
-In this tutorial, you will implement a Hydra transaction with the SDK. A pre-generated wallet can be accessed through a passphrase: you'll send HYDs with code from this wallet to another one.
+In this tutorial, you will implement a Hydra transaction with the SDK. A pre-generated vault filled with test HYD's can be accessed through a passphrase: you'll send HYD's using code from this wallet to another one.
 
 #### Prerequisites
 
@@ -65,11 +65,14 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <!-- tabs:end -->
 
-#### Step 2. Create Settings
+#### Step 2. Create a Vault
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        For simplicity you're going to use a pre-generated wallet and target address. In a real world application you would access your wallet through a vault which is persisted and encrypted carefully. Once you have access to your keys, you can use similar code snippets to send tokens to any address.
+        In a previous tutorial, you saw how a cryptographic keyvault can be created. 
+        Now you are going to encounter similar code that enables you to instantiate a pre-generated vault with test HYD's.
+        In a real-world application, you would access your wallet through your vault which is persisted and encrypted carefully.
+        Once you have access to your keys, you can use similar code snippets to send tokens to any address.
     </div>
     <div class="col-6">
         <div class="alert alert-info">
@@ -79,7 +82,7 @@ When the script is finished, the only remaining task is to import the SDK in the
     </div>
 </div>
 
- <!-- tabs:start -->
+<!-- tabs:start -->
 
 #### ** NodeJS (Typescript) **
 
@@ -95,18 +98,19 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <!-- tabs:end -->
 
-#### Final Step: Send HYD
+#### Step 3. Initialize the Hydra plugin
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        You can send a transaction by creating a client instance and call the send operation. This is done inside an asynchronous function. The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
+        To interact with the Hydra blockchain, the keyvault needs to have a <code>hydra</code> plugin with the right parameters initialized so that it can generate
+        the appropriate key pairs. The first parameter describes the network and the account number (0) of the account for which the plugin generates keys.
+        The plugin consists of a public part that can be accessed without a password and a private part which requires the password explicitely.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
-            <h5>Hints</h5>
+            <h5>Good to know:</h5>
             <ul>
-                <li>Hydra uses 8 decimals, hence you use <code>1e8</code> notation, which means 100000000 flakes which is 1 HYD.</li>
-                <li>Here you use a passphrase to send the transaction, but you can also send transactions using a <a href="https://en.bitcoin.it/wiki/Wallet_import_format#:~:text=Wallet%20Import%20Format%20(WIF%2C%20also,gobittest.appspot.com%2FPrivateKey" target="_blank">WIF</a> via <code>sendTransferTxWithWIF</code><br>Later, we will provide an another way, where you'll be able to send transactions using your own vault.</li>
+                <li>The vault resembles a hierarchical deterministic wallet with additional functionalities. Read more about it <a href="/glossary?id=vault">here</a></li>
             </ul>
         </div>
     </div>
@@ -120,6 +124,63 @@ When the script is finished, the only remaining task is to import the SDK in the
 {{{TS_STEP_3}}}
 ```
 
+#### ** Flutter (Android) **
+
+```dart
+{{{FLUTTER_STEP_3}}}
+```
+
+<!-- tabs:end -->
+
+#### Step 4. Select source and target address
+
+<div class="row no-gutters">
+    <div class="col-6 pr-3">
+        The following code defines from which address the test HYD's are sent to which address.
+    </div>
+</div>
+
+<!-- tabs:start -->
+
+#### ** NodeJS (Typescript) **
+
+```typescript
+{{{TS_STEP_4}}}
+```
+
+#### ** Flutter (Android) **
+
+```dart
+{{{FLUTTER_STEP_4}}}
+```
+
+<!-- tabs:end -->
+
+#### Final Step: Send HYD
+
+<div class="row no-gutters">
+    <div class="col-6 pr-3">
+        You can send a transaction by creating a client instance and call the send operation. This is done inside an asynchronous function. The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
+    </div>
+    <div class="col-6">
+        <div class="alert alert-info pb-0 mb-0">
+            <h5>Good to know:</h5>
+            <ul>
+                <li>Hydra uses 8 decimals, hence you use <code>1e8</code> notation, which means 100000000 flakes which is 1 HYD.</li>
+                <li>Test HYD's do not have an economic value>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- tabs:start -->
+
+#### ** NodeJS (Typescript) **
+
+```typescript
+{{{TS_STEP_5}}}
+```
+
 Outputs:
 
 ```bash
@@ -129,7 +190,7 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 #### ** Flutter (Android) **
 
 ```dart
-{{{FLUTTER_STEP_3}}}
+{{{FLUTTER_STEP_5}}}
 ```
 
 Outputs:

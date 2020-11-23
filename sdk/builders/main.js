@@ -6,7 +6,7 @@ const marker = '///###';
 const run = (dir, title, command, params) => {
   console.log(title);
   const cmd = spawnSync(command,params, {cwd: dir});
-  if(cmd.error && !cmd.error.includes('secp256k1')) {
+  if(cmd.error && !cmd.error.toString().includes('secp256k1')) {
     console.log(`ERROR: ${cmd.error}`);
     process.exit(1);
   }

@@ -49,18 +49,18 @@ In this section, we provide multiple guides that walk you through a simple use c
     <div class="col-sm-4 pl-0 ml-0">
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
-          <h4 class="card-title">Sending HYD Programatically</h4>
-          <p class="card-text">In this guide you will learn how to send HYD without using a desktop wallet.</p>
-          <a href="/sdk/tutorial_send_hyd" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+          <h4 class="card-title">Create/Load a Secure Vault</h4>
+          <p class="card-text">Learn how to create a secure, persistent vault using the SSI SDK.</p>
+          <a href="/sdk/tutorial_create_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>
     <div class="col-sm-4 pl-0 ml-0">
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
-          <h4 class="card-title">Create/Load a Secure Vault</h4>
-          <p class="card-text">Learn how to create a secure, persistent vault using SSI SDK.</p>
-          <a href="/sdk/tutorial_create_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+          <h4 class="card-title">Send HYD Programmatically</h4>
+          <p class="card-text">Learn how to send HYD without using a desktop wallet.</p>
+          <a href="/sdk/tutorial_send_hyd" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
     </div>
@@ -76,8 +76,8 @@ In this section, we provide multiple guides that walk you through a simple use c
     <div class="col-sm-4 pl-0 ml-0 mt-3">
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
-          <h4 class="card-title">Contract Signature Proof On-Chain</h4>
-          <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
+          <h4 class="card-title">Prove a Signature</h4>
+          <p class="card-text">Learn how to create your first DID and sign a contract with it. A proof of this signature can be stored on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
           <a href="/sdk/tutorial_ssi_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
         </div>
       </div>
