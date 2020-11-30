@@ -44,7 +44,7 @@ For example, keyId `iezbeWGSY2dqcUBqT8K7R14xr` is transformed into Morpheus DID
 
 ## CRUD operations
 
-Morpheus DIDs are currently mapped to DID Documents on the Hydra ledger. As with many distributed ledgers, the commands and queries are well-separated from each other, and the decentralized consensus confirms or rejects the commands aggregated into the state that can be queried. Find the description of the related [APIs here](https://developer.iop.global/api/).
+Morpheus DIDs are currently mapped to DID Documents on the Hydra ledger. As with many distributed ledgers, the commands and queries are well-separated from each other, and the decentralized consensus confirms or rejects the commands aggregated into the state that can be queried. Find the description of the related [APIs here](https://developer.iop.global/api).
 
 ### Create DID
 

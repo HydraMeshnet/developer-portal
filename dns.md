@@ -59,7 +59,7 @@ Registering a complex node path like `.one.two.three.four` needs a separate regi
 
 #### Read
 
-While other operations that mutate domains are sent as Hydra transactions, immutable read operations are served on a separate API. See the [API description](http://localhost:3000/api/) for more details.
+While other operations that mutate domains are sent as Hydra transactions, immutable read operations are served on a separate API. See the [API description](http://localhost:3000/api) for more details.
 
 #### Update
 
@@ -94,4 +94,4 @@ We provide a git repository with an example codebase that uses our SDK. It's mor
 
 We provide you detailed API documentation where you can learn the difference between layer-1 and layer-2 features.
 
-<a href="/api/" class="btn btn-sm btn-outline-primary">BROWSE API DOCUMENTATION</a>
+<a href="/api" class="btn btn-sm btn-outline-primary">BROWSE API DOCUMENTATION</a>

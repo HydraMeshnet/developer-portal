@@ -59,8 +59,8 @@
           </div>
           <p class="card-text">Self Sovereign Identity framework based on <a href="https://w3c.github.io/did-core" target="_blank">W3C standards</a> to provide SSI solutions, store schemas, decentralized IDs (DIDs), keys, rights and proof timestamps on a ledger for public verification, keeping verifiable claims (VCs) off-ledger.</p>
           <div class="d-inline-flex">
-            <a href="/sdk/" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
-            <a href="/api/" class="btn btn-sm btn-outline-primary w-25">API</a>
+            <a href="/sdk" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
+            <a href="/api" class="btn btn-sm btn-outline-primary w-25">API</a>
             <img src="/assets/flutter_square_logo.png" class="tech-logo ml-2" title="Flutter">
             <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Typescript">
           </div>
@@ -85,8 +85,8 @@
           </div>
           <p class="card-text">Decentralized Naming System similar to the <a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank">Domain Name System</a> to provide a decentralized, consensus based solution for resolving data under schema restricted domains.</p>
           <div class="mt-auto">
-            <a href="/sdk/" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
-            <a href="/api/" class="btn btn-sm btn-outline-primary w-25">API</a>
+            <a href="/sdk" class="btn btn-sm btn-outline-primary mr-2 w-25">SDK</a>
+            <a href="/api" class="btn btn-sm btn-outline-primary w-25">API</a>
             <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Typescript">
           </div>
         </div>

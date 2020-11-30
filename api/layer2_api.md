@@ -2,7 +2,7 @@
 
 Our API consists of two main parts: [layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state. 
 
-To interact with the layer-2 API we suggest to use our [SDK](/sdk/), but you can easily access it through simple REST.
+To interact with the layer-2 API we suggest to use our [SDK](/sdk), but you can easily access it through simple REST.
 
 Please visit our [get started page](/get_started) to get a full overview of IOP's stack.
 

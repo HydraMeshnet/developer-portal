@@ -2,7 +2,7 @@
 
 Our API consists of two main parts: [layer-1](glossary.md?id=Layer-1) and [layer-2](glossary.md?id=Layer-2). On layer-1 you do write operations that change the blockchain's state, while on layer-2 you do read operations without changing the state. 
 
-To interact with the layer-1 API we suggest to use our [SDK](/sdk/), because signatures and other cryptographic operations are required to construct such transactions, which is not an easy programmer task.
+To interact with the layer-1 API we suggest to use our [SDK](/sdk), because signatures and other cryptographic operations are required to construct such transactions, which is not an easy programmer task.
 
 > IMPORTANT NOTE: if at least one layer-2 operation fails in a transaction, the whole transaction fails at layer-2. Even though it fails at layer-2, you still have to pay for its cost at layer-1.
 

@@ -107,7 +107,7 @@ Please follow the guide [how to run a local testnet node](/hydra#run-testnet-nod
 
 We provide you detailed tutorials on various use cases where you can learn and explorer our SSI SDK. 
 
-<a href="/sdk/" class="btn btn-sm btn-outline-primary">Visit Tutorial Center</a>
+<a href="/sdk" class="btn btn-sm btn-outline-primary">Visit Tutorial Center</a>
 
 ### Samples
 
@@ -123,4 +123,4 @@ We also made a demonstration video what is SSI (project Morpheus) and how can yo
 
 We provide you a detailed API documentation where you learn what's the difference between layer-1 and layer-2 APIs.
 
-<a href="/api/" class="btn btn-sm btn-outline-primary">BROWSE API DOCUMENTATION</a>
+<a href="/api" class="btn btn-sm btn-outline-primary">BROWSE API DOCUMENTATION</a>

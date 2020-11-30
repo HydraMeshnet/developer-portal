@@ -45,8 +45,8 @@ Our SSI framework provides self-controlled identities, data protection and acces
 
 <div class="mb-4">
   <a href="/ssi" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
-  <a href="/sdk/" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
-  <a href="/api/" class="btn btn-sm btn-outline-primary">API</a>
+  <a href="/sdk" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
+  <a href="/api" class="btn btn-sm btn-outline-primary">API</a>
   <img src="/assets/flutter_square_logo.png" class="tech-logo ml-2" title="Supports Flutter/Dart">
   <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Supports Typescript">
 </div>
@@ -64,7 +64,7 @@ IOP's DNS provides a decentralized solution for resolving domains. However, our 
 
 <div class="mb-4">
   <a href="/dns" class="btn btn-sm btn-outline-primary mt-auto mr-1">LEARN MORE</a>
-  <a href="/sdk/" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
-  <a href="/api/" class="btn btn-sm btn-outline-primary">API</a>
+  <a href="/sdk" class="btn btn-sm btn-outline-primary mr-1">SDK</a>
+  <a href="/api" class="btn btn-sm btn-outline-primary">API</a>
   <img src="/assets/ts_square_logo.png" class="tech-logo ml-3" title="Supports Typescript">
 </div>
