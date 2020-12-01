@@ -71,14 +71,10 @@
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
           <div class="row no-gutters">
-            <!--<div class="col-2">
-              <img src="/assets/hydra_logo.png" class="iop-logo mt-2">
+            <div class="col-2">
+              <img src="/assets/coeus_logo.png" class="iop-logo mt-2">
             </div>
             <div class="col-10 mt-2 pl-3">
-              <h4 class="card-title">DNS</h4>
-              <h6 class="card-subtitle text-muted">Project Coeus</h6>
-            </div>-->
-            <div class="col-12 mt-2">
               <h4 class="card-title">DNS</h4>
               <h6 class="card-subtitle text-muted">Project Coeus</h6>
             </div>
