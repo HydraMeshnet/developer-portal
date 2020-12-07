@@ -208,6 +208,16 @@ To participate in IOP's devnet network, you can use either Docker or core-contro
 
 Please follow the detailed guide in the [core-control's repository](https://github.com/Internet-of-People/core-control).
 
+#### Security Considerations
+
+The following ports are the only ports that need to be open to ensure the correct working of your node:
+- Ingress Traffic:
+   tcp:4702, tcp:4703, tcp: 4705, tcp:4040
+- Egress Traffic:
+   tcp:4702
+
+Leaving unused ports open is a security risk, therefor we strongly advice to check whether unused ports are closed.
+
 ### Run Mainnet Node
 
 To participate in IOP's mainnet network, you can use either Docker or core-control. It takes only minutes to install and start a relay or forger node.
@@ -267,8 +277,16 @@ To participate in IOP's mainnet network, you can use either Docker or core-contr
    [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
    ...
    ```
-
 #### Via Core Control
 
 Please follow the detailed guide in the [core-control's repository](https://github.com/Internet-of-People/core-control).
 
+#### Security Considerations
+
+The following ports are the only ports that need to be open to ensure the correct working of your node:
+- Ingress Traffic:
+tcp:4701, tcp:4703, tcp: 4705, tcp:4040
+- Egress Traffic:
+   tcp:4701
+
+Leaving unused ports open is a security risk, therefor we strongly advice to check whether unused ports are closed.
