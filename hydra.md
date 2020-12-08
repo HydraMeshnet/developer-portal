@@ -15,11 +15,11 @@ Browser: [http://test.hydra.iop.global](http://test.hydra.iop.global)
 
 - The network we run locally when we test changes and we don't expect to involve a wider audience.
 - Although it was intended for local use or testing, we have a running testnet in the cloud where we try to integrate things first to avoid devnet outages. Hence it's available for everyone.
-- This network has play-around coins and transactions.
+- This network has play-around tokens and transactions.
 - Has 1 server up and running by IOP Ventures and to simplify communication we do not plan to invite 3rd parties to run extra nodes as part of this network. We don't guarantee its always up or consistent. It can be wiped any time without notice.
 
-| name | zone | IP |
-|---|---|---|
+| name            | zone           | IP            |
+| --------------- | -------------- | ------------- |
 | testnet-genesis | europe-west1-b | 35.187.56.222 |
 
 Any 3rd party developers can start their own local testnet for integration testing. Read more about [running a testnet node](#Run-Testnet-Node).
@@ -30,18 +30,18 @@ Browser: [http://dev.hydra.iop.global](http://dev.hydra.iop.global)
 
 - The network where testing occurs before being deployed on the mainnet.
 - The network is available for everyone and is used by developers for testing their applications and by security experts for responsible disclosures.
-- The network has play-around coins and transactions.
+- The network has play-around tokens and transactions.
 - Currently, we have no faucet. [Contact us](https://iop.global/contact-us/) for getting DHYDs.
 - Has 5 servers up and running 24/7 by IOP Ventures, but there are delegates who are testing their forging tools on their own devnet servers.
 
-| name | zone | IP |
-|---|---|---|
-| devnet-genesis | europe-west1-b | 35.240.62.119 |
-| devnet-forger-1 | europe-west4-a | 35.204.124.143 |
-| devnet-forger-2 | us-central1-a | 34.68.118.161 |
-| devnet-forger-3 | europe-north1-a | 35.228.196.114 |
-| devnet-forger-4 | asia-southeast1-b | 34.87.3.205 |
-| devnet-forger-5 | us-east1-b | 35.185.32.241 |
+| name            | zone              | IP             |
+| --------------- | ----------------- | -------------- |
+| devnet-genesis  | europe-west1-b    | 35.240.62.119  |
+| devnet-forger-1 | europe-west4-a    | 35.204.124.143 |
+| devnet-forger-2 | us-central1-a     | 34.68.118.161  |
+| devnet-forger-3 | europe-north1-a   | 35.228.196.114 |
+| devnet-forger-4 | asia-southeast1-b | 34.87.3.205    |
+| devnet-forger-5 | us-east1-b        | 35.185.32.241  |
 
 ### Mainnet
 
@@ -49,32 +49,32 @@ Browser: [http://hydra.iop.global](http://hydra.iop.global)
 
 - The backbone of Hydra and the network we run in production. This is usually known as the Public Network since this network is utilized by end-users.
 - This network is available for everyone.
-- It has real transactions with real coins.
+- It has real transactions with real tokens.
 - It has 9 servers up and running 24/7 by IOP Ventures, and each forging delegate is running their own servers
 
-| name | zone | IP |
-|---|---|---|
-| mainnet-genesis | europe-west1-b | 35.195.150.223 |
-| mainnet-seed-1 | europe-west1-b | 34.76.165.50 |
-| ~~mainnet-seed-2~~ | ~~europe-west1-d~~ | ~~104.155.17.122~~ |
-| mainnet-seed-3 | europe-north1-a | 35.228.202.124 |
-| ~~mainnet-seed-4~~ | ~~europe-north1-b~~ | ~~35.228.73.165~~ |
-| mainnet-seed-5 | europe-west3-c | 35.198.174.42 |
-| ~~mainnet-seed-6~~ | ~~europe-west3-a~~ | ~~35.246.135.62~~ |
-| ~~mainnet-seed-7~~ | ~~europe-west4-a~~ | ~~34.90.0.113~~ |
-| ~~mainnet-seed-8~~ | ~~europe-west4-b~~ | ~~34.90.43.152~~ |
-| mainnet-seed-9 | us-central1-a | 34.66.138.96 |
-| ~~mainnet-seed-10~~ | ~~us-central1-c~~ | ~~104.154.142.55~~ |
-| mainnet-seed-11 | us-east1-b | 34.74.102.192 |
-| ~~mainnet-seed-12~~ | ~~us-east1-c~~ | ~~35.231.24.181~~ |
-| mainnet-seed-13 | us-west1-b | 35.233.159.123 |
-| ~~mainnet-seed-14~~ | ~~us-west1-c~~ | ~~35.230.119.77~~ |
-| ~~mainnet-seed-15~~ | ~~us-west2-a~~ | ~~35.235.109.207~~ |
-| ~~mainnet-seed-16~~ | ~~us-west2-b~~ | ~~34.94.151.12~~ |
+| name                | zone                          | IP                 |
+| ------------------- | ----------------------------- | ------------------ |
+| mainnet-genesis     | europe-west1-b                | 35.195.150.223     |
+| mainnet-seed-1      | europe-west1-b                | 34.76.165.50       |
+| ~~mainnet-seed-2~~  | ~~europe-west1-d~~            | ~~104.155.17.122~~ |
+| mainnet-seed-3      | europe-north1-a               | 35.228.202.124     |
+| ~~mainnet-seed-4~~  | ~~europe-north1-b~~           | ~~35.228.73.165~~  |
+| mainnet-seed-5      | europe-west3-c                | 35.198.174.42      |
+| ~~mainnet-seed-6~~  | ~~europe-west3-a~~            | ~~35.246.135.62~~  |
+| ~~mainnet-seed-7~~  | ~~europe-west4-a~~            | ~~34.90.0.113~~    |
+| ~~mainnet-seed-8~~  | ~~europe-west4-b~~            | ~~34.90.43.152~~   |
+| mainnet-seed-9      | us-central1-a                 | 34.66.138.96       |
+| ~~mainnet-seed-10~~ | ~~us-central1-c~~             | ~~104.154.142.55~~ |
+| mainnet-seed-11     | us-east1-b                    | 34.74.102.192      |
+| ~~mainnet-seed-12~~ | ~~us-east1-c~~                | ~~35.231.24.181~~  |
+| mainnet-seed-13     | us-west1-b                    | 35.233.159.123     |
+| ~~mainnet-seed-14~~ | ~~us-west1-c~~                | ~~35.230.119.77~~  |
+| ~~mainnet-seed-15~~ | ~~us-west2-a~~                | ~~35.235.109.207~~ |
+| ~~mainnet-seed-16~~ | ~~us-west2-b~~                | ~~34.94.151.12~~   |
 | ~~mainnet-seed-17~~ | ~~northamerica-northeast1-a~~ | ~~35.203.123.223~~ |
-| ~~mainnet-seed-18~~ | ~~asia-southeast1-b~~ | ~~35.240.251.207~~ |
-| mainnet-seed-19 | asia-northeast1-b | 35.190.233.247 |
-| mainnet-seed-20 | asia-south1-c | 34.93.248.166 |
+| ~~mainnet-seed-18~~ | ~~asia-southeast1-b~~         | ~~35.240.251.207~~ |
+| mainnet-seed-19     | asia-northeast1-b             | 35.190.233.247     |
+| mainnet-seed-20     | asia-south1-c                 | 34.93.248.166      |
 
 ## Install & Run
 
@@ -88,6 +88,7 @@ To prevent surprises and reduce required efforts debugging your software environ
   much safer, more deterministic, and maintainable than with core-control.
   
 Unless you have experience with Docker, we recommend following these steps:
+
 - Install Docker and the Docker-compose image builder.
   For example, Ubuntu/Debian-based Linux OS only need  `sudo apt install docker.io docker-compose`
 - Make sure that your user has proper access rights, i.e. is in group `docker`.
@@ -211,6 +212,7 @@ Please follow the detailed guide in the [core-control's repository](https://gith
 #### Security Considerations
 
 The following ports are the only ports that need to be open to ensure the correct working of your node:
+
 - Ingress Traffic:
    tcp:4702, tcp:4703, tcp: 4705, tcp:4040
 - Egress Traffic:
@@ -277,6 +279,7 @@ To participate in IOP's mainnet network, you can use either Docker or core-contr
    [2020-03-04 09:49:14.208] DEBUG: MORPHEUS applyEmptyBlockToState height: 3 id: 52ce276adc139531c472e3ee8938209ee27d90eb4dca1851915de4af0f7dba41
    ...
    ```
+
 #### Via Core Control
 
 Please follow the detailed guide in the [core-control's repository](https://github.com/Internet-of-People/core-control).
@@ -284,6 +287,7 @@ Please follow the detailed guide in the [core-control's repository](https://gith
 #### Security Considerations
 
 The following ports are the only ports that need to be open to ensure the correct working of your node:
+
 - Ingress Traffic:
 tcp:4701, tcp:4703, tcp: 4705, tcp:4040
 - Egress Traffic:
