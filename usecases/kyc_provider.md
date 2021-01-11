@@ -25,7 +25,7 @@ BANK can validate all signatures involved in the claim presentation (KYC Provide
 ## Costs 1
 
 - 1 SSI Write:
-  - Timestamp for the signed witness statement
+  - Proof of Existence for the signed witness statement
 - 2 Credential exchanges:
   - IVS checking signature validity on the witness request of the user
   - Bank checking signature validity on the statement from the IVS
@@ -96,24 +96,36 @@ A German company wants to open a bank account at a German bank. Legally they are
 
 ## Costs 2
 
-- For each node on the shareholder graph (you can reuse the same node if a natural or legal person is in there multiple times)
+- For each user on the shareholder graph (you can reuse the same users if a natural or legal person is in there multiple times)
 - 1 SSI Write:
-  - Timestamp for the signed witness statement
+  - Proof of Existence for the signed witness statement
 - 2 Credential exchanges:
   - IVS checking signature validity on the witness request of the user
   - Bank checking signature validity on the statement from the IVS
 
-So for an example where the company who is applying is owned both by a natural person and a company which is owned by the same natural person, plus another natural person:
+### Example 2.1
 
 ```mermaid
 graph TB
-  CompanyA -- 50% --> PersonA
-  CompanyA -- 50% --> CompanyB
-  CompanyB -- 25% --> PersonA
-  CompanyB -- 75% --> PersonB  
+  CA[Company A] -- 50% --> PA[Person A]
+  CA -- 50% --> CB[Company B]
+  CB -- 75% --> PB[Person B]
+  CB -- 25% --> PC[Person C]
 ```
 
-You have 4 nodes on this diagram, so you need 4 SSI Writes and 4x2 credential exchanges.
+You have 5 users on this diagram, so you need 5 SSI Writes and 5x2 credential exchanges.
+
+### Example 2.2
+
+```mermaid
+graph TB
+  CA[Company A] -- 50% --> PA[Person A]
+  CA -- 50% --> CB[Company B]
+  CB -- 75% --> PB[Person B]
+  CB -- 25% --> PA
+```
+
+You have 4 users on this diagram, so you need 4 SSI Writes and 4x2 credential exchanges.
 
 ## Sequence Diagram 2
 
