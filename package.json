@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.iop-ventures.com:iop-stack/dids-and-claims/specification.git"
+    "url": "git@gitlab.iop-ventures.com:iop-stack/developer-portal.git"
   },
   "dependencies": {
     "docsify": "4.11.6",

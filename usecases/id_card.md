@@ -80,7 +80,7 @@ sequenceDiagram
   rect rgba(255, 255, 0, .1)
   opt If Timestamping is Required: Witnessed AFTER
   BANK1 ->> +Blockchain: get height, hash of latest block
-  Blockchain --> -BANK1:
+  Blockchain --> -BANK1: Height, Hash
   end
   end
 

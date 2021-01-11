@@ -30,6 +30,7 @@ This implementation contains all help you need to start building your own applic
 
 Of course, the possbilities are endless, but we'd like to provide some more example to help you understand the power of IOP.
 
+- [KYC via KYC Providers](usecases/kyc_provider.md)
 - [Digitalize ID Card](usecases/id_card.md)
 - [Buying Tickets for Public Transportation](usecases/public_transportation.md)
 - [Buying Tickets for a Movie](usecases/movie_theater.md)
