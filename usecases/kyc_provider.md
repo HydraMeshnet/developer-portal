@@ -1,4 +1,4 @@
-# Identification with DigitalID via KYC Providers
+# Identification with Digital ID Card via KYC Providers
 
 ## Goal
 
@@ -42,7 +42,7 @@ sequenceDiagram
   note over User,Blockchain: Digitalize ID card
   rect rgba(255, 255, 0, .1)
   opt Customer Support
-  User ->> KYC Provider: Need a DigitalID
+  User ->> KYC Provider: Need a Digital ID Card
   KYC Provider -->> User: Need WitnessRequest, process: digitalID
   end
   end
@@ -55,17 +55,17 @@ sequenceDiagram
   KYC Provider -->> KYC Provider: Create SignedWitnessStatement
   KYC Provider ->> +Blockchain: Register Proof of Existence of SignedWitnessStatementId
   Blockchain -->> -KYC Provider: Transaction: Confirmed
-  KYC Provider -->> User: SignedWitnessStatement (Digital ID)<br>Includes Proofs & Expiry
+  KYC Provider -->> User: SignedWitnessStatement (Digital ID Card)<br>Includes Proofs & Expiry
   
   note over User,Blockchain: User opens a Bank Account
   rect rgba(255, 255, 0, .1)
   opt Customer Support
   User ->> BANK: I'd like to open a bankaccount
-  BANK -->> User: Need a Digital ID
+  BANK -->> User: Need a Digital ID Card
   end
   end
   
-  User ->> BANK: SignedClaimPresentation (part of the DigitalID)<br>Includes licenses for personally identifiable data
+  User ->> BANK: SignedClaimPresentation (part of the Digital ID Card)<br>Includes licenses for personally identifiable data
   
   note over User,BANK: Verify Person
   BANK ->> User: Look at face
@@ -144,7 +144,7 @@ sequenceDiagram
   end
   end
   
-  CEO ->> KYC Provider: SignedWitnessRequest, process: shareholderAudit<br>Evidences: summary of company registration,<br>list of shareholders recursively until every owner is a natural person,<br>Digital ID for each natural person)
+  CEO ->> KYC Provider: SignedWitnessRequest, process: shareholderAudit<br>Evidences: summary of company registration,<br>list of shareholders recursively until every owner is a natural person,<br>Digital ID Card for each natural person)
   KYC Provider ->> Blockchain: Verify CEO's DID Control
   Blockchain -->> KYC Provider: Confirmed
   KYC Provider ->> Blockchain: Get latest block's height & hash
