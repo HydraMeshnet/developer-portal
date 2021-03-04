@@ -1,13 +1,12 @@
-# API
+# API's
+## Core API
 
-Our API consists of two main parts.
+Our Core API exists to enable SSI and DNS applications. It consists of two main parts:
 
 - Write SSI/DNS states via [layer-1](glossary.md?id=Layer-1) transactions.
 - Read SSI/DNS states via [layer-2](glossary.md?id=Layer-2) APIs.
 
 Please visit our [get started page](get_started) to get a full overview of IOP's stack.
-
-## Which API Do I Need?
 
 <div class="row">
   <div class="col-sm-6">
@@ -49,7 +48,7 @@ Please visit our [get started page](get_started) to get a full overview of IOP's
           Use it to:
           <ul>
               <li>Query DID Document or its Transactions, Operations</li>
-              <li>Query Proof of Existance or its History</li>
+              <li>Query Proof of Existence or its History</li>
               <li>Query SSI Transaction Status</li>
               <li>Resolve data of a DNS domain</li>
               <li>Query metadata of a DNS domain</li>
@@ -66,7 +65,7 @@ Please visit our [get started page](get_started) to get a full overview of IOP's
 
 ## SSI Entities' APIs
 
-As explained in detail on the [Get Started page](/get_started), SSI has multiple entities defined for claim verification and issuance. IOP does not host these entities, but provides you a well-defined API described below and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
+SSI has multiple entities defined for claim verification and issuance. IOP does not host these entities, but provides you a well-defined API described below and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
 
 <div class="row">
   <div class="col-sm-6">
@@ -110,6 +109,29 @@ As explained in detail on the [Get Started page](/get_started), SSI has multiple
         </div>
         <div class="mt-3">
           <a href="/api/verifier_api" class="btn btn-outline-primary">BROWSE VERIFIER API</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+## Network API
+
+This API allows you to query information about the public blockchain, the Hydra network, upon which our stack is built.
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <div class="row no-gutters">
+          <div class="col-12 mt-2">
+            <h4 class="card-title">Hydra API</h4>
+            <h6 class="card-subtitle text-muted">Retrieve network information</h6>
+          </div>
+        </div>
+        <div class="mt-3">
+          <a href="/api/hydra_api" class="btn btn-outline-primary">BROWSE HYDRA
+           API</a>
         </div>
       </div>
     </div>
