@@ -67,6 +67,15 @@ In this section, we provide multiple guides that walk you through a simple use c
     <div class="col-sm-4 pl-0 ml-0">
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
+          <h4 class="card-title">Sending HYD with the Vault</h4>
+          <p class="card-text">In this guide you will learn how to send HYD with our secure vault.</p>
+          <a href="/sdk/tutorial_send_hyd_vault" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 pl-0 ml-0 mt-3">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
           <h4 class="card-title">Contract Signature Proof On-Chain</h4>
           <p class="card-text">In this guide you will learn to create your first DID and after signing a contract how you can store a proof about it on-chain, without revealing any <abbr title="Personally Identifiable Information">PII</abbr>.</p>
           <a href="/sdk/tutorial_ssi_contract" class="btn btn-sm btn-outline-primary mt-auto">START TUTORIAL</a>
