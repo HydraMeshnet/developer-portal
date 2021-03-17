@@ -9,6 +9,7 @@ In this tutorial, you will implement a Hydra transaction with the SDK. A pre-gen
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
+- `make` and either `python` or `python3`
 - Download [the project template](https://github.com/Internet-of-People/ts-template/archive/master.zip) and setup the environment as described in the readme.
 
 #### ** Flutter (Android) **

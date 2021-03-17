@@ -11,6 +11,7 @@ If you followed the previous two tutorials, you are equipped with the knowledge 
 #### ** NodeJS (Typescript) **
 
 - [NodeJS 12](https://nodejs.org/en/)
+- `make` and either `python` or `python3`
 - Download [the project template](https://github.com/Internet-of-People/ts-template/archive/master.zip) and setup the environment as described in the readme.
 
 
