@@ -73,7 +73,7 @@ tutorials.forEach(tutorial => {
 
   // FLUTTER
   const flutterSoZip = './test/Linux-x86.zip';
-  run(`./flutter/${tutorial}`, '- Installing Flutter Native Lib...','curl',['-sS','--proto','=https','--tlsv1.2','-#L','-o',flutterSoZip,'https://github.com/Internet-of-People/morpheus-rust/releases/latest/download/Linux-x86.zip']);
+  run(`./flutter/${tutorial}`, '- Installing Flutter Native Lib...','curl',['-sS','--proto','=https','--tlsv1.2','-#L','-o',flutterSoZip,'https://github.com/Internet-of-People/iop-rs/releases/latest/download/Linux-x86.zip']);
   run(`./flutter/${tutorial}`,' - Unzipping...', 'unzip',['-o',flutterSoZip, '-d','./test']);
   run(`./flutter/${tutorial}`,' - Cleanup...', 'rm',[flutterSoZip]);
   run(`./flutter/${tutorial}`, '- Installing Flutter...','flutter',['pub','get']);
