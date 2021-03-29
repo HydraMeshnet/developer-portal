@@ -12,7 +12,7 @@ Retrieve the latest block and supply of the blockchain.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/blockchain
+GET  https://explorer.hydraledger.io:4705/api/v2/blockchain
 ```
 
 ##### Response
@@ -48,7 +48,7 @@ The Hydra API may be used to query for blocks. This dataset contains millions of
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/blocks?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/blocks?page=1&limit=100
 ```
 
 ##### Parameters
@@ -121,7 +121,7 @@ Blocks may be retrieved by ID or by height. The height is an incremental integer
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/blocks/{id|height}
+GET  https://explorer.hydraledger.io:4705/api/v2/blocks/{id|height}
 ```
 
 ##### Parameters
@@ -178,7 +178,7 @@ Instead of deserializing the block’s payload; you can also obtain the transact
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/blocks/{id|height}/transactions?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/blocks/{id|height}/transactions?page=1&limit=100
 ```
 
 ##### Parameters
@@ -242,7 +242,7 @@ Used to access a node’s configuration and the network it is attached to (ident
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/node/configuration
+GET  https://explorer.hydraledger.io:4705/api/v2/node/configuration
 ```
 
 ##### Response
@@ -262,7 +262,7 @@ Click here to expand
     "wif":111,
     "token":"HYD",
     "symbol":"Ħ",
-    "explorer":"https://hydra.iop.global",
+    "explorer":"https://explorer.hydraledger.io",
     "version":100,
     "ports":{
       "@arkecosystem/core-p2p":null,
@@ -342,7 +342,7 @@ Used to access a node’s configuration for the ```@arkecosystem/crypto``` packa
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/node/configuration/crypto
+GET  https://explorer.hydraledger.io:4705/api/v2/node/configuration/crypto
 ```
 
 ##### Response
@@ -435,7 +435,7 @@ Click here to expand
         "client":{
           "token":"HYD",
           "symbol":"Ħ",
-          "explorer":"https://hydra.iop.global"
+          "explorer":"https://explorer.hydraledger.io"
         }
       }
     }
@@ -450,7 +450,7 @@ Used to access a node’s fee statistics.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/node/fees?days=1
+GET  https://explorer.hydraledger.io:4705/api/v2/node/fees?days=1
 ```
 
 ##### Parameters
@@ -523,7 +523,7 @@ The status allows for health checking, showing if the node is in sync with the n
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/node/status
+GET  https://explorer.hydraledger.io:4705/api/v2/node/status
 ```
 
 ##### Response
@@ -616,7 +616,7 @@ Click here to expand
         "client":{
           "token":"HYD",
           "symbol":"Ħ",
-          "explorer":"https://hydra.iop.global"
+          "explorer":"https://explorer.hydraledger.io"
         }
       }
     }
@@ -632,7 +632,7 @@ The syncing resource is very much alike node/status, providing information on th
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/node/syncing
+GET  https://explorer.hydraledger.io:4705/api/v2/node/syncing
 ```
 
 ##### Response
@@ -664,7 +664,7 @@ Returns all peers known by the node. These are not necessarily all peers; only p
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/peers?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/peers?page=1&limit=100
 ```
 
 ##### Parameters
@@ -721,7 +721,7 @@ Specific peers can be found by IP address. Note that a peer may have their Hydra
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/peers/{ip}
+GET  https://explorer.hydraledger.io:4705/api/v2/peers/{ip}
 ```
 
 ##### Parameters
@@ -768,7 +768,7 @@ The paginated API is used to query for multiple transactions. You can apply filt
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/transactions?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/transactions?page=1&limit=100
 ```
 
 ##### Parameters
@@ -836,7 +836,7 @@ Obtaining a transaction by ID does not require advanced logic; as the API does n
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/transactions/{id}
+GET  https://explorer.hydraledger.io:4705/api/v2/transactions/{id}
 ```
 
 ##### Parameters
@@ -887,7 +887,7 @@ Unconfirmed transactions have not been incorporated in the blockchain, but resid
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/transactions/unconfirmed?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/transactions/unconfirmed?page=1&limit=100
 ```
 
 ##### Parameters
@@ -941,7 +941,7 @@ As with confirmed transactions, you may query for unconfirmed transactions direc
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/transactions/unconfirmed/{id}
+GET  https://explorer.hydraledger.io:4705/api/v2/transactions/unconfirmed/{id}
 ```
 
 ##### Parameters
@@ -983,7 +983,7 @@ Creating the correct payload for a transaction is non-trivial, as it requires cr
 ##### Endpoint
 
 ```https
-POST  https://hydra.iop.global:4705/api/v2/transactions
+POST  https://explorer.hydraledger.io:4705/api/v2/transactions
 ```
 
 ##### Parameters
@@ -1000,7 +1000,7 @@ The static transaction fees are significantly higher than the dynamic transactio
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/transactions/fees
+GET  https://explorer.hydraledger.io:4705/api/v2/transactions/fees
 ```
 
 ##### Response
@@ -1046,7 +1046,7 @@ The transaction types are network specific. Hydra currently supports twelve diff
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/transactions/types
+GET  https://explorer.hydraledger.io:4705/api/v2/transactions/types
 ```
 
 ##### Response
@@ -1091,7 +1091,7 @@ A paginated API is provided to obtain all wallets, including empty ones.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/wallets?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/wallets?page=1&limit=100
 ```
 
 ##### Parameters
@@ -1139,7 +1139,7 @@ Specific wallets can be obtained either by their publicKey or address.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/wallets/{id}
+GET  https://explorer.hydraledger.io:4705/api/v2/wallets/{id}
 ```
 
 ##### Parameters
@@ -1176,7 +1176,7 @@ All transactions belonging to a wallet can be obtained using this API.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/wallets/{id}/transactions?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/wallets/{id}/transactions?page=1&limit=100
 ```
 
 ##### Parameters
@@ -1236,7 +1236,7 @@ Outgoing transactions can be obtained for each wallet using this API.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/wallets/{id}/transactions/sent?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/wallets/{id}/transactions/sent?page=1&limit=100
 ```
 
 ##### Parameters
@@ -1298,7 +1298,7 @@ Incoming transactions can be obtained as well, Equivalent to transactions/search
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/wallets/{id}/transactions/received?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/wallets/{id}/transactions/received?page=1&limit=100
 ```
 
 ##### Parameters
@@ -1360,7 +1360,7 @@ Returns all votes made by the wallet.
 ##### Endpoint
 
 ```https
-GET  https://hydra.iop.global:4705/api/v2/wallets/{id}/votes?page=1&limit=100
+GET  https://explorer.hydraledger.io:4705/api/v2/wallets/{id}/votes?page=1&limit=100
 ```
 
 ##### Parameters

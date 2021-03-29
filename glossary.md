@@ -213,7 +213,7 @@ The DID document is publicly available data and does NOT contain any personal in
 ```json
 # An imaginary format that might be closer to the W3C standard:
 {
-  "@context": "https://iop.global/did/v1",
+  "@context": "https://developer.iop.technology/did/v1",
   "did": "did:morpheus:ezFoo",
   "lastModifiedAtHeight": 126,
   "queriedAtHeight": 51063,

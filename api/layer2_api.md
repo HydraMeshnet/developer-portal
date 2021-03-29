@@ -28,7 +28,7 @@ GET /morpheus/v1/did/{did}/document/{blockHeight?}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/document
 ```
 
 ##### Response
@@ -137,7 +137,7 @@ GET /morpheus/v1/did/{did}/transactions/last
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/last
 ```
 
 ##### Response
@@ -176,7 +176,7 @@ GET /morpheus/v1/did/{did}/transactions/{fromHeight}/{untilHeight?}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transactions/1
 ```
 
 ##### Response
@@ -225,7 +225,7 @@ GET /morpheus/v1/did/{did}/transaction-attempts/{fromHeight}/{untilHeight?}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/transaction-attempts/1
 ```
 
 ##### Response
@@ -277,7 +277,7 @@ GET /morpheus/v1/did/{did}/operations/{from}/{until?}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operations/0
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operations/0
 ```
 
 ##### Response
@@ -345,7 +345,7 @@ GET /morpheus/v1/did/{did}/operation-attempts/{from}/{until?}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operation-attempts/0
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/did/did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr/operation-attempts/0
 ```
 
 ##### Response
@@ -421,7 +421,7 @@ The body must contain an array of operations that you're going to include in the
 ##### Example
 
 ```bash
-curl -d '[{"operation": "registerBeforeProof", "contentId": "test"}]' -H "Content-Type: application/json" -X POST https://test.hydra.iop.global:4705/morpheus/v1/check-transaction-validity
+curl -d '[{"operation": "registerBeforeProof", "contentId": "test"}]' -H "Content-Type: application/json" -X POST https://test.explorer.hydraledger.io:4705/morpheus/v1/check-transaction-validity
 ```
 
 ##### Response
@@ -462,7 +462,7 @@ GET /morpheus/v1/before-proof/{contentId}/exists/{blockHeight?}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/exists
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/exists
 ```
 
 ##### Response
@@ -495,7 +495,7 @@ GET /morpheus/v1/before-proof/{contentId}/history
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/history
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/before-proof/cjuc1fS3_nrxuK0bRr3P3jZeFeT51naOCMXDPekX8rPqho/history
 ```
 
 ##### Response
@@ -542,7 +542,7 @@ GET /morpheus/v1/txn-status/{txid}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/morpheus/v1/txn-status/8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561
+curl https://test.explorer.hydraledger.io:4705/morpheus/v1/txn-status/8c87b6802536196c3c4f55a17f3d941e235fcfcc669a5be80d4f75d057dc8561
 ```
 
 ##### Response
@@ -577,7 +577,7 @@ GET /coeus/v1/resolve/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/resolve/.schema.acme.product
+curl https://test.explorer.hydraledger.io:4705/coeus/v1/resolve/.schema.acme.product
 ```
 
 ##### Response
@@ -623,7 +623,7 @@ GET /coeus/v1/metadata/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/metadata/.schema.acme.product
+curl https://test.explorer.hydraledger.io:4705/coeus/v1/metadata/.schema.acme.product
 ```
 
 ##### Response
@@ -661,7 +661,7 @@ GET /coeus/v1/children/{domain}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/children/.schema.acme
+curl https://test.explorer.hydraledger.io:4705/coeus/v1/children/.schema.acme
 ```
 
 ##### Response
@@ -699,7 +699,7 @@ GET /coeus/v1/last-nonce/{publicKey}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/last-nonce/pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA
+curl https://test.explorer.hydraledger.io:4705/coeus/v1/last-nonce/pszp9HBQY4qrx2yPGqM6biZeLmudJanMK6LXzXzLZGciLYA
 ```
 
 ##### Response
@@ -734,7 +734,7 @@ GET /coeus/v1/txn-status/{transactionId}
 ##### Example
 
 ```bash
-curl https://test.hydra.iop.global:4705/coeus/v1/txn-status/6fdc8415e1f9149806dd426b961cd5a3b171081414f96f61ff94d1e2977208d3
+curl https://test.explorer.hydraledger.io:4705/coeus/v1/txn-status/6fdc8415e1f9149806dd426b961cd5a3b171081414f96f61ff94d1e2977208d3
 ```
 
 ##### Response
