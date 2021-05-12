@@ -199,7 +199,7 @@ final vault = Vault.create(
 
 ```typescript
 // Initialize the Morpheus plugin on your personal vault:
-Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
+Crypto.MorpheusPlugin.init(vault, unlockPassword);
 const morpheus = Crypto.MorpheusPlugin.get(vault);
 
 // Selects the first DID
@@ -219,7 +219,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 ```dart
 // Initialize the Morpheus plugin on your personal vault:
-MorpheusPlugin.rewind(vault, unlockPassword);
+MorpheusPlugin.init(vault, unlockPassword);
 final morpheusPlugin = MorpheusPlugin.get(vault);
 
 // Selects the first DID

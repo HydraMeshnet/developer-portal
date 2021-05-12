@@ -75,7 +75,7 @@ const hydraParams = new Crypto.HydraParameters(
     Crypto.Coin.Hydra.Testnet,
     0
 );
-Crypto.HydraPlugin.rewind(vault, encryptionKey, hydraParams);
+Crypto.HydraPlugin.init(vault, encryptionKey, hydraParams);
 
 ```
 

@@ -14,7 +14,7 @@ const sdk_1 = require("@internet-of-people/sdk");
     ///###TS_STEP_3
     // Initialize the Hydra plugin with the right parameters
     const hydraParams = new sdk_1.Crypto.HydraParameters(sdk_1.Crypto.Coin.Hydra.Testnet, 0);
-    sdk_1.Crypto.HydraPlugin.rewind(vault, encryptionKey, hydraParams);
+    sdk_1.Crypto.HydraPlugin.init(vault, encryptionKey, hydraParams);
     ///###TS_STEP_3
     ///###TS_STEP_4
     // Select the Hydra Account and different addresses

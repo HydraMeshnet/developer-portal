@@ -43,7 +43,7 @@ final vault = Vault.create(
 
 ///###FLUTTER_STEP_4
 // Initialize the Morpheus plugin on your personal vault:
-MorpheusPlugin.rewind(vault, unlockPassword);
+MorpheusPlugin.init(vault, unlockPassword);
 final morpheusPlugin = MorpheusPlugin.get(vault);
 
 // Selects the first DID

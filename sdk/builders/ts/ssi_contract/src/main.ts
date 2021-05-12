@@ -27,7 +27,7 @@ const vault = Crypto.Vault.create(
 
 ///###TS_STEP_4
 // Initialize the Morpheus plugin on your personal vault:
-Crypto.MorpheusPlugin.rewind(vault, unlockPassword);
+Crypto.MorpheusPlugin.init(vault, unlockPassword);
 const morpheus = Crypto.MorpheusPlugin.get(vault);
 
 // Selects the first DID
