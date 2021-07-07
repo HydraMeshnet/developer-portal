@@ -5,21 +5,21 @@ import { Crypto, Layer1, Network, NetworkConfig } from '@internet-of-people/sdk'
 
 ///###TS_STEP_2
 // Instantiate a vault object deployed for test purposes
-const unlockPw = 'correct horse battery staple';
-const vault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', unlockPw);
+const unlockPassword = 'correct horse battery staple';
+const vault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', unlockPassword);
 ///###TS_STEP_2
 
 ///###TS_STEP_3
-// Initialize the Hydra plugin
+// Initialize the Hydra plugin on the vault object
 const parameters = new Crypto.HydraParameters(
     Crypto.Coin.Hydra.Testnet,
     0
 );
-Crypto.HydraPlugin.rewind(vault, unlockPw, parameters);
+Crypto.HydraPlugin.init(vault, unlockPassword, parameters);
 
 // Get the private interface of the Hydra plugin
 const hydra = Crypto.HydraPlugin.get(vault, parameters);
-const hydraPrivate = hydra.priv(unlockPw);
+const hydraPrivate = hydra.priv(unlockPassword);
 ///###TS_STEP_3
 
 ///###TS_STEP_4

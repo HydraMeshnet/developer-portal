@@ -1,6 +1,6 @@
 {
   "name": "create_vault",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "-",
   "repository": {},
   "main": "./dist/main.js",
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@internet-of-people/sdk": "4.0.5"
+    "@internet-of-people/sdk": "5.0.0-rc.1"
   },
   "devDependencies": {
     "rimraf": "3.0.0",

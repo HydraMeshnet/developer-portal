@@ -41,7 +41,7 @@ const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(testnet));
 // Gain access to test HYD faucet
 const walletPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
 
-// The layer 1 API is used to send funds to the source address
+// The Layer-1 API is used to send funds to the source address
 const amount = 1e8 // 1 HYD in flakes
 await layer1Api.sendTransferTxWithPassphrase(walletPassphrase, sourceAddress, BigInt(amount));
 ///###TS_STEP_5

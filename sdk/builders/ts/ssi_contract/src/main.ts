@@ -71,17 +71,17 @@ if(!beforeProof) {
 
 (async () => {
 ///###TS_STEP_7
-// Let's create our operation attempts data structure
+// Create our operation attempts data structure
 const opAttempts = new Layer1.OperationAttemptsBuilder()
     .registerBeforeProof(beforeProof)
     .getAttempts();
 
-// Let's initialize our layer-1 API
+// Initialize our Layer-1 API
 const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
 
-// Let's query and then increment the current nonce of the owner of the tx fee
+// Query and increment the current nonce of the owner of the tx fee
 let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
-nonce = BigInt(nonce) + BigInt(1);
+nonce = nonce.valueOf() + BigInt(1);
 
 // Now you are ready to send the transaction
 const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
@@ -101,7 +101,7 @@ await waitUntil12Sec();
 let txStatus = await layer1Api.getTxnStatus(txId);
 console.log("Tx status:", txStatus.get());
 
-// Let's initialize the layer-2 Morpheus API to query the transaction status
+// Initialize the Layer-2 Morpheus API to query the transaction status
 const layer2MorpheusApi = await Layer2.createMorpheusApi(NetworkConfig.fromNetwork(network));
 let ssiTxStatus = await layer2MorpheusApi.getTxnStatus(txId);
 console.log("SSI Tx status:", ssiTxStatus.get());
