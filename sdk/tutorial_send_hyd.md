@@ -1,6 +1,8 @@
 # SDK Tutorial: Sending HYD Programmatically
 
-In this tutorial, you will implement a Hydra transaction with the SDK. A pre-generated vault filled with test HYD's can be accessed through a passphrase: you'll send HYD's using code from this wallet to another one.
+In this tutorial, you will implement a Hydra transaction with the SDK.
+A pre-generated vault filled with test HYD's can be accessed through a passphrase: 
+you will send HYD's using code from this wallet to your own personal vault.
 
 #### Prerequisites
 
@@ -62,6 +64,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 ```dart
 // Import the necessary modules from our SDK
+import 'package:iop_sdk/crypto.dart';
 import 'package:iop_sdk/layer1.dart';
 import 'package:iop_sdk/network.dart';
 ```
@@ -79,7 +82,7 @@ import 'package:iop_sdk/network.dart';
     </div>
     <div class="col-6">
         <div class="alert alert-info">
-            <h5><strong>Interested how to create such a vault?</strong></h5>
+            <h5><strong>Interested in learning about the vault?</strong></h5>
             Check out our Create a Secure Vault tutorial <a href="/sdk/tutorial_create_vault">here</a>.
         </div>
     </div>
@@ -90,27 +93,22 @@ import 'package:iop_sdk/network.dart';
 #### ** NodeJS (Typescript) **
 
 ```typescript
-// Instantiate a vault object deployed for test purposes
-const unlockPw = 'correct horse battery staple';
-const vault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', unlockPw);
+// Instantiate the demo vault that will act as a source of funds
+const sourcePassword = 'correct horse battery staple';
+const sourceVault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', sourcePassword);
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-// Select the testnet
-final network = Network.TestNet;
-
-// Gives access to a pre-generated wallet on the testnet
-final walletPassphrase = 'scout try doll stuff cake welcome random taste load town clerk ostrich';
-
-// The genesis address
-final targetAddress = 'tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J'; // genesis
+// Instantiate a vault object deployed for test purposes
+final sourcePassword = 'correct horse battery staple';
+final sourceVault = Vault.create(Bip39.DEMO_PHRASE, '', sourcePassword);
 ```
 
 <!-- tabs:end -->
 
-#### Step 3. Initialize the Hydra plugin
+#### Step 3. Initialize the Hydra Plugin on the Source Vault
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
@@ -133,43 +131,44 @@ final targetAddress = 'tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J'; // genesis
 #### ** NodeJS (Typescript) **
 
 ```typescript
-// Initialize the Hydra plugin
+// Initialize the Hydra plugin on the source vault.
 const parameters = new Crypto.HydraParameters(
     Crypto.Coin.Hydra.Testnet,
     0
 );
-Crypto.HydraPlugin.rewind(vault, unlockPw, parameters);
+Crypto.HydraPlugin.init(sourceVault, sourcePassword, parameters);
 
 // Get the private interface of the Hydra plugin
-const hydra = Crypto.HydraPlugin.get(vault, parameters);
-const hydraPrivate = hydra.priv(unlockPw);
+const sourcePlugin = Crypto.HydraPlugin.get(sourceVault, parameters);
+const hydraPrivate = sourcePlugin.priv(sourcePassword);
+
+// The address from which funds are sent from
+const sourceAddress = sourcePlugin.pub.key(0).address;
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
-// Return an api that can interact with the hydra blockchain
-final layer1Api = Layer1Api(network);
+// Initialize the Hydra plugin on the vault object
+final accountNumber = 0;
+final network = Network.TestNet;
+HydraPlugin.init(sourceVault, sourcePassword, network, accountNumber);
 
-// Sends a hydra transaction using a passphrase
-final amount = 1e8 ~/ 10;
-final txId = await layer1Api.sendTransferTxWithPassphrase(
-  walletPassphrase,
-  targetAddress,
-  amount,
-);
-// Prints the transaction ID
-print('Transaction ID: $txId');
+// Get the private interface of the Hydra plugin
+final hydra = HydraPlugin.get(sourceVault, network, accountNumber);
+final hydraPrivate = hydra.private(sourcePassword);
+
+// The address from which funds are sent from
+final sourceAddress = hydra.public.key(0).address;
 ```
 
 <!-- tabs:end -->
 
-#### Step 4. Select source and target address
+#### Step 4. Create your Personal Vault for Receiving HYD's
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        The following code defines from which address the test HYD's are sent to which address.
-    </div>
+        The following code creates a brand new vault. To get the target address for receiving funds,you need to initialize the hydra plugin similar as in the previous step.    </div>
 </div>
 
 <!-- tabs:start -->
@@ -177,17 +176,33 @@ print('Transaction ID: $txId');
 #### ** NodeJS (Typescript) **
 
 ```typescript
-// The address from which funds are sent from
-const sourceAddress = hydra.pub.key(0).address;
+// Initialize your personal vault that will act as the target
+const mnemonic = new Crypto.Bip39('en').generate().phrase;
+const targetPassword = 'horse battery staple correct'
+const targetVault = Crypto.Vault.create(
+  mnemonic,
+  '',               // 25th word
+  targetPassword,
+);
+Crypto.HydraPlugin.init(targetVault, targetPassword, parameters)
 
 // The address to which the funds are sent to
-const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J"; 
+const targetHydra = Crypto.HydraPlugin.get(targetVault, parameters);
+const targetAddress = targetHydra.pub.key(0).address;
 ```
 
 #### ** Flutter (Android) **
 
 ```dart
+// Initialize your personal vault that will act as the target
+final mnemonic = Bip39('en').generatePhrase();
+final targetPassword = 'horse battery staple correct';
+final targetVault = Vault.create(mnemonic, '', targetPassword);
+HydraPlugin.init(targetVault, targetPassword, network, accountNumber);
 
+// The address to which the funds are sent to
+final targetHydra = HydraPlugin.get(targetVault, network, accountNumber);
+final targetAddress = targetHydra.public.key(0).address;
 ```
 
 <!-- tabs:end -->
@@ -196,7 +211,7 @@ const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J";
 
 <div class="row no-gutters">
     <div class="col-6 pr-3">
-        You can send a transaction by creating a client instance and call the send operation. This is done inside an asynchronous function. The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
+        You can send a transaction by creating a client instance and calling the send operation. This is done inside an asynchronous function. The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -215,17 +230,20 @@ const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J";
 
 ```typescript
 // Return an api that can interact with the hydra blockchain
-const network = Network.Testnet;
-const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
+const networkConfig = NetworkConfig.fromNetwork(Network.Testnet);
+const layer1Api = await Layer1.createApi(networkConfig);
 
 // Send a hydra transaction using the hydra private object.
-const amount = 1e8 / 10; // 0.1 HYD
+const amount = 1e8; // 1 HYD in flakes
 const txId = await layer1Api.sendTransferTx(
-    sourceAddress,
-    targetAddress,
-    BigInt(amount),
-    hydraPrivate
+  sourceAddress,
+  targetAddress,
+  BigInt(amount),
+  hydraPrivate
 ); 
+
+// Prints the transaction ID
+console.log('Transaction ID: ', txId);
 ```
 
 Outputs:
@@ -237,7 +255,21 @@ Transaction ID: de7542ab693080dc1d51de23b20fd3611dac6a60c7a081634010f1f4aa413547
 #### ** Flutter (Android) **
 
 ```dart
+// Initialize the Hydra plugin on the vault object
+final networkConfig = NetworkConfig.fromNetwork(network);
+final layer1Api = Layer1Api.createApi(networkConfig);
 
+// Send a hydra transaction using the hydra private object.
+final amount = 1e8; // 1 HYD in flakes
+final txId = await layer1Api.sendTransferTx(
+  sourceAddress,
+  targetAddress,
+  amount.toInt(),
+  hydraPrivate
+); 
+
+// Prints the transaction ID
+print('Transaction ID: $txId');
 ```
 
 Outputs:

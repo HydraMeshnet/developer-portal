@@ -18,50 +18,59 @@ void main() {
   test('Sending Hydra', () async {
 ///###FLUTTER_STEP_2
 // Instantiate a vault object deployed for test purposes
-final unlockPassword = 'correct horse battery staple';
-final vault = Vault.create(Bip39.DEMO_PHRASE, '', unlockPassword);
+final sourcePassword = 'correct horse battery staple';
+final sourceVault = Vault.create(Bip39.DEMO_PHRASE, '', sourcePassword);
 ///###FLUTTER_STEP_2
 
 ///###FLUTTER_STEP_3
 // Initialize the Hydra plugin on the vault object
 final accountNumber = 0;
 final network = Network.TestNet;
-HydraPlugin.init(vault, unlockPassword, network, accountNumber);
+HydraPlugin.init(sourceVault, sourcePassword, network, accountNumber);
 
 // Get the private interface of the Hydra plugin
-final hydra = HydraPlugin.get(vault, network, accountNumber);
-final hydraPrivate = hydra.private(unlockPassword);
+final hydra = HydraPlugin.get(sourceVault, network, accountNumber);
+final hydraPrivate = hydra.private(sourcePassword);
+
+// The address from which funds are sent from
+final sourceAddress = hydra.public.key(0).address;
 ///###FLUTTER_STEP_3
 
 ///###FLUTTER_STEP_4
-// The address from which funds are sent from
-final sourceAddress = hydra.public.key(0).address;
+// Initialize your personal vault that will act as the target
+final mnemonic = Bip39('en').generatePhrase();
+final targetPassword = 'horse battery staple correct';
+final targetVault = Vault.create(mnemonic, '', targetPassword);
+HydraPlugin.init(targetVault, targetPassword, network, accountNumber);
 
 // The address to which the funds are sent to
-const targetAddress = "tjseecxRmob5qBS2T3qc8frXDKz3YUGB8J";
+final targetHydra = HydraPlugin.get(targetVault, network, accountNumber);
+
+// Initialize the second key on the private hydra interface
+targetHydra.private(targetPassword).key(1);
+final targetAddress = targetHydra.public.key(1).address;
 ///###FLUTTER_STEP_4
 
 ///###FLUTTER_STEP_5
 // Initialize the Hydra plugin on the vault object
-final layer1Api = Layer1Api.createApi(NetworkConfig.fromNetwork(network));
+final networkConfig = NetworkConfig.fromNetwork(network);
+final layer1Api = Layer1Api.createApi(networkConfig);
 
 // Send a hydra transaction using the hydra private object.
-final amount = 1e8 / 10; // 0.1 HYD
+final amount = 1e8; // 1 HYD in flakes
 final txId = await layer1Api.sendTransferTx(
-    sourceAddress,
-    targetAddress,
-    amount.toInt(),
-    hydraPrivate
+  sourceAddress,
+  targetAddress,
+  amount.toInt(),
+  hydraPrivate
 ); 
+
+// Prints the transaction ID
+print('Transaction ID: $txId');
 ///###FLUTTER_STEP_5
 
 if(txId == null) {
   throw Exception('TX could not be sent');
 }
-
-///###FLUTTER_STEP_6
-// Prints the transaction ID
-print('Transaction ID: $txId');
-///###FLUTTER_STEP_6
   });
 }

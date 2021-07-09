@@ -112,13 +112,19 @@ export const unlockPassword = '+*7=_X8<3yH:v2@s';
 #### ** Flutter (Android) **
 
 ```dart
-// Select the testnet
+// Configure the network and account settings
 final network = Network.TestNet;
+final unlockPassword = 'correct horse battery staple';
+final accountNumber = 0;
 
-// These details give access to a pre-generated account that pay the gas for the transaction
-final hydraGasPassphrase = 'scout try doll stuff cake welcome random taste load town clerk ostrich';
-final hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
-final unlockPassword = '+*7=_X8<3yH:v2@s';
+// Initialize the transaction sender's vault to send layer-1 transactions 
+final gasVault = Vault.create(Bip39.DEMO_PHRASE, '', unlockPassword);
+HydraPlugin.init(gasVault, unlockPassword, network, accountNumber);
+
+// Get the address and the private interface from the vault's hydra plugin
+final hydraPlugin = HydraPlugin.get(gasVault, network, accountNumber);
+final senderAddress = hydraPlugin.public.key(accountNumber).address;
+final senderPrivate = hydraPlugin.private(unlockPassword);
 ```
 
 <!-- tabs:end -->
@@ -163,7 +169,7 @@ const vault = Crypto.Vault.create(
 // YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 final phrase = Bip39('en').generatePhrase();
 
-// Creates a new vault based on the BIP39 passphrase, password and unlock password
+// Creates a personal vault based on the BIP39 passphrase, password and unlock password
 final vault = Vault.create(
   phrase,
   '8qjaX^UNAafDL@!#', // The 25th word of the passphrase
@@ -218,12 +224,12 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 #### ** Flutter (Android) **
 
 ```dart
-// Initialize the Morpheus plugin on your personal vault:
+// Initialize the Morpheus plugin (Layer-2 SSI) on your personal vault:
 MorpheusPlugin.init(vault, unlockPassword);
 final morpheusPlugin = MorpheusPlugin.get(vault);
 
 // Selects the first DID
-final did = morpheusPlugin.public.personas.did(0);  // you are going to use the first DID
+final did = morpheusPlugin.public.personas.did(0);
 print('Using DID: ${did.toString()}');
 ```
 
@@ -294,17 +300,17 @@ Signed contract: {
 
 ```dart
 // Acquire the default key
-final keyId = did.defaultKeyId(); // acquire the default key
+final keyId = did.defaultKeyId();
 
 // The contract details
 final contractStr = 'A long legal document, e.g. a contract with all details';
 final contractBytes = Uint8List.fromList(utf8.encode(contractStr)).buffer.asByteData();
 
-// Acquire the plugin's private interface that provides you the sign interface
-final morpheusPrivate = morpheusPlugin.private(unlockPassword); // acquire the plugin's private interface that provides you the sign interface
+// Acquire the plugin's private interface that provides you the signing interface
+final morpheusPrivate = morpheusPlugin.private(unlockPassword);
 
 // The signed contract, which you need to store securely!
-final signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes); // YOU NEED TO SAVE IT TO A SAFE PLACE!
+final signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes);
 final signedContractJson = <String, dynamic>{
   'content': utf8.decode(signedContract.content.content.buffer.asUint8List()), // you must use this Buffer wrapper at the moment, we will improve in later releases,
   'publicKey': signedContract.signature.publicKey.value,
@@ -402,17 +408,17 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 #### ** NodeJS (Typescript) **
 
 ```typescript
-// Let's create our operation attempts data structure
+// Create our operation attempts data structure
 const opAttempts = new Layer1.OperationAttemptsBuilder()
     .registerBeforeProof(beforeProof)
     .getAttempts();
 
-// Let's initialize our layer-1 API
+// Initialize our Layer-1 API
 const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
 
-// Let's query and then increment the current nonce of the owner of the tx fee
+// Query and increment the current nonce of the owner of the tx fee
 let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
-nonce = BigInt(nonce) + BigInt(1);
+nonce = nonce.valueOf() + BigInt(1);
 
 // Now you are ready to send the transaction
 const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
@@ -428,20 +434,21 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 #### ** Flutter (Android) **
 
 ```dart
-// Let's create our operation attempts data structure
-final opAttempts = OperationAttemptsBuilder()
-  .registerBeforeProof(beforeProof)
-  .getAttempts();
+// Create the layer-2 data structure
+final morpheusAssetBuilder = new MorpheusAssetBuilder.create();
+morpheusAssetBuilder.addRegisterBeforeProof(beforeProof);
+final morpheusAsset = morpheusAssetBuilder.build();
 
-// Let's initialize our layer-1 API
-final layer1Api = Layer1Api(network);
+// Initialize the layer-1 API
+final networkConfig = NetworkConfig.fromNetwork(network);
+final layer1Api = Layer1Api.createApi(networkConfig);
 
-// Let's query and then increment the current nonce of the owner of the tx fee
-int nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
+// Query and increment the current nonce of the transaction sender
+int nonce = await layer1Api.getWalletNonce(senderAddress);
 nonce = nonce + 1;
 
-// Now you are ready to send the transaction
-final txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce: nonce);
+// Now you are ready to send the transaction on layer-1
+final txId = await layer1Api.sendMorpheusTx(senderAddress, morpheusAsset, senderPrivate, nonce: nonce);
 print('Transaction ID: $txId');
 ```
 
@@ -495,7 +502,7 @@ await waitUntil12Sec();
 let txStatus = await layer1Api.getTxnStatus(txId);
 console.log("Tx status:", txStatus.get());
 
-// Let's initialize the layer-2 Morpheus API to query the transaction status
+// Initialize the Layer-2 Morpheus API to query the transaction status
 const layer2MorpheusApi = await Layer2.createMorpheusApi(NetworkConfig.fromNetwork(network));
 let ssiTxStatus = await layer2MorpheusApi.getTxnStatus(txId);
 console.log("SSI Tx status:", ssiTxStatus.get());
@@ -517,16 +524,16 @@ SSI Tx status: true
 
 ```dart
 // Block confirmation time
-await Future.delayed(Duration(seconds: 12));  // it'll be included in the SDK Soon in 2020
+await Future.delayed(Duration(seconds: 12));
 
 // Layer-1 transaction must be confirmed
 final txStatus = await layer1Api.getTxnStatus(txId);
-print('Tx status: ${json.encode(txStatus.value.toJson())}');  // the SDK uses optional's Optional result
+print('Tx status: ${txStatus.toJson()}');
 
-// Let's initialize the layer-2 API to query the transaction status
-final layer2Api = Layer2Api(network);
+// Initialize the layer-2 API to query the transaction status
+final layer2Api = Layer2Api.createMorpheusApi(networkConfig);
 final ssiTxStatus = await layer2Api.getTxnStatus(txId);
-print('SSI Tx status: ${ssiTxStatus.value}');  // the SDK uses optional's Optional result
+print('SSI Tx confirmed: $ssiTxStatus');
 ```
 
 Outputs:
@@ -596,7 +603,7 @@ Proof history: {
 ```dart
 // Query the blockchain for the hash of the signed contract (Proof of Existence)
 final history = await layer2Api.getBeforeProofHistory(expectedContentId);
-print('Proof history: ${json.encode(history.toJson())}');
+print('Proof history: ${history.toJson()}');
 ```
 
 Outputs:

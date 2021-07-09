@@ -70,7 +70,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### Step 2. Create Settings
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify  col-6 pr-3">
         For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>
     </div>
     <div class="col-6">
@@ -106,7 +106,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### Step 3. Create a Vault
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify col-6 pr-3">
         In order to send layer-2 (SSI) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
     </div>
     <div class="col-6">
@@ -140,7 +140,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### Step 4. Create Your First DID
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify  col-6 pr-3">
         Even though you can create an infinite amount of DIDs, SSI operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
         <p>
             To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs. The plugin consists of a public part that can be accessed without the password. The private part requires the unlock password explicitly.
@@ -192,7 +192,7 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 #### Step 5. Sign the Contract
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify col-6 pr-3">
         Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
     </div>
     <div class="col-6">
@@ -249,7 +249,7 @@ Signed contract: {
 #### Step 6. Create a Proof of Existence by Hashing the Data
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify col-6 pr-3">
         Sharing the signed contract itself is often not a good way of proving its existence. A better approach consists of storing the hash of the signed contract, which reveals nothing about the content of the contract. If somebody wants to verify that the contract has indeed been signed, they can verify it by comparing the hash stored on the blockchain with the result of hashing the contract.
     </div>
     <div class="col-6">
@@ -295,7 +295,7 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 #### Step 7. Creating a SSI Transaction
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify col-6 pr-3">
         To store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a SSI transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
         <br><br>
         A single SSI transaction consists of one or multiple <a href="/glossary?id=ssi-operation">SSI operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
@@ -343,7 +343,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
 #### Step 8. Query SSI Transaction from Blockchain
 
 <div class="row no-gutters">
-    <div class="col-6 pr-3">
+    <div class="text-justify col-6 pr-3">
         Aaaand you did it! Your SSI transaction is accepted by a node! You should be as happy as this unicorn right here: 🦄
         <br><br>
         Even though the transaction was successfully sent, it takes some time until it is included in a block and accepted by the consensus mechanism. After sending the transaction, you can fetch its status both on layer-1 and layer-2.

@@ -58,7 +58,6 @@ const collectBlocks = (path) => {
 const tutorials = [
   'send_hyd',
   'create_vault',
-  'send_hyd_vault',
   'ssi_contract',
 ];
 
