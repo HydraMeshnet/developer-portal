@@ -1,8 +1,8 @@
 # SDK Tutorial: Sending HYD Programmatically
 
 In this tutorial, you will implement a Hydra transaction with the SDK.
-A pre-generated vault filled with test HYD's can be accessed through a passphrase: 
-you will send HYD's using code from this wallet to your own personal vault.
+A demo passphrase will give you access to a pre-generated vault filled with test HYD's. 
+You will send HYD's using code from this wallet to your personal vault.
 
 #### Prerequisites
 
@@ -71,8 +71,8 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <div class="row no-gutters">
     <div class="text-justify col-6 pr-3">
-        In a previous tutorial, you saw how a cryptographic keyvault can be created. 
-        Now you are going to encounter similar code that enables you to instantiate a pre-generated vault with test HYD's.
+        In a previous tutorial, you saw how to create a cryptographic keyvault. 
+        Now you will encounter code that enables you to instantiate a pre-generated vault with test HYD's.
         In a real-world application, you would access your wallet through your vault which is persisted and encrypted carefully.
         Once you have access to your keys, you can use similar code snippets to send tokens to any address.
     </div>
@@ -104,9 +104,10 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <div class="row no-gutters">
     <div class="text-justify col-6 pr-3">
-        To interact with the Hydra blockchain, the keyvault needs to have a <code>hydra</code> plugin with the right parameters initialized so that it can generate
-        the appropriate key pairs. The first parameter describes the network and the account number (0) of the account for which the plugin generates keys.
-        The plugin consists of a public part that can be accessed without a password and a private part which requires the password explicitely.
+      The keyvault needs a <code>hydra</code> plugin initialized with the correct parameters to interact with the Hydra blockchain. 
+      If initialized correctly, it can generate the appropriate keypairs. The first parameter describes the network and the account number (0)
+      of the account for which the plugin generates keys. The plugin consists of a public part accessible without a password 
+      and a private interface that requires the password explicitly.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -140,8 +141,8 @@ When the script is finished, the only remaining task is to import the SDK in the
     <div class="text-justify pr-3">
       The following code creates a brand new vault. 
       To get the target address for receiving funds, 
-      you need to initialize the hydra plugin similar as in the previous step.
-      The second key of the vault will be used to spice it up. 
+      you need to initialize the hydra plugin similar to the previous step.
+      To spice up the tutorial, you will generate the second key of the vault instead of the first. 
       Before using any key other than the default key (with index 0), 
       you need to initialize it using the private interface.
       This privacy feature prevents access to your public keys and addresses
@@ -168,8 +169,12 @@ When the script is finished, the only remaining task is to import the SDK in the
 #### Final Step: Send HYD
 
 <div class="row no-gutters">
-    <div class="text-align col-6 pr-3">
-        You can send a transaction by creating a client instance and calling the send operation. This is done inside an asynchronous function. The first async call enables you to access the API used to communicate with the layer-1 blockchain. This is necessary to send transactions to the nodes (using the second async call). If the transaction is accepted the promise will resolve to a transaction ID, which you can use to query your transaction on the blockchain.
+    <div class="text-justify col-6 pr-3">
+      You can send a transaction by creating a client instance and calling the send operation.
+      Sending a transaction is an asynchronous function. The first async call enables you to access
+      the API used to communicate with the layer-1 blockchain. This is necessary to send transactions 
+      to the nodes (using the second async call). If the transaction is accepted, the promise will resolve to a transaction ID. 
+      The transaction ID allows you to query your transaction on the blockchain.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">

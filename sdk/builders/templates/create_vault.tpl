@@ -1,6 +1,6 @@
 # SSI SDK Tutorial: Create a Secure & Persistent Vault
 
-In this tutorial, you will create a secure vault that is encrypted with a password and persisted on the disk. You will also try some of the features that do not require the password that unlocks the vault.
+In this tutorial, you will create a secure vault. A secure vault is encrypted with a password and persisted on the disk. You will also try some of the features that do not require the password that unlocks the vault.
 
 #### Prerequisites
 
@@ -38,7 +38,7 @@ First, you need access to the SDK in the code.
 
 The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
 
-In Typescript, you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+In Typescript, you need to use multiple modules from the SDK (The Layer1 and Network modules are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
 ```typescript
 {{{TS_STEP_1}}}
@@ -69,8 +69,9 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 The SDK provides you multiple tools to protect your wallet:
 
-- an optional **BIP 39** password, which is sometimes called the 25th word of the mnemonic phrase. It is very similar to adding a salt to passwords.
-- an unlock password to encrypt your seed. This is useful if you wish to persist the vault's state. Hence, to derive the state, you need to decrypt the encrypted seed using this *Unlock Password*. 
+- the standard 24-word passphrase (sometimes called a 'mnemonic') that represents your seed (a large number from which all keys are derived).
+- an optional **BIP 39** password, which is sometimes called the 25th word of the passphrase. It is very similar to adding a salt to passwords.
+- an unlock password to encrypt your seed. This is useful if you wish to persist the vault's state. Hence, to derive the state, you need to decrypt the encrypted seed using the *Unlock Password*. 
 - public state management for providing tools for convenient integration without the need to unlock the vault for some operations.
 
 Below you can observe the code to create a secure vault.
@@ -97,7 +98,7 @@ Below you can observe the code to create a secure vault.
 
 #### Step 3. Persist State
 
-Now that you created an encrypted vault, you possibly want to save its state for future purposes. You can do that easily by saving the JSON-file that represents your vault.
+Now that you created an encrypted vault, you might want to save its state for future purposes. You can easily save the JSON file that represents your vault for later use.
 
 <!-- tabs:start -->
 

@@ -4,23 +4,32 @@ import { Crypto, Layer1, Layer2, Network, NetworkConfig } from '@internet-of-peo
 ///###TS_STEP_1
 
 ///###TS_STEP_2
-// Select the testnet
-export const network = Network.Testnet;
+// Configure the network and account settings
+const network = Network.Testnet;
+const unlockPassword = 'correct horse battery staple';
+const gasVault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', unlockPassword);
 
-// These details give access to a pre-generated account that pay the gas for the transaction.
-export const hydraGasPassphrase = "scout try doll stuff cake welcome random taste load town clerk ostrich";
-export const hydraGasPublicKey = "03d4bda72219264ff106e21044b047b6c6b2c0dde8f49b42c848e086b97920adbf";
-export const unlockPassword = '+*7=_X8<3yH:v2@s';
+// Initialize the transaction sender's vault to send Layer-1 transactions 
+const parameters = new Crypto.HydraParameters(
+  Crypto.Coin.Hydra.Testnet,
+  0
+);
+Crypto.HydraPlugin.init(gasVault, unlockPassword, parameters);
+
+// Get the address and the private interface from the vault's hydra plugin
+const hydraPlugin = Crypto.HydraPlugin.get(gasVault, parameters);
+const senderPrivate = hydraPlugin.priv(unlockPassword);
+const senderAddress = hydraPlugin.pub.key(0).address;
 ///###TS_STEP_2
 
 ///###TS_STEP_3
 // YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 const phrase = new Crypto.Bip39('en').generate().phrase;
 
-// Creates a new vault based on the BIP39 passphrase, password and unlock password
+// Create a new vault based on the BIP39 passphrase, password and unlock password
 const vault = Crypto.Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#',   // The 25th word of the passphrase
+  '',                   // The 25th word of the passphrase
   unlockPassword,       // Encrypts the master seed
 );
 ///###TS_STEP_3
@@ -28,10 +37,10 @@ const vault = Crypto.Vault.create(
 ///###TS_STEP_4
 // Initialize the Morpheus plugin on your personal vault:
 Crypto.MorpheusPlugin.init(vault, unlockPassword);
-const morpheus = Crypto.MorpheusPlugin.get(vault);
+const morpheusPlugin = Crypto.MorpheusPlugin.get(vault);
 
-// Selects the first DID
-const did = morpheus.pub.personas.did(0);
+// Select the first DID
+const did = morpheusPlugin.pub.personas.did(0);
 console.log("Using DID: ", did.toString());
 ///###TS_STEP_4
 
@@ -48,7 +57,7 @@ const contractStr = "A long legal document, e.g. a contract with all details";
 const contractBytes = new Uint8Array(Buffer.from(contractStr));
 
 // Acquire the plugin's private interface that provides you the sign interface
-const morpheusPrivate = morpheus.priv(unlockPassword); 
+const morpheusPrivate = morpheusPlugin.priv(unlockPassword); 
 
 // The signed contract, which you need to store securely!
 const signedContract = morpheusPrivate.signDidOperations(keyId, contractBytes);
@@ -71,20 +80,16 @@ if(!beforeProof) {
 
 (async () => {
 ///###TS_STEP_7
-// Create our operation attempts data structure
-const opAttempts = new Layer1.OperationAttemptsBuilder()
-    .registerBeforeProof(beforeProof)
-    .getAttempts();
+// Create the Layer-2 data structure
+const morpheusBuilder = new Crypto.MorpheusAssetBuilder()
+morpheusBuilder.addRegisterBeforeProof(beforeProof);
+const morpheusAsset = morpheusBuilder.build();
 
-// Initialize our Layer-1 API
+// Initialize the Layer-1 API
 const layer1Api = await Layer1.createApi(NetworkConfig.fromNetwork(network));
 
-// Query and increment the current nonce of the owner of the tx fee
-let nonce = await layer1Api.getWalletNonce(hydraGasPublicKey);
-nonce = nonce.valueOf() + BigInt(1);
-
-// Now you are ready to send the transaction
-const txId = await layer1Api.sendMorpheusTxWithPassphrase(opAttempts, hydraGasPassphrase, nonce);
+// Send the transaction on Layer-1
+const txId = await layer1Api.sendMorpheusTx(senderAddress, morpheusAsset, senderPrivate);
 console.log("Transaction ID: ", txId);
 ///###TS_STEP_7
 

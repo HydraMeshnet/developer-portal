@@ -17,7 +17,7 @@ import 'package:iop_sdk/network.dart';
 void main() {
   test('Sending Hydra', () async {
 ///###FLUTTER_STEP_2
-// Instantiate a vault object deployed for test purposes
+// Instantiate the demo vault that acts as a source of funds
 final sourcePassword = 'correct horse battery staple';
 final sourceVault = Vault.create(Bip39.DEMO_PHRASE, '', sourcePassword);
 ///###FLUTTER_STEP_2
@@ -52,7 +52,7 @@ final targetAddress = targetHydra.public.key(1).address;
 ///###FLUTTER_STEP_4
 
 ///###FLUTTER_STEP_5
-// Initialize the Hydra plugin on the vault object
+// Return an api that can interact with the hydra blockchain
 final networkConfig = NetworkConfig.fromNetwork(network);
 final layer1Api = Layer1Api.createApi(networkConfig);
 

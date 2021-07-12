@@ -4,7 +4,7 @@ import { Crypto, Layer1, Network, NetworkConfig } from '@internet-of-people/sdk'
 ///###TS_STEP_1
 
 ///###TS_STEP_2
-// Instantiate the demo vault that will act as a source of funds
+// Instantiate the demo vault that acts as a source of funds
 const sourcePassword = 'correct horse battery staple';
 const sourceVault = Crypto.Vault.create(Crypto.Seed.demoPhrase(), '', sourcePassword);
 ///###TS_STEP_2

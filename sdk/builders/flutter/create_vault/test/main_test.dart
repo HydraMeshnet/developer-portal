@@ -24,7 +24,7 @@ final phrase = Bip39('en').generatePhrase();
 // Creates a new vault using a passphrase, password and unlock password, which encrypts/decrypts the seed
 final vault = Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#',
+  '',                   // The optional 25th word
   'unlock password',
 );
 ///###FLUTTER_STEP_2

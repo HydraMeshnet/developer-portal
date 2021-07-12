@@ -25,24 +25,24 @@ final network = Network.TestNet;
 final unlockPassword = 'correct horse battery staple';
 final accountNumber = 0;
 
-// Initialize the transaction sender's vault to send layer-1 transactions 
+// Initialize the transaction sender's vault to send Layer-1 transactions 
 final gasVault = Vault.create(Bip39.DEMO_PHRASE, '', unlockPassword);
 HydraPlugin.init(gasVault, unlockPassword, network, accountNumber);
 
 // Get the address and the private interface from the vault's hydra plugin
 final hydraPlugin = HydraPlugin.get(gasVault, network, accountNumber);
-final senderAddress = hydraPlugin.public.key(accountNumber).address;
 final senderPrivate = hydraPlugin.private(unlockPassword);
+final senderAddress = hydraPlugin.public.key(accountNumber).address;
 ///###FLUTTER_STEP_2
 
 ///###FLUTTER_STEP_3
 // YOU HAVE TO SAVE THE PASSPHRASE SECURELY!
 final phrase = Bip39('en').generatePhrase();
 
-// Creates a personal vault based on the BIP39 passphrase, password and unlock password
+// Create a personal vault based on the BIP39 passphrase, password and unlock password
 final vault = Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#', // The 25th word of the passphrase
+  '',                 // The 25th word of the passphrase
   unlockPassword,     // Encrypts the master seed
 );
 ///###FLUTTER_STEP_3
@@ -52,7 +52,7 @@ final vault = Vault.create(
 MorpheusPlugin.init(vault, unlockPassword);
 final morpheusPlugin = MorpheusPlugin.get(vault);
 
-// Selects the first DID
+// Select the first DID
 final did = morpheusPlugin.public.personas.did(0);
 print('Using DID: ${did.toString()}');
 ///###FLUTTER_STEP_4
@@ -93,21 +93,17 @@ if(beforeProof == null) {
 }
 
 ///###FLUTTER_STEP_7
-// Create the layer-2 data structure
+// Create the Layer-2 data structure
 final morpheusAssetBuilder = new MorpheusAssetBuilder.create();
 morpheusAssetBuilder.addRegisterBeforeProof(beforeProof);
 final morpheusAsset = morpheusAssetBuilder.build();
 
-// Initialize the layer-1 API
+// Initialize the Layer-1 API
 final networkConfig = NetworkConfig.fromNetwork(network);
 final layer1Api = Layer1Api.createApi(networkConfig);
 
-// Query and increment the current nonce of the transaction sender
-int nonce = await layer1Api.getWalletNonce(senderAddress);
-nonce = nonce + 1;
-
-// Now you are ready to send the transaction on layer-1
-final txId = await layer1Api.sendMorpheusTx(senderAddress, morpheusAsset, senderPrivate, nonce: nonce);
+// Send the transaction
+final txId = await layer1Api.sendMorpheusTx(senderAddress, morpheusAsset, senderPrivate);
 print('Transaction ID: $txId');
 ///###FLUTTER_STEP_7
 
@@ -119,7 +115,7 @@ await Future.delayed(Duration(seconds: 12));
 final txStatus = await layer1Api.getTxnStatus(txId);
 print('Tx status: ${txStatus.toJson()}');
 
-// Initialize the layer-2 API to query the transaction status
+// Initialize the Layer-2 Morpheus API to query the transaction status
 final layer2Api = Layer2Api.createMorpheusApi(networkConfig);
 final ssiTxStatus = await layer2Api.getTxnStatus(txId);
 print('SSI Tx confirmed: $ssiTxStatus');

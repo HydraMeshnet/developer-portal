@@ -10,7 +10,7 @@ const phrase = new Crypto.Bip39('en').generate().phrase;
 // Creates a new vault using a passphrase, password and unlock password, which encrypts/decrypts the seed
 const vault = Crypto.Vault.create(
   phrase,
-  '8qjaX^UNAafDL@!#',
+  '',                   // The optional 25th word
   'unlock password',
 );
 ///###TS_STEP_2
@@ -19,13 +19,13 @@ const vault = Crypto.Vault.create(
 // Necessary import to write to the file system
 import { promises as fsAsync } from 'fs';
 
-// Saves the encrypted seed of the vault.
+// Save the encrypted seed of the vault.
 const serializedState = JSON.stringify(vault.save());
 ///###TS_STEP_3
 
 (async () => {
 ///###TS_STEP_3
-// Writes the state to a file
+// Write the state to a file
 await fsAsync.writeFile(
   'tutorial_vault.state',
   serializedState,
@@ -34,7 +34,7 @@ await fsAsync.writeFile(
 ///###TS_STEP_3
 
 ///###TS_STEP_4
-// Reads and loads the vault from the saved file
+// Read and load the vault from the saved file
 const backup = await fsAsync.readFile(
     'tutorial_vault.state',
     { encoding: 'utf-8' },

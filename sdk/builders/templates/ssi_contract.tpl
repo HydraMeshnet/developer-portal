@@ -1,6 +1,6 @@
 # SSI SDK Tutorial: Contract Signature Proof On-Chain
 
-In this tutorial, you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store a proof about this on-chain.
+In this tutorial, you will create a Decentralized ID (DID), then you will sign a contract using the private key tied to it. After the contract is signed, you will store proof about this on-chain.
 
 #### Prerequisites
 
@@ -32,7 +32,7 @@ Future<void> _incrementCounter() async {
 
 First, you need access to the SDK in the code. 
 
-For this tutorial, you will use the Crypto, Layer-1, Layer-2, and Network module from our stack.
+For this tutorial, you will use the Crypto, Layer-1, Layer-2, and Network modules from our stack.
 
 <!-- tabs:start -->
 
@@ -40,7 +40,7 @@ For this tutorial, you will use the Crypto, Layer-1, Layer-2, and Network module
 
 The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
 
-In Typescript you need to use multiple modules from the SDK (The Layer1 and Network module are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+In Typescript you need to use multiple modules from the SDK (The Layer1 and Network modules are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
 
 ```typescript
 {{{TS_STEP_1}}}
@@ -48,7 +48,7 @@ In Typescript you need to use multiple modules from the SDK (The Layer1 and Netw
 
 #### ** Flutter (Android) **
 
-To be able to use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
+To use our SDK in your Flutter Android application, you need to run our installer script first, that does the followings:
 
 - It downloads the dynamic libraries you need and puts those files in the right place. Those files are required because the SDK's crypto codebase is implemented in Rust and uses Dart FFI.
 - It adds our Dart SDK into your `pubspec.yaml` file.
@@ -71,7 +71,7 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <div class="row no-gutters">
     <div class="text-justify  col-6 pr-3">
-        For simplicity, we are going to provide you with a testnet account that pays the gas for the transactions. In a real world application you will need secure configuration management of course.<br>
+        For simplicity, we will provide you with a testnet account that pays the gas for the transactions. In a real-world application, you need a secure configuration with mainnet HYD's.<br>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -103,11 +103,13 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <!-- tabs:end -->
 
-#### Step 3. Create a Vault
+#### Step 3. Create a Personal Vault
 
 <div class="row no-gutters">
     <div class="text-justify col-6 pr-3">
-        In order to send layer-2 (SSI) transactions, you need a DID which has a key tied to it. Your vault stores your DIDs and its keys and can also be used for signing data. The first step in this process is to generate a vault.
+        To send Layer-2 (SSI) transactions, you need a personal DID with a key tied to it. 
+        Your personal vault stores your DIDs and their keys. It can also be used for signing data. 
+        The first step in this process is to generate a new vault for your private use.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -141,10 +143,13 @@ When the script is finished, the only remaining task is to import the SDK in the
 
 <div class="row no-gutters">
     <div class="text-justify  col-6 pr-3">
-        Even though you can create an infinite amount of DIDs, SSI operations usually only require specifying one. Hence, you have to either create a DID or use one that was previously created.
-        <p>
-            To create a DID,  you need to initialize the <code>Morpheus</code> plugin from the SDK, which enables the previously created vault to handle your DIDs. The plugin consists of a public part that can be accessed without the password. The private part requires the unlock password explicitly.
-        </p>
+      Even though you can create an infinite amount of DIDs, SSI operations usually only require specifying one. Hence, you have to either create a DID or use one previously created.
+      <p>
+        To create a DID, you need to initialize the <code>Morpheus</code> plugin from the SDK.
+        The plugin enables the previously created vault to handle your DIDs.
+        The plugin consists of a public part accessible without a password.
+        The private interface requires the unlock password explicitly.
+      </p>
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -193,7 +198,10 @@ Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 
 <div class="row no-gutters">
     <div class="text-justify col-6 pr-3">
-        Your goal is to store a proof on-chain about the fact that you signed a contract (Proof of Existence). To sign the contract, you need a private key tied to your DID, which can be accessed through a private interface. We provide you with a method that signs the message with your private key. After invoking this method, you have generated the data with your signature attached to it.
+      Your goal is to store proof on-chain about the fact that you signed a contract (Proof of Existence).
+      You need a private key tied to your DID to sign the contract. The private interface of the vault gives access to this key.
+      We provide you with a method that signs the message with your private key. After invoking this method,
+      you have generated the data with your signature attached to it.    
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -250,15 +258,17 @@ Signed contract: {
 
 <div class="row no-gutters">
     <div class="text-justify col-6 pr-3">
-        Sharing the signed contract itself is often not a good way of proving its existence. A better approach consists of storing the hash of the signed contract, which reveals nothing about the content of the contract. If somebody wants to verify that the contract has indeed been signed, they can verify it by comparing the hash stored on the blockchain with the result of hashing the contract.
+      Sharing the signed contract itself is often not a good way of proving its existence. 
+      A better approach consists of storing the hash of the signed contract, which reveals nothing about its content. 
+      If somebody wants to verify the signature of the contract, they can compare the hash stored on the blockchain with the hash of the contract.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
             <h5>Good to know:</h5>
             <ul>
                 <li>The signed contract is hashed into a content ID that proves the content without exposing it.</li>
-                <li>Hashing an object into a content ID is also usually mentioned as digesting.</li>
-                <li>We also allow partial masking when only parts of the object are digested see more about it <a href="https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#json-digesting">here</a>.</li>
+                <li>Hashing an object into a content ID is also called digesting.</li>
+                <li>We allow partial masking when only parts of the object are digested see more about it <a href="https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#json-digesting">here</a>.</li>
             </ul>
         </div>
     </div>
@@ -296,9 +306,11 @@ Proof of Existence: cjuMiVbDzAf5U1c0O32fxmB4h9mA-BuRWA-SVm1sdRCfEw
 
 <div class="row no-gutters">
     <div class="text-justify col-6 pr-3">
-        To store the hash on the blockchain, you need to put it in a transaction. Since storing a hash is part of the layer-2 architecture, this is called a SSI transaction. Once accepted, the timestamp of the block containing the transaction proves that the content was created before this time.
+      To store the hash on the blockchain, you need to put it in a transaction.
+      The transaction containing the hash is called an SSI transaction (Layer-2 transaction).
+      Once accepted, the timestamp of the block containing the transaction proves that someone created the content before the timestamp. 
         <br><br>
-        A single SSI transaction consists of one or multiple <a href="/glossary?id=ssi-operation">SSI operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
+      A single SSI transaction consists of one or multiple <a href="/glossary?id=ssi-operation">SSI operations</a>. Registering a hash - or Proof of Existence - is an example of such an operation.
     </div>
     <div class="col-6">
         <div class="alert alert-info pb-0 mb-0">
@@ -350,7 +362,7 @@ Transaction ID: af868c9f4b4853e5055630178d07055cc49f2e5cd033687b2a91598a5d720e19
         <br><br>
         If a transaction was accepted on
         <ul>
-            <li>layer-1, it was a valid Hydra transaction without any layer-2 consensus (e.g. its format is valid, fees are covered and is forged into a block)</li>
+            <li>layer-1, it was a valid Hydra transaction without any layer-2 consensus (e.g. its format is valid, fees are covered and a delegate forged it into a block)</li>
             <li>layer-2, it was also accepted as a valid SSI transaction</li>
         </ul>
     </div>
