@@ -40,7 +40,7 @@ For this tutorial, you will use the Crypto, Layer-1, Layer-2, and Network module
 
 The Typescript package is available on [npmjs.com](https://www.npmjs.com/package/@internet-of-people/sdk). 
 
-In Typescript you need to use multiple modules from the SDK (The Layer1 and Network modules are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#Modules).
+In Typescript you need to use multiple modules from the SDK (The Layer1 and Network modules are already included in the project template). Additional features can be accessed through other modules about which you can read [here](https://github.com/Internet-of-People/iop-ts/tree/master/packages/sdk#Modules).
 
 ```typescript
 // Import the necessary modules from our SDK
@@ -57,7 +57,7 @@ To use our SDK in your Flutter Android application, you need to run our installe
 You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
 
 ```bash
-curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
+curl https://raw.githubusercontent.com/Internet-of-People/iop-dart/master/tool/init-flutter-android.sh | sh
 ```
 
 When the script is finished, the only remaining task is to import the SDK in the `lib/main.dart`.
@@ -233,7 +233,7 @@ Outputs:
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 ```
 
-> Note: to learn more about the Morpheus and other plugins, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
+> Note: to learn more about the Morpheus and other plugins, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/iop-ts/tree/master/packages/sdk).
 
 #### ** Flutter (Android) **
 
@@ -253,7 +253,7 @@ Outputs:
 Using DID: did:morpheus:ezbeWGSY2dqcUBqT8K7R14xr
 ```
 
-> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-dart).
+> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/iop-dart).
 
 <!-- tabs:end -->
 
@@ -311,7 +311,7 @@ Signed contract: {
 }
 ```
 
-> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk).
+> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/iop-ts/tree/master/packages/sdk).
 
 #### ** Flutter (Android) **
 
@@ -346,7 +346,7 @@ Signed contract: {
 }
 ```
 
-> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/morpheus-dart).
+> Note: to learn more about the Morpheus plugin's public and private interfaces, please visit our technical documentation in the [SDK's repository](https://github.com/Internet-of-People/iop-dart).
 
 <!-- tabs:end -->
 
@@ -364,7 +364,7 @@ Signed contract: {
             <ul>
                 <li>The signed contract is hashed into a content ID that proves the content without exposing it.</li>
                 <li>Hashing an object into a content ID is also called digesting.</li>
-                <li>We allow partial masking when only parts of the object are digested see more about it <a href="https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk#json-digesting">here</a>.</li>
+                <li>We allow partial masking when only parts of the object are digested see more about it <a href="https://github.com/Internet-of-People/iop-ts/tree/master/packages/sdk#json-digesting">here</a>.</li>
             </ul>
         </div>
     </div>
@@ -633,6 +633,6 @@ Proof history: {
 
 4. This returns the blockheight, which you can use to check the timestamp (eg.: on the explorer) of the content ID. This means that the signature must have been created before being included in that block.
 
-Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/morpheus-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
+Congratulations, you've accomplished a lot by using our IOP stack. Don't forget, that if you need more detailed or technical information, visit the SDK's source code on GitHub ([Typescript](https://github.com/Internet-of-People/iop-ts/tree/master/packages/sdk)/[Flutter](https://github.com/Internet-of-People/iop-dart)) or contact us <a href="mailto:dev@iop-ventures.com">here</a>.
 
 <a href="/sdk?id=tutorial-center" class="btn btn-sm btn-primary mt-5">BACK TO TUTORIAL CENTER</a>

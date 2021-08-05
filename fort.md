@@ -54,7 +54,7 @@ Beside these, there are other scenarios as well we did not specified:
         <p class="card-text">
           This package gives you all tools you need to develop IOP Fort applications using Dart and Flutter
         </p>
-        <a href="https://github.com/Internet-of-People/morpheus-dart" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Download Dart SDK</a>
+        <a href="https://github.com/Internet-of-People/iop-dart" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Download Dart SDK</a>
       </div>
     </div>
   </div>
@@ -67,7 +67,7 @@ Beside these, there are other scenarios as well we did not specified:
           A separated application (a simple HTTP endpoint) to receive witness requests and provide an interface to accept or deny requests.
           The service has to validate witness request signatures, thus internally depends on the Layer2 API of a blockchain node to resolve DID Document history.
         </p>
-        <a href="https://github.com/internet-of-people/morpheus-ts/tree/master/packages/authority-service" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Download Authority Service</a>
+        <a href="https://documentation.iop-global.com/authority" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Reference implementation by IOP Global GmbH</a>
       </div>
     </div>
   </div>
@@ -80,7 +80,7 @@ Beside these, there are other scenarios as well we did not specified:
           The service has to validate witness statement signatures in presentations, thus internally depends on the Layer2 API of a blockchain node to resolve Did Document history.
           We might even integrate these features into the hydra-core node either as part of the morpheus-plugin or another extra plugin.
         </p>
-        <a href="https://github.com/internet-of-people/morpheus-ts/tree/master/packages/inspector-service" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Download Inspector Service</a>
+        <a href="https://documentation.iop-global.com/inspector" target="_blank" class="btn btn-sm btn-outline-primary mt-auto">Reference implementation by IOP Global GmbH</a>
       </div>
     </div>
   </div>

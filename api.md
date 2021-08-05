@@ -65,7 +65,7 @@ Please visit our [get started page](get_started) to get a full overview of IOP's
 
 ## SSI Entities' APIs
 
-SSI has multiple entities defined for claim verification and issuance. IOP does not host these entities, but provides you a well-defined API described below and a [reference implementation in Typescript](https://github.com/Internet-of-People/morpheus-ts/tree/master/packages).
+SSI has multiple entities (people, companies or bots) defined for claim verification and issuance. IOP does not host such services, but provides you a well-defined API described below and it is not that complex to develop an implementation on your own. If you do not have the resources to develop and maintain such a service, the commercial company IOP Global GmbH has reference implementations of both [Authority service](https://documentation.iop-global.com/authority) and [Inspector service](https://documentation.iop-global.com/inspector) and can provide you help in integrating them into your workflows-.
 
 <div class="row">
   <div class="col-sm-6">

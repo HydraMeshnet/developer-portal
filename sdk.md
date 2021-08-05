@@ -14,7 +14,7 @@ Please visit the [get started page](/get_started) to get a full overview of the 
 
 #### ** NodeJS (Typescript) **
 
-To install the Typescript SDK, use [npm](https://www.npmjs.com/package/@internet-of-people/sdk) or our [Github repository](https://github.com/Internet-of-People/morpheus-ts).
+To install the Typescript SDK, use [npm](https://www.npmjs.com/package/@internet-of-people/sdk) or our [Github repository](https://github.com/Internet-of-People/iop-ts).
 
 ```bash
 npm install @internet-of-people/sdk --save
@@ -31,7 +31,7 @@ To access our SDK in your Flutter Android application, run our installer script,
 
 You just have to run this under your project's root on your Linux or macOS (Windows is not yet supported):
 ```bash
-curl https://raw.githubusercontent.com/Internet-of-People/morpheus-dart/master/tool/init-flutter-android.sh | sh
+curl https://raw.githubusercontent.com/Internet-of-People/iop-dart/master/tool/init-flutter-android.sh | sh
 ```
 
 <!-- tabs:end -->
