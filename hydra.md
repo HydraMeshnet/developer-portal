@@ -41,7 +41,6 @@ Browser: [https://dev.explorer.hydraledger.io/](https://dev.explorer.hydraledger
 | devnet-forger-2 | us-central1-a     | 34.68.118.161  |
 | devnet-forger-3 | europe-north1-a   | 35.228.196.114 |
 | devnet-forger-4 | asia-southeast1-b | 34.87.3.205    |
-| devnet-forger-5 | us-east1-b        | 35.185.32.241  |
 
 ### Mainnet
 
@@ -50,30 +49,13 @@ Browser: [https://explorer.hydraledger.io/](https://explorer.hydraledger.io/)
 - The backbone of Hydra and the network we run in production. This is usually known as the Public Network since this network is utilized by end-users.
 - This network is available for everyone.
 - It has real transactions with real tokens.
-- It has 21 servers up and running 24/7 by IOP Ventures, and each forging delegate is running their own servers
+- It has 4 servers up and running 24/7 by IOP Ventures, and each forging delegate is running their own servers
 
 | name                | zone                          | IP                 |
 | ------------------- | ----------------------------- | ------------------ |
 | mainnet-genesis     | europe-west1-b                | 35.195.150.223     |
 | mainnet-seed-1      | europe-west1-b                | 34.76.165.50       |
-| mainnet-seed-2      | europe-west1-d                | 104.155.17.122     |
-| mainnet-seed-3      | europe-north1-a               | 35.228.202.124     |
-| mainnet-seed-4      | europe-north1-b               | 35.228.73.165      |
-| mainnet-seed-5      | europe-west3-c                | 35.198.174.42      |
-| mainnet-seed-6      | europe-west3-a                | 35.246.135.62      |
-| mainnet-seed-7      | europe-west4-a                | 34.90.0.113        |
-| mainnet-seed-8      | europe-west4-b                | 34.90.43.152       |
-| mainnet-seed-9      | us-central1-a                 | 34.66.138.96       |
-| mainnet-seed-10     | us-central1-c                 | 104.154.142.55     |
-| mainnet-seed-11     | us-east1-b                    | 34.74.102.192      |
 | mainnet-seed-12     | us-east1-c                    | 35.231.24.181      |
-| mainnet-seed-13     | us-west1-b                    | 35.233.159.123     |
-| mainnet-seed-14     | us-west1-c                    | 35.230.119.77      |
-| mainnet-seed-15     | us-west2-a                    | 35.235.109.207     |
-| mainnet-seed-16     | us-west2-b                    | 34.94.151.12       |
-| mainnet-seed-17     | northamerica-northeast1-a     | 35.203.123.223     |
-| mainnet-seed-18     | asia-southeast1-b             | 35.240.251.207     |
-| mainnet-seed-19     | asia-northeast1-b             | 35.190.233.247     |
 | mainnet-seed-20     | asia-south1-c                 | 34.93.248.166      |
 
 ## Install & Run
