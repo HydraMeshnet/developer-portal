@@ -87,7 +87,7 @@ Testnet currently works out of the box only with Docker. Core-control integratio
 
 1. If you have no Postgresql running, start one: 
    ```bash
-   $ docker run -it --rm --name postgres-hydra -e POSTGRES_DB=hydra_testnet -e POSTGRES_USER=hydra -e POSTGRES_PASSWORD=password postgres:11-alpine
+   docker run -d --name postgres-hydra -e POSTGRES_DB=hydra_testnet -e POSTGRES_USER=hydra -e POSTGRES_PASSWORD=password postgres:latest
    ```
    **Note:** you may need to change the Docker's parameters depending on your needs.
 1. Create a `hydra-core` directory.
